@@ -1,5 +1,8 @@
 package com.light.outside.comes.qbkl.dao;
 
+import com.light.outside.comes.qbkl.model.UserModel;
+import org.apache.ibatis.annotations.Param;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,5 +20,13 @@ package com.light.outside.comes.qbkl.dao;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public  interface ReadDao {
+public interface ReadDao {
+
+    /**
+     * 根据手机号码获取用户
+     *
+     * @param phone
+     * @return
+     */
+    UserModel getUserByPhone(@Param("phone") String phone);
 }

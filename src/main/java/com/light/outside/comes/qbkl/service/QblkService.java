@@ -1,8 +1,12 @@
 package com.light.outside.comes.qbkl.service;
 
 import com.light.outside.comes.qbkl.dao.ReadDao;
+import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,6 +30,29 @@ public class QblkService {
 
     @Autowired
     private ReadDao readDao;
+
+
+    /**
+     * 根据手机号码获取用户
+     *
+     * @param phone
+     * @return
+     */
+    public UserModel getUserByPhone(String phone) {
+        return null;
+    }
+
+
+    /**
+     * 根据关键字查询商品
+     *
+     * @param keyword
+     * @return
+     */
+    public List<Commodity> getCommodityByKeyword(String keyword) {
+        return null;
+    }
+
 
 
 }
