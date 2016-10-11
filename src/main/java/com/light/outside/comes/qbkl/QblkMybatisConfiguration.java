@@ -1,8 +1,7 @@
-package com.light.outside.comes.mybatis;
+package com.light.outside.comes.qbkl;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,18 +22,19 @@ import javax.sql.DataSource;
  * Created by jeffrey on 11/10/15.
  */
 @Configuration
-@MapperScan(basePackages = {"com.light.outside.comes.mybatis.mapper"},sqlSessionFactoryRef = "comes")
-public class MybatisConfiguration implements EnvironmentAware {
-    private Logger LOG = LoggerFactory.getLogger(MybatisConfiguration.class);
+@MapperScan(basePackages = {"com.light.outside.comes.qbkl.dao"},sqlSessionFactoryRef = "qblk")
+public class QblkMybatisConfiguration implements EnvironmentAware {
+    private Logger LOG = LoggerFactory.getLogger(QblkMybatisConfiguration.class);
 
     private RelaxedPropertyResolver propertyResolver;
 
 
     @Inject
+    @Qualifier("qblkDataSource")
     private DataSource dataSource;
 
 
-    @Bean(name="comes")
+    @Bean(name="qblk")
     public SqlSessionFactory sqlSessionFactory() {
         try {
             SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -54,14 +54,8 @@ public class MybatisConfiguration implements EnvironmentAware {
         }
     }
 
-
-    @Bean(name = "comesSqlSessionTemplate")
-    public SqlSessionTemplate testSqlSessionTemplate(@Qualifier("comes") SqlSessionFactory sqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
-
     @Override
     public void setEnvironment(Environment environment) {
-        this.propertyResolver = new RelaxedPropertyResolver(environment, "mybatis.");
+        this.propertyResolver = new RelaxedPropertyResolver(environment, "mybatisqblk.");
     }
 }

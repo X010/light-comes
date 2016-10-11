@@ -82,7 +82,7 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("raffle_list.action")
-    public String raffle_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,PageModel pageModel) {
+    public String raffle_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/raffle_list";
     }
 
@@ -95,7 +95,7 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("raffle_report.action")
-    public String reffle_report(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,PageModel pageModel) {
+    public String reffle_report(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/raffle_report";
     }
 
@@ -122,7 +122,7 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("overcharge_list.action")
-    public String overcharge_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,PageModel pageModel) {
+    public String overcharge_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/overcharge_list";
     }
 
@@ -150,7 +150,7 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("auction_list.action")
-    public String auction_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,PageModel pageModel) {
+    public String auction_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/auction_list";
     }
 
@@ -178,7 +178,35 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("banquet_list.action")
-    public String banquet_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,PageModel pageModel) {
+    public String banquet_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/banquet_list";
+    }
+
+
+    /**
+     * 创建劵
+     *
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("create_coupon.action")
+    public String create_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        return "admin/create_coupon";
+    }
+
+
+    /**
+     * 劵列表
+     * @param data
+     * @param request
+     * @param response
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("coupon_list.action")
+    public String coupon_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        return "admin/coupon_list";
     }
 }
