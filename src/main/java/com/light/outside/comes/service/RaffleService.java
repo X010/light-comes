@@ -1,8 +1,13 @@
 package com.light.outside.comes.service;
 
+import com.light.outside.comes.model.CouponModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,4 +32,46 @@ public class RaffleService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+
+    /**
+     * 添加劵
+     *
+     * @param couponModel
+     */
+    public void addCoupon(CouponModel couponModel) {
+        this.persistentDao.addCoupon(couponModel);
+    }
+
+
+    /**
+     * 生成劵
+     *
+     * @param couponModel
+     */
+    public void generateCoupon(CouponModel couponModel) {
+
+    }
+
+
+    /**
+     * 分页获取数据
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<CouponModel> getCoupons(PageModel pageModel) {
+        //获取记录数
+        int total = this.persistentDao.couponsTotal();
+
+        //记录
+        List<CouponModel> couponModels = this.persistentDao.getCoupons(pageModel.getStart(), pageModel.getSize());
+
+        PageResult<CouponModel> couponModelPageResult = new PageResult<CouponModel>();
+        couponModelPageResult.setData(couponModels);
+        couponModelPageResult.setPageModel(pageModel);
+        couponModelPageResult.setTotal(total);
+
+        return couponModelPageResult;
+    }
 }

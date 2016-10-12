@@ -1,6 +1,9 @@
 package com.light.outside.comes.controller.admin;
 
+import com.light.outside.comes.model.CouponModel;
 import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -33,6 +37,9 @@ public class MainFrameController {
 
     @Autowired
     private MainFrameService mainFrameService;
+
+    @Autowired
+    private RaffleService raffleService;
 
     /**
      * 登陆
@@ -196,9 +203,29 @@ public class MainFrameController {
         return "admin/create_coupon";
     }
 
+    /**
+     * 保存劵
+     *
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("save_coupon.action")
+    public String save_coupon(Map<String, Object> data, CouponModel couponModel, HttpServletRequest request, HttpServletResponse response) {
+        if (couponModel != null) {
+            couponModel.rangle_time();
+            couponModel.setCreatetime(new Date());
+            couponModel.setStatus(1);
+            this.raffleService.addCoupon(couponModel);
+        }
+        return "redirect:/admin/coupon_list.action";
+    }
+
 
     /**
      * 劵列表
+     *
      * @param data
      * @param request
      * @param response
@@ -207,6 +234,10 @@ public class MainFrameController {
      */
     @RequestMapping("coupon_list.action")
     public String coupon_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        PageResult<CouponModel> couponModelPageResult = this.raffleService.getCoupons(pageModel);
+        if (couponModelPageResult != null) {
+            data.put("coupons", couponModelPageResult);
+        }
         return "admin/coupon_list";
     }
 }

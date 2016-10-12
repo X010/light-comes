@@ -1,5 +1,9 @@
 package com.light.outside.comes.model;
 
+import com.google.common.base.Strings;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -65,6 +69,11 @@ public class CouponModel extends BaseModel {
      * 状态
      */
     private int status;
+
+    /**
+     * 时间范围
+     */
+    private String rang_time;
 
     public String getTitle() {
         return title;
@@ -136,5 +145,27 @@ public class CouponModel extends BaseModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getRang_time() {
+        return rang_time;
+    }
+
+    public void setRang_time(String rang_time) {
+        this.rang_time = rang_time;
+    }
+
+
+    public void rangle_time() {
+        if (!Strings.isNullOrEmpty(rang_time)) {
+            String[] times = rang_time.split("-");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            try {
+                this.use_start_time = simpleDateFormat.parse(times[0]);
+                this.use_end_time = simpleDateFormat.parse(times[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

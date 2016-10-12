@@ -21,15 +21,54 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>内容</th>
+                                <th>名称</th>
                                 <th>状态</th>
                                 <th>类型</th>
-                                <th>预约时间</th>
-                                <th>联系人</th>
-                                <th>联系电话</th>
-                                <th>评价</th>
+                                <th>数量(张)</th>
+                                <th>金额(元)</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
+                        <#if coupons??>
+                            <#if coupons.data??>
+                                <#list coupons.data as coupon>
+                                    <tr>
+                                        <td>${coupon.id}</td>
+                                        <td>${coupon.title}</td>
+                                        <td>
+                                            <#if coupon.status==1>
+                                                已创建
+                                            </#if>
+                                            <#if coupon.status==2>
+                                                已生成
+                                            </#if>
+                                            <#if coupon.status==9>
+                                                已删除
+                                            </#if>
+                                        </td>
+                                        <td>
+                                            <#if coupon.ctype==1>
+                                                全局型
+                                            </#if>
+                                            <#if coupon.ctype==2>
+                                                单类型
+                                            </#if>
+                                            <#if coupon.ctype==3>
+                                                单品型
+                                            </#if>
+                                        </td>
+                                        <td>${coupon.num}</td>
+                                        <td>${coupon.price}</td>
+                                        <td>${coupon.use_start_time?string("yyyy-MM-dd")}</td>
+                                        <td>${coupon.use_end_time?string("yyyy-MM-dd")}</td>
+                                        <td>${coupon.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td>生成  停用</td>
+                                    </tr>
+                                </#list>
+                            </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>

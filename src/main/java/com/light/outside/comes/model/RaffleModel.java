@@ -2,6 +2,7 @@ package com.light.outside.comes.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,49 +39,50 @@ public class RaffleModel implements Serializable {
     private Date end_time;
 
     /**
-     * 劵类型
-     */
-    private int raffle_type;
-
-    /**
-     * 开始使用时间
-     */
-    private Date use_start_time;
-
-    /**
-     * 结束使用时间
-     */
-    private Date use_end_time;
-
-    /**
-     * 可以使用张数
-     */
-    private int use_times;
-
-    /**
-     * 劵金额
-     */
-    private float amount;
-
-    /**
-     * 可生成张数
-     */
-    private int total;
-
-    /**
      * 备注
      */
     private String memo;
 
     /**
-     * 每天抽奖张数
-     */
-    private int day_times;
-
-    /**
      * 图片
      */
     private String photo;
+
+    /**
+     * 创建时间
+     */
+    private Date createtime;
+
+    /**
+     * 状态
+     */
+    private int status;
+
+    private List<CouponModel> coupons;
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public List<CouponModel> getCoupons() {
+        return coupons;
+    }
+
+    public void setCoupons(List<CouponModel> coupons) {
+        this.coupons = coupons;
+    }
 
     public String getTitle() {
         return title;
@@ -106,68 +108,12 @@ public class RaffleModel implements Serializable {
         this.end_time = end_time;
     }
 
-    public int getRaffle_type() {
-        return raffle_type;
-    }
-
-    public void setRaffle_type(int raffle_type) {
-        this.raffle_type = raffle_type;
-    }
-
-    public Date getUse_start_time() {
-        return use_start_time;
-    }
-
-    public void setUse_start_time(Date use_start_time) {
-        this.use_start_time = use_start_time;
-    }
-
-    public Date getUse_end_time() {
-        return use_end_time;
-    }
-
-    public void setUse_end_time(Date use_end_time) {
-        this.use_end_time = use_end_time;
-    }
-
-    public int getUse_times() {
-        return use_times;
-    }
-
-    public void setUse_times(int use_times) {
-        this.use_times = use_times;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public String getMemo() {
         return memo;
     }
 
     public void setMemo(String memo) {
         this.memo = memo;
-    }
-
-    public int getDay_times() {
-        return day_times;
-    }
-
-    public void setDay_times(int day_times) {
-        this.day_times = day_times;
     }
 
     public String getPhoto() {

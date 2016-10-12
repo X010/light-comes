@@ -1,5 +1,12 @@
 package com.light.outside.comes.mybatis.mapper;
 
+import com.light.outside.comes.model.CouponModel;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,4 +25,16 @@ package com.light.outside.comes.mybatis.mapper;
  * limitations under the License.
  */
 public interface PersistentDao {
+
+    @Insert("insert into comes_coupon(title,createtime,use_start_time,use_end_time,num,ctype,mid,price,status)" +
+            "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{num},#{ctype},#{mid},#{price},#{status})")
+    public void addCoupon(CouponModel couponModel);
+
+
+    @Select("select * from comes_coupon order by id desc limit #{start},#{size}")
+    public List<CouponModel> getCoupons(@Param("start") int start, @Param("size") int size);
+
+
+    @Select("select count(1) from comes_coupon ")
+    public int couponsTotal();
 }

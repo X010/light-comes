@@ -24,6 +24,10 @@ public class PageModel implements Serializable {
     private int page = 1;
     private int size = 15;
 
+    /**
+     * 关键词
+     */
+    private String keyword;
 
     public int getPage() {
         return page;
@@ -39,5 +43,18 @@ public class PageModel implements Serializable {
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+
+    public int getStart() {
+        return (page - 1) * size;
     }
 }
