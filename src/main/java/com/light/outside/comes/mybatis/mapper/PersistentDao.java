@@ -1,9 +1,12 @@
 package com.light.outside.comes.mybatis.mapper;
 
 import com.light.outside.comes.model.CouponModel;
+import com.light.outside.comes.model.RaffleCouponModel;
+import com.light.outside.comes.model.RaffleModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 
 import java.util.List;
 
@@ -30,6 +33,13 @@ public interface PersistentDao {
             "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{num},#{ctype},#{mid},#{price},#{status})")
     public void addCoupon(CouponModel couponModel);
 
+    @Select("select * from comes_coupon where id=#{id}")
+    public CouponModel getCouponById(@Param("id") long id);
+
+
+    @Insert("insert into comes_raffle_coupon(title,cid,price,ctype,winrate,memo,rid,cindex)values" +
+            "(#{title},#{cid},#{price},#{ctype},#{winrate},#{memo},#{rid},#{cindex})")
+    public void addRaffleCoupon(RaffleCouponModel raffleCouponModel);
 
     @Select("select * from comes_coupon order by id desc limit #{start},#{size}")
     public List<CouponModel> getCoupons(@Param("start") int start, @Param("size") int size);
@@ -37,6 +47,10 @@ public interface PersistentDao {
     @Select("select * from comes_coupon where status=#{status} order by id desc ")
     public List<CouponModel> getCouponsByStatus(@Param("status") int status);
 
+    @Insert("insert into comes_raffle(title,start_time,end_time,memo,photo,createtime,status,times)" +
+            "values(#{title},#{start_time},#{end_time},#{memo},#{photo},#{createtime},#{status},#{times})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addRaffle(RaffleModel raffleModel);
 
     @Select("select count(1) from comes_coupon ")
     public int couponsTotal();

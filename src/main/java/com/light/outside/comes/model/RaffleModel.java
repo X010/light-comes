@@ -2,7 +2,6 @@ package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +24,7 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class RaffleModel implements Serializable {
+public class RaffleModel extends BaseModel {
 
     /**
      * 标题

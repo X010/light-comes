@@ -58,7 +58,7 @@ public class RaffleCouponModel extends BaseModel {
     /**
      * 索引
      */
-    private int index;
+    private int cindex;
 
 
     public String getTitle() {
@@ -117,11 +117,11 @@ public class RaffleCouponModel extends BaseModel {
         this.rid = rid;
     }
 
-    public int getIndex() {
-        return index;
+    public int getCindex() {
+        return cindex;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setCindex(int cindex) {
+        this.cindex = cindex;
     }
 }

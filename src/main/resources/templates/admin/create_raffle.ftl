@@ -33,25 +33,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label>每人次抽奖:</label>
-
-                                <div class="input-group">
-                                    <select id="times" name="times" class="form-control">
-                                        <option value="1">每人1次</option>
-                                        <option value="2">每人2次</option>
-                                        <option value="3">每人3次</option>
-                                        <option value="4">每人4次</option>
-                                        <option value="5">每人5次</option>
-                                    </select>
-                                </div>
+                                <label>每人抽奖次数:</label>
+                                <select id="times" name="times" class="form-control">
+                                    <option value="1">每人1次</option>
+                                    <option value="2">每人2次</option>
+                                    <option value="3">每人3次</option>
+                                    <option value="4">每人4次</option>
+                                    <option value="5">每人5次</option>
+                                    <option value="6">每人6次</option>
+                                    <option value="7">每人7次</option>
+                                    <option value="8">每人8次</option>
+                                    <option value="9">每人9次</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>活动说明:</label>
+                                <label for="title">活动说明:</label>
 
-                                <div class="input-group">
-                                    <textarea id="memo" class="form-control" style="height:100px;width:800px;"></textarea>
-                                </div>
+                                <input type="text" class="form-control" name="memo" id="memo" placeholder="">
                             </div>
 
                             <div class="control-group">
@@ -93,15 +92,15 @@
                                             <td>
                                                 <select id="cid_2" name="cid_2" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
-                                                        <#list coupons as coupon>
-                                                            <option value="${coupon.id}">${coupon.title}</option>
-                                                        </#list>
-                                                    </#if>
+                                                <#if coupons??>
+                                                    <#list coupons as coupon>
+                                                        <option value="${coupon.id}">${coupon.title}</option>
+                                                    </#list>
+                                                </#if>
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_2" id="cid_rate_2">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_2" id="cid_rate_2">
                                             </td>
                                         </tr>
                                         <tr>
@@ -109,7 +108,7 @@
                                             <td>
                                                 <select id="cid_3" name="cid_3" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -117,7 +116,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_3" id="cid_rate_3">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_3" id="cid_rate_3">
                                             </td>
                                         </tr>
                                         <tr>
@@ -125,7 +124,7 @@
                                             <td>
                                                 <select id="cid_4" name="cid_4" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -133,7 +132,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_4" id="cid_rate_4">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_4" id="cid_rate_4">
                                             </td>
                                         </tr>
                                         <tr>
@@ -141,7 +140,7 @@
                                             <td>
                                                 <select id="cid_5" name="cid_5" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -149,7 +148,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_5" id="cid_rate_5">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_5" id="cid_rate_5">
                                             </td>
                                         </tr>
                                         <tr>
@@ -157,7 +156,7 @@
                                             <td>
                                                 <select id="cid_6" name="cid_6" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -165,7 +164,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_6" id="cid_rate_6">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_6" id="cid_rate_6">
                                             </td>
                                         </tr>
                                         <tr>
@@ -173,7 +172,7 @@
                                             <td>
                                                 <select id="cid_7" name="cid_7" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -181,7 +180,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_7" id="cid_rate_7">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_7" id="cid_rate_7">
                                             </td>
                                         </tr>
                                         <tr>
@@ -189,7 +188,7 @@
                                             <td>
                                                 <select id="cid_8" name="cid_8" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -197,7 +196,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_8" id="cid_rate_8">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_8" id="cid_rate_8">
                                             </td>
                                         </tr>
                                         <tr>
@@ -205,7 +204,7 @@
                                             <td>
                                                 <select id="cid_9" name="cid_9" class="form-control">
                                                     <option value="0">不设优惠劵</option>
-                                                    <#if coupons??>
+                                                <#if coupons??>
                                                     <#list coupons as coupon>
                                                         <option value="${coupon.id}">${coupon.title}</option>
                                                     </#list>
@@ -213,7 +212,7 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number"  value="0" min="0" max="100"  class="form-control" name="cid_rate_9" id="cid_rate_9">
+                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_9" id="cid_rate_9">
                                             </td>
                                         </tr>
                                     </table>

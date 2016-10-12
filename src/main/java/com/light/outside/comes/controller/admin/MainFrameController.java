@@ -102,11 +102,13 @@ public class MainFrameController {
 
             List<RaffleCouponModel> raffleCouponModels = this.getRaffleCoupon(request);
 
-            this.raffleService.save_raffle(raffleModel, raffleCouponModels);
-
             if (!Strings.isNullOrEmpty(file_path)) {
                 raffleModel.setPhoto(file_path);
             }
+            raffleModel.rangle_time();
+            raffleModel.setStatus(CONST.RAFFLE_STATUS_INIT);
+            raffleModel.setCreatetime(new Date());
+            this.raffleService.save_raffle(raffleModel, raffleCouponModels);
         }
         return "redirect:/admin/raffle_list.action";
     }
@@ -307,55 +309,55 @@ public class MainFrameController {
         RaffleCouponModel raffleCouponModel1 = new RaffleCouponModel();
         raffleCouponModel1.setCid(cid1);
         raffleCouponModel1.setWinrate(cid_rate1);
-        raffleCouponModel1.setIndex(1);
+        raffleCouponModel1.setCindex(1);
         raffleCouponModels.add(raffleCouponModel1);
 
         RaffleCouponModel raffleCouponModel2 = new RaffleCouponModel();
         raffleCouponModel2.setCid(cid2);
         raffleCouponModel2.setWinrate(cid_rate2);
-        raffleCouponModel2.setIndex(2);
+        raffleCouponModel2.setCindex(2);
         raffleCouponModels.add(raffleCouponModel2);
 
         RaffleCouponModel raffleCouponModel3 = new RaffleCouponModel();
         raffleCouponModel3.setCid(cid3);
         raffleCouponModel3.setWinrate(cid_rate3);
-        raffleCouponModel3.setIndex(3);
+        raffleCouponModel3.setCindex(3);
         raffleCouponModels.add(raffleCouponModel3);
 
         RaffleCouponModel raffleCouponModel4 = new RaffleCouponModel();
         raffleCouponModel4.setCid(cid4);
         raffleCouponModel4.setWinrate(cid_rate4);
-        raffleCouponModel4.setIndex(4);
+        raffleCouponModel4.setCindex(4);
         raffleCouponModels.add(raffleCouponModel4);
 
         RaffleCouponModel raffleCouponModel5 = new RaffleCouponModel();
         raffleCouponModel5.setCid(cid5);
         raffleCouponModel5.setWinrate(cid_rate5);
-        raffleCouponModel5.setIndex(5);
+        raffleCouponModel5.setCindex(5);
         raffleCouponModels.add(raffleCouponModel5);
 
         RaffleCouponModel raffleCouponModel6 = new RaffleCouponModel();
         raffleCouponModel6.setCid(cid6);
         raffleCouponModel6.setWinrate(cid_rate6);
-        raffleCouponModel6.setIndex(6);
+        raffleCouponModel6.setCindex(6);
         raffleCouponModels.add(raffleCouponModel6);
 
         RaffleCouponModel raffleCouponModel7 = new RaffleCouponModel();
         raffleCouponModel7.setCid(cid7);
         raffleCouponModel7.setWinrate(cid_rate7);
-        raffleCouponModel7.setIndex(7);
+        raffleCouponModel7.setCindex(7);
         raffleCouponModels.add(raffleCouponModel7);
 
         RaffleCouponModel raffleCouponModel8 = new RaffleCouponModel();
         raffleCouponModel8.setCid(cid8);
         raffleCouponModel8.setWinrate(cid_rate8);
-        raffleCouponModel8.setIndex(8);
+        raffleCouponModel8.setCindex(8);
         raffleCouponModels.add(raffleCouponModel8);
 
         RaffleCouponModel raffleCouponModel9 = new RaffleCouponModel();
         raffleCouponModel9.setCid(cid9);
         raffleCouponModel9.setWinrate(cid_rate9);
-        raffleCouponModel9.setIndex(9);
+        raffleCouponModel9.setCindex(9);
         raffleCouponModels.add(raffleCouponModel9);
 
         return raffleCouponModels;

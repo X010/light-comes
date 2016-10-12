@@ -1,5 +1,6 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,24 @@ public class RaffleService {
      * @param raffleCouponModels
      */
     public void save_raffle(RaffleModel raffleModel, List<RaffleCouponModel> raffleCouponModels) {
+        Preconditions.checkNotNull(raffleModel);
 
+        long rid = this.persistentDao.addRaffle(raffleModel);
+
+        if (rid > 0) {
+            for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
+                if (raffleCouponModel.getCid() > 0) {
+                    //根据ID获取Coupon信息
+                    CouponModel couponModel = this.persistentDao.getCouponById(raffleCouponModel.getCid());
+                    raffleCouponModel.setCid(couponModel.getId());
+                    raffleCouponModel.setCtype(couponModel.getCtype());
+                    raffleCouponModel.setPrice(couponModel.getPrice());
+                    raffleCouponModel.setTitle(couponModel.getTitle());
+                    raffleCouponModel.setRid(0);
+                    this.persistentDao.addRaffleCoupon(raffleCouponModel);
+                }
+            }
+        }
     }
 
     /**
