@@ -1,6 +1,10 @@
 package com.light.outside.comes.model;
 
+import com.google.common.base.Strings;
+
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +62,33 @@ public class RaffleModel implements Serializable {
      */
     private int status;
 
+    /**
+     * 时间范围
+     */
+    private String rang_time;
+
     private List<CouponModel> coupons;
+
+    /**
+     * 次数
+     */
+    private int times;
+
+    public int getTimes() {
+        return times;
+    }
+
+    public void setTimes(int times) {
+        this.times = times;
+    }
+
+    public String getRang_time() {
+        return rang_time;
+    }
+
+    public void setRang_time(String rang_time) {
+        this.rang_time = rang_time;
+    }
 
     public Date getCreatetime() {
         return createtime;
@@ -122,5 +152,18 @@ public class RaffleModel implements Serializable {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public void rangle_time() {
+        if (!Strings.isNullOrEmpty(rang_time)) {
+            String[] times = rang_time.split("-");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            try {
+                this.start_time = simpleDateFormat.parse(times[0]);
+                this.end_time = simpleDateFormat.parse(times[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

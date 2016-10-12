@@ -1,8 +1,6 @@
 package com.light.outside.comes.service;
 
-import com.light.outside.comes.model.CouponModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +51,27 @@ public class RaffleService {
 
     }
 
+
+    /**
+     * 根据状态获取优惠劵
+     *
+     * @param status
+     * @return
+     */
+    public List<CouponModel> getCouponsByStatus(int status) {
+        return this.persistentDao.getCouponsByStatus(status);
+    }
+
+
+    /**
+     * 保存抽奖活动
+     *
+     * @param raffleModel
+     * @param raffleCouponModels
+     */
+    public void save_raffle(RaffleModel raffleModel, List<RaffleCouponModel> raffleCouponModels) {
+
+    }
 
     /**
      * 分页获取数据

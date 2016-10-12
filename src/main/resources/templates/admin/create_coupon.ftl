@@ -21,7 +21,6 @@
                                 <label for="title">优惠劵名称</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="优惠劵名称">
                             </div>
-
                             <div class="form-group">
                                 <label>优惠劵起始时间:</label>
 
@@ -33,8 +32,6 @@
                                 </div>
                                 <!-- /.input group -->
                             </div>
-                            <!-- /.form group -->
-
                             <div class="form-group">
                                 <label>优惠券类型</label>
                                 <select id="ctype" name="ctype" class="form-control">
@@ -43,13 +40,10 @@
                                     <option value="3">单名类</option>
                                 </select>
                             </div>
-
-
                             <div class="form-group">
                                 <label for="num">生成数量</label>
                                 <input type="number" name="num" class="form-control" id="num" placeholder="生成数量">
                             </div>
-
                             <div class="form-group">
                                 <label for="num">优惠券金额</label>
 
@@ -59,7 +53,6 @@
                                     <span class="input-group-addon">.00</span>
                                 </div>
                             </div>
-
                         </div>
                         <div class="box-footer">
                             <div class="pull-right">

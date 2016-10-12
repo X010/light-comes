@@ -1,17 +1,23 @@
 package com.light.outside.comes.controller.admin;
 
-import com.light.outside.comes.model.CouponModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.google.common.base.Strings;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
+import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,9 +82,34 @@ public class MainFrameController {
      */
     @RequestMapping("create_raffle.action")
     public String create_raffle(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        List<CouponModel> couponModels = this.raffleService.getCouponsByStatus(CONST.RAFFLE_STATUS_NORMAL);
+        if (couponModels != null) {
+            data.put("coupons", couponModels);
+        }
         return "admin/create_raffle";
     }
 
+    /**
+     * 保存抽奖
+     *
+     * @param raffleModel
+     * @return
+     */
+    @RequestMapping(value = "save_raffle.action", method = RequestMethod.POST)
+    public String save_raffle(RaffleModel raffleModel, HttpServletRequest request, @RequestParam("photo_up") MultipartFile file) {
+        if (raffleModel != null && file != null) {
+            String file_path = FileUtil.saveFile(file);
+
+            List<RaffleCouponModel> raffleCouponModels = this.getRaffleCoupon(request);
+
+            this.raffleService.save_raffle(raffleModel, raffleCouponModels);
+
+            if (!Strings.isNullOrEmpty(file_path)) {
+                raffleModel.setPhoto(file_path);
+            }
+        }
+        return "redirect:/admin/raffle_list.action";
+    }
 
     /**
      * 奖 动列表
@@ -239,5 +270,94 @@ public class MainFrameController {
             data.put("coupons", couponModelPageResult);
         }
         return "admin/coupon_list";
+    }
+
+
+    private List<RaffleCouponModel> getRaffleCoupon(HttpServletRequest request) {
+        //获取对应的设置列表
+        int cid1 = Integer.valueOf(request.getParameter("cid_1"));
+        int cid_rate1 = Integer.valueOf(request.getParameter("cid_rate_1"));
+
+        int cid2 = Integer.valueOf(request.getParameter("cid_2"));
+        int cid_rate2 = Integer.valueOf(request.getParameter("cid_rate_2"));
+
+        int cid3 = Integer.valueOf(request.getParameter("cid_3"));
+        int cid_rate3 = Integer.valueOf(request.getParameter("cid_rate_3"));
+
+        int cid4 = Integer.valueOf(request.getParameter("cid_4"));
+        int cid_rate4 = Integer.valueOf(request.getParameter("cid_rate_4"));
+
+        int cid5 = Integer.valueOf(request.getParameter("cid_5"));
+        int cid_rate5 = Integer.valueOf(request.getParameter("cid_rate_5"));
+
+        int cid6 = Integer.valueOf(request.getParameter("cid_6"));
+        int cid_rate6 = Integer.valueOf(request.getParameter("cid_rate_6"));
+
+        int cid7 = Integer.valueOf(request.getParameter("cid_7"));
+        int cid_rate7 = Integer.valueOf(request.getParameter("cid_rate_7"));
+
+        int cid8 = Integer.valueOf(request.getParameter("cid_8"));
+        int cid_rate8 = Integer.valueOf(request.getParameter("cid_rate_8"));
+
+        int cid9 = Integer.valueOf(request.getParameter("cid_9"));
+        int cid_rate9 = Integer.valueOf(request.getParameter("cid_rate_9"));
+
+        List<RaffleCouponModel> raffleCouponModels = new ArrayList<RaffleCouponModel>();
+
+        RaffleCouponModel raffleCouponModel1 = new RaffleCouponModel();
+        raffleCouponModel1.setCid(cid1);
+        raffleCouponModel1.setWinrate(cid_rate1);
+        raffleCouponModel1.setIndex(1);
+        raffleCouponModels.add(raffleCouponModel1);
+
+        RaffleCouponModel raffleCouponModel2 = new RaffleCouponModel();
+        raffleCouponModel2.setCid(cid2);
+        raffleCouponModel2.setWinrate(cid_rate2);
+        raffleCouponModel2.setIndex(2);
+        raffleCouponModels.add(raffleCouponModel2);
+
+        RaffleCouponModel raffleCouponModel3 = new RaffleCouponModel();
+        raffleCouponModel3.setCid(cid3);
+        raffleCouponModel3.setWinrate(cid_rate3);
+        raffleCouponModel3.setIndex(3);
+        raffleCouponModels.add(raffleCouponModel3);
+
+        RaffleCouponModel raffleCouponModel4 = new RaffleCouponModel();
+        raffleCouponModel4.setCid(cid4);
+        raffleCouponModel4.setWinrate(cid_rate4);
+        raffleCouponModel4.setIndex(4);
+        raffleCouponModels.add(raffleCouponModel4);
+
+        RaffleCouponModel raffleCouponModel5 = new RaffleCouponModel();
+        raffleCouponModel5.setCid(cid5);
+        raffleCouponModel5.setWinrate(cid_rate5);
+        raffleCouponModel5.setIndex(5);
+        raffleCouponModels.add(raffleCouponModel5);
+
+        RaffleCouponModel raffleCouponModel6 = new RaffleCouponModel();
+        raffleCouponModel6.setCid(cid6);
+        raffleCouponModel6.setWinrate(cid_rate6);
+        raffleCouponModel6.setIndex(6);
+        raffleCouponModels.add(raffleCouponModel6);
+
+        RaffleCouponModel raffleCouponModel7 = new RaffleCouponModel();
+        raffleCouponModel7.setCid(cid7);
+        raffleCouponModel7.setWinrate(cid_rate7);
+        raffleCouponModel7.setIndex(7);
+        raffleCouponModels.add(raffleCouponModel7);
+
+        RaffleCouponModel raffleCouponModel8 = new RaffleCouponModel();
+        raffleCouponModel8.setCid(cid8);
+        raffleCouponModel8.setWinrate(cid_rate8);
+        raffleCouponModel8.setIndex(8);
+        raffleCouponModels.add(raffleCouponModel8);
+
+        RaffleCouponModel raffleCouponModel9 = new RaffleCouponModel();
+        raffleCouponModel9.setCid(cid9);
+        raffleCouponModel9.setWinrate(cid_rate9);
+        raffleCouponModel9.setIndex(9);
+        raffleCouponModels.add(raffleCouponModel9);
+
+        return raffleCouponModels;
     }
 }

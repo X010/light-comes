@@ -34,6 +34,9 @@ public interface PersistentDao {
     @Select("select * from comes_coupon order by id desc limit #{start},#{size}")
     public List<CouponModel> getCoupons(@Param("start") int start, @Param("size") int size);
 
+    @Select("select * from comes_coupon where status=#{status} order by id desc ")
+    public List<CouponModel> getCouponsByStatus(@Param("status") int status);
+
 
     @Select("select count(1) from comes_coupon ")
     public int couponsTotal();

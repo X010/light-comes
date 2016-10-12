@@ -75,6 +75,19 @@ public class CouponModel extends BaseModel {
      */
     private String rang_time;
 
+    /**
+     * 备注
+     */
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     public String getTitle() {
         return title;
     }
