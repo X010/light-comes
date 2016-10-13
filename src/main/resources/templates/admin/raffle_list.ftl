@@ -21,15 +21,45 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>内容</th>
+                                <th>标题</th>
+                                <th>创建时间</th>
                                 <th>状态</th>
-                                <th>类型</th>
-                                <th>预约时间</th>
-                                <th>联系人</th>
-                                <th>联系电话</th>
-                                <th>评价</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
                                 <th>操作</th>
                             </tr>
+                            <#if raffles.data??>
+                                <#list raffles.data as raffle>
+                                    <tr>
+                                        <td>
+                                            ${raffle.id}
+                                        </td>
+                                        <td>
+                                            ${raffle.title}
+                                        </td>
+                                        <td>
+                                            ${raffle.createtime?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                            <#if raffle.status==1>
+                                                正常
+                                            </#if>
+                                            <#if raffle.status==9>
+                                                已删除
+                                            </#if>
+                                        </td>
+                                        <td>
+                                            ${raffle.start_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                            ${raffle.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
                         </table>
                     </div>
                 </div>

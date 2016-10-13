@@ -15,9 +15,9 @@
                 <a href="#"><i class="fa  fa-building"></i> <span>抽奖</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <!-- 信息发布 -->
-                    <li><a href="/admin/raffle_list.action"><i class="fa   fa-bullhorn"></i> <span>抽奖活动</span></a></li>
                     <li><a href="/admin/create_raffle.action"> <i class="fa  fa-newspaper-o"></i> <span>新建抽奖</span></a></li>
                     <li><a href="/admin/create_coupon.action"> <i class="fa  fa-newspaper-o"></i> <span>创建优惠劵</span></a></li>
+                    <li><a href="/admin/raffle_list.action"><i class="fa   fa-bullhorn"></i> <span>抽奖活动列表</span></a></li>
                     <li><a href="/admin/coupon_list.action"> <i class="fa  fa-newspaper-o"></i> <span>优惠劵列表</span></a></li>
                 </ul>
             </li>

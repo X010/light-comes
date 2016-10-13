@@ -258,15 +258,21 @@
     </plugins>
     <resources>
       <resource>
-        <directory>src/main/resources</directory>
+        <directory>${project.basedir}/src/main/resources</directory>
         <filtering>true</filtering>
+        <excludes>
+          <exclude>static/dist/fonts/**</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>static/dist/fonts/**</include>
+        </includes>
       </resource>
     </resources>
     <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
       <testResource>
         <directory>src/main/resources</directory>
         <excludes>

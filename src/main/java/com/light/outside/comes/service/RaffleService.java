@@ -3,6 +3,7 @@ package com.light.outside.comes.service;
 import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,5 +111,43 @@ public class RaffleService {
         couponModelPageResult.setTotal(total);
 
         return couponModelPageResult;
+    }
+
+
+    /**
+     * 分页获取抽奖活动
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<RaffleModel> getRaffles(PageModel pageModel) {
+        int total = this.persistentDao.rafflesTotal();
+
+        List<RaffleModel> raffleModels = this.persistentDao.getRaffles(pageModel.getStart(), pageModel.getSize());
+
+        PageResult<RaffleModel> raffleModelPageResult = new PageResult<RaffleModel>();
+        raffleModelPageResult.setData(raffleModels);
+        raffleModelPageResult.setPageModel(pageModel);
+        raffleModelPageResult.setTotal(total);
+
+        return raffleModelPageResult;
+    }
+
+
+    public void deleteCoupon(long id) {
+        CouponModel couponModel = this.persistentDao.getCouponById(id);
+        if (couponModel != null) {
+            couponModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
+            this.persistentDao.editCoupon(couponModel);
+        }
+    }
+
+
+    public void deleteRaffle(long id) {
+        RaffleModel raffleModel = this.persistentDao.getRaffleById(id);
+        if (raffleModel != null) {
+            raffleModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
+            this.persistentDao.editRaffle(raffleModel);
+        }
     }
 }

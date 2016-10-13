@@ -90,6 +90,21 @@ public class MainFrameController {
     }
 
     /**
+     * 删除抽奖活动
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_raffle.action")
+    public String delete_raffle(@RequestParam("id") long id) {
+        if (id > 0) {
+            this.raffleService.deleteRaffle(id);
+        }
+        return "redirect:/admin/raffle_list.action";
+    }
+
+
+    /**
      * 保存抽奖
      *
      * @param raffleModel
@@ -123,6 +138,10 @@ public class MainFrameController {
      */
     @RequestMapping("raffle_list.action")
     public String raffle_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        PageResult<RaffleModel> raffleModelPageResult = this.raffleService.getRaffles(pageModel);
+        if (raffleModelPageResult != null) {
+            data.put("raffles", raffleModelPageResult);
+        }
         return "admin/raffle_list";
     }
 
@@ -255,6 +274,21 @@ public class MainFrameController {
         return "redirect:/admin/coupon_list.action";
     }
 
+    /**
+     * 删除优惠劵
+     *
+     * @param id
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("delete_coupon.action")
+    public String delete_coupon(@RequestParam("id") long id, HttpServletRequest request, HttpServletResponse response) {
+        if (id > 0) {
+            this.raffleService.deleteCoupon(id);
+        }
+        return "redirect:/admin/coupon_list.action";
+    }
 
     /**
      * 劵列表
