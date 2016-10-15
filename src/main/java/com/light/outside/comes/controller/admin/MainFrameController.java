@@ -319,6 +319,24 @@ public class MainFrameController {
             couponModel.rangle_time();
             couponModel.setCreatetime(new Date());
             couponModel.setStatus(1);
+
+            //根据劵的类型获取数据
+            switch (couponModel.getCtype()) {
+                case 2:
+                    String mid = request.getParameter("cate2");
+                    if (!Strings.isNullOrEmpty(mid)) {
+                        couponModel.setMid(Long.valueOf(mid));
+                    }
+                    break;
+
+                case 3:
+                    String goodsid = request.getParameter("goodsid");
+                    if (!Strings.isNullOrEmpty(goodsid)) {
+                        couponModel.setMid(Long.valueOf(goodsid));
+                    }
+                    break;
+            }
+
             this.raffleService.addCoupon(couponModel);
         }
         return "redirect:/admin/coupon_list.action";

@@ -33,17 +33,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label>每人抽奖次数:</label>
+                                <label>每人每天抽奖次数:</label>
                                 <select id="times" name="times" class="form-control">
-                                    <option value="1">每人1次</option>
-                                    <option value="2">每人2次</option>
-                                    <option value="3">每人3次</option>
-                                    <option value="4">每人4次</option>
-                                    <option value="5">每人5次</option>
-                                    <option value="6">每人6次</option>
-                                    <option value="7">每人7次</option>
-                                    <option value="8">每人8次</option>
-                                    <option value="9">每人9次</option>
+                                    <option value="1">每人每天1次</option>
+                                    <option value="2">每人每天2次</option>
+                                    <option value="3">每人每天3次</option>
+                                    <option value="4">每人每天4次</option>
+                                    <option value="5">每人每天5次</option>
+                                    <option value="6">每人每天6次</option>
+                                    <option value="7">每人每天7次</option>
+                                    <option value="8">每人每天8次</option>
+                                    <option value="9">每人每天9次</option>
                                 </select>
                             </div>
 
