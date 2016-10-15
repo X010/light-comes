@@ -2,15 +2,20 @@ package com.light.outside.comes.controller.admin;
 
 import com.google.common.base.Strings;
 import com.light.outside.comes.model.*;
+import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.CommodityCategory;
+import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.FileUtil;
+import com.light.outside.comes.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +51,9 @@ public class MainFrameController {
 
     @Autowired
     private RaffleService raffleService;
+
+    @Autowired
+    private QblkService qblkService;
 
     /**
      * 登陆
@@ -270,6 +278,15 @@ public class MainFrameController {
      */
     @RequestMapping("create_coupon.action")
     public String create_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        List<CommodityCategory> categories = this.qblkService.getParentCommodityCategory();
+
+        if (categories != null && categories.size() > 0) {
+            List<CommodityCategory> subCategories = this.qblkService.getCommodityCategoryByCategoryName(categories.get(0).getCategory1());
+            data.put("categories", categories);
+            if (subCategories != null) {
+                data.put("subCategories", subCategories);
+            }
+        }
         return "admin/create_coupon";
     }
 
@@ -339,6 +356,46 @@ public class MainFrameController {
             data.put("coupons", couponModelPageResult);
         }
         return "admin/coupon_list";
+    }
+
+    /**
+     * 查询商品
+     *
+     * @param keyword
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("search_commodity.action")
+    public String search_commodity(@RequestParam("keyword") String keyword) {
+        List<Commodity> commodities = null;
+        String result = "";
+        if (!Strings.isNullOrEmpty(keyword)) {
+            commodities = this.qblkService.getCommodityByKeyword(keyword);
+        }
+
+        if (commodities != null) {
+            result = JsonParser.simpleJson(commodities);
+        }
+        return result;
+    }
+
+    /**
+     * 获取商品字级分类
+     *
+     * @param category
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("search_commodity_category.action")
+    public String search_commodity_category(@RequestParam("category") String category) {
+        String result = "";
+        if (!Strings.isNullOrEmpty(category)) {
+            List<CommodityCategory> commodityCategories = this.qblkService.getCommodityCategoryByCategoryName(category);
+            if (commodityCategories != null) {
+                result = JsonParser.simpleJson(commodityCategories);
+            }
+        }
+        return result;
     }
 
 

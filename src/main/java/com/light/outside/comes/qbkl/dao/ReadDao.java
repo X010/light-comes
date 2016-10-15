@@ -1,6 +1,7 @@
 package com.light.outside.comes.qbkl.dao;
 
 import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.model.UserModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -41,6 +42,22 @@ public interface ReadDao {
      * @param size
      * @return
      */
-    @Select("select * from t_goods_category where name like '%#{keyword}%' limit 1,#{size}")
+    @Select("select * from t_goods where name like #{keyword} limit 1,#{size}")
     public List<Commodity> getCommodityByKeyword(@Param("keyword") String keyword, @Param("size") int size);
+
+
+    /**
+     * 根据父级名称获取子级名称
+     * @param name
+     * @return
+     */
+    @Select("select * from t_goods_category where category1=#{name}")
+    public List<CommodityCategory> getCommodityCategoryByParentName(@Param("name") String name);
+
+    /**
+     * 获取一级分类名称
+     * @return
+     */
+    @Select("select DISTINCT(category1) as category1  from t_goods_category")
+    public List<CommodityCategory> getParentCommodityCateory();
 }

@@ -1,7 +1,9 @@
 package com.light.outside.comes.qbkl.service;
 
+import com.google.common.base.Preconditions;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,9 +52,27 @@ public class QblkService {
      * @return
      */
     public List<Commodity> getCommodityByKeyword(String keyword) {
-        return null;
+        Preconditions.checkNotNull(keyword);
+        List<Commodity> commodities = this.readDao.getCommodityByKeyword("%" + keyword + "%", 10);
+
+        return commodities;
     }
 
+
+    public List<CommodityCategory> getCommodityCategoryByCategoryName(String categoryname) {
+        Preconditions.checkNotNull(categoryname);
+        List<CommodityCategory> commodityCategories = this.readDao.getCommodityCategoryByParentName(categoryname);
+        return commodityCategories;
+    }
+
+    /**
+     * 获取一分类名称
+     *
+     * @return
+     */
+    public List<CommodityCategory> getParentCommodityCategory() {
+        return this.readDao.getParentCommodityCateory();
+    }
 
 
 }
