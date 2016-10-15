@@ -114,7 +114,6 @@ public class MainFrameController {
         return "redirect:/admin/raffle_list.action";
     }
 
-
     /**
      * 保存抽奖
      *

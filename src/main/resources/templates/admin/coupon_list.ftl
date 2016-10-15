@@ -64,7 +64,10 @@
                                         <td>${coupon.use_start_time?string("yyyy-MM-dd")}</td>
                                         <td>${coupon.use_end_time?string("yyyy-MM-dd")}</td>
                                         <td>${coupon.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                        <td>生成  停用</td>
+                                        <td>
+                                            <div class='external-event bg-green'>生成优惠劵</div>
+                                            <div class='external-event bg-red'>停用</div>
+                                        </td>
                                     </tr>
                                 </#list>
                             </#if>
