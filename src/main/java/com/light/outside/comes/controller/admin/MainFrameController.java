@@ -61,6 +61,7 @@ public class MainFrameController {
 
     /**
      * 焦点图管理
+     *
      * @param request
      * @param response
      * @return
@@ -92,8 +93,15 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("create_raffle.action")
-    public String create_raffle(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+    public String create_raffle(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response,
+                                @RequestParam("action") String action, @RequestParam("id") long id) {
         List<CouponModel> couponModels = this.raffleService.getCouponsByStatus(CONST.RAFFLE_STATUS_NORMAL);
+
+        if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action)) {
+            //修改状态
+
+        }
+
         if (couponModels != null) {
             data.put("coupons", couponModels);
         }
@@ -263,6 +271,21 @@ public class MainFrameController {
     @RequestMapping("create_coupon.action")
     public String create_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
         return "admin/create_coupon";
+    }
+
+
+    /**
+     * 生成优惠劵
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("produce_coupon.action")
+    public String produce_coupon(@RequestParam("id") long id) {
+        if (id > 0) {
+            this.raffleService.generateCoupon(id);
+        }
+        return "redirect:/admin/coupon_list.action";
     }
 
     /**

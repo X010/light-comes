@@ -65,8 +65,10 @@
                                         <td>${coupon.use_end_time?string("yyyy-MM-dd")}</td>
                                         <td>${coupon.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                         <td>
-                                            <div class='external-event bg-green'>生成优惠劵</div>
-                                            <div class='external-event bg-red'>停用</div>
+                                            <#if coupon.status==1>
+                                                <a class="badge  bg-green">生成</a> &nbsp;&nbsp;
+                                            </#if>
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='/admin/delete_coupon.action?id=${coupon.id}';}"> 停用</a>
                                         </td>
                                     </tr>
                                 </#list>

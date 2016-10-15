@@ -53,6 +53,9 @@ public interface PersistentDao {
     @Select("select * from comes_raffle where status<>9 order by id desc limit  #{start},#{size}")
     public List<RaffleModel> getRaffles(@Param("start") int start, @Param("size") int size);
 
+    @Select("select * from comes_raffle_coupon where rid=#{rid}")
+    public List<RaffleCouponModel> getRaffleCouponByRaffleId(@Param("rid") long rid);
+
     @Insert("insert into comes_raffle(title,start_time,end_time,memo,photo,createtime,status,times)" +
             "values(#{title},#{start_time},#{end_time},#{memo},#{photo},#{createtime},#{status},#{times})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)

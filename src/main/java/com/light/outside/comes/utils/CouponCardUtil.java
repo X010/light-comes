@@ -1,5 +1,7 @@
 package com.light.outside.comes.utils;
 
+import java.util.UUID;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,12 +19,17 @@ package com.light.outside.comes.utils;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CONST {
+public class CouponCardUtil {
 
+    /**
+     * 生成卡号
+     *
+     * @param id
+     * @return
+     */
+    public static String produceCouponCardNo(long id) {
+        return UUID.randomUUID().toString();
+    }
 
-    public static int RAFFLE_STATUS_NORMAL = 2;//正常
-    public static int RAFFLE_STATUS_INIT = 1;//初始化
-    public static int RAFFLE_STATUS_DELETE = 9;//删除
-
-    public static String EDIT = "EDIT";//修改的标识
+    
 }
