@@ -59,6 +59,17 @@ public class MainFrameController {
         return "admin/login";
     }
 
+    /**
+     * 焦点图管理
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("focus_manage.action")
+    public String focus_manage(HttpServletRequest request, HttpServletResponse response) {
+        return "admin/focus_manage";
+    }
+
 
     /**
      * 主体

@@ -11,6 +11,12 @@
 
         <ul class="sidebar-menu">
             <li class="header">[曲不离口]</li>
+            <li id="fouces" class="treeview">
+                <a href="#"><i class="fa  fa-building"></i> <span>焦点图</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/admin/focus_manage.action"> <i class="fa  fa-newspaper-o"></i> <span>焦点图管理</span></a></li>
+                </ul>
+            </li>
             <li id="minizone" class="treeview">
                 <a href="#"><i class="fa  fa-building"></i> <span>抽奖</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
