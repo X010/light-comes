@@ -1,6 +1,7 @@
 package com.light.outside.comes.mybatis.mapper;
 
 import com.light.outside.comes.model.CouponModel;
+import com.light.outside.comes.model.CouponRecordModel;
 import com.light.outside.comes.model.RaffleCouponModel;
 import com.light.outside.comes.model.RaffleModel;
 import org.apache.ibatis.annotations.*;
@@ -33,8 +34,16 @@ public interface PersistentDao {
     @Update("update comes_coupon set title=#{title},use_start_time=#{use_start_time},use_end_time=#{use_end_time},status=#{status} where id=#{id}")
     public void editCoupon(CouponModel couponModel);
 
+    @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")
+    public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
+
     @Select("select * from comes_coupon where id=#{id}")
     public CouponModel getCouponById(@Param("id") long id);
+
+
+    @Insert("insert into comes_conpon_records(title,createtime,use_start_time,use_end_time,cardno,uid,phone,status,price,mid,ctype,cid)" +
+            "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{cardno},#{uid},#{phone},#{status},#{price},#{mid},#{ctype},#{cid})")
+    public void addCouponRecord(CouponRecordModel couponRecordModel);
 
 
     @Insert("insert into comes_raffle_coupon(title,cid,price,ctype,winrate,memo,rid,cindex)values" +

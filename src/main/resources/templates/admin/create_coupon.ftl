@@ -34,11 +34,30 @@
                             </div>
                             <div class="form-group">
                                 <label>优惠券类型</label>
-                                <select id="ctype" name="ctype" class="form-control">
+                                <select id="ctype" name="ctype" onchange="changeCtype();" class="form-control">
                                     <option value="1">全局类</option>
-                                    <option value="2">栏目类</option>
-                                    <option value="3">单名类</option>
+                                    <option value="2">商品栏目类</option>
+                                    <option value="3">商品类</option>
                                 </select>
+                            </div>
+                            <div style="display: none;" id="goodscate" class="form-group">
+                                <input type="hidden" name="commoditycateoryid" id="commoditycateoryid" value="0"/>
+
+                                <div class="input-group">
+
+                                </div>
+                            </div>
+                            <div style="display: none;" id="goods" class="form-group">
+                                <input type="hidden" name="commodityid" id="commodityid" value="0"/>
+
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info btn-flat" type="button">搜索</button>
+                                        </span>
+                                </div>
+
+
                             </div>
                             <div class="form-group">
                                 <label for="num">生成数量</label>
@@ -73,6 +92,28 @@
         setNav("抽奖", "创建优惠卷");
 
         $('#rang_time').daterangepicker();
-    })
+    });
+
+
+    function changeCtype() {
+        var goodscate = $("#goodscate");
+        var goods = $("#goods");
+        var ctype = $("#ctype").val();
+
+        switch (parseInt(ctype)) {
+            case 1:
+                goodscate.hide();
+                goods.hide();
+                break;
+            case 2:
+                goodscate.show();
+                goods.hide();
+                break;
+            case 3:
+                goodscate.hide();
+                goods.show();
+                break;
+        }
+    }
 </script>
 <#include "in_footer.ftl">

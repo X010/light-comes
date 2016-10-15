@@ -74,7 +74,7 @@ public class RaffleService {
                 couponRecordModel.setUse_start_time(couponModel.getUse_start_time());
 
                 //进行存储
-
+                this.persistentDao.addCouponRecord(couponRecordModel);
             }
             couponModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             this.persistentDao.editCoupon(couponModel);
@@ -186,6 +186,9 @@ public class RaffleService {
         if (couponModel != null) {
             couponModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.persistentDao.editCoupon(couponModel);
+
+            //更新CouponRecord状态根据CouponID
+            this.persistentDao.editCouponRecordStatus(id, CONST.RAFFLE_STATUS_DELETE);
         }
     }
 

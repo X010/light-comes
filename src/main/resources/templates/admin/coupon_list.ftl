@@ -66,9 +66,13 @@
                                         <td>${coupon.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                         <td>
                                             <#if coupon.status==1>
-                                                <a class="badge  bg-green">生成</a> &nbsp;&nbsp;
+                                                <a class="badge  bg-green"
+                                                   href="javascript:if(confirm('确认是否生成该类优惠劵')){window.location.href='/admin/produce_coupon.action?id=${coupon.id}';}">生成</a>
+                                                &nbsp;&nbsp;
                                             </#if>
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='/admin/delete_coupon.action?id=${coupon.id}';}"> 停用</a>
+                                            <a class="badge  bg-red"
+                                               href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='/admin/delete_coupon.action?id=${coupon.id}';}">
+                                                停用</a>
                                         </td>
                                     </tr>
                                 </#list>
