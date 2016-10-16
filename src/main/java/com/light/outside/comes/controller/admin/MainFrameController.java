@@ -107,7 +107,16 @@ public class MainFrameController {
 
         if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action)) {
             //修改状态
+            data.put("action", action);
+            data.put("editid", id);
 
+
+            //加载数据
+            RaffleModel raffleModel = this.raffleService.getRaffleById(id);
+            if (raffleModel != null) {
+                data.put("raffle", raffleModel);
+                data.put("raffle_str", JsonParser.simpleJson(raffleModel.getRaffleCouponModels()));
+            }
         }
 
         if (couponModels != null) {
@@ -138,6 +147,10 @@ public class MainFrameController {
      */
     @RequestMapping(value = "save_raffle.action", method = RequestMethod.POST)
     public String save_raffle(RaffleModel raffleModel, HttpServletRequest request, @RequestParam("photo_up") MultipartFile file) {
+        String editid = request.getParameter("editid");
+        if (!Strings.isNullOrEmpty(editid)) {
+            raffleModel.setId(Long.valueOf(editid));
+        }
         if (raffleModel != null && file != null) {
             String file_path = FileUtil.saveFile(file);
 

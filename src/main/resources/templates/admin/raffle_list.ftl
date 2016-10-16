@@ -55,7 +55,7 @@
                                     ${raffle.end_time?string("yyyy-MM-dd HH:mm:ss")}
                                     </td>
                                     <td>
-                                        <a class="badge  bg-green">编缉</a>
+                                        <a class="badge  bg-green" href="/admin/create_raffle.action?action=edit&id=#{raffle.id}">编缉</a>
                                         &nbsp;&nbsp;
                                         <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该抽奖活动')){window.location.href='/admin/delete_raffle.action?id=#{raffle.id}';}">停用
                                         </a>
