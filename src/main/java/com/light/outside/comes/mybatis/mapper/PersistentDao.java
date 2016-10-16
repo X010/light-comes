@@ -73,9 +73,6 @@ public interface PersistentDao {
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addRaffle(RaffleModel raffleModel);
 
-    @Update("")
-    public void updateRaffle(RaffleModel raffleModel);
-
     @Update("update comes_raffle set title=#{title},start_time=#{start_time},end_time=#{end_time},memo=#{memo}," +
             "photo=#{photo},status=#{status},times=#{times} where id=#{id}")
     public void editRaffle(RaffleModel raffleModel);

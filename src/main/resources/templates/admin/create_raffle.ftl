@@ -10,7 +10,7 @@
     <!-- 具体内容区域 -->
     <form action="/admin/save_raffle.action" enctype="multipart/form-data" method="post">
     <#if editid??>
-        <input type="hidden" name="eidtid" id="editid" value="${editid}"/>
+        <input type="hidden" name="editid" id="editid" value="${editid}"/>
     </#if>
         <section class="content">
             <div class="row">

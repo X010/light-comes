@@ -5,10 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -33,6 +29,23 @@ public class RaffleController {
     @Autowired
     private RaffleService raffleService;
 
+    /**
+     * 抽奖列表
+     *
+     * @return
+     */
+    @RequestMapping("lottery.action")
+    public String lottery() {
+        return "lottery";
+    }
 
-
+    /**
+     * 抽奖
+     *
+     * @return
+     */
+    @RequestMapping("lottery_d.action")
+    public String lottery_d() {
+        return "lottery_d";
+    }
 }
