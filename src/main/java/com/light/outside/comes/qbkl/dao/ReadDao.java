@@ -36,6 +36,13 @@ public interface ReadDao {
     UserModel getUserByPhone(@Param("phone") String phone);
 
     /**
+     * 根据商品名查询商品
+     * @return
+     */
+    @Select("select id goodsid,name,price from t_goods where name like #{name}")
+    List<Commodity> queryCommodity(@Param("name") String name);
+
+    /**
      * 根据关键字查询
      *
      * @param keyword

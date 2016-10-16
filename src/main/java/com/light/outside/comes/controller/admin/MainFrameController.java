@@ -198,18 +198,7 @@ public class MainFrameController {
     }
 
 
-    /**
-     * 创建砍价商品
-     *
-     * @param data
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("create_overcharge.action")
-    public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-        return "admin/create_overcharge";
-    }
+
 
     /**
      * 确价商品列表
