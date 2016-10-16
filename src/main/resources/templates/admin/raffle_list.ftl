@@ -28,39 +28,41 @@
                                 <th>结束时间</th>
                                 <th>操作</th>
                             </tr>
-                            <#if raffles.data??>
-                                <#list raffles.data as raffle>
-                                    <tr>
-                                        <td>
-                                            ${raffle.id}
-                                        </td>
-                                        <td>
-                                            ${raffle.title}
-                                        </td>
-                                        <td>
-                                            ${raffle.createtime?string("yyyy-MM-dd HH:mm:ss")}
-                                        </td>
-                                        <td>
-                                            <#if raffle.status==1>
-                                                正常
-                                            </#if>
-                                            <#if raffle.status==9>
-                                                已删除
-                                            </#if>
-                                        </td>
-                                        <td>
-                                            ${raffle.start_time?string("yyyy-MM-dd HH:mm:ss")}
-                                        </td>
-                                        <td>
-                                            ${raffle.end_time?string("yyyy-MM-dd HH:mm:ss")}
-                                        </td>
-                                        <td>
-                                            <div class='external-event bg-aqua'>编缉</div>
-                                            <div class='external-event bg-red'>停用</div>
-                                        </td>
-                                    </tr>
-                                </#list>
-                            </#if>
+                        <#if raffles.data??>
+                            <#list raffles.data as raffle>
+                                <tr>
+                                    <td>
+                                    ${raffle.id}
+                                    </td>
+                                    <td>
+                                    ${raffle.title}
+                                    </td>
+                                    <td>
+                                    ${raffle.createtime?string("yyyy-MM-dd HH:mm:ss")}
+                                    </td>
+                                    <td>
+                                        <#if raffle.status==1>
+                                            正常
+                                        </#if>
+                                        <#if raffle.status==9>
+                                            已删除
+                                        </#if>
+                                    </td>
+                                    <td>
+                                    ${raffle.start_time?string("yyyy-MM-dd HH:mm:ss")}
+                                    </td>
+                                    <td>
+                                    ${raffle.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                    </td>
+                                    <td>
+                                        <a class="badge  bg-green">编缉</a>
+                                        &nbsp;&nbsp;
+                                        <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该抽奖活动')){window.location.href='/admin/delete_raffle.action?id=#{raffle.id}';}">停用
+                                        </a>
+                                    </td>
+                                </tr>
+                            </#list>
+                        </#if>
                         </table>
                     </div>
                 </div>

@@ -4,9 +4,11 @@ import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.CouponCardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,10 +49,36 @@ public class RaffleService {
     /**
      * 生成劵
      *
-     * @param couponModel
+     * @param id
      */
-    public void generateCoupon(CouponModel couponModel) {
+    public void generateCoupon(long id) {
+        Preconditions.checkNotNull(id > 0);
+        CouponModel couponModel = this.persistentDao.getCouponById(id);
 
+        if (couponModel != null && couponModel.getStatus() == CONST.RAFFLE_STATUS_INIT) {
+            //只有为初始状态才能生成
+            int cardNum = couponModel.getNum();
+            for (int i = 0; i < cardNum; i++) {
+                String cardNo = CouponCardUtil.produceCouponCardNo(id);
+                //将该卡信息进行存储
+                CouponRecordModel couponRecordModel = new CouponRecordModel();
+                couponRecordModel.setCardno(cardNo);
+                couponRecordModel.setCid(couponModel.getId());
+                couponRecordModel.setCreatetime(new Date());
+                couponRecordModel.setCtype(couponModel.getCtype());
+                couponRecordModel.setMid(couponModel.getMid());
+                couponRecordModel.setPrice(couponModel.getPrice());
+                couponRecordModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+                couponRecordModel.setTitle(couponModel.getTitle());
+                couponRecordModel.setUse_end_time(couponModel.getUse_end_time());
+                couponRecordModel.setUse_start_time(couponModel.getUse_start_time());
+
+                //进行存储
+                this.persistentDao.addCouponRecord(couponRecordModel);
+            }
+            couponModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+            this.persistentDao.editCoupon(couponModel);
+        }
     }
 
 
@@ -71,6 +99,7 @@ public class RaffleService {
      * @param raffleModel
      * @param raffleCouponModels
      */
+
     public void save_raffle(RaffleModel raffleModel, List<RaffleCouponModel> raffleCouponModels) {
         Preconditions.checkNotNull(raffleModel);
 
@@ -133,12 +162,33 @@ public class RaffleService {
         return raffleModelPageResult;
     }
 
+    /**
+     * 根据ID获取Raffle对象
+     *
+     * @param id
+     * @return
+     */
+    public RaffleModel getRaffleById(long id) {
+        Preconditions.checkArgument(id > 0);
+        RaffleModel raffleModel = this.persistentDao.getRaffleById(id);
+        if (raffleModel != null) {
+            List<RaffleCouponModel> raffleCouponModels = this.persistentDao.getRaffleCouponByRaffleId(id);
+            if (raffleCouponModels != null) {
+                raffleModel.setRaffleCouponModels(raffleCouponModels);
+            }
+        }
+        return raffleModel;
+    }
+
 
     public void deleteCoupon(long id) {
         CouponModel couponModel = this.persistentDao.getCouponById(id);
         if (couponModel != null) {
             couponModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.persistentDao.editCoupon(couponModel);
+
+            //更新CouponRecord状态根据CouponID
+            this.persistentDao.editCouponRecordStatus(id, CONST.RAFFLE_STATUS_DELETE);
         }
     }
 

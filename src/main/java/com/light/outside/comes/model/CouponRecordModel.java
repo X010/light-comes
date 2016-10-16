@@ -78,12 +78,25 @@ public class CouponRecordModel extends BaseModel {
     /**
      * 卡类型
      */
-    private int  ctype;
+    private int ctype;
 
     /**
      * 劵ID
      */
     private long cid;
+
+    /**
+     * 更新时间
+     */
+    private Date updatetime;
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
 
     public String getTitle() {
         return title;

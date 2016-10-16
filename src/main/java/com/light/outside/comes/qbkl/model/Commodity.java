@@ -2,6 +2,9 @@ package com.light.outside.comes.qbkl.model;
 
 import com.light.outside.comes.model.BaseModel;
 
+import javax.sql.rowset.spi.SyncResolver;
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,81 +23,95 @@ import com.light.outside.comes.model.BaseModel;
  * limitations under the License.
  */
 public class Commodity extends BaseModel {
-
     /**
-     *商品ID
-     */
-    private int goodsid;
-
-    /**
-     * 商品名称
+     * 名称
      */
     private String name;
 
     /**
-     * 商品图片
+     * 条形码
      */
-    private byte[] picture;
+    private String barcode;
 
     /**
-     * 商品售价
+     * 商品编码
+     */
+    private String goodscode;
+
+    /**
+     * 图片
+     */
+    private String picture;
+
+    /**
+     * 价格
      */
     private float price;
 
-
     /**
-     * 商品售价
+     * 销售价
      */
     private float saleprice;
 
     /**
-     * 商品规格
+     * 规格
      */
     private String specification;
 
     /**
-     * 商品标签
+     * 标签
      */
     private String tags;
 
-    /**
-     * 商品类型
-     */
     private  int kind;
 
-
     /**
-     * 商品关键词
+     * 搜索关键字
      */
     private String searchwords;
 
     /**
-     * 商品分类名称
+     * 分类ID
      */
-    private String categorie;
+    private long categoryid;
 
     /**
-     * 商品品牌
+     * 品牌
      */
     private String brand;
 
     /**
-     * 商品保质期
+     * 保质期
      */
     private String guarantee;
 
+    private int sn;
+
     /**
-     * 商品图片信息
+     * 产地
      */
-    private byte[] detail;
+    private String located;
 
-    public int getGoodsid() {
-        return goodsid;
-    }
+    /**
+     * 城市
+     */
+    private String country;
 
-    public void setGoodsid(int goodsid) {
-        this.goodsid = goodsid;
-    }
+    /**
+     * 规格名称
+     */
+    private String specs;
+
+    /**
+     * 产品模式
+     */
+    private String productionmode;
+
+
+    /**
+     * 创建时间
+     */
+    private Date createtime;
 
     public String getName() {
         return name;
@@ -104,11 +121,27 @@ public class Commodity extends BaseModel {
         this.name = name;
     }
 
-    public byte[] getPicture() {
+    public String getBarcode() {
+        return barcode;
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getGoodscode() {
+        return goodscode;
+    }
+
+    public void setGoodscode(String goodscode) {
+        this.goodscode = goodscode;
+    }
+
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(byte[] picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -160,12 +193,12 @@ public class Commodity extends BaseModel {
         this.searchwords = searchwords;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public long getCategoryid() {
+        return categoryid;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setCategoryid(long categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getBrand() {
@@ -184,11 +217,51 @@ public class Commodity extends BaseModel {
         this.guarantee = guarantee;
     }
 
-    public byte[] getDetail() {
-        return detail;
+    public int getSn() {
+        return sn;
     }
 
-    public void setDetail(byte[] detail) {
-        this.detail = detail;
+    public void setSn(int sn) {
+        this.sn = sn;
+    }
+
+    public String getLocated() {
+        return located;
+    }
+
+    public void setLocated(String located) {
+        this.located = located;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public String getProductionmode() {
+        return productionmode;
+    }
+
+    public void setProductionmode(String productionmode) {
+        this.productionmode = productionmode;
+    }
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 }

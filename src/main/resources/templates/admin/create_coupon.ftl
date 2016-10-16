@@ -34,11 +34,60 @@
                             </div>
                             <div class="form-group">
                                 <label>优惠券类型</label>
-                                <select id="ctype" name="ctype" class="form-control">
+                                <select id="ctype" name="ctype" onchange="changeCtype();" class="form-control">
                                     <option value="1">全局类</option>
-                                    <option value="2">栏目类</option>
-                                    <option value="3">单名类</option>
+                                    <option value="2">商品栏目类</option>
+                                    <option value="3">商品类</option>
                                 </select>
+                            </div>
+                            <div style="display: none;" id="goodscate" class="form-group">
+                                <input type="hidden" name="commoditycateoryid" id="commoditycateoryid" value="0"/>
+
+
+                                <div class="col-md-6">
+                                    <select id="cate1" name="cate1" class="form-control" onchange="changeSubCategories()">
+                                    <#if categories??>
+                                        <#list categories as categorie>
+                                            <option value="${categorie.category1}">${categorie.category1}</option>
+                                        </#list>
+                                    </#if>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select id="cate2" name="cate2" class="form-control">
+                                    <#if subCategories??>
+                                        <#list subCategories as subCategorie>
+                                            <option value="${subCategorie.id}">${subCategorie.category2}</option>
+                                        </#list>
+                                    </#if>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div style="display: none;" id="goods" class="form-group">
+                                <input type="hidden" name="commodityid" id="commodityid" value="0"/>
+
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="searchKeyword" id="searchKeyword" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info btn-flat" onclick="loadSearchCommodity();" type="button">搜索</button>
+                                        </span>
+                                </div>
+
+                                <table id="goods_list" class="table table-striped">
+                                    <thead>
+                                    <th style="width: 10%"></th>
+                                    <th style="width: 40%">名称</th>
+                                    <th style="width: 10%">条码</th>
+                                    <th style="width: 10%">商品编码</th>
+                                    <th style="width: 10%">价格</th>
+                                    <th style="width: 10%">规格</th>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+
                             </div>
                             <div class="form-group">
                                 <label for="num">生成数量</label>
@@ -73,6 +122,75 @@
         setNav("抽奖", "创建优惠卷");
 
         $('#rang_time').daterangepicker();
-    })
+    });
+
+
+    function changeCtype() {
+        var goodscate = $("#goodscate");
+        var goods = $("#goods");
+        var ctype = $("#ctype").val();
+
+        switch (parseInt(ctype)) {
+            case 1:
+                goodscate.hide();
+                goods.hide();
+                break;
+            case 2:
+                goodscate.show();
+                goods.hide();
+                break;
+            case 3:
+                goodscate.hide();
+                goods.show();
+                break;
+        }
+    }
+
+
+    //获取子栏目
+    function changeSubCategories() {
+        var parentName = $("#cate1").val();
+
+        $.ajax({
+            url: "/admin/search_commodity_category.action?category=" + parentName,
+            dataType: "json",
+            success: function (data, textStatus) {
+                $("#cate2").empty();
+                if (data != null && data.length > 0) {
+                    $.each(data, function (i, val) {
+                        $("#cate2").append("<option value='" + val.id + "'>" + val.category2 + "</option>")
+                    });
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 搜索商品信息
+     */
+    function loadSearchCommodity() {
+        var searchKeyword = $("#searchKeyword").val();
+
+        $.ajax({
+            url: "/admin/search_commodity.action?keyword=" + searchKeyword,
+            dataType: "json",
+            success: function (data, textStatus) {
+                $("#goods_list tbody").empty();
+                if (data != null && data.length > 0) {
+                    $.each(data, function (i, val) {
+                        $("#goods_list tbody").append("<tr>" +
+                                "<td><input type='radio' id='goodsid' name='goodsid' value='" + val.id + "' /></td>" +
+                                "<td>" + val.name + "</td>" +
+                                "<td>" + val.barcode + "</td>" +
+                                "<td>" + val.goodscode + "</td>" +
+                                "<td>" + val.price + "</td>" +
+                                "<td>" + val.specification + "</td>" +
+                                "</tr>");
+                    });
+                }
+            }
+        });
+    }
 </script>
 <#include "in_footer.ftl">

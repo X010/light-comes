@@ -68,10 +68,20 @@ public class RaffleModel extends BaseModel {
 
     private List<CouponModel> coupons;
 
+    private List<RaffleCouponModel> raffleCouponModels;
+
     /**
      * 次数
      */
     private int times;
+
+    public List<RaffleCouponModel> getRaffleCouponModels() {
+        return raffleCouponModels;
+    }
+
+    public void setRaffleCouponModels(List<RaffleCouponModel> raffleCouponModels) {
+        this.raffleCouponModels = raffleCouponModels;
+    }
 
     public int getTimes() {
         return times;
