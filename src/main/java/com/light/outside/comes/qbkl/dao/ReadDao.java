@@ -1,7 +1,11 @@
 package com.light.outside.comes.qbkl.dao;
 
+import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.UserModel;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,4 +33,11 @@ public interface ReadDao {
      * @return
      */
     UserModel getUserByPhone(@Param("phone") String phone);
+
+    /**
+     * 根据商品名查询商品
+     * @return
+     */
+    @Select("select id goodsid,name,price from t_goods where name like #{name}")
+    List<Commodity> queryCommodity(@Param("name") String name);
 }
