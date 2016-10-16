@@ -1,6 +1,7 @@
 package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
+import com.light.outside.comes.utils.CONST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,7 +93,8 @@ public class RaffleModel extends BaseModel {
     }
 
     public String getRang_time() {
-        return rang_time;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        return String.format("%s-%s", simpleDateFormat.format(this.start_time), simpleDateFormat.format(this.end_time));
     }
 
     public void setRang_time(String rang_time) {
@@ -156,7 +158,7 @@ public class RaffleModel extends BaseModel {
     }
 
     public String getPhoto() {
-        return photo;
+        return CONST.SITE_URL+photo;
     }
 
     public void setPhoto(String photo) {

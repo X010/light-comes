@@ -9,6 +9,9 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <form action="/admin/save_raffle.action" enctype="multipart/form-data" method="post">
+    <#if editid??>
+        <input type="hidden" name="editid" id="editid" value="${editid}"/>
+    </#if>
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -19,7 +22,13 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">抽奖活动名称</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="注册送奖品活动">
+                                <input type="text" class="form-control"
+
+                                <#if raffle??>
+                                       value="${raffle.title}"
+                                </#if>
+
+                                       name="title" id="title" placeholder="注册送奖品活动">
                             </div>
                             <div class="form-group">
                                 <label>活动起始时间:</label>
@@ -28,7 +37,13 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="rang_time" id="rang_time"/>
+                                    <input type="text" class="form-control pull-right"
+
+                                    <#if raffle??>
+                                           value="${raffle.rang_time}"
+                                    </#if>
+
+                                           name="rang_time" id="rang_time"/>
                                 </div>
                             </div>
 
@@ -50,7 +65,13 @@
                             <div class="form-group">
                                 <label for="title">活动说明:</label>
 
-                                <input type="text" class="form-control" name="memo" id="memo" placeholder="">
+                                <input type="text" class="form-control"
+
+                                <#if raffle??>
+                                       value="${raffle.memo}"
+                                </#if>
+
+                                       name="memo" id="memo" placeholder="">
                             </div>
 
                             <div class="control-group">
@@ -238,6 +259,23 @@
         setNav("抽奖", "创建抽奖活动");
 
         $('#rang_time').daterangepicker();
+
+
+    <#if raffle_str??>
+        var coupon_items =${raffle_str};
+        if (coupon_items != null && coupon_items.length > 0) {
+            for (var i = 0; i < coupon_items.length; i++) {
+                var item = coupon_items[i];
+                var cid_rate = $("#cid_rate_" + item.cindex);
+                var cid = $("#cid_" + item.cindex);
+
+
+                cid_rate.val(item.winrate);
+                cid.val(item.cid);
+            }
+        }
+
+    </#if>
     })
 </script>
 <#include "in_footer.ftl">

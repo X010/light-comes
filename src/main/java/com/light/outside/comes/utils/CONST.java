@@ -20,9 +20,17 @@ package com.light.outside.comes.utils;
 public class CONST {
 
 
+    public static String SITE_URL = "http://www.nmc.com:8001/";
+
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
     public static int RAFFLE_STATUS_INIT = 1;//初始化
     public static int RAFFLE_STATUS_DELETE = 9;//删除
 
     public static String EDIT = "EDIT";//修改的标识
+
+
+    public static int FOCUS_RAFFLE = 1;//抽奖
+    public static int FOCUS_OVERCHARGER = 2;//砍价
+    public static int FOCUS_AUCTION = 3;//拍续
+    public static int FOCUS_BANQUET = 4;//约饭
 }

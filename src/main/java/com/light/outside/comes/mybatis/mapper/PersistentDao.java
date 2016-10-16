@@ -65,11 +65,13 @@ public interface PersistentDao {
     @Select("select * from comes_raffle_coupon where rid=#{rid}")
     public List<RaffleCouponModel> getRaffleCouponByRaffleId(@Param("rid") long rid);
 
+    @Delete("delete from comes_raffle_coupon where rid=#{rid}")
+    public void deleteRaffleCouponByRaffleId(@Param("rid") long rid);
+
     @Insert("insert into comes_raffle(title,start_time,end_time,memo,photo,createtime,status,times)" +
             "values(#{title},#{start_time},#{end_time},#{memo},#{photo},#{createtime},#{status},#{times})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addRaffle(RaffleModel raffleModel);
-
 
     @Update("update comes_raffle set title=#{title},start_time=#{start_time},end_time=#{end_time},memo=#{memo}," +
             "photo=#{photo},status=#{status},times=#{times} where id=#{id}")

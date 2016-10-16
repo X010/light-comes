@@ -1,6 +1,7 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
@@ -103,22 +104,51 @@ public class RaffleService {
     public void save_raffle(RaffleModel raffleModel, List<RaffleCouponModel> raffleCouponModels) {
         Preconditions.checkNotNull(raffleModel);
 
-        long rid = this.persistentDao.addRaffle(raffleModel);
+        if (raffleModel.getId() > 0) {
 
-        if (rid > 0) {
-            for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
-                if (raffleCouponModel.getCid() > 0) {
-                    //根据ID获取Coupon信息
-                    CouponModel couponModel = this.persistentDao.getCouponById(raffleCouponModel.getCid());
-                    raffleCouponModel.setCid(couponModel.getId());
-                    raffleCouponModel.setCtype(couponModel.getCtype());
-                    raffleCouponModel.setPrice(couponModel.getPrice());
-                    raffleCouponModel.setTitle(couponModel.getTitle());
-                    raffleCouponModel.setRid(0);
-                    this.persistentDao.addRaffleCoupon(raffleCouponModel);
+            RaffleModel oldRaffle = this.persistentDao.getRaffleById(raffleModel.getId());
+
+            if (Strings.isNullOrEmpty(raffleModel.getPhoto())) {
+                raffleModel.setPhoto(oldRaffle.getPhoto());
+            }
+
+            //修改
+            this.persistentDao.editRaffle(raffleModel);
+
+
+            this.persistentDao.deleteRaffleCouponByRaffleId(raffleModel.getId());
+
+            if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
+                for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
+                    if (raffleCouponModel.getCid() > 0) {
+                        this.addRaffleCoupon(raffleCouponModel, raffleModel.getId());
+                    }
+                }
+            }
+        } else {
+            //更新
+            long rid = this.persistentDao.addRaffle(raffleModel);
+
+            if (rid > 0) {
+                for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
+                    if (raffleCouponModel.getCid() > 0) {
+                        //根据ID获取Coupon信息
+                        this.addRaffleCoupon(raffleCouponModel, rid);
+                    }
                 }
             }
         }
+    }
+
+
+    private void addRaffleCoupon(RaffleCouponModel raffleCouponModel, long rid) {
+        CouponModel couponModel = this.persistentDao.getCouponById(raffleCouponModel.getCid());
+        raffleCouponModel.setCid(couponModel.getId());
+        raffleCouponModel.setCtype(couponModel.getCtype());
+        raffleCouponModel.setPrice(couponModel.getPrice());
+        raffleCouponModel.setTitle(couponModel.getTitle());
+        raffleCouponModel.setRid(rid);
+        this.persistentDao.addRaffleCoupon(raffleCouponModel);
     }
 
     /**

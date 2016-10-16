@@ -107,7 +107,16 @@ public class MainFrameController {
 
         if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action)) {
             //修改状态
+            data.put("action", action);
+            data.put("editid", id);
 
+
+            //加载数据
+            RaffleModel raffleModel = this.raffleService.getRaffleById(id);
+            if (raffleModel != null) {
+                data.put("raffle", raffleModel);
+                data.put("raffle_str", JsonParser.simpleJson(raffleModel.getRaffleCouponModels()));
+            }
         }
 
         if (couponModels != null) {
@@ -138,6 +147,10 @@ public class MainFrameController {
      */
     @RequestMapping(value = "save_raffle.action", method = RequestMethod.POST)
     public String save_raffle(RaffleModel raffleModel, HttpServletRequest request, @RequestParam("photo_up") MultipartFile file) {
+        String editid = request.getParameter("editid");
+        if (!Strings.isNullOrEmpty(editid)) {
+            raffleModel.setId(Long.valueOf(editid));
+        }
         if (raffleModel != null && file != null) {
             String file_path = FileUtil.saveFile(file);
 
@@ -183,8 +196,6 @@ public class MainFrameController {
     public String reffle_report(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
         return "admin/raffle_report";
     }
-
-
 
 
     /**
@@ -407,89 +418,100 @@ public class MainFrameController {
 
 
     private List<RaffleCouponModel> getRaffleCoupon(HttpServletRequest request) {
-        //获取对应的设置列表
-        int cid1 = Integer.valueOf(request.getParameter("cid_1"));
-        int cid_rate1 = Integer.valueOf(request.getParameter("cid_rate_1"));
-
-        int cid2 = Integer.valueOf(request.getParameter("cid_2"));
-        int cid_rate2 = Integer.valueOf(request.getParameter("cid_rate_2"));
-
-        int cid3 = Integer.valueOf(request.getParameter("cid_3"));
-        int cid_rate3 = Integer.valueOf(request.getParameter("cid_rate_3"));
-
-        int cid4 = Integer.valueOf(request.getParameter("cid_4"));
-        int cid_rate4 = Integer.valueOf(request.getParameter("cid_rate_4"));
-
-        int cid5 = Integer.valueOf(request.getParameter("cid_5"));
-        int cid_rate5 = Integer.valueOf(request.getParameter("cid_rate_5"));
-
-        int cid6 = Integer.valueOf(request.getParameter("cid_6"));
-        int cid_rate6 = Integer.valueOf(request.getParameter("cid_rate_6"));
-
-        int cid7 = Integer.valueOf(request.getParameter("cid_7"));
-        int cid_rate7 = Integer.valueOf(request.getParameter("cid_rate_7"));
-
-        int cid8 = Integer.valueOf(request.getParameter("cid_8"));
-        int cid_rate8 = Integer.valueOf(request.getParameter("cid_rate_8"));
-
-        int cid9 = Integer.valueOf(request.getParameter("cid_9"));
-        int cid_rate9 = Integer.valueOf(request.getParameter("cid_rate_9"));
-
         List<RaffleCouponModel> raffleCouponModels = new ArrayList<RaffleCouponModel>();
 
-        RaffleCouponModel raffleCouponModel1 = new RaffleCouponModel();
-        raffleCouponModel1.setCid(cid1);
-        raffleCouponModel1.setWinrate(cid_rate1);
-        raffleCouponModel1.setCindex(1);
-        raffleCouponModels.add(raffleCouponModel1);
+        //获取对应的设置列表
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_1"))) {
+            int cid1 = Integer.valueOf(request.getParameter("cid_1"));
+            int cid_rate1 = Integer.valueOf(request.getParameter("cid_rate_1"));
+            RaffleCouponModel raffleCouponModel1 = new RaffleCouponModel();
+            raffleCouponModel1.setCid(cid1);
+            raffleCouponModel1.setWinrate(cid_rate1);
+            raffleCouponModel1.setCindex(1);
+            raffleCouponModels.add(raffleCouponModel1);
+        }
 
-        RaffleCouponModel raffleCouponModel2 = new RaffleCouponModel();
-        raffleCouponModel2.setCid(cid2);
-        raffleCouponModel2.setWinrate(cid_rate2);
-        raffleCouponModel2.setCindex(2);
-        raffleCouponModels.add(raffleCouponModel2);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_2"))) {
+            int cid2 = Integer.valueOf(request.getParameter("cid_2"));
+            int cid_rate2 = Integer.valueOf(request.getParameter("cid_rate_2"));
+            RaffleCouponModel raffleCouponModel2 = new RaffleCouponModel();
+            raffleCouponModel2.setCid(cid2);
+            raffleCouponModel2.setWinrate(cid_rate2);
+            raffleCouponModel2.setCindex(2);
+            raffleCouponModels.add(raffleCouponModel2);
+        }
 
-        RaffleCouponModel raffleCouponModel3 = new RaffleCouponModel();
-        raffleCouponModel3.setCid(cid3);
-        raffleCouponModel3.setWinrate(cid_rate3);
-        raffleCouponModel3.setCindex(3);
-        raffleCouponModels.add(raffleCouponModel3);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_3"))) {
+            int cid3 = Integer.valueOf(request.getParameter("cid_3"));
+            int cid_rate3 = Integer.valueOf(request.getParameter("cid_rate_3"));
+            RaffleCouponModel raffleCouponModel3 = new RaffleCouponModel();
+            raffleCouponModel3.setCid(cid3);
+            raffleCouponModel3.setWinrate(cid_rate3);
+            raffleCouponModel3.setCindex(3);
+            raffleCouponModels.add(raffleCouponModel3);
+        }
 
-        RaffleCouponModel raffleCouponModel4 = new RaffleCouponModel();
-        raffleCouponModel4.setCid(cid4);
-        raffleCouponModel4.setWinrate(cid_rate4);
-        raffleCouponModel4.setCindex(4);
-        raffleCouponModels.add(raffleCouponModel4);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_4"))) {
+            int cid4 = Integer.valueOf(request.getParameter("cid_4"));
+            int cid_rate4 = Integer.valueOf(request.getParameter("cid_rate_4"));
+            RaffleCouponModel raffleCouponModel4 = new RaffleCouponModel();
+            raffleCouponModel4.setCid(cid4);
+            raffleCouponModel4.setWinrate(cid_rate4);
+            raffleCouponModel4.setCindex(4);
+            raffleCouponModels.add(raffleCouponModel4);
+        }
 
-        RaffleCouponModel raffleCouponModel5 = new RaffleCouponModel();
-        raffleCouponModel5.setCid(cid5);
-        raffleCouponModel5.setWinrate(cid_rate5);
-        raffleCouponModel5.setCindex(5);
-        raffleCouponModels.add(raffleCouponModel5);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_5"))) {
+            int cid5 = Integer.valueOf(request.getParameter("cid_5"));
+            int cid_rate5 = Integer.valueOf(request.getParameter("cid_rate_5"));
+            RaffleCouponModel raffleCouponModel5 = new RaffleCouponModel();
+            raffleCouponModel5.setCid(cid5);
+            raffleCouponModel5.setWinrate(cid_rate5);
+            raffleCouponModel5.setCindex(5);
+            raffleCouponModels.add(raffleCouponModel5);
+        }
 
-        RaffleCouponModel raffleCouponModel6 = new RaffleCouponModel();
-        raffleCouponModel6.setCid(cid6);
-        raffleCouponModel6.setWinrate(cid_rate6);
-        raffleCouponModel6.setCindex(6);
-        raffleCouponModels.add(raffleCouponModel6);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_6"))) {
+            int cid6 = Integer.valueOf(request.getParameter("cid_6"));
+            int cid_rate6 = Integer.valueOf(request.getParameter("cid_rate_6"));
+            RaffleCouponModel raffleCouponModel6 = new RaffleCouponModel();
+            raffleCouponModel6.setCid(cid6);
+            raffleCouponModel6.setWinrate(cid_rate6);
+            raffleCouponModel6.setCindex(6);
+            raffleCouponModels.add(raffleCouponModel6);
+        }
 
-        RaffleCouponModel raffleCouponModel7 = new RaffleCouponModel();
-        raffleCouponModel7.setCid(cid7);
-        raffleCouponModel7.setWinrate(cid_rate7);
-        raffleCouponModel7.setCindex(7);
-        raffleCouponModels.add(raffleCouponModel7);
 
-        RaffleCouponModel raffleCouponModel8 = new RaffleCouponModel();
-        raffleCouponModel8.setCid(cid8);
-        raffleCouponModel8.setWinrate(cid_rate8);
-        raffleCouponModel8.setCindex(8);
-        raffleCouponModels.add(raffleCouponModel8);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_7"))) {
+            int cid7 = Integer.valueOf(request.getParameter("cid_7"));
+            int cid_rate7 = Integer.valueOf(request.getParameter("cid_rate_7"));
+            RaffleCouponModel raffleCouponModel7 = new RaffleCouponModel();
+            raffleCouponModel7.setCid(cid7);
+            raffleCouponModel7.setWinrate(cid_rate7);
+            raffleCouponModel7.setCindex(7);
+            raffleCouponModels.add(raffleCouponModel7);
+        }
 
-        RaffleCouponModel raffleCouponModel9 = new RaffleCouponModel();
-        raffleCouponModel9.setCid(cid9);
-        raffleCouponModel9.setWinrate(cid_rate9);
-        raffleCouponModel9.setCindex(9);
-        raffleCouponModels.add(raffleCouponModel9);
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_8"))) {
+
+            int cid8 = Integer.valueOf(request.getParameter("cid_8"));
+            int cid_rate8 = Integer.valueOf(request.getParameter("cid_rate_8"));
+            RaffleCouponModel raffleCouponModel8 = new RaffleCouponModel();
+            raffleCouponModel8.setCid(cid8);
+            raffleCouponModel8.setWinrate(cid_rate8);
+            raffleCouponModel8.setCindex(8);
+            raffleCouponModels.add(raffleCouponModel8);
+        }
+
+        if(!Strings.isNullOrEmpty(request.getParameter("cid_9"))) {
+            int cid9 = Integer.valueOf(request.getParameter("cid_9"));
+            int cid_rate9 = Integer.valueOf(request.getParameter("cid_rate_9"));
+            RaffleCouponModel raffleCouponModel9 = new RaffleCouponModel();
+            raffleCouponModel9.setCid(cid9);
+            raffleCouponModel9.setWinrate(cid_rate9);
+            raffleCouponModel9.setCindex(9);
+            raffleCouponModels.add(raffleCouponModel9);
+        }
 
         return raffleCouponModels;
     }

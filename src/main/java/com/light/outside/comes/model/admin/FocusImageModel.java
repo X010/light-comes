@@ -1,5 +1,7 @@
 package com.light.outside.comes.model.admin;
 
+import com.light.outside.comes.utils.CONST;
+
 import java.util.Date;
 
 /**
@@ -84,7 +86,7 @@ public class FocusImageModel {
     }
 
     public String getImage() {
-        return image;
+        return CONST.SITE_URL+image;
     }
 
     public void setImage(String image) {
