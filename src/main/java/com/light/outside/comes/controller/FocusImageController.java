@@ -108,41 +108,56 @@ public class FocusImageController {
                                     HttpServletRequest request, HttpServletResponse response,
                                     Map<String, Object> data) {
         int column = RequestTools.RequestInt(request, "column", 0);
-        String file_path = "";
-        if (file != null && !Strings.isNullOrEmpty(file.getName())) {
-            file_path = FileUtil.saveFile(file);
+        if (file != null && !Strings.isNullOrEmpty(file.getOriginalFilename())) {
+            String file_path = FileUtil.saveFile(file);
             focusImageModel.setImage(file_path);
         }
         focusImageModel.setCreate_time(new Date());
         focusImageModel.setStatus(1);
-        focusImageService.updateFocusImage(focusImageModel);
+        if(focusImageModel.getId()>0) {
+            focusImageService.updateFocusImage(focusImageModel);
+        }else{
+            focusImageService.addFocusImage(focusImageModel);
+        }
         data.put("focusImage0", focusImageModel);
 
         FocusImageModel focusImageModel1 = buildParameter(1, request);
-        String file_path1 = "";
-        if (file2 != null && !Strings.isNullOrEmpty(file2.getName())) {
-            file_path1 = FileUtil.saveFile(file2);
-            focusImageModel1.setImage(file_path1);
+        if (file2 != null && !Strings.isNullOrEmpty(file2.getOriginalFilename())) {
+            String file_path1 = FileUtil.saveFile(file2);
+            if(!Strings.isNullOrEmpty(file_path1)) {
+                focusImageModel1.setImage(file_path1);
+            }
         }
         focusImageModel1.setColumn(column);
-        focusImageService.updateFocusImage(focusImageModel1);
+        if(focusImageModel1.getId()>0) {
+            focusImageService.updateFocusImage(focusImageModel1);
+        }else{
+            focusImageService.addFocusImage(focusImageModel1);
+        }
         data.put("focusImage1", focusImageModel1);
 
 
         FocusImageModel focusImageModel2 = buildParameter(2, request);
-        String file_path2 = "";
-        if (file3 != null && !Strings.isNullOrEmpty(file3.getName())) {
-            file_path2 = FileUtil.saveFile(file3);
-            focusImageModel2.setImage(file_path2);
+        if (file3 != null && !Strings.isNullOrEmpty(file3.getOriginalFilename())) {
+            String file_path2 = FileUtil.saveFile(file3);
+            if(!Strings.isNullOrEmpty(file_path2)) {
+                focusImageModel2.setImage(file_path2);
+            }
+        }
+        focusImageModel2.setColumn(column);
+        if(focusImageModel2.getId()>0) {
+            focusImageService.updateFocusImage(focusImageModel2);
+        }else{
+            focusImageService.addFocusImage(focusImageModel2);
         }
 
-        focusImageModel2.setColumn(column);
-        focusImageModel2.setImage(file_path2);
-        focusImageService.updateFocusImage(focusImageModel2);
         data.put("focusImage2", focusImageModel2);
-
         data.put("column", column);
-        return "admin/focus_image_manage ";
+        data.put("isCreate",false);
+        //return "admin/focus_image_manage";
+        //request.setAttribute("column",column);
+        //return focus_manage(data,request,response);
+        return "redirect:/admin/focus_manage.action?isCreate=false&column="+column;
     }
 
     /**

@@ -153,12 +153,14 @@
                             $("#id").val(image.id);
                             $("#title").val(image.title);
                             $("#link").val(image.link);
+                            $("#image").val(image.image);
                             $("#focus_image_preview").remove();
                             $("#image-div").append('<img id="focus_image_preview" name="focus_image_preview" src="'+image.image+'" width="200" height="100">');
                         }else{
                             $("#id"+i).val(image.id);
                             $("#title"+i).val(image.title);
                             $("#link"+i).val(image.link);
+                            $("#image"+i).val(image.image);
                             $("#image-focus_image_preview"+i).remove();
                             $("#image-div"+i).append('<img id="focus_image_preview'+i+'" name="focus_image_preview'+i+'" src="'+image.image+'" width="200" height="100">');
                         }
