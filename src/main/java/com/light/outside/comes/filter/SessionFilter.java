@@ -1,6 +1,6 @@
 package com.light.outside.comes.filter;
 
-import com.light.outside.comes.controller.LoginController;
+import com.light.outside.comes.controller.admin.LoginController;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

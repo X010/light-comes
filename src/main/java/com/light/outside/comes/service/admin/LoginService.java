@@ -1,6 +1,6 @@
-package com.light.outside.comes.service;
+package com.light.outside.comes.service.admin;
 
-import com.light.outside.comes.controller.LoginController;
+import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.mybatis.mapper.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;

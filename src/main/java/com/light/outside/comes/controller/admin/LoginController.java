@@ -1,6 +1,7 @@
-package com.light.outside.comes.controller;
+package com.light.outside.comes.controller.admin;
 
-import com.light.outside.comes.service.LoginService;
+import com.light.outside.comes.controller.BaseController;
+import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("admin")
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 	
     @Resource
     private LoginService loginService;
