@@ -1,6 +1,7 @@
 package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
+import com.light.outside.comes.utils.CONST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -157,7 +158,7 @@ public class RaffleModel extends BaseModel {
     }
 
     public String getPhoto() {
-        return photo;
+        return CONST.SITE_URL+photo;
     }
 
     public void setPhoto(String photo) {

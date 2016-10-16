@@ -1,6 +1,9 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.FocusImageModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.RaffleModel;
 import com.light.outside.comes.service.FocusImageService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.utils.CONST;
@@ -53,7 +56,14 @@ public class RaffleController {
         }
 
         //输出抽奖活动列表
-
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(1);
+        pageModel.setSize(Integer.MAX_VALUE);
+        PageResult<RaffleModel> raffleModelPageResult = this.raffleService.getRaffles(pageModel);
+        List<RaffleModel> raffleModels = raffleModelPageResult.getData();
+        if (raffleModels != null) {
+            data.put("raffles", raffleModels);
+        }
         return "lottery";
     }
 

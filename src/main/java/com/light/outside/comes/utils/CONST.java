@@ -20,6 +20,8 @@ package com.light.outside.comes.utils;
 public class CONST {
 
 
+    public static String SITE_URL = "http://www.nmc.com:8001/";
+
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
     public static int RAFFLE_STATUS_INIT = 1;//初始化
     public static int RAFFLE_STATUS_DELETE = 9;//删除
