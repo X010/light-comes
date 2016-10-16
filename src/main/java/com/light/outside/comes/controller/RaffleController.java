@@ -1,9 +1,15 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.FocusImageModel;
+import com.light.outside.comes.service.FocusImageService;
 import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,13 +35,25 @@ public class RaffleController {
     @Autowired
     private RaffleService raffleService;
 
+
+    @Autowired
+    private FocusImageService focusImageService;
+
     /**
      * 抽奖列表
      *
      * @return
      */
     @RequestMapping("lottery.action")
-    public String lottery() {
+    public String lottery(Map<String, Object> data) {
+        //输出焦点图
+        List<FocusImageModel> focusImageModelList = this.focusImageService.queryFocusImageByColumn(CONST.FOCUS_RAFFLE);
+        if (focusImageModelList != null) {
+            data.put("focus", focusImageModelList);
+        }
+
+        //输出抽奖活动列表
+
         return "lottery";
     }
 

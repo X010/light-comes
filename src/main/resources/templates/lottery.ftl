@@ -13,10 +13,11 @@
 <body>
 <div id="banner">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="/images/img2.jpg" /></div>
-        <div class="swiper-slide"><img src="/images/img3.jpg" /></div>
-        <div class="swiper-slide"><img src="/images/img4.jpg" /></div>
-        <div class="swiper-slide"><img src="/images/img5.jpg" /></div>
+    <#if focus??>
+        <#list focus as focu>
+            <div class="swiper-slide"><img src="/images/img2.jpg" /></div>
+        </#list>
+    </#if>
     </div>
     <div class="pagination"></div>
 </div>

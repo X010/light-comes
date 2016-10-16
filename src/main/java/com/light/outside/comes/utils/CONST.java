@@ -25,4 +25,10 @@ public class CONST {
     public static int RAFFLE_STATUS_DELETE = 9;//删除
 
     public static String EDIT = "EDIT";//修改的标识
+
+
+    public static int FOCUS_RAFFLE = 1;//抽奖
+    public static int FOCUS_OVERCHARGER = 2;//砍价
+    public static int FOCUS_AUCTION = 3;//拍续
+    public static int FOCUS_BANQUET = 4;//约饭
 }
