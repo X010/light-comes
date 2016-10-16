@@ -2,6 +2,8 @@ package com.light.outside.comes.model.admin;
 
 import com.light.outside.comes.model.BaseModel;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,4 +22,49 @@ import com.light.outside.comes.model.BaseModel;
  * limitations under the License.
  */
 public class UsersModel extends BaseModel {
+    private String user_name;
+    private String password;
+    private Date create_time;
+    private Date update_time;
+    private int status;
+
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
+
+    public Date getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }

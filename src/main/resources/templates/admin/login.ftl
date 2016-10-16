@@ -6,7 +6,6 @@
 -->
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,26 +35,27 @@
     <div class="login-box-body">
         <p class="login-box-msg">登录</p>
 
-        <form action="../../index2.html" method="post">
+        <form action="login.action" method="post" id="login_form" name="login_form">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="用户名">
+                <input id="userName" name="userName" type="text" class="form-control" placeholder="用户名">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="密码">
+                <input id="password" name="password" type="password" class="form-control" placeholder="密码">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input type="checkbox"> 记住我
+                            <input id="rememberMe" name="rememberMe" type="checkbox"> 记住我
                         </label>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                    <button type="button" id="loginBtn" name="loginBtn" class="btn btn-primary btn-block btn-flat">登录
+                    </button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -74,13 +74,57 @@
 <!-- iCheck -->
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <script>
+
     $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
+        $("#loginBtn").click(function () {
+            var userName = Trim($("#userName").val(), 'g');
+            var userPwd = Trim($("#password").val(), 'g');
+            if (userName == '') {
+                swal({title: "用户名不能为空",});
+                $("#userName").focus();
+                return;
+            }
+            if (userPwd == '') {
+                swal({title: "密码不能为空",});
+                $("#password").focus();
+                return;
+            }
+            $.ajax({
+                url: "login.action?userName=" + userName + "&password=" + userPwd,
+                type: "POST",
+                success: function (result) {
+                    var r = jQuery.parseJSON(result);
+                    if (r.code == 0) {
+                        alert(r.msg);
+                        $("#userName").focus();
+                    } else {
+                        window.self.location = "to_index.action";
+                    }
+                }
+            });
         });
     });
+    function Trim(str, is_global) {
+        var result;
+        result = str.replace(/(^\s+)|(\s+$)/g, "");
+        if (is_global.toLowerCase() == "g")
+            result = result.replace(/\s/g, "");
+        return result;
+    }
+
+        <#--$(function() {-->
+        <#--&lt;#&ndash;var msg=${msg};&ndash;&gt;-->
+        <#--&lt;#&ndash;if(msg!=null||msg!=''){&ndash;&gt;-->
+        <#--&lt;#&ndash;$("#userName").val(${userName});&ndash;&gt;-->
+        <#--&lt;#&ndash;alert(msg);&ndash;&gt;-->
+        <#--&lt;#&ndash;return;&ndash;&gt;-->
+        <#--&lt;#&ndash;}&ndash;&gt;-->
+            <#--$('#rememberMe').iCheck({-->
+                <#--checkboxClass: 'icheckbox_square-blue',-->
+                <#--radioClass: 'iradio_square-blue',-->
+                <#--increaseArea: '20%' // optional-->
+            <#--});-->
+        <#--});-->
 </script>
 </body>
 </html>

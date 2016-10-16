@@ -1,6 +1,6 @@
-package com.light.outside.comes.service;
+package com.light.outside.comes.service.admin;
 
-import com.light.outside.comes.model.FocusImageModel;
+import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.mybatis.mapper.FocusImageDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

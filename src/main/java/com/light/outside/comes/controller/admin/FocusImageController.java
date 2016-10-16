@@ -1,8 +1,8 @@
-package com.light.outside.comes.controller;
+package com.light.outside.comes.controller.admin;
 
 import com.google.common.base.Strings;
-import com.light.outside.comes.model.FocusImageModel;
-import com.light.outside.comes.service.FocusImageService;
+import com.light.outside.comes.model.admin.FocusImageModel;
+import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.FileUtil;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;

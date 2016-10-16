@@ -1,6 +1,6 @@
 package com.light.outside.comes.mybatis.mapper;
 
-import com.light.outside.comes.model.FocusImageModel;
+import com.light.outside.comes.model.admin.FocusImageModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

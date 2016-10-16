@@ -1,4 +1,4 @@
-package com.light.outside.comes.model;
+package com.light.outside.comes.model.admin;
 
 import java.util.Date;
 
