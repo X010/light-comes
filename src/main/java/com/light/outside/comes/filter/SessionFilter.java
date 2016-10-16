@@ -32,13 +32,15 @@ public class SessionFilter implements javax.servlet.Filter {
         if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             chain.doFilter(request, response);
-        } else {
+        } else if (url.contains("admin/")){
             if (session.getAttribute(LoginController.SESSION_KEY_USERINFO) == null) {
                 session.invalidate();
                 loginOut(request, response);
             } else {
                 chain.doFilter(request, response);
             }
+        }else{
+            chain.doFilter(request, response);
         }
     }
 

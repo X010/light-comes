@@ -1,10 +1,10 @@
 package com.light.outside.comes.controller;
 
-import com.light.outside.comes.model.FocusImageModel;
+import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.RaffleModel;
-import com.light.outside.comes.service.FocusImageService;
+import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;

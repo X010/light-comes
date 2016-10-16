@@ -15,7 +15,7 @@
     <div class="swiper-wrapper">
     <#if focus??>
         <#list focus as focu>
-            <div class="swiper-slide"><img src="${focu.image}"/></div>
+            <div class="swiper-slide"><a href="${focu.link}"><img src="${focu.image}"/></a></div>
         </#list>
     </#if>
     </div>
@@ -45,7 +45,6 @@
 <footer>
     <a href="/" class="on">
         <img src="/images/ticket.png"/>
-
         <p class="on">抽奖券</p>
     </a>
     <a href="/">
