@@ -5,6 +5,7 @@ import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.service.QblkService;
+import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
@@ -55,6 +56,9 @@ public class MainFrameController {
 
     @Autowired
     private BanquetService banquetService;
+
+    @Autowired
+    private AuctionService auctionService;
 
     @Autowired
     private QblkService qblkService;
@@ -238,8 +242,11 @@ public class MainFrameController {
      */
     @RequestMapping("save_auction.action")
     public String save_auction(AuctionModel auctionModel) {
+        if (auctionModel != null) {
+            auctionModel.rangle_time();
 
-
+            this.auctionService.addAuction(auctionModel);
+        }
         return "redirect:/admin/auction_list.action";
     }
 

@@ -1,5 +1,6 @@
 package com.light.outside.comes.service;
 
+import com.light.outside.comes.model.AuctionModel;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,15 @@ public class AuctionService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+
+    /**
+     * 添加拍卖商品
+     *
+     * @param auctionModel
+     */
+    public void addAuction(AuctionModel auctionModel) {
+
+    }
+
 }

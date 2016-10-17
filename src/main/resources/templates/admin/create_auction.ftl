@@ -6,6 +6,7 @@
 
 <!-- 内容导航区 -->
 <div class="content-wrapper">
+
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <form action="/admin/save_auction.action" method="post">
@@ -102,6 +103,8 @@
         </section>
     </form>
 </div>
+
+
 <script lanuage="javascript">
     $(function () {
         document.title = "拍卖";
