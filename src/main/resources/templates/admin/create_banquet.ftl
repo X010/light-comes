@@ -21,12 +21,12 @@
                             <input type="text" class="form-control" name="title" id="title" placeholder="如：东来顺商务餐">
                         </div>
                         <div class="form-group">
-                            <label for="title">活动说明:</label>
+                            <label for="title">活动说明</label>
 
                             <input type="text" class="form-control" name="memo" id="memo" placeholder="填写介绍活动的内容">
                         </div>
                         <div class="form-group">
-                            <label>活动起始时间:</label>
+                            <label>活动起始时间</label>
 
                             <div class="input-group">
                                 <div class="input-group-addon">
@@ -49,6 +49,22 @@
                                 <input type="number" class="form-control" name="amount" id="amount" placeholder="如：500">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="title">承办人</label>
+
+                            <input type="text" class="form-control" name="author_nickname" id="author_nickname" placeholder="如：张三">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">承办人</label>
+
+                            <input type="text" class="form-control" name="author_telephone" id="author_telephone" placeholder="如：18684332100">
+                        </div>
+                        <div class="form-group">
+                            <label for="title">承办地址</label>
+
+                            <input type="text" class="form-control" name="author_address" id="author_address" placeholder="如：18684332100">
+                        </div>
+
                     </div>
                     <div class="box-footer">
                         <div class="pull-right">
