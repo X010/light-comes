@@ -5,6 +5,7 @@ import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.service.QblkService;
+import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
 import com.light.outside.comes.utils.CONST;
@@ -51,6 +52,9 @@ public class MainFrameController {
 
     @Autowired
     private RaffleService raffleService;
+
+    @Autowired
+    private BanquetService banquetService;
 
     @Autowired
     private QblkService qblkService;
@@ -227,6 +231,20 @@ public class MainFrameController {
 
 
     /**
+     * 保存拍卖
+     *
+     * @param auctionModel
+     * @return
+     */
+    @RequestMapping("save_auction.action")
+    public String save_auction(AuctionModel auctionModel) {
+
+
+        return "redirect:/admin/auction_list.action";
+    }
+
+
+    /**
      * 卖列表
      *
      * @param data
@@ -255,6 +273,22 @@ public class MainFrameController {
 
 
     /**
+     * 保存饭局数据
+     *
+     * @return
+     */
+    @RequestMapping("save_banquet.action")
+    public String save_banquet(BanquetModel banquetModel, HttpServletRequest request, HttpServletResponse response) {
+        if (banquetModel != null) {
+            banquetModel.rangle_time();
+            banquetModel.setCreate_time(new Date());
+            banquetModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+            this.banquetService.addBanquet(banquetModel);
+        }
+        return "redirect:/admin/banquet_list.action";
+    }
+
+    /**
      * 饭局列表
      *
      * @param data
@@ -264,6 +298,12 @@ public class MainFrameController {
      */
     @RequestMapping("banquet_list.action")
     public String banquet_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        PageResult<BanquetModel> banquetModelPageResult = this.banquetService.getBanquets(pageModel);
+
+        if (banquetModelPageResult != null) {
+            data.put("banquets", banquetModelPageResult);
+        }
+
         return "admin/banquet_list";
     }
 
@@ -503,7 +543,7 @@ public class MainFrameController {
             raffleCouponModels.add(raffleCouponModel8);
         }
 
-        if(!Strings.isNullOrEmpty(request.getParameter("cid_9"))) {
+        if (!Strings.isNullOrEmpty(request.getParameter("cid_9"))) {
             int cid9 = Integer.valueOf(request.getParameter("cid_9"));
             int cid_rate9 = Integer.valueOf(request.getParameter("cid_rate_9"));
             RaffleCouponModel raffleCouponModel9 = new RaffleCouponModel();

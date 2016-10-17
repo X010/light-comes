@@ -67,6 +67,18 @@ public class AuctionModel extends BaseModel {
      */
     private int time_second;
 
+    /**
+     * 商品ID
+     */
+    private long goodsid;
+
+    public long getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(long goodsid) {
+        this.goodsid = goodsid;
+    }
 
     public String getTitle() {
         return title;

@@ -1,9 +1,6 @@
 package com.light.outside.comes.mybatis.mapper;
 
-import com.light.outside.comes.model.CouponModel;
-import com.light.outside.comes.model.CouponRecordModel;
-import com.light.outside.comes.model.RaffleCouponModel;
-import com.light.outside.comes.model.RaffleModel;
+import com.light.outside.comes.model.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -77,9 +74,20 @@ public interface PersistentDao {
             "photo=#{photo},status=#{status},times=#{times} where id=#{id}")
     public void editRaffle(RaffleModel raffleModel);
 
-    @Select("select count(1) from comes_raffle")
+    @Select("select count(1) from comes_raffle where status<>9")
     public int rafflesTotal();
 
-    @Select("select count(1) from comes_coupon ")
+    @Select("select count(1) from comes_coupon where status<>9")
     public int couponsTotal();
+
+    @Select("select count(1) from comes_banquet where status<>9")
+    public int banquetTotal();
+
+    @Select("select * from comes_banquet where status<>9 limit #{start},#{size}")
+    public List<BanquetModel> getBanquets(@Param("start") int start, @Param("size") int size);
+
+    @Insert("insert into comes_banquet(title,amount,outnumber,create_time,start_time,author_nickname,author_telephone,memo,status,author_address,info,end_time)" +
+            "values(#{title},#{amount},#{outnumber},#{create_time},#{start_time},#{author_nickname},#{author_telephone},#{memo},#{status},#{author_address},#{info},#{end_time})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addBanquet(BanquetModel banquetModel);
 }

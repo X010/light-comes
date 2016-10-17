@@ -21,15 +21,57 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>内容</th>
+                                <th>名称</th>
                                 <th>状态</th>
-                                <th>类型</th>
-                                <th>预约时间</th>
-                                <th>联系人</th>
-                                <th>联系电话</th>
-                                <th>评价</th>
+                                <th>创建时间</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>承办人</th>
+                                <th>承办人电话</th>
+                                <th>每桌人数</th>
+                                <th>单价</th>
                                 <th>操作</th>
                             </tr>
+                            <#if banquets??>
+                                <#if banquets.data??>
+                                    <#list banquets.data as banquet>
+                                        <tr>
+                                            <td>${banquet.id}</td>
+                                            <td>${banquet.title}</td>
+                                            <td>
+                                                <#if banquet.status==1>
+                                                    创建
+                                                </#if>
+                                                <#if banquet.status==2>
+                                                    正常
+                                                </#if>
+                                                <#if banquet.status==9>
+                                                    停用
+                                                </#if>
+                                            </td>
+                                            <td>
+                                                ${banquet.create_time?string("yyyy-MM-dd HH:mm:ss")}
+                                            </td>
+                                            <td>
+                                                ${banquet.start_time?string("yyyy-MM-dd HH:mm:ss")}
+                                            </td>
+                                            <td>
+                                                ${banquet.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                            </td>
+                                            <td>${banquet.author_nickname}</td>
+                                            <td>${banquet.author_telephone}</td>
+                                            <td>${banquet.outnumber}</td>
+                                            <td>${banquet.amount}</td>
+                                            <td>
+                                                <a class="badge  bg-green" href="#">编缉</a>
+                                                &nbsp;&nbsp;
+                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </#list>
+                                </#if>
+                            </#if>
                         </table>
                     </div>
                 </div>

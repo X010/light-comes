@@ -1,8 +1,14 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
+import com.light.outside.comes.model.BanquetModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,4 +33,34 @@ public class BanquetService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+    /**
+     * 保存饭局
+     *
+     * @param banquetModel
+     */
+    public void addBanquet(BanquetModel banquetModel) {
+        Preconditions.checkNotNull(banquetModel);
+
+        this.persistentDao.addBanquet(banquetModel);
+    }
+
+
+    /**
+     * 分页获取饭局
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<BanquetModel> getBanquets(PageModel pageModel) {
+        int total = this.persistentDao.banquetTotal();
+
+        List<BanquetModel> banquetModelList = this.persistentDao.getBanquets(pageModel.getStart(), pageModel.getSize());
+
+        PageResult<BanquetModel> couponModelPageResult = new PageResult<BanquetModel>();
+        couponModelPageResult.setData(banquetModelList);
+        couponModelPageResult.setPageModel(pageModel);
+        couponModelPageResult.setTotal(total);
+        return couponModelPageResult;
+    }
 }
