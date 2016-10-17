@@ -2,11 +2,17 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.AuctionModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.RaffleModel;
+import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.service.QblkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,6 +41,9 @@ public class AuctionService {
     @Autowired
     private QblkService qblkService;
 
+    @Autowired
+    private AuctionDao auctionDao;
+
     /**
      * 添加拍卖商品
      *
@@ -52,5 +61,34 @@ public class AuctionService {
             this.persistentDao.addAuction(auctionModel);
         }
     }
+
+    /**
+     * 查询拍卖列表
+     * @param pageModel
+     * @return
+     */
+    public PageResult<AuctionModel> getAuctions(PageModel pageModel) {
+        int total = this.persistentDao.rafflesTotal();
+        List<AuctionModel> auctionModels = this.persistentDao.getAuctions(pageModel.getStart(), pageModel.getSize());
+        PageResult<AuctionModel> auctionModelPageResult = new PageResult<AuctionModel>();
+        auctionModelPageResult.setData(auctionModels);
+        auctionModelPageResult.setPageModel(pageModel);
+        auctionModelPageResult.setTotal(total);
+
+        return auctionModelPageResult;
+    }
+
+    /**
+     * 根据ID查询拍卖详情
+     * @param id
+     * @return
+     */
+    public AuctionModel queryAuctionById(int id){
+        return auctionDao.getAuctionsById(id);
+    }
+
+
+
+
 
 }

@@ -1,9 +1,25 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.AuctionModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.service.AuctionService;
+import com.light.outside.comes.service.admin.FocusImageService;
+import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.DateUtils;
+import com.light.outside.comes.utils.JsonTools;
+import com.light.outside.comes.utils.RequestTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,4 +44,61 @@ public class AuctionController {
 
     @Autowired
     private AuctionService auctionService;
+    @Autowired
+    private FocusImageService focusImageService;
+
+    /**
+     * 抽奖列表
+     *
+     * @return
+     */
+    @RequestMapping("auction.action")
+    public String auction(Map<String, Object> data) {
+        //输出焦点图
+        List<FocusImageModel> focusImageModelList = this.focusImageService.queryFocusImageByColumn(CONST.FOCUS_AUCTION);
+        if (focusImageModelList != null) {
+            data.put("focus", focusImageModelList);
+        }
+        //输出拍卖活动列表
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(1);
+        pageModel.setSize(Integer.MAX_VALUE);
+        PageResult<AuctionModel> auctionModelPageResult = auctionService.getAuctions(pageModel);
+        List<AuctionModel> auctionModels = auctionModelPageResult.getData();
+        if (auctionModels != null) {
+            data.put("auction", auctionModels);
+        }
+        return "auction";
+    }
+    /**
+     * 出价
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("bid.action")
+    @ResponseBody
+    public String bid(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
+        //出价
+        float price= Float.parseFloat(request.getParameter("price").toString());
+        //保存出价记录返回结果
+        return JsonTools.jsonSer(data);
+    }
+
+    @RequestMapping("auction_detail.acton")
+    public String auctionDetail(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
+        int auctionId=RequestTools.RequestInt(request,"id",0);
+        AuctionModel auctionModel=new AuctionModel();
+        //查询拍卖活动
+        auctionModel=auctionService.queryAuctionById(auctionId);
+        //查询出价记录
+
+        //秒数
+        long second=DateUtils.betweenSeconds(auctionModel.getEnd_time());
+        auctionModel.setTime_second((int) second);
+        data.put("auction",auctionModel);
+        return "admin/auction";
+    }
+
 }
