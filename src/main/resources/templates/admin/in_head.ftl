@@ -37,6 +37,8 @@
     <script src="/plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
     <!-- bootstrap time picker -->
     <script src="/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="/plugins/validate/jquery.validate.js" type="text/javascript"></script>
+    <script src="/plugins/validate/jquery.validator.ext.js" type="text/javascript"></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

@@ -29,7 +29,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>管理后台</b></a>
+        <a href="../../index2.html"><b>曲不离口营销管理后台</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -48,7 +48,7 @@
                 <div class="col-xs-8">
                     <div class="checkbox icheck">
                         <label>
-                            <input id="rememberMe" name="rememberMe" type="checkbox"> 记住我
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="rememberMe" name="rememberMe" type="checkbox"> 记住我
                         </label>
                     </div>
                 </div>
