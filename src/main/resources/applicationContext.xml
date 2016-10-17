@@ -8,5 +8,8 @@
     <task:executor id="executor" pool-size="5" />
     <task:scheduler id="scheduler" pool-size="10" />
     <task:annotation-driven executor="executor" scheduler="scheduler" />
+    <beans>
+        <bean name="raffleController" class="com.light.outside.comes.controller.RaffleController" init-method="initGift"></bean>
+    </beans>
 
 </beans>

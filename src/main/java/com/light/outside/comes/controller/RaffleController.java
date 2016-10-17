@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.Prize;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -81,63 +84,69 @@ public class RaffleController {
         return "lottery_d";
     }
 
-    private List<Gift> gifts = new LinkedList<Gift>();
+    private List<GiftType> gifts = new LinkedList<GiftType>();
 
     @RequestMapping("lottery_draw.action")
     @ResponseBody
     public String lottery_draw(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response){
-        initGift();
-        data.put("code",1);
-        Gift gift=getGift();
-        System.out.println(gift.toString());
-        return JsonTools.jsonSer(data);
+        int code=0;
+        String msg="谢谢参与!";
+        GiftType gift=getGift();
+        if(!"8".equals(gift.getId())){
+            code=1;
+            msg="恭喜你，抽中￥"+gift.name+"优惠券";
+        }
+        data.put("code",code);
+        data.put("msg", msg);
+        data.put("id",gift.id);
+        String result=JsonTools.jsonSer(data);
+        System.out.println(result);
+        return result;
     }
 
+    /**
+     * 初始化所有奖品
+     */
+
     private void initGift(){
-        GiftType giftType=new GiftType("1000",1,1);
-        Gift gift=new Gift("1",giftType);
+        System.out.println("init gifts........");
+        GiftType giftType=new GiftType("1","1000",1,1);
 
-        GiftType giftType1=new GiftType("1000",1,1);
-        Gift gift1=new Gift("2",giftType1);
+        GiftType giftType1=new GiftType("2","100",1,1);
 
-        GiftType giftType2=new GiftType("100",10,1);
-        Gift gift2=new Gift("3",giftType2);
+        GiftType giftType2=new GiftType("3","50",10,2);
 
-        GiftType giftType3=new GiftType("50",20,10);
-        Gift gift3=new Gift("4",giftType3);
+        GiftType giftType3=new GiftType("4","20",20,10);
 
-        GiftType giftType4=new GiftType("20",50,20);
-        Gift gift4=new Gift("5",giftType4);
+        GiftType giftType4=new GiftType("5","10",50,20);
 
-        GiftType giftType5=new GiftType("10",99,50);
-        Gift gift5=new Gift("6",giftType5);
+        GiftType giftType5=new GiftType("6","1",999,50);
 
-        GiftType giftType6=new GiftType("1",99999,80);
-        Gift gift6=new Gift("7",giftType6);
+        GiftType giftType6=new GiftType("7","1",999,80);
 
-        GiftType giftType7=new GiftType("谢谢参与",99999999,100);
-        Gift gift7=new Gift("8",giftType7);
+        GiftType giftType7=new GiftType("8","谢谢参与",9999,98);
 
-        gifts.add(gift);
-        gifts.add(gift1);
-        gifts.add(gift2);
-        gifts.add(gift3);
-        gifts.add(gift4);
-        gifts.add(gift5);
-        gifts.add(gift6);
-        gifts.add(gift7);
+        gifts.add(giftType);
+        gifts.add(giftType1);
+        gifts.add(giftType2);
+        gifts.add(giftType3);
+        gifts.add(giftType4);
+        gifts.add(giftType5);
+        gifts.add(giftType6);
+        gifts.add(giftType7);
 
     }
 
     // 抽奖
-    public synchronized Gift getGift() {
+    public synchronized GiftType getGift() {
         int randomNumber = (int) (Math.random() * total());
         int priority = 0;
-        for (Gift g : gifts) {
-            priority += g.getType().getPriority();
+        for (GiftType g : gifts) {
+            priority += g.getPriority();
             if (priority >= randomNumber) {
                 // 从奖品库移出奖品
-                gifts.remove(g);
+                //gifts.remove(g);
+                g.quantity--;
                 return g;
             }
         }
@@ -147,40 +156,53 @@ public class RaffleController {
 
     private int total() {
         int result = 0;
-        for (Gift g : gifts) {
-            result += g.getType().getPriority();
+        for (GiftType g : gifts) {
+            result += g.getQuantity();
         }
         return result;
     }
 
-    /**
-     * 奖品
-     */
-    class Gift {
-        // 奖品ID
-        private String id;
-        // 这个奖品的类别
-        private GiftType type;
-
-        public Gift(String id, GiftType type) {
-            this.id = id;
-            this.type = type;
-        }
-
-        public GiftType getType() {
-            return type;
-        }
-
-        @Override
-        public String toString() {
-            return "Gift [id=" + id + ", type=" + type + "]";
-        }
-    }
+//    /**
+//     * 奖品
+//     */
+//    class Gift {
+//        // 奖品ID
+//        private String id;
+//        // 这个奖品的类别
+//        private GiftType type;
+//
+//        public void setType(GiftType type) {
+//            this.type = type;
+//        }
+//
+//        public String getId() {
+//            return id;
+//        }
+//
+//        public void setId(String id) {
+//            this.id = id;
+//        }
+//
+//        public Gift(String id, GiftType type) {
+//            this.id = id;
+//            this.type = type;
+//        }
+//
+//        public GiftType getType() {
+//            return type;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return "Gift [id=" + id + ", type=" + type + "]";
+//        }
+//    }
 
     /**
      * 奖品信息
      */
     class GiftType {
+        private String id;
         // 名字
         private String name;
         // 这种奖品的数量，数量越大越容易抽到
@@ -188,7 +210,8 @@ public class RaffleController {
         // 这种奖品的优先级，最小为1，数越大越容易抽到
         private int priority;
 
-        public GiftType(String name, int quantity, int priority) {
+        public GiftType(String id,String name, int quantity, int priority) {
+            this.id=id;
             this.name = name;
             this.quantity = quantity;
             this.priority = priority;
@@ -200,9 +223,36 @@ public class RaffleController {
 
         @Override
         public String toString() {
-            return "GiftType [name=" + name + ", quantity=" + quantity + ", priority=" + priority + "]";
+            return "GiftType [id="+ id +"name=" + name + ", quantity=" + quantity + ", priority=" + priority + "]";
         }
 
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public void setPriority(int priority) {
+            this.priority = priority;
+        }
     }
 
 }

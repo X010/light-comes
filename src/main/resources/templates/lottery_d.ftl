@@ -93,7 +93,7 @@
                     if (r.code == 1) {
                         floatimg.style.display = "block";
                     } else {
-                        alert("没有中奖！");
+                        alert("谢谢参与！");
                     }
                 }
             });
