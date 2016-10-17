@@ -1,9 +1,9 @@
 package com.light.outside.comes.model;
 
-import com.light.outside.comes.mybatis.mapper.PersistentDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.google.common.base.Strings;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -48,7 +48,13 @@ public class BanquetModel extends BaseModel {
     /**
      * 开始时间
      */
-    private Date open_time;
+    private Date start_time;
+
+
+    /**
+     * 结束时间
+     */
+    private Date end_time;
 
     /**
      * 承办人名称
@@ -56,7 +62,7 @@ public class BanquetModel extends BaseModel {
     private String author_nickname;
 
     /**
-     *  承办人电话
+     * 承办人电话
      */
     private String author_telephone;
 
@@ -71,14 +77,27 @@ public class BanquetModel extends BaseModel {
     private int status;
 
     /**
-     *  承办地址
+     * 承办地址
      */
     private String author_address;
 
     /**
-     * 桌数
+     * 酒水礼品说明
      */
-    private int desk_num;
+    private String info;
+
+    /**
+     * 解析时间
+     */
+    private String rang_time;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public String getTitle() {
         return title;
@@ -112,12 +131,20 @@ public class BanquetModel extends BaseModel {
         this.create_time = create_time;
     }
 
-    public Date getOpen_time() {
-        return open_time;
+    public Date getStart_time() {
+        return start_time;
     }
 
-    public void setOpen_time(Date open_time) {
-        this.open_time = open_time;
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
+    public Date getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
     }
 
     public String getAuthor_nickname() {
@@ -160,11 +187,24 @@ public class BanquetModel extends BaseModel {
         this.author_address = author_address;
     }
 
-    public int getDesk_num() {
-        return desk_num;
+    public String getRang_time() {
+        return rang_time;
     }
 
-    public void setDesk_num(int desk_num) {
-        this.desk_num = desk_num;
+    public void setRang_time(String rang_time) {
+        this.rang_time = rang_time;
+    }
+
+    public void rangle_time() {
+        if (!Strings.isNullOrEmpty(rang_time)) {
+            String[] times = rang_time.split("-");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            try {
+                this.start_time = simpleDateFormat.parse(times[0]);
+                this.end_time = simpleDateFormat.parse(times[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

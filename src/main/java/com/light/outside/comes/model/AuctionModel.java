@@ -1,5 +1,9 @@
 package com.light.outside.comes.model;
 
+import com.google.common.base.Strings;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -33,11 +37,6 @@ public class AuctionModel extends BaseModel {
 
 
     /**
-     * 处理时间
-     */
-    private Date deal_time;
-
-    /**
      * 状态
      */
     private int status;
@@ -57,16 +56,68 @@ public class AuctionModel extends BaseModel {
      */
     private Date create_time;
 
-    /**
-     * 商品ID
-     */
-    private int sku_id;
 
     /**
      * 读秒时间
      */
     private int time_second;
 
+    /**
+     * 商品ID
+     */
+    private long goodsid;
+
+    /**
+     * 时间范围
+     */
+    private String rang_time;
+
+    /**
+     * 开始时间
+     */
+    private Date start_time;
+
+    /**
+     * 结束时间
+     */
+    private Date end_time;
+
+    /**
+     * 商品图片
+     */
+    private String good_photo;
+
+    public String getGood_photo() {
+        return good_photo;
+    }
+
+    public void setGood_photo(String good_photo) {
+        this.good_photo = good_photo;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
+    public Date getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
+    }
+
+    public long getGoodsid() {
+        return goodsid;
+    }
+
+    public void setGoodsid(long goodsid) {
+        this.goodsid = goodsid;
+    }
 
     public String getTitle() {
         return title;
@@ -82,14 +133,6 @@ public class AuctionModel extends BaseModel {
 
     public void setAmount(float amount) {
         this.amount = amount;
-    }
-
-    public Date getDeal_time() {
-        return deal_time;
-    }
-
-    public void setDeal_time(Date deal_time) {
-        this.deal_time = deal_time;
     }
 
     public int getStatus() {
@@ -124,19 +167,33 @@ public class AuctionModel extends BaseModel {
         this.create_time = create_time;
     }
 
-    public int getSku_id() {
-        return sku_id;
-    }
-
-    public void setSku_id(int sku_id) {
-        this.sku_id = sku_id;
-    }
-
     public int getTime_second() {
         return time_second;
     }
 
     public void setTime_second(int time_second) {
         this.time_second = time_second;
+    }
+
+    public String getRang_time() {
+        return rang_time;
+    }
+
+    public void setRang_time(String rang_time) {
+        this.rang_time = rang_time;
+    }
+
+
+    public void rangle_time() {
+        if (!Strings.isNullOrEmpty(rang_time)) {
+            String[] times = rang_time.split("-");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            try {
+                this.start_time = simpleDateFormat.parse(times[0]);
+                this.end_time = simpleDateFormat.parse(times[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

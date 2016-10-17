@@ -1,6 +1,10 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
+import com.light.outside.comes.model.AuctionModel;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.service.QblkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +31,26 @@ public class AuctionService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+    @Autowired
+    private QblkService qblkService;
+
+    /**
+     * 添加拍卖商品
+     *
+     * @param auctionModel
+     */
+    public void addAuction(AuctionModel auctionModel) {
+        Preconditions.checkNotNull(auctionModel);
+        Preconditions.checkArgument(auctionModel.getGoodsid() > 0);
+
+        Commodity commodity = this.qblkService.getCommodityById(auctionModel.getGoodsid());
+
+        if (commodity != null) {
+            auctionModel.setGood_photo(commodity.getPicture());
+
+            this.persistentDao.addAuction(auctionModel);
+        }
+    }
+
 }

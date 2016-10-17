@@ -58,6 +58,16 @@ public class QblkService {
         return commodities;
     }
 
+    /**
+     * 获取商品
+     *
+     * @param id
+     * @return
+     */
+    public Commodity getCommodityById(long id) {
+        return this.readDao.getCommodityById(id);
+    }
+
 
     public List<CommodityCategory> getCommodityCategoryByCategoryName(String categoryname) {
         Preconditions.checkNotNull(categoryname);
