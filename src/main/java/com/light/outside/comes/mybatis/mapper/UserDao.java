@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
  * Created by b3st9u on 16/10/16.
  */
 public interface UserDao {
-    @Select("select id,user_name,`password`,`status` from comes_admin_users where user_name=#{user_name} and `password`=#{password}")
+    @Select("select id,real_name,head_img,user_name,`password`,`status` from comes_admin_users where user_name=#{user_name} and `password`=#{password}")
     public UsersModel queryUserByPwd(@Param("user_name") String user_name, @Param("password") String password);
 
 

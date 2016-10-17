@@ -11,10 +11,12 @@
     <a class="left" onclick="window.history.back();">
         <img src="/images/back.png"/>
     </a>
+
     <p>抽奖活动</p>
 </header>
 <div id="container">
     <img src="/images/bg.png"/>
+
     <div class="top">
         <p>抽奖次数:<span class="count">3</span><span>次</span></p>
     </div>
@@ -25,11 +27,13 @@
     </div>
     <div id="down">
         <p>获取人名单</p>
+
         <div class="downarrow"></div>
     </div>
 </div>
 <div id="downlist">
     <p>获取人名单</p>
+
     <div class="list">
         <div class="person">
             <img src="/images/header.png"/>
@@ -64,6 +68,7 @@
 
     </div>
 </div>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     var cont = document.getElementById("container");
     var list = document.getElementById("downlist");
@@ -74,9 +79,26 @@
         cont.style.display = "none";
         list.style.display = "block";
     }
-    center.onclick = function () {
-        floatimg.style.display = "block";
-    }
+    //提交到后端抽奖
+    //center.onclick = function () {
+    //floatimg.style.display = "block";
+    //}
+    $(function () {
+        $("#center").click(function () {
+            $.ajax({
+                url: "lottery_draw.action",
+                type: "POST",
+                success: function (result) {
+                    var r = jQuery.parseJSON(result);
+                    if (r.code == 1) {
+                        floatimg.style.display = "block";
+                    } else {
+                        alert("没有中奖！");
+                    }
+                }
+            });
+        });
+    });
     function closeFloat() {
         floatimg.style.display = "none";
     }

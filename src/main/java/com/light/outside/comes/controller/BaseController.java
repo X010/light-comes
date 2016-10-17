@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.admin.UsersModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,14 +30,14 @@ public class BaseController {
 	/**
 	 *
 	 */
-//	public SysUser getUserInfo(){
-//		Object obj = session.getAttribute(SESSION_KEY_USERINFO);
-//		if(obj != null){
-//			return (SysUser)obj;
-//		}else{
-//			return null;
-//		}
-//	}
+	public UsersModel getUserInfo(){
+		Object obj = session.getAttribute(SESSION_KEY_USERINFO);
+		if(obj != null){
+			return (UsersModel)obj;
+		}else{
+			return null;
+		}
+	}
 
 	/**
 	 *

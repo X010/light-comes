@@ -27,6 +27,24 @@ public class UsersModel extends BaseModel {
     private Date create_time;
     private Date update_time;
     private int status;
+    private String real_name;
+    private String head_img;
+
+    public String getHead_img() {
+        return head_img;
+    }
+
+    public void setHead_img(String head_img) {
+        this.head_img = head_img;
+    }
+
+    public String getReal_name() {
+        return real_name;
+    }
+
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
+    }
 
     public String getUser_name() {
         return user_name;
