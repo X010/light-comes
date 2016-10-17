@@ -37,6 +37,7 @@ public interface ReadDao {
 
     /**
      * 根据商品名查询商品
+     *
      * @return
      */
     @Select("select id goodsid,name,price from t_goods where name like #{name}")
@@ -54,7 +55,18 @@ public interface ReadDao {
 
 
     /**
+     * 根据ID获取商品
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from t_goods where id=#{id}")
+    public Commodity getCommodityById(@Param("id") long id);
+
+
+    /**
      * 根据父级名称获取子级名称
+     *
      * @param name
      * @return
      */
@@ -63,6 +75,7 @@ public interface ReadDao {
 
     /**
      * 获取一级分类名称
+     *
      * @return
      */
     @Select("select DISTINCT(category1) as category1  from t_goods_category")
