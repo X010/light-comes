@@ -219,7 +219,6 @@ public class MainFrameController {
      */
     @RequestMapping("create_overcharge.action")
     public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-
         return "admin/create_overcharge";
     }
 
@@ -232,7 +231,7 @@ public class MainFrameController {
      * @param overchargedModel
      * @return
      */
-    @RequestMapping("save_overchage.action")
+    @RequestMapping("save_overcharge.action")
     public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel) {
         if (overchargedModel != null) {
             overchargedModel.rangle_time();
@@ -254,6 +253,10 @@ public class MainFrameController {
      */
     @RequestMapping("overcharge_list.action")
     public String overcharge_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        PageResult<OverchargedModel> overchargedModelPageResult = this.overchargedService.getOverchargeds(pageModel);
+        if (overchargedModelPageResult != null) {
+            data.put("overchargeds", overchargedModelPageResult);
+        }
         return "admin/overcharge_list";
     }
 

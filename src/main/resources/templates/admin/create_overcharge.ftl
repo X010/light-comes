@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form id="create_overcharge_form" method="post">
+    <form id="create_overcharge_form" action="/admin/save_overcharge.action" method="post">
         <section class="content">
             <div class="row">
                 <div class="col-md-12">

@@ -21,15 +21,37 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>内容</th>
-                                <th>状态</th>
-                                <th>类型</th>
-                                <th>预约时间</th>
-                                <th>联系人</th>
-                                <th>联系电话</th>
-                                <th>评价</th>
+                                <th>名称</th>
+                                <th>底价(元)</th>
+                                <th>砍价幅度(元)</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                                <th>创建时间</th>
+                                <th>商品名称</th>
                                 <th>操作</th>
                             </tr>
+                            <#if overchargeds??>
+                                <#if overchargeds.data??>
+                                    <#list overchargeds.data as overcharged>
+                                        <tr>
+                                            <td>${overcharged.id}</td>
+                                            <td>${overcharged.title}</td>
+                                            <td>${overcharged.amount}</td>
+                                            <td>${overcharged.subtract_price}</td>
+                                            <td>${overcharged.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td>${overcharged.end_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td>${overcharged.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                            <td>${overcharged.good_name}</td>
+                                            <td>
+                                                <a class="badge  bg-green" href="#">编缉</a>
+                                                &nbsp;&nbsp;
+                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </#list>
+                                </#if>
+                            </#if>
                         </table>
                     </div>
                 </div>

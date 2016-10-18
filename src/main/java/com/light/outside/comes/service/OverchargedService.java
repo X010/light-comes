@@ -2,11 +2,15 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.OverchargedModel;
-import com.light.outside.comes.mybatis.mapper.OverchargedDao;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
+import com.light.outside.comes.qbkl.model.Commodity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,10 +34,6 @@ public class OverchargedService {
 
 
     @Autowired
-    private OverchargedDao overchargedDao;
-
-
-    @Autowired
     private PersistentDao persistentDao;
 
 
@@ -48,6 +48,31 @@ public class OverchargedService {
     public void addOverChage(OverchargedModel overchargedModel) {
         Preconditions.checkNotNull(overchargedModel);
 
+        if (overchargedModel.getGoodsid() > 0) {
+            Commodity commodity = this.readDao.getCommodityById(overchargedModel.getGoodsid());
+            if (commodity != null) {
+                overchargedModel.setGood_photo(commodity.getPicture());
+                overchargedModel.setGood_name(commodity.getName());
+                this.persistentDao.addOvercharged(overchargedModel);
+            }
+        }
     }
 
+
+    /**
+     * 获取OverChagred
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<OverchargedModel> getOverchargeds(PageModel pageModel) {
+        int total = this.persistentDao.auctionTotal();
+        List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(pageModel.getStart(), pageModel.getSize());
+        PageResult<OverchargedModel> overchargedModelPageResult = new PageResult<OverchargedModel>();
+        overchargedModelPageResult.setData(overchargedModels);
+        overchargedModelPageResult.setPageModel(pageModel);
+        overchargedModelPageResult.setTotal(total);
+
+        return overchargedModelPageResult;
+    }
 }

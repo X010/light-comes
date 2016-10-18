@@ -68,7 +68,7 @@ public class AuctionService {
      * @return
      */
     public PageResult<AuctionModel> getAuctions(PageModel pageModel) {
-        int total = this.persistentDao.rafflesTotal();
+        int total = this.persistentDao.auctionTotal();
         List<AuctionModel> auctionModels = this.persistentDao.getAuctions(pageModel.getStart(), pageModel.getSize());
         PageResult<AuctionModel> auctionModelPageResult = new PageResult<AuctionModel>();
         auctionModelPageResult.setData(auctionModels);

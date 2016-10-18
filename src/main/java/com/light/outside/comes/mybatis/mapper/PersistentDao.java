@@ -101,4 +101,15 @@ public interface PersistentDao {
             "values(#{title},#{amount},#{status},#{deposit},#{setp_amount},#{time_second},#{create_time},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addAuction(AuctionModel auctionModel);
+
+    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name)" +
+            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addOvercharged(OverchargedModel overchargedModel);
+
+    @Select("select count(1) from comes_overcharged where status<>9")
+    public int overchargedTotal();
+
+    @Select("select * from comes_overcharged where status<>9 limit #{start},#{size}")
+    public List<OverchargedModel> getOverchargeds(@Param("start") int start, @Param("size") int size);
 }
