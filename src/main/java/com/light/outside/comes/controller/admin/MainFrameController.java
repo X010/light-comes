@@ -7,6 +7,7 @@ import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.BanquetService;
+import com.light.outside.comes.service.OverchargedService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.MainFrameService;
 import com.light.outside.comes.utils.CONST;
@@ -59,6 +60,9 @@ public class MainFrameController {
 
     @Autowired
     private AuctionService auctionService;
+
+    @Autowired
+    private OverchargedService overchargedService;
 
     @Autowired
     private QblkService qblkService;
@@ -217,6 +221,26 @@ public class MainFrameController {
     public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
 
         return "admin/create_overcharge";
+    }
+
+
+    /**
+     * 保存数据
+     *
+     * @param request
+     * @param response
+     * @param overchargedModel
+     * @return
+     */
+    @RequestMapping("save_overchage.action")
+    public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel) {
+        if (overchargedModel != null) {
+            overchargedModel.rangle_time();
+            overchargedModel.setCreate_time(new Date());
+            overchargedModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+            this.overchargedService.addOverChage(overchargedModel);
+        }
+        return "redirect:/admin/overcharge_list.action";
     }
 
 

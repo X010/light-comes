@@ -16,19 +16,31 @@
 .msg-author img{ display:block; width: 50px; height:50px; float:left; margin:10px;}
 .author{ font-weight:bold;}
 
-#container{ position:absolute;z-index:2;width:100%;height:93%;top:7%;left:0px;}
+#container{ position:absolute;width:100%;height:93%;top:7%;left:0px;}
 #container img{width:100%; height:100%;}
 .top{ position: absolute; top:20%; left: 20%;}
 .top p{ color:rgb(96,27,77); font-weight:bolder;font-size: 3.2rem;}
 .top span{color:rgb(255,193,64);}
 .count{  font-size: 6rem;}
-#center{ position: absolute; width: 46rem; height: 46rem; top:31%; left:12%; background: url("../images/lottery.png") no-repeat; background-size: 100%;}
+#center{ position: absolute; width: 77%; height: 49%; top:31%; left:12%; }
+td{ display: block; width: 30%; height: 100%; float:left; margin-left: 2%;}
+td span{width: 200px; height: 200px; position: absolute;}
+#start{ border: none; background-color: #fff;}
+.lot1{ background: url("../images/1000.png"); background-size: 100%; }
+.lot2{ background: url("../images/1000.png"); background-size: 100%; }
+.lot3{ background: url("../images/1000.png"); background-size: 100%; }
+.lot4{ background: url("../images/1000.png"); background-size: 100%; }
+.lot5{ background: url("../images/1000.png"); background-size: 100%; }
+.lot6{ background: url("../images/1000.png"); background-size: 100%; }
+.lot7{ background: url("../images/1000.png"); background-size: 100%; }
+.lot8{ background: url("../images/1000.png"); background-size: 100%; }
+#click{ background: url("../images/click.png"); background-size: 100%;}
 #floatimg{ position:absolute; z-index:9; width: 100%; height:100%; top:0;  display: none;}
 #floatimg img{width: 100%; height: 100%;}
 #down{ position: absolute; bottom:20px; text-align: center; margin:0 auto; width: 100%;color:#fff;}
 #down p{ font-size:3rem;}
 .downarrow{ width: 3rem; height:3rem; text-align: center; background: url("../images/down.png") no-repeat; background-size: 100%; margin: 20px auto;}
-#downlist{ position: absolute; width: 100%; top:10%; display: none;}
+#downlist{ position: absolute; width: 100%; height: 90%; top:110%;}
 #downlist p{ font-size: 2.8rem; text-align: center;}
 .list{ margin: 60px auto; width: 70%;}
 .person{ width: 100%; line-height: 100px; margin:20px 0;}
