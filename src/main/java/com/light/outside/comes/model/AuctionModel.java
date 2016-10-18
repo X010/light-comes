@@ -87,6 +87,19 @@ public class AuctionModel extends BaseModel {
      */
     private String good_photo;
 
+    /**
+     * 商品名称
+     */
+    private String good_name;
+
+    public String getGood_name() {
+        return good_name;
+    }
+
+    public void setGood_name(String good_name) {
+        this.good_name = good_name;
+    }
+
     public String getGood_photo() {
         return good_photo;
     }

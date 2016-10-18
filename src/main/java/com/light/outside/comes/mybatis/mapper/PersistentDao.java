@@ -97,8 +97,8 @@ public interface PersistentDao {
     @Select("select * from comes_auction where status<>9 limit #{start},#{size}")
     public List<AuctionModel> getAuctions(@Param("start") int start, @Param("size") int size);
 
-    @Insert("insert into comes_auction(title,amount,status,deposit,setp_amount,time_second,create_time,goodsid,start_time,end_time,good_photo)" +
-            "values(#{title},#{amount},#{status},#{deposit},#{setp_amount},#{time_second},#{create_time},#{goodsid},#{start_time},#{end_time},#{good_photo})")
+    @Insert("insert into comes_auction(title,amount,status,deposit,setp_amount,time_second,create_time,goodsid,start_time,end_time,good_photo,good_name)" +
+            "values(#{title},#{amount},#{status},#{deposit},#{setp_amount},#{time_second},#{create_time},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addAuction(AuctionModel auctionModel);
 }

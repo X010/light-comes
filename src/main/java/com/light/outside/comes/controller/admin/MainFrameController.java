@@ -205,6 +205,20 @@ public class MainFrameController {
         return "admin/raffle_report";
     }
 
+    /**
+     * 创建砍价商品
+     *
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("create_overcharge.action")
+    public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+
+        return "admin/create_overcharge";
+    }
+
 
     /**
      * 确价商品列表
@@ -244,7 +258,8 @@ public class MainFrameController {
     public String save_auction(AuctionModel auctionModel) {
         if (auctionModel != null) {
             auctionModel.rangle_time();
-
+            auctionModel.setCreate_time(new Date());
+            auctionModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             this.auctionService.addAuction(auctionModel);
         }
         return "redirect:/admin/auction_list.action";
@@ -261,6 +276,10 @@ public class MainFrameController {
      */
     @RequestMapping("auction_list.action")
     public String auction_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        PageResult<AuctionModel> auctionModelPageResult = this.auctionService.getAuctions(pageModel);
+        if (auctionModelPageResult != null) {
+            data.put("auctions", auctionModelPageResult);
+        }
         return "admin/auction_list";
     }
 

@@ -34,50 +34,10 @@ import java.util.Map;
  * limitations under the License.
  */
 @Controller
-@RequestMapping("admin")
 public class OverchargedController {
 
     @Autowired
     private OverchargedService overchargedService;
 
-    /**
-     * 创建砍价商品
-     *
-     * @param data
-     * @param request
-     * @param response
-     * @return
-     */
-    @RequestMapping("create_overcharge.action")
-    public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
 
-        return "admin/create_overcharge";
-    }
-
-    @RequestMapping("create_overcharge_save.action")
-    public String create_overcharge_save(Map<String, Object> data,OverchargedModel overchargedModel, HttpServletRequest request, HttpServletResponse response) {
-        long sku_id= RequestTools.RequestLong(request,"sku_id",0);
-        if(overchargedModel!=null){
-            overchargedModel.setSku_id(sku_id);
-            overchargedModel.setCreate_time(new Date());
-            overchargedModel.setStatus(0);
-            int count=overchargedService.saveOvercharged(overchargedModel);
-            System.out.println(count);
-        }
-        return "admin/create_overcharge";
-    }
-
-    @RequestMapping("query_goods.action")
-    @ResponseBody
-    public String queryGoodsByName(HttpServletRequest request, HttpServletResponse response){
-        String name=request.getParameter("name");
-        List<Commodity> commodityList= overchargedService.queryCommodityByName(name);
-        return JsonTools.jsonSer(commodityList);
-    }
-
-    @RequestMapping("overcharged_list.action")
-    public String queryOverchargeds(HttpServletRequest request, HttpServletResponse response){
-
-        return "";
-    }
 }

@@ -8,28 +8,19 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary">
-                    <form id="create_overcharge_form" name="create_overcharge_form" action="create_overcharge_save.action" method="post">
+    <form id="create_overcharge_form" method="post">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+
                         <div class="box-header with-border">
                             <h3 class="box-title">砍价商品</h3>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="title">砍价活动名</label>
+                                <label for="title">砍价活动名称</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="砍价活动名">
-                            </div>
-                            <div class="form-group">
-                                <label>选择砍价商品</label>
-                                <div class="input-group m-b">
-                                    <input type="text" class="form-control" name="goodsName" id="goodsName"> <span
-                                        class="input-group-btn">
-                            <button type="button" class="btn btn-primary" onclick="queryGoods()">查询
-                            </button> </span></div>
-                                <select id="sku_id" name="sku_id" class="form-control">
-                                </select>
                             </div>
                             <div class="form-group">
                                 <label>活动起始时间:</label>
@@ -38,34 +29,57 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="end_time" id="end_time"/>
+                                    <input type="text" class="form-control pull-right" name="rang_time" id="rang_time"/>
                                 </div>
                                 <!-- /.input group -->
                             </div>
-                            <div class="form-group">
-                                <label for="每次减少价格"></label>
-                                <input type="number" name="subtract_price" class="form-control" id="subtract_price"
-                                       placeholder="每次减少价格">
-                            </div>
-                            <div class="form-group">
-                                <label for="底价"></label>
-                                <input type="number" name="lower_price" class="form-control" id="lower_price"
-                                       placeholder="底价">
-                            </div>
-                        </div>
 
-                        <div class="box-footer">
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送
-                                </button>
+
+                            <div class="form-group">
+                                <label for="subtract_price">砍价幅度</label>
+                                <input type="number" name="subtract_price" class="form-control" id="subtract_price"
+                                       placeholder="如：1">
                             </div>
-                            <button type="reset" class="btn btn-default"><i class="fa fa-times"></i>取消</button>
+                            <div class="form-group">
+                                <label for="amount">底价</label>
+                                <input type="number" name="amount" class="form-control" id="amount"
+                                       placeholder="如：2">
+                            </div>
+                            <div class="form-group">
+                                <label>绑定商品</label>
+
+                                <div class="input-group input-group-sm">
+                                    <input type="text" name="searchKeyword" id="searchKeyword" class="form-control">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-info btn-flat" onclick="loadSearchCommodity();" type="button">搜索</button>
+                                        </span>
+                                </div>
+                                <table id="goods_list" class="table table-striped">
+                                    <thead>
+                                    <th style="width: 10%"></th>
+                                    <th style="width: 40%">名称</th>
+                                    <th style="width: 10%">条码</th>
+                                    <th style="width: 10%">商品编码</th>
+                                    <th style="width: 10%">价格</th>
+                                    <th style="width: 10%">规格</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-footer">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送
+                                    </button>
+                                </div>
+                                <button type="reset" class="btn btn-default"><i class="fa fa-times"></i>取消</button>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </form>
 </div>
 <script lanuage="javascript">
     $(function () {
@@ -73,28 +87,31 @@
         $("#estate").addClass("active");
         setNav("砍价", "创建砍价商品");
 
-        $('#end_time').daterangepicker();
-    })
+        $('#rang_time').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD HH:mm:ss'});
+    });
 
-    function queryGoods() {
-        var name = $("#goodsName").val();
-        if (name == '') {
-            alert("请输入商品名称");
-            return;
-        }
+    /**
+     * 搜索商品信息
+     */
+    function loadSearchCommodity() {
+        var searchKeyword = $("#searchKeyword").val();
+
         $.ajax({
-            type: "post",
-            url: "query_goods.action",
-            data: {"name": name},
-            success: function (goods) {
-                ;
-                var data = $.parseJSON(goods);
-                if (data) {
-                    var html = "";
-                    $.each(data, function (i, result) {
-                        html += '<option value=' + result.goodsid + '>' + result.name + '</option>';
-                    })
-                    $("#sku_id").empty().append(html).trigger("chosen:updated");
+            url: "/admin/search_commodity.action?keyword=" + searchKeyword,
+            dataType: "json",
+            success: function (data, textStatus) {
+                $("#goods_list tbody").empty();
+                if (data != null && data.length > 0) {
+                    $.each(data, function (i, val) {
+                        $("#goods_list tbody").append("<tr>" +
+                                "<td><input type='radio' id='goodsid' name='goodsid' value='" + val.id + "' /></td>" +
+                                "<td>" + val.name + "</td>" +
+                                "<td>" + val.barcode + "</td>" +
+                                "<td>" + val.goodscode + "</td>" +
+                                "<td>" + val.price + "</td>" +
+                                "<td>" + val.specification + "</td>" +
+                                "</tr>");
+                    });
                 }
             }
         });

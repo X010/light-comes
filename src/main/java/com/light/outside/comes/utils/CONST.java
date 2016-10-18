@@ -25,6 +25,7 @@ public class CONST {
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
     public static int RAFFLE_STATUS_INIT = 1;//初始化
     public static int RAFFLE_STATUS_DELETE = 9;//删除
+    public static int RAFFLE_STATUS_OVER = 8;//结束
 
     public static String EDIT = "EDIT";//修改的标识
 

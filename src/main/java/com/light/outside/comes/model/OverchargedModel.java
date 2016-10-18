@@ -1,10 +1,9 @@
 package com.light.outside.comes.model;
 
-import com.light.outside.comes.mybatis.mapper.PersistentDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.google.common.base.Strings;
 
-import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,12 +23,7 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class OverchargedModel implements Serializable {
-
-    /**
-     * 商品ID
-     */
-    private long sku_id;
+public class OverchargedModel extends BaseModel {
 
     /**
      * 创建时间
@@ -40,16 +34,6 @@ public class OverchargedModel implements Serializable {
      * 底价
      */
     private float amount;
-
-    /**
-     * 保证金
-     */
-    private float deposit;
-
-    /**
-     * 处理时间
-     */
-    private Date deal_time;
 
     /**
      * 砍价范围
@@ -66,12 +50,83 @@ public class OverchargedModel implements Serializable {
      */
     private int status;
 
-    public long getSku_id() {
-        return sku_id;
+
+    /**
+     * 商品ID
+     */
+    private long goodsid;
+
+    /**
+     * 时间范围
+     */
+    private String rang_time;
+
+    /**
+     * 开始时间
+     */
+    private Date start_time;
+
+    /**
+     * 结束时间
+     */
+    private Date end_time;
+
+    /**
+     * 商品图片
+     */
+    private String good_photo;
+
+    /**
+     * 商品名称
+     */
+    private String good_name;
+
+    public long getGoodsid() {
+        return goodsid;
     }
 
-    public void setSku_id(long sku_id) {
-        this.sku_id = sku_id;
+    public void setGoodsid(long goodsid) {
+        this.goodsid = goodsid;
+    }
+
+    public String getRang_time() {
+        return rang_time;
+    }
+
+    public void setRang_time(String rang_time) {
+        this.rang_time = rang_time;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
+    public Date getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
+    }
+
+    public String getGood_photo() {
+        return good_photo;
+    }
+
+    public void setGood_photo(String good_photo) {
+        this.good_photo = good_photo;
+    }
+
+    public String getGood_name() {
+        return good_name;
+    }
+
+    public void setGood_name(String good_name) {
+        this.good_name = good_name;
     }
 
     public Date getCreate_time() {
@@ -90,21 +145,6 @@ public class OverchargedModel implements Serializable {
         this.amount = amount;
     }
 
-    public float getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(float deposit) {
-        this.deposit = deposit;
-    }
-
-    public Date getDeal_time() {
-        return deal_time;
-    }
-
-    public void setDeal_time(Date deal_time) {
-        this.deal_time = deal_time;
-    }
 
     public float getSubtract_price() {
         return subtract_price;
@@ -128,5 +168,18 @@ public class OverchargedModel implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void rangle_time() {
+        if (!Strings.isNullOrEmpty(rang_time)) {
+            String[] times = rang_time.split("-");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            try {
+                this.start_time = simpleDateFormat.parse(times[0]);
+                this.end_time = simpleDateFormat.parse(times[1]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -21,15 +21,51 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>内容</th>
-                                <th>状态</th>
-                                <th>类型</th>
-                                <th>预约时间</th>
-                                <th>联系人</th>
-                                <th>联系电话</th>
-                                <th>评价</th>
+                                <th>标题</th>
+                                <th>活动开始时间</th>
+                                <th>活动结束时间</th>
+                                <th>创建时间</th>
+                                <th>最低保证金(元)</th>
+                                <th>超拍价格(元)</th>
+                                <th>拍卖商品名称</th>
+                                <th>加价(元)</th>
                                 <th>操作</th>
                             </tr>
+                        <#if auctions??>
+                            <#if auctions.data??>
+                                <#list auctions.data as auction>
+                                    <tr>
+                                        <td>${auction.id}</td>
+                                        <td>${auction.title}</td>
+                                        <td> ${auction.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td>
+                                        ${auction.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                        ${auction.create_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                        ${auction.deposit}
+                                        </td>
+                                        <td>
+                                        ${auction.amount}
+                                        </td>
+                                        <td>
+                                        ${auction.good_name}
+                                        </td>
+                                        <td>
+                                        ${auction.setp_amount}
+                                        </td>
+                                        <td>
+                                            <a class="badge  bg-green" href="#">编缉</a>
+                                            &nbsp;&nbsp;
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该拍卖活动')){window.location.href='#';}">停用
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>

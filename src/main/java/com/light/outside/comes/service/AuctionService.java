@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.AuctionModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
-import com.light.outside.comes.model.RaffleModel;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
@@ -57,13 +56,14 @@ public class AuctionService {
 
         if (commodity != null) {
             auctionModel.setGood_photo(commodity.getPicture());
-
+            auctionModel.setGood_name(commodity.getName());
             this.persistentDao.addAuction(auctionModel);
         }
     }
 
     /**
      * 查询拍卖列表
+     *
      * @param pageModel
      * @return
      */
@@ -80,15 +80,13 @@ public class AuctionService {
 
     /**
      * 根据ID查询拍卖详情
+     *
      * @param id
      * @return
      */
-    public AuctionModel queryAuctionById(int id){
+    public AuctionModel queryAuctionById(int id) {
         return auctionDao.getAuctionsById(id);
     }
-
-
-
 
 
 }
