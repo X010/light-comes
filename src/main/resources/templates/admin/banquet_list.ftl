@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="pull-right">
-                            <a href="/fun/minizone/worko/worko_list.shtml" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建工单</a>
+                            <a href="/admin/create_banquet.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建饭局</a>
                         </div>
                     </div>
                     <div class="box-body">
