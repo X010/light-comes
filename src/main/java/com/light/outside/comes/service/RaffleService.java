@@ -9,8 +9,7 @@ import com.light.outside.comes.utils.CouponCardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -73,7 +72,6 @@ public class RaffleService {
                 couponRecordModel.setTitle(couponModel.getTitle());
                 couponRecordModel.setUse_end_time(couponModel.getUse_end_time());
                 couponRecordModel.setUse_start_time(couponModel.getUse_start_time());
-
                 //进行存储
                 this.persistentDao.addCouponRecord(couponRecordModel);
             }
@@ -229,5 +227,50 @@ public class RaffleService {
             raffleModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.persistentDao.editRaffle(raffleModel);
         }
+    }
+
+
+    /**
+     * 初始化奖品
+     */
+    Map<Long,List<RaffleCouponModel>> raffleMap=new HashMap<Long, List<RaffleCouponModel>>();
+    public void initRaffle(){
+        List<RaffleModel> raffleModels=this.persistentDao.getRaffles(0,100);
+        if(raffleModels!=null&&raffleModels.size()>0) {
+            for(RaffleModel raffleModel:raffleModels) {
+                long rid=raffleModel.getId();
+                List<RaffleCouponModel> raffleCouponModels = this.persistentDao.getRaffleCouponByRaffleId(rid);
+                raffleMap.put(rid,raffleCouponModels);
+            }
+        }
+
+
+    }
+
+    /**
+     * 抽奖
+     * @return
+     */
+    public synchronized RaffleCouponModel drawRaffle(long rid) {
+        List<RaffleCouponModel> raffleCouponModels=null;
+        if(raffleMap!=null&&raffleMap.size()>0){
+            raffleCouponModels=raffleMap.get(rid);
+        }
+        if(raffleCouponModels!=null&&raffleCouponModels.size()>0) {
+            //Collections.shuffle(raffleCouponModels);
+            int randomNumber = (int) (Math.random()*100);
+            int priority = 0;
+            for (RaffleCouponModel g : raffleCouponModels) {
+                priority += g.getWinrate();
+                if (priority >= randomNumber) {
+                    // 若有数量限制需要从奖品库移出奖品
+                    //保存优惠券
+                    generateCoupon(g.getCid());
+                    return g;
+                }
+            }
+        }
+        // 抽奖次数多于奖品时谢谢参与
+        return null;
     }
 }

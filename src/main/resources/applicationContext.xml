@@ -9,7 +9,8 @@
     <task:scheduler id="scheduler" pool-size="10" />
     <task:annotation-driven executor="executor" scheduler="scheduler" />
     <beans>
-        <bean name="raffleController" class="com.light.outside.comes.controller.RaffleController" init-method="initGift"></bean>
+        <!--<bean name="raffleController" class="com.light.outside.comes.controller.RaffleController" init-method="initGift"></bean>-->
+        <bean name="raffleService" class="com.light.outside.comes.service.RaffleService" init-method="initRaffle"></bean>
     </beans>
 
 </beans>

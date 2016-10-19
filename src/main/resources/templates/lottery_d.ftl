@@ -3,18 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>抽奖活动</title>
-    <link href="css/header.css" type="text/css" rel="stylesheet">
-    <link href="css/lottery.css" type="text/css" rel="stylesheet">
+    <link href="/css/header.css" type="text/css" rel="stylesheet">
+    <link href="/css/lottery.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <header>
     <a class="left" onclick="window.history.back();">
-        <img src="images/back.png"/>
+        <img src="/images/back.png"/>
     </a>
     <p>抽奖活动</p>
 </header>
 <div id="container">
-    <img src="images/bg.png"/>
+    <img src="/images/bg.png"/>
     <div class="top">
         <p>抽奖次数:<span class="count">3</span><span>次</span></p>
     </div>
@@ -30,7 +30,7 @@
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
-        <img src="images/float.png"/>
+        <img src="/images/float.png"/>
     </div>
     <div id="down">
         <p>获取人名单</p>
@@ -41,38 +41,39 @@
     <p>获取人名单</p>
     <div class="list">
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
         <div class="person">
-            <img src="images/header.png"/>
+            <img src="/images/header.png"/>
             <span class="name">青岛啤酒|</span>
             <span class="project">穿越丝路</span>
         </div>
 
     </div>
 </div>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     window.onload=function(){
         setTimeout(function() {
@@ -177,7 +178,7 @@
             //click.setAttribute("value","请抽奖");
         }
 
-        center.rows[arr[index][0]].cells[arr[index][1]].style.background="url(images/lq.png)";
+        center.rows[arr[index][0]].cells[arr[index][1]].style.background="url(/images/lq.png)";
         center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize="100%";
         if(index>0)
             prevIndex=index-1;
@@ -190,18 +191,47 @@
 
     for(i=0;i<span.length;i++){
         span[i].onclick = function(){
-            if(number>0){
-                floatimg.style.display = "block";
-                number--;
-                console.log(number);
-            }
-            else{alert("下次再来!")}
+            $.ajax({
+                url: "lottery_draw.action",
+                type: "POST",
+                success: function (result) {
+                    var r = jQuery.parseJSON(result);
+                    if (r.code == 1) {
+                        floatimg.style.display = "block";
+                    } else {
+                        alert("没有中奖！");
+                    }
+                }
+            });
+//            if(number>0){
+//                floatimg.style.display = "block";
+//                number--;
+//                console.log(number);
+//            }
+//            else{alert("下次再来!")}
         }
         floatimg.onclick = function () {
             floatimg.style.display = 'none';
         }
     }
 
+//
+//    $(function () {
+//        $("#center").click(function () {
+//            $.ajax({
+//                url: "lottery_draw.action",
+//                type: "POST",
+//                success: function (result) {
+//                    var r = jQuery.parseJSON(result);
+//                    if (r.code == 1) {
+//                        floatimg.style.display = "block";
+//                    } else {
+//                        alert("没有中奖！");
+//                    }
+//                }
+//            });
+//        });
+//    });
 
 
 </script>
