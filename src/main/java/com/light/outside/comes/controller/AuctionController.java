@@ -1,9 +1,11 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.AuctionModel;
+import com.light.outside.comes.model.AuctionRecordsModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.admin.FocusImageModel;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
@@ -48,7 +50,7 @@ public class AuctionController {
     private FocusImageService focusImageService;
 
     /**
-     * 抽奖列表
+     * 拍卖活动列表
      *
      * @return
      */
@@ -82,6 +84,18 @@ public class AuctionController {
     public String bid(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
         //出价
         float price= Float.parseFloat(request.getParameter("price").toString());
+        long aid=Long.parseLong(request.getParameter("aid").toString());
+        UserModel userModel= (UserModel) request.getSession().getAttribute("user");
+        boolean isSuccess=auctionService.bidAuction(userModel, aid, price);
+        int code=0;
+        String msg="出价失败！";
+        if(isSuccess) {
+            code=1;
+            msg="出价成功！";
+        }
+        data.put("isSuccess", isSuccess);
+        data.put("msg",msg);
+        data.put("code",code);
         //保存出价记录返回结果
         return JsonTools.jsonSer(data);
     }
@@ -89,16 +103,17 @@ public class AuctionController {
     @RequestMapping("auction_detail.acton")
     public String auctionDetail(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
         int auctionId=RequestTools.RequestInt(request,"id",0);
-        AuctionModel auctionModel=new AuctionModel();
         //查询拍卖活动
-        auctionModel=auctionService.queryAuctionById(auctionId);
+        AuctionModel auctionModel=auctionService.queryAuctionById(auctionId);
         //查询出价记录
-
+        List<AuctionRecordsModel> auctionRecordsModels=auctionService.queryAuctionRecordsByAid(auctionId);
         //秒数
         long second=DateUtils.betweenSeconds(auctionModel.getEnd_time());
         auctionModel.setTime_second((int) second);
-        data.put("auction",auctionModel);
-        return "admin/auction";
+        data.put("auction", auctionModel);
+        data.put("auctionRecords",auctionRecordsModels);
+        data.put("second",second);
+        return "admin/auction_d";
     }
 
 }

@@ -54,7 +54,6 @@ public class RaffleService {
     public void generateCoupon(long id) {
         Preconditions.checkNotNull(id > 0);
         CouponModel couponModel = this.persistentDao.getCouponById(id);
-
         if (couponModel != null && couponModel.getStatus() == CONST.RAFFLE_STATUS_INIT) {
             //只有为初始状态才能生成
             int cardNum = couponModel.getNum();
@@ -252,6 +251,8 @@ public class RaffleService {
      * @return
      */
     public synchronized RaffleCouponModel drawRaffle(long rid) {
+        long uid=0;
+        String phone="18888888888";
         List<RaffleCouponModel> raffleCouponModels=null;
         if(raffleMap!=null&&raffleMap.size()>0){
             raffleCouponModels=raffleMap.get(rid);
@@ -265,7 +266,8 @@ public class RaffleService {
                 if (priority >= randomNumber) {
                     // 若有数量限制需要从奖品库移出奖品
                     //保存优惠券
-                    generateCoupon(g.getCid());
+                    CouponRecordModel couponRecordModel=this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL);
+                    this.persistentDao.editCouponRecordStatus(couponRecordModel.getId(),CONST.RAFFLE_STATUS_NORMAL,uid,phone);
                     return g;
                 }
             }

@@ -2,11 +2,13 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.AuctionModel;
+import com.light.outside.comes.model.AuctionRecordsModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.qbkl.service.QblkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,9 +86,28 @@ public class AuctionService {
      * @param id
      * @return
      */
-    public AuctionModel queryAuctionById(int id) {
+    public AuctionModel queryAuctionById(long id) {
         return auctionDao.getAuctionsById(id);
     }
 
+    /**
+     * 出价
+     * @param userModel
+     * @param aid
+     * @param price
+     * @return
+     */
+    public boolean bidAuction(UserModel userModel,long aid,float price){
+        return auctionDao.addAuctionRecords(aid,price,userModel.getId(),userModel.getPhone())>0;
+    }
+
+    /**
+     * 查询出价记录
+     * @param aid
+     * @return
+     */
+    public List<AuctionRecordsModel> queryAuctionRecordsByAid(long aid){
+        return auctionDao.selectAuctionRecordsByAid(aid);
+    }
 
 }
