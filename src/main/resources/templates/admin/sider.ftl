@@ -49,6 +49,14 @@
                     <li><a href="/admin/banquet_list.action"><i class="fa   fa-barcode"></i> <span>约局列表</span></a></li>
                 </ul>
             </li>
+            <li id="user" class="treeview">
+                <a href="#"><i class="fa fa-cogs"></i> <span>设置</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/admin/create_user.action"> <i class="fa  fa-user"></i> <span>新建管理员</span></a></li>
+                    <li><a href="/admin/user_list.action"><i class="fa   fa-users"></i> <span>管理员管理</span></a></li>
+                    <li><a href="/admin/backlist_list.action"><i class="fa    fa-warning"></i> <span>黑名单管理</span></a></li>
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

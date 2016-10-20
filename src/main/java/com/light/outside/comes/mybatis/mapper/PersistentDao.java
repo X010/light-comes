@@ -114,13 +114,13 @@ public interface PersistentDao {
     @Select("select * from comes_auction where id=#{id}")
     public AuctionModel getAuctionById(@Param("id") long id);
 
-    @Insert("insert into comes_auction(title,amount,status,deposit,setp_amount,time_second,create_time,goodsid,start_time,end_time,good_photo,good_name)" +
-            "values(#{title},#{amount},#{status},#{deposit},#{setp_amount},#{time_second},#{create_time},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name})")
+    @Insert("insert into comes_auction(title,amount,status,deposit,setp_amount,time_second,create_time,goodsid,start_time,end_time,good_photo,good_name,memo)" +
+            "values(#{title},#{amount},#{status},#{deposit},#{setp_amount},#{time_second},#{create_time},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{memo})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addAuction(AuctionModel auctionModel);
 
     @Update("update comes_auction  set title=#{title},amount=#{amount},status=#{status},deposit=#{deposit},setp_amount=#{setp_amount},time_second=#{time_second}," +
-            "start_time=#{start_time},end_time=#{end_time} where id=#{id}")
+            "start_time=#{start_time},end_time=#{end_time},memo=#{memo} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
     @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name)" +

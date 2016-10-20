@@ -37,7 +37,9 @@
 
                                 <input type="text" class="form-control"
 
-
+                                <#if auction??>
+                                       value="${auction.memo}"
+                                </#if>
 
                                        name="memo" id="memo" placeholder="填写介绍活动的内容">
                             </div>

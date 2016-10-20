@@ -260,6 +260,7 @@ public class MainFrameController {
 
     /**
      * 删除Overcharged
+     *
      * @param id
      * @return
      */
@@ -566,6 +567,42 @@ public class MainFrameController {
             data.put("coupons", couponModelPageResult);
         }
         return "admin/coupon_list";
+    }
+
+
+    /**
+     * 创建管理员
+     *
+     * @return
+     */
+    @RequestMapping("create_user.action")
+    public String create_user() {
+
+        return "admin/create_user";
+    }
+
+    /**
+     * 管理员管理
+     *
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("user_list.action")
+    public String user_list(PageModel pageModel) {
+
+
+        return "admin/user_list";
+    }
+
+    /**
+     * 黑名单管理
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("backlist_list.action")
+    public String backlist(PageModel pageModel) {
+
+        return "admin/backlist";
     }
 
     /**
