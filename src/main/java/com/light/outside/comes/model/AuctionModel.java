@@ -1,6 +1,7 @@
 package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
+import com.light.outside.comes.utils.CONST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -101,7 +102,7 @@ public class AuctionModel extends BaseModel {
     }
 
     public String getGood_photo() {
-        return good_photo;
+        return CONST.QBLK_PHOTO_URL+good_photo;
     }
 
     public void setGood_photo(String good_photo) {

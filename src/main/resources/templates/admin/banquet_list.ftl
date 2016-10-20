@@ -32,57 +32,59 @@
                                 <th>单价</th>
                                 <th>操作</th>
                             </tr>
-                            <#if banquets??>
-                                <#if banquets.data??>
-                                    <#list banquets.data as banquet>
-                                        <tr>
-                                            <td>${banquet.id}</td>
-                                            <td>${banquet.title}</td>
-                                            <td>
-                                                <#if banquet.status==1>
-                                                    创建
-                                                </#if>
-                                                <#if banquet.status==2>
-                                                    正常
-                                                </#if>
-                                                <#if banquet.status==9>
-                                                    停用
-                                                </#if>
-                                            </td>
-                                            <td>
-                                                ${banquet.create_time?string("yyyy-MM-dd HH:mm:ss")}
-                                            </td>
-                                            <td>
-                                                ${banquet.start_time?string("yyyy-MM-dd HH:mm:ss")}
-                                            </td>
-                                            <td>
-                                                ${banquet.end_time?string("yyyy-MM-dd HH:mm:ss")}
-                                            </td>
-                                            <td>${banquet.author_nickname}</td>
-                                            <td>${banquet.author_telephone}</td>
-                                            <td>${banquet.outnumber}</td>
-                                            <td>${banquet.amount}</td>
-                                            <td>
-                                                <a class="badge  bg-green" href="#">编缉</a>
-                                                &nbsp;&nbsp;
-                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </#list>
-                                </#if>
+                        <#if banquets??>
+                            <#if banquets.data??>
+                                <#list banquets.data as banquet>
+                                    <tr>
+                                        <td>${banquet.id}</td>
+                                        <td>${banquet.title}</td>
+                                        <td>
+                                            <#if banquet.status==1>
+                                                创建
+                                            </#if>
+                                            <#if banquet.status==2>
+                                                正常
+                                            </#if>
+                                            <#if banquet.status==9>
+                                                停用
+                                            </#if>
+                                        </td>
+                                        <td>
+                                        ${banquet.create_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                        ${banquet.start_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                        ${banquet.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>${banquet.author_nickname}</td>
+                                        <td>${banquet.author_telephone}</td>
+                                        <td>${banquet.outnumber}</td>
+                                        <td>${banquet.amount}</td>
+                                        <td>
+                                            <a class="badge  bg-green" href="#">编缉</a>
+                                            &nbsp;&nbsp;
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </#list>
                             </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">&raquo;</a></li>
+                <#if banquets??>
+                    <#if (banquets.pages>0) >
+                        <#list 1..banquets.pages as i>
+                            <li><a href="/admin/banquet_list.action?page=${i}">${i}</a></li>
+                        </#list>
+                    </#if>
+                </#if>
                 </ul>
             </div>
         </div>

@@ -21,6 +21,7 @@ public class CONST {
 
 
     public static String SITE_URL = "http://www.nmc.com:8001/";
+    public static String QBLK_PHOTO_URL = "http://120.27.154.7:8069/yeshizuile/frontend/web/images/goods/list_img/";
 
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
     public static int RAFFLE_STATUS_INIT = 1;//初始化
