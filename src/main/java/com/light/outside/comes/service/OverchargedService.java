@@ -7,6 +7,7 @@ import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -74,5 +75,35 @@ public class OverchargedService {
         overchargedModelPageResult.setTotal(total);
 
         return overchargedModelPageResult;
+    }
+
+
+    public OverchargedModel getOverchargedModel(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.persistentDao.getOverchargedById(id);
+    }
+
+    /**
+     * 更新
+     *
+     * @param overchargedModel
+     */
+    public void updateOvercharged(OverchargedModel overchargedModel) {
+        Preconditions.checkNotNull(overchargedModel);
+        this.persistentDao.updateOvercharged(overchargedModel);
+    }
+
+    /**
+     * 删除Overcharged对象
+     *
+     * @param id
+     */
+    public void deleteOvercharged(long id) {
+        Preconditions.checkArgument(id > 0);
+        OverchargedModel overchargedModel = this.getOverchargedModel(id);
+        if (overchargedModel != null) {
+            overchargedModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
+            this.updateOvercharged(overchargedModel);
+        }
     }
 }

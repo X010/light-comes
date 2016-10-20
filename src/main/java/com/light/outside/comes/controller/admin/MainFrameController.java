@@ -219,6 +219,14 @@ public class MainFrameController {
      */
     @RequestMapping("create_overcharge.action")
     public String create_overcharge(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action) && !Strings.isNullOrEmpty(id)) {
+            OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(Long.valueOf(id));
+            if (overchargedModel != null) {
+                data.put("overcharged", overchargedModel);
+            }
+        }
         return "admin/create_overcharge";
     }
 
@@ -237,7 +245,32 @@ public class MainFrameController {
             overchargedModel.rangle_time();
             overchargedModel.setCreate_time(new Date());
             overchargedModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
-            this.overchargedService.addOverChage(overchargedModel);
+
+            String editid = request.getParameter("editid");
+            if (!Strings.isNullOrEmpty(editid)) {
+                overchargedModel.setId(Long.valueOf(editid));
+                this.overchargedService.updateOvercharged(overchargedModel);
+            } else {
+                this.overchargedService.addOverChage(overchargedModel);
+            }
+        }
+        return "redirect:/admin/overcharge_list.action";
+    }
+
+
+    /**
+     * 删除Overcharged
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_overcharged.action")
+    public String delete_overcharged(@RequestParam("id") long id) {
+        if (id > 0) {
+            try {
+                this.overchargedService.deleteOvercharged(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return "redirect:/admin/overcharge_list.action";
     }
@@ -271,6 +304,14 @@ public class MainFrameController {
      */
     @RequestMapping("create_auction.action")
     public String create_auction(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action) && !Strings.isNullOrEmpty(id)) {
+            AuctionModel auctionModel = this.auctionService.getAuctionById(Long.valueOf(id));
+            if (auctionModel != null) {
+                data.put("auction", auctionModel);
+            }
+        }
         return "admin/create_auction";
     }
 
@@ -282,16 +323,39 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("save_auction.action")
-    public String save_auction(AuctionModel auctionModel) {
-        if (auctionModel != null) {
-            auctionModel.rangle_time();
-            auctionModel.setCreate_time(new Date());
-            auctionModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
-            this.auctionService.addAuction(auctionModel);
+    public String save_auction(AuctionModel auctionModel, HttpServletRequest request) {
+        String editId = request.getParameter("editid");
+        auctionModel.rangle_time();
+        auctionModel.setCreate_time(new Date());
+        auctionModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+        if (!Strings.isNullOrEmpty(editId)) {
+            //修改
+            auctionModel.setId(Long.valueOf(editId));
+            this.auctionService.updateAuction(auctionModel);
+        } else {
+            //新建
+            if (auctionModel != null) {
+                this.auctionService.addAuction(auctionModel);
+            }
         }
         return "redirect:/admin/auction_list.action";
     }
 
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_auction.action")
+    public String delete_auction(@RequestParam("id") long id) {
+        try {
+            this.auctionService.deleteAuction(Long.valueOf(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/admin/auction_list.action";
+    }
 
     /**
      * 卖列表
@@ -321,6 +385,14 @@ public class MainFrameController {
      */
     @RequestMapping("create_banquet.action")
     public String create_banquet(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action) && !Strings.isNullOrEmpty(id)) {
+            BanquetModel banquetModel = this.banquetService.getBanquetById(Long.valueOf(id));
+            if (banquetModel != null) {
+                data.put("banquet", banquetModel);
+            }
+        }
         return "admin/create_banquet";
     }
 
@@ -336,7 +408,16 @@ public class MainFrameController {
             banquetModel.rangle_time();
             banquetModel.setCreate_time(new Date());
             banquetModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
-            this.banquetService.addBanquet(banquetModel);
+
+
+            String id = request.getParameter("editid");
+
+            if (!Strings.isNullOrEmpty(id)) {
+                banquetModel.setId(Long.valueOf(id));
+                this.banquetService.updateBanquet(banquetModel);
+            } else {
+                this.banquetService.addBanquet(banquetModel);
+            }
         }
         return "redirect:/admin/banquet_list.action";
     }
@@ -358,6 +439,24 @@ public class MainFrameController {
         }
 
         return "admin/banquet_list";
+    }
+
+    /**
+     * 删除饭局
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_banquet.action")
+    public String delete_banquet(@RequestParam("id") long id) {
+        if (id > 0) {
+            try {
+                this.banquetService.deleteBanquet(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/banquet_list.action";
     }
 
 

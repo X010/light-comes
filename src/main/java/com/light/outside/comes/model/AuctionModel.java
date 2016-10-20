@@ -190,7 +190,8 @@ public class AuctionModel extends BaseModel {
     }
 
     public String getRang_time() {
-        return rang_time;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return String.format("%s-%s", simpleDateFormat.format(this.start_time), simpleDateFormat.format(this.end_time));
     }
 
     public void setRang_time(String rang_time) {
