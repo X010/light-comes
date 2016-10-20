@@ -267,7 +267,7 @@ public class RaffleService {
                     // 若有数量限制需要从奖品库移出奖品
                     //保存优惠券
                     CouponRecordModel couponRecordModel=this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL);
-                    this.persistentDao.editCouponRecordStatus(couponRecordModel.getId(),CONST.RAFFLE_STATUS_NORMAL,uid,phone);
+                    this.persistentDao.editCouponRecordStatusById(couponRecordModel.getId(),CONST.RAFFLE_STATUS_NORMAL,uid,phone);
                     return g;
                 }
             }
