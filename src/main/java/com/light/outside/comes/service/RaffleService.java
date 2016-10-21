@@ -374,6 +374,11 @@ public class RaffleService {
         return null;
     }
 
+    /**
+     * 查询中奖纪录
+     * @param cid
+     * @return
+     */
     public List<CouponRecordModel> queryCouponRecords(long cid){
         List<CouponRecordModel> couponRecordModels=this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND,0,10);
         return  couponRecordModels;

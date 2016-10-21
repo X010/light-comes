@@ -5,6 +5,7 @@ import com.light.outside.comes.model.BanquetModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,5 +63,37 @@ public class BanquetService {
         couponModelPageResult.setPageModel(pageModel);
         couponModelPageResult.setTotal(total);
         return couponModelPageResult;
+    }
+
+    /**
+     * 根据ID获取
+     *
+     * @param id
+     * @return
+     */
+    public BanquetModel getBanquetById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.persistentDao.getBanquetById(id);
+    }
+
+
+    /**
+     * 更新Banquet对象
+     *
+     * @param banquetModel
+     */
+    public void updateBanquet(BanquetModel banquetModel) {
+        Preconditions.checkNotNull(banquetModel);
+        this.persistentDao.updateBanquet(banquetModel);
+    }
+
+
+    public void deleteBanquet(long id) {
+        Preconditions.checkArgument(id > 0);
+        BanquetModel banquetModel = this.getBanquetById(id);
+        if (banquetModel != null) {
+            banquetModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
+            this.updateBanquet(banquetModel);
+        }
     }
 }

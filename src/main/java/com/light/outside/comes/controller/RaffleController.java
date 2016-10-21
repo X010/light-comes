@@ -85,6 +85,13 @@ public class RaffleController {
         return "lottery_d";
     }
 
+    /**
+     * 抽奖
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("lottery_draw.action")
     @ResponseBody
     public String lottery_draw(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response){

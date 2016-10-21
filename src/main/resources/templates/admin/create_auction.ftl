@@ -10,6 +10,9 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <form action="/admin/save_auction.action" method="post">
+    <#if auction??>
+        <input type="hidden" id="editid" name="editid" value="${auction.id}"/>
+    </#if>
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -20,12 +23,25 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">拍卖商品名称</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="拍卖活动：长城干红500ml">
+                                <input type="text" class="form-control"
+
+                                <#if auction??>
+                                       value="${auction.title}"
+                                </#if>
+
+                                       name="title" id="title" placeholder="拍卖活动：长城干红500ml">
+
                             </div>
                             <div class="form-group">
                                 <label for="title">活动说明:</label>
 
-                                <input type="text" class="form-control" name="memo" id="memo" placeholder="填写介绍活动的内容">
+                                <input type="text" class="form-control"
+
+                                <#if auction??>
+                                       value="${auction.memo}"
+                                </#if>
+
+                                       name="memo" id="memo" placeholder="填写介绍活动的内容">
                             </div>
                             <div class="form-group">
                                 <label>活动起始时间:</label>
@@ -34,21 +50,40 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="rang_time" id="rang_time"/>
+                                    <input type="text" class="form-control pull-right"
+
+                                           <#if auction??>
+                                           value="${auction.rang_time}"
+                                           </#if>
+
+                                           name="rang_time" id="rang_time"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>最低保证金（元）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="deposit" id="deposit" placeholder="如：1">
+                                    <input type="number" class="form-control"
+
+                                           <#if auction??>
+                                               value="${auction.deposit}"
+                                           </#if>
+
+                                           name="deposit" id="deposit" placeholder="如：1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>起拍价格（元）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="amount" id="amount" placeholder="如：20">
+                                    <input type="number" class="form-control"
+
+                                    <#if auction??>
+                                           value="${auction.amount}"
+                                    </#if>
+
+
+                                           name="amount" id="amount" placeholder="如：20">
                                 </div>
                             </div>
 
@@ -56,7 +91,13 @@
                                 <label>加价幅度（元）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="setp_amount" id="setp_amount" placeholder="如：5">
+                                    <input type="number" class="form-control"
+
+                                    <#if auction??>
+                                           value="${auction.setp_amount}"
+                                    </#if>
+
+                                           name="setp_amount" id="setp_amount" placeholder="如：5">
                                 </div>
                             </div>
 
@@ -64,7 +105,13 @@
                                 <label>提前读秒时间数（分钟）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="time_second" id="time_second" placeholder="如：30">
+                                    <input type="number" class="form-control"
+
+                                    <#if auction??>
+                                           value="${auction.time_second}"
+                                    </#if>
+
+                                           name="time_second" id="time_second" placeholder="如：30">
                                 </div>
                             </div>
 
@@ -72,9 +119,20 @@
                                 <label>绑定商品</label>
 
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="searchKeyword" id="searchKeyword" class="form-control">
+                                    <input type="text" name="searchKeyword"
+                                    <#if auction??>
+                                           value="${auction.good_name}"
+
+                                            disabled
+                                    </#if>
+
+                                           id="searchKeyword" class="form-control">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-info btn-flat" onclick="loadSearchCommodity();" type="button">搜索</button>
+                                            <button class="btn btn-info btn-flat"
+                                                <#if auction??>
+                                                disabled
+                                                </#if>
+                                                    onclick="loadSearchCommodity();" type="button">搜索</button>
                                         </span>
                                 </div>
                                 <table id="goods_list" class="table table-striped">

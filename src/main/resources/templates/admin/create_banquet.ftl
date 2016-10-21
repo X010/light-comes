@@ -9,6 +9,10 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <form action="/admin/save_banquet.action" method="post">
+    <#if banquet??>
+        <input id="editid" name="editid" value="${banquet.id}" type="hidden" />
+    </#if>
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -19,12 +23,21 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">饭局名称</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="如：东来顺商务餐">
+                                <input type="text" class="form-control"
+                                       <#if banquet??>
+                                           value="${banquet.title}"
+                                       </#if>
+
+                                       name="title" id="title" placeholder="如：东来顺商务餐">
                             </div>
                             <div class="form-group">
                                 <label for="title">活动说明</label>
 
-                                <input type="text" class="form-control" name="memo" id="memo" placeholder="填写介绍活动的内容">
+                                <input type="text" class="form-control"
+                                <#if banquet??>
+                                       value="${banquet.memo}"
+                                </#if>
+                                       name="memo" id="memo" placeholder="填写介绍活动的内容">
                             </div>
                             <div class="form-group">
                                 <label>活动起始时间</label>
@@ -33,41 +46,65 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="rang_time" id="rang_time"/>
+                                    <input type="text" class="form-control pull-right"
+                                    <#if banquet??>
+                                           value="${banquet.rang_time}"
+                                    </#if>
+                                           name="rang_time" id="rang_time"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>饭局人数（人）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="outnumber" id="outnumber" placeholder="如：1">
+                                    <input type="number" class="form-control" name="outnumber"
+                                    <#if banquet??>
+                                           value="${banquet.outnumber}"
+                                    </#if>
+                                           id="outnumber" placeholder="如：1">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>参与价格（元）</label>
 
                                 <div class="input-group">
-                                    <input type="number" class="form-control" name="amount" id="amount" placeholder="如：500">
+                                    <input type="number" class="form-control"
+                                    <#if banquet??>
+                                           value="${banquet.amount}"
+                                    </#if>
+                                           name="amount" id="amount" placeholder="如：500">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="title">承办人</label>
 
-                                <input type="text" class="form-control" name="author_nickname" id="author_nickname" placeholder="如：张三">
+                                <input type="text" class="form-control"
+                                <#if banquet??>
+                                       value="${banquet.author_nickname}"
+                                </#if>
+                                       name="author_nickname" id="author_nickname" placeholder="如：张三">
                             </div>
                             <div class="form-group">
                                 <label for="title">承办人电话</label>
 
-                                <input type="text" class="form-control" name="author_telephone" id="author_telephone" placeholder="如：18684332100">
+                                <input type="text" class="form-control"
+                                <#if banquet??>
+                                       value="${banquet.author_telephone}"
+                                </#if>
+                                       name="author_telephone" id="author_telephone" placeholder="如：18684332100">
                             </div>
                             <div class="form-group">
                                 <label for="title">承办地址</label>
 
-                                <input type="text" class="form-control" name="author_address" id="author_address" placeholder="如：江东">
+                                <input type="text" class="form-control"
+                                <#if banquet??>
+                                       value="${banquet.author_address}"
+                                </#if>
+                                       name="author_address" id="author_address" placeholder="如：江东">
                             </div>
                             <div class="form-group">
                                 <label for="title">酒水礼品说明</label>
-                                <textarea id="info" name="info" class="form-control" style="height: 300px"></textarea>
+                                <textarea id="info" name="info" class="form-control" style="height: 300px"><#if banquet??>${banquet.info}</#if></textarea>
                             </div>
                         </div>
                         <div class="box-footer">

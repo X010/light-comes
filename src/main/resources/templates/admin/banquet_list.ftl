@@ -63,9 +63,9 @@
                                         <td>${banquet.outnumber}</td>
                                         <td>${banquet.amount}</td>
                                         <td>
-                                            <a class="badge  bg-green" href="#">编缉</a>
+                                            <a class="badge  bg-green" href="/admin/create_banquet.action?action=edit&id=${banquet.id}">编缉</a>
                                             &nbsp;&nbsp;
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_banquet.action?id=${banquet.id}';}">停用
                                             </a>
                                         </td>
                                     </tr>

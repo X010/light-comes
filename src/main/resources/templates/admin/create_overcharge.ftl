@@ -9,6 +9,10 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <form id="create_overcharge_form" action="/admin/save_overcharge.action" method="post">
+
+    <#if overcharged??>
+        <input type="hidden" id="editid" name="editid" value="${overcharged.id}"/>
+    </#if>
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -20,7 +24,11 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">砍价活动名称</label>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="砍价活动名">
+                                <input type="text" class="form-control"
+                                <#if overcharged??>
+                                       value="${overcharged.title}"
+                                </#if>
+                                       name="title" id="title" placeholder="砍价活动名">
                             </div>
                             <div class="form-group">
                                 <label>活动起始时间:</label>
@@ -29,7 +37,11 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="rang_time" id="rang_time"/>
+                                    <input type="text" class="form-control pull-right"
+                                    <#if overcharged??>
+                                           value="${overcharged.rang_time}"
+                                    </#if>
+                                           name="rang_time" id="rang_time"/>
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -37,21 +49,40 @@
 
                             <div class="form-group">
                                 <label for="subtract_price">砍价幅度</label>
-                                <input type="number" name="subtract_price" class="form-control" id="subtract_price"
+                                <input type="number" name="subtract_price"
+                                <#if overcharged??>
+                                       value="${overcharged.subtract_price}"
+                                </#if>
+                                       class="form-control" id="subtract_price"
                                        placeholder="如：1">
                             </div>
                             <div class="form-group">
                                 <label for="amount">底价</label>
-                                <input type="number" name="amount" class="form-control" id="amount"
+                                <input type="number" name="amount"
+                                <#if overcharged??>
+                                       value="${overcharged.amount}"
+                                </#if>
+                                       class="form-control" id="amount"
                                        placeholder="如：2">
                             </div>
                             <div class="form-group">
                                 <label>绑定商品</label>
 
                                 <div class="input-group input-group-sm">
-                                    <input type="text" name="searchKeyword" id="searchKeyword" class="form-control">
+                                    <input type="text" name="searchKeyword"
+                                    <#if overcharged??>
+                                           value="${overcharged.good_name}"
+
+                                           disabled
+                                    </#if>
+                                           id="searchKeyword" class="form-control">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-info btn-flat" onclick="loadSearchCommodity();" type="button">搜索</button>
+                                            <button class="btn btn-info btn-flat"
+                                            <#if overcharged??>
+                                                    disabled
+                                            </#if>
+                                                    onclick="loadSearchCommodity();" type="button">搜索
+                                            </button>
                                         </span>
                                 </div>
                                 <table id="goods_list" class="table table-striped">

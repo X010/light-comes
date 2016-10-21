@@ -43,9 +43,9 @@
                                             <td>${overcharged.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td>${overcharged.good_name}</td>
                                             <td>
-                                                <a class="badge  bg-green" href="#">编缉</a>
+                                                <a class="badge  bg-green" href="/admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
                                                 &nbsp;&nbsp;
-                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='#';}">停用
+                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
                                                 </a>
                                             </td>
                                         </tr>

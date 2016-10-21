@@ -10,6 +10,7 @@ import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.qbkl.service.QblkService;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -92,22 +93,59 @@ public class AuctionService {
 
     /**
      * 出价
+     *
      * @param userModel
      * @param aid
      * @param price
      * @return
      */
-    public boolean bidAuction(UserModel userModel,long aid,float price){
-        return auctionDao.addAuctionRecords(aid,price,userModel.getId(),userModel.getPhone())>0;
+    public boolean bidAuction(UserModel userModel, long aid, float price) {
+        return auctionDao.addAuctionRecords(aid, price, userModel.getId(), userModel.getPhone()) > 0;
     }
 
     /**
      * 查询出价记录
+     *
      * @param aid
      * @return
      */
-    public List<AuctionRecordsModel> queryAuctionRecordsByAid(long aid){
+    public List<AuctionRecordsModel> queryAuctionRecordsByAid(long aid) {
         return auctionDao.selectAuctionRecordsByAid(aid);
     }
 
+
+    /**
+     * @param id
+     * @return
+     */
+    public AuctionModel getAuctionById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.persistentDao.getAuctionById(id);
+    }
+
+    /**
+     * 更新Auction
+     *
+     * @param auctionModel
+     */
+    public void updateAuction(AuctionModel auctionModel) {
+        Preconditions.checkNotNull(auctionModel);
+        this.persistentDao.updateAuction(auctionModel);
+    }
+
+
+    /**
+     * 删除Auction
+     *
+     * @param id
+     */
+    public void deleteAuction(long id) {
+        Preconditions.checkNotNull(id > 0);
+
+        AuctionModel auctionModel = this.getAuctionById(id);
+        if (auctionModel != null) {
+            auctionModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
+            this.updateAuction(auctionModel);
+        }
+    }
 }

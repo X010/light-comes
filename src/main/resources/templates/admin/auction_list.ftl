@@ -57,9 +57,9 @@
                                         ${auction.setp_amount}
                                         </td>
                                         <td>
-                                            <a class="badge  bg-green" href="#">编缉</a>
+                                            <a class="badge  bg-green" href="/admin/create_auction.action?action=edit&id=${auction.id}">编缉</a>
                                             &nbsp;&nbsp;
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该拍卖活动')){window.location.href='#';}">停用
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该拍卖活动')){window.location.href='/admin/delete_auction.action?id=${auction.id}';}">停用
                                             </a>
                                         </td>
                                     </tr>
