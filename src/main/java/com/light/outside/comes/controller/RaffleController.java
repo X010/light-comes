@@ -78,17 +78,22 @@ public class RaffleController {
      * @return
      */
     @RequestMapping("lottery_d.action")
-    public String lottery_d() {
+    public String lottery_d(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
+        long rid=RequestTools.RequestLong(request,"rid",13);
+        List<CouponRecordModel> couponRecordModels=raffleService.queryCouponRecords(rid);
+        data.put("records",couponRecordModels);
         return "lottery_d";
     }
 
     @RequestMapping("lottery_draw.action")
     @ResponseBody
     public String lottery_draw(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response){
+        long id=RequestTools.RequestLong(request, "id", 22);
         long rid= RequestTools.RequestInt(request,"rid",13);
         int code=0;
         String msg="谢谢参与!";
-        RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(rid);
+        //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
+        RaffleCouponModel raffleCouponModel=raffleService.drawRaffleByRage(id);
         if(raffleCouponModel!=null){
             code=1;
             msg="恭喜你，抽中"+raffleCouponModel.getTitle();

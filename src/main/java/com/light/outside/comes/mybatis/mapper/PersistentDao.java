@@ -35,10 +35,10 @@ public interface PersistentDao {
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
     @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone} where id=#{id}")
-    public void editCouponRecordStatusById(@Param("id") long id, @Param("status") int status,@Param("uid") long uid,@Param("phone") String phone);
+    public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status,@Param("uid") long uid,@Param("phone") String phone);
 
-    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} limit 1")
-    public CouponRecordModel getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status);
+    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} limit #{star},#{size}")
+    public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status,@Param("star") int star,@Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")
     public CouponModel getCouponById(@Param("id") long id);
@@ -65,11 +65,27 @@ public interface PersistentDao {
     @Select("select * from comes_raffle where status<>9 order by id desc limit  #{start},#{size}")
     public List<RaffleModel> getRaffles(@Param("start") int start, @Param("size") int size);
 
-    @Select("select * from comes_raffle_coupon where rid=#{rid}")
+    //@Select("select * from comes_raffle_coupon where rid=#{rid}")
+    @Select("select crc.*,count(ccr.id) quantity  from comes_raffle_coupon crc left join `comes_conpon_records` ccr " +
+            "on crc.cid=ccr.cid " +
+            "WHERE crc.rid=#{rid} " +
+            "and ccr.`status`<>9 " +
+            "group by rid,cid")
     public List<RaffleCouponModel> getRaffleCouponByRaffleId(@Param("rid") long rid);
+
+    @Select("select ccr.id,ccr.title,concat(left(ccr.phone,3),'****',right(phone,4)) phone,ccr.uid,ccr.cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
+            "where ccr.cid=crc.cid " +
+            "and crc.rid=#{rid} " +
+            "and ccr.`status`=#{status} " +
+            "order by ccr.createtime desc " +
+            "limit #{start},#{size}")
+    public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid,@Param("status") int status,@Param("start") int start, @Param("size") int size);
 
     @Delete("delete from comes_raffle_coupon where rid=#{rid}")
     public void deleteRaffleCouponByRaffleId(@Param("rid") long rid);
+
+    @Select("select * from comes_raffle_coupon where id=#{id}")
+    public RaffleCouponModel getRaffleCouponById(@Param("id") long id);
 
     @Insert("insert into comes_raffle(title,start_time,end_time,memo,photo,createtime,status,times)" +
             "values(#{title},#{start_time},#{end_time},#{memo},#{photo},#{createtime},#{status},#{times})")
