@@ -50,11 +50,6 @@
     <p>获取人名单</p>
 
     <div class="list">
-        <div class="person">
-            <img src="/images/header.png"/>
-            <span class="name">青岛啤酒|</span>
-            <span class="project">穿越丝路</span>
-        </div>
     <#if records??>
         <#list records as record>
             <div class="person">
@@ -64,32 +59,6 @@
             </div>
         </#list>
     </#if>
-    <#--<div class="person">-->
-    <#--<img src="/images/header.png"/>-->
-    <#--<span class="name">青岛啤酒|</span>-->
-    <#--<span class="project">穿越丝路</span>-->
-    <#--</div>-->
-    <#--<div class="person">-->
-    <#--<img src="/images/header.png"/>-->
-    <#--<span class="name">青岛啤酒|</span>-->
-    <#--<span class="project">穿越丝路</span>-->
-    <#--</div>-->
-    <#--<div class="person">-->
-    <#--<img src="/images/header.png"/>-->
-    <#--<span class="name">青岛啤酒|</span>-->
-    <#--<span class="project">穿越丝路</span>-->
-    <#--</div>-->
-    <#--<div class="person">-->
-    <#--<img src="/images/header.png"/>-->
-    <#--<span class="name">青岛啤酒|</span>-->
-    <#--<span class="project">穿越丝路</span>-->
-    <#--</div>-->
-    <#--<div class="person">-->
-    <#--<img src="/images/header.png"/>-->
-    <#--<span class="name">青岛啤酒|</span>-->
-    <#--<span class="project">穿越丝路</span>-->
-    <#--</div>-->
-
     </div>
 </div>
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -111,14 +80,27 @@
      * 定义数组
      */
     function GetSide(m, n) {
+        var coupons =${coupons!};
         //初始化数组
         var arr = [];
         for (var i = 0; i < m; i++) {
             arr.push([]);
             for (var j = 0; j < n; j++) {
-                arr[i][j] = i * n + j;
+                var index = i * n + j;
+                //arr[i][j] = i * n + j;
+                //奖品放入数组中其他补充0
+                if (index < coupons.length) {
+                    index=coupons[index].id;
+                }else{
+                    index=0;
+                }
+                console.log(index);
+                arr[i][j] = index;
             }
         }
+//        for(var a in coupons){
+//            alert(coupons[a].id);
+//        }
         //获取数组最外圈
         var resultArr = [];
         var tempX = 0,
@@ -224,7 +206,7 @@
             }
         }
         else {
-            alert("没有中奖！")
+            alert("下次再来！")
         }
 //            if(number>0){
 //                floatimg.style.display = "block";

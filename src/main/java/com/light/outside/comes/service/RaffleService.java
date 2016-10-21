@@ -207,6 +207,14 @@ public class RaffleService {
         return raffleModel;
     }
 
+    /**
+     * 根据活动ID获取奖券信息
+     * @param rid
+     * @return
+     */
+    public List<RaffleCouponModel> getRaffleCoupons(long rid){
+        return this.persistentDao.getRaffleCouponByRaffleId(rid);
+    }
 
     public void deleteCoupon(long id) {
         CouponModel couponModel = this.persistentDao.getCouponById(id);

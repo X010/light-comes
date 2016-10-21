@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -79,12 +80,22 @@ public class RaffleController {
      */
     @RequestMapping("lottery_d.action")
     public String lottery_d(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
-        long rid=RequestTools.RequestLong(request,"rid",13);
+        long rid=RequestTools.RequestLong(request, "rid", 13);
         List<CouponRecordModel> couponRecordModels=raffleService.queryCouponRecords(rid);
+        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
         data.put("records",couponRecordModels);
+        data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
         return "lottery_d";
     }
 
+    @RequestMapping("raffle_coupon.action")
+    @ResponseBody
+    public String raffle_coupon(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
+        long rid=RequestTools.RequestLong(request, "rid", 13);
+        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
+        String result=JsonTools.jsonSer(raffleCouponModels);
+        return result;
+    }
     /**
      * 抽奖
      * @param data
