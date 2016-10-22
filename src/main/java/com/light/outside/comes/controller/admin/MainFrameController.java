@@ -5,10 +5,7 @@ import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.service.QblkService;
-import com.light.outside.comes.service.AuctionService;
-import com.light.outside.comes.service.BanquetService;
-import com.light.outside.comes.service.OverchargedService;
-import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.service.*;
 import com.light.outside.comes.service.admin.MainFrameService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.FileUtil;
@@ -63,6 +60,9 @@ public class MainFrameController {
 
     @Autowired
     private OverchargedService overchargedService;
+
+    @Autowired
+    private BackListService backListService;
 
     @Autowired
     private QblkService qblkService;
@@ -596,14 +596,54 @@ public class MainFrameController {
 
     /**
      * 黑名单管理
+     *
      * @param pageModel
      * @return
      */
     @RequestMapping("backlist_list.action")
-    public String backlist(PageModel pageModel) {
-
+    public String backlist(PageModel pageModel, Map<String, Object> data) {
+        PageResult<BackList> backListPageResult = this.backListService.getBackLists(pageModel);
+        if (backListPageResult != null) {
+            data.put("backLists", backListPageResult);
+        }
         return "admin/backlist";
     }
+
+    /**
+     * 保存BackList数据
+     *
+     * @param backList
+     * @return
+     */
+    @RequestMapping("save_backlist.action")
+    public String save_backlist(BackList backList) {
+        if (backList != null) {
+            backList.setCreatetime(new Date());
+            backList.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+            this.backListService.addBackList(backList);
+        }
+        return "redirect:/admin/backlist_list.action";
+    }
+
+
+    /**
+     * 删除
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_backlist.action")
+    public String delete_backlist(@RequestParam("id") long id) {
+        if (id > 0) {
+            try {
+                this.backListService.deleteBackList(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/backlist_list.action";
+    }
+
 
     /**
      * 查询商品

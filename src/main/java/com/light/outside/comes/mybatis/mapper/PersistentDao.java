@@ -140,4 +140,23 @@ public interface PersistentDao {
 
     @Select("select * from comes_overcharged where id=#{id}")
     public OverchargedModel getOverchargedById(@Param("id") long id);
+
+    @Insert("insert into comes_blacklist(status,createtime,phone,ctype)values(#{status},#{createtime},#{phone},#{ctype})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addBackList(BackList backList);
+
+    @Select("select * from  comes_blacklist where id=#{id}")
+    public BackList getBackListById(@Param("id") long id);
+
+    @Update("update comes_blacklist set status=#{status} where id=#{id}")
+    public void updateBackList(BackList backList);
+
+    @Select("select * from comes_blacklist where phone=#{phone} and ctype=#{ctype} limit 1")
+    public BackList getBackListByPhoneAndCtype(@Param("phone") String phone, @Param("ctype") int ctype);
+
+    @Select("select * from comes_blacklist where status<>9 limit #{start},#{size}")
+    public List<BackList> getBackLists(@Param("start") int start, @Param("size") int size);
+
+    @Select("select count(1) from comes_blacklist where status<>9")
+    public int totalBackList();
 }

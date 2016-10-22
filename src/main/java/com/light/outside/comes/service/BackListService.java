@@ -1,11 +1,15 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.BackList;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,7 +41,16 @@ public class BackListService {
      * @param backList
      */
     public void addBackList(BackList backList) {
+        Preconditions.checkNotNull(backList);
+        BackList backListOld = this.persistentDao.getBackListByPhoneAndCtype(backList.getPhone(), backList.getCtype());
+        if (backListOld == null) {
+            this.persistentDao.addBackList(backList);
+        }
+    }
 
+
+    public BackList getBackListByPhoneAndCtype(String phone, int ctype) {
+        return this.persistentDao.getBackListByPhoneAndCtype(phone, ctype);
     }
 
 
@@ -48,7 +61,8 @@ public class BackListService {
      * @return
      */
     public BackList getBackListById(long id) {
-        return null;
+        Preconditions.checkArgument(id > 0);
+        return this.persistentDao.getBackListById(id);
     }
 
     /**
@@ -57,7 +71,10 @@ public class BackListService {
      * @param id
      */
     public void deleteBackList(long id) {
-
+        Preconditions.checkArgument(id > 0);
+        BackList backList = this.getBackListById(id);
+        backList.setStatus(CONST.RAFFLE_STATUS_DELETE);
+        this.persistentDao.updateBackList(backList);
     }
 
 
@@ -68,6 +85,13 @@ public class BackListService {
      * @return
      */
     public PageResult<BackList> getBackLists(PageModel pageModel) {
-        return null;
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.totalBackList();
+        List<BackList> backLists = this.persistentDao.getBackLists(pageModel.getStart(), pageModel.getSize());
+        PageResult<BackList> backListPageResult = new PageResult<BackList>();
+        backListPageResult.setData(backLists);
+        backListPageResult.setPageModel(pageModel);
+        backListPageResult.setTotal(total);
+        return backListPageResult;
     }
 }

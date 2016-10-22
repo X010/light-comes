@@ -12,24 +12,27 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <div class="box-header with-border">
-                        <div class="col-md-12">
-                            <div class="col-md-4">
-                                <select id="ctype" name="ctype" class="form-control">
-                                    <option value="1">抽奖</option>
-                                    <option value="2">拍卖</option>
-                                    <option value="3">砍价</option>
-                                    <option value="4">约饭</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="title" id="title" placeholder="如:1868499730">
-                            </div>
-                            <div class="col-md-4">
-                                <a href="/admin/create_raffle.action?action=new&id=0" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 添加黑名单</a>
+                    <form action="/admin/save_backlist.action" method="post">
+                        <div class="box-header with-border">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <select id="ctype" name="ctype" class="form-control">
+                                        <option value="1">抽奖</option>
+                                        <option value="2">拍卖</option>
+                                        <option value="3">砍价</option>
+                                        <option value="4">约饭</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="如:1868499730">
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+
                     <div class="box-body">
                         <table class="table table-bordered">
                             <tr>
@@ -39,16 +42,45 @@
                                 <th>用户手机号</th>
                                 <th>操作</th>
                             </tr>
+                        <#if  backLists??>
+                            <#if backLists.data??>
+                                <#list backLists.data as backList>
+                                    <tr>
+                                        <td>${backList.id}</td>
+                                        <td>
+                                            <#if backList.ctype==1>
+                                                抽奖
+                                        </#if>
+                                       <#if backList.ctype==2>
+                                                拍卖
+                                        </#if>
+                                        <#if backList.ctype==3>
+                                                砍价
+                                        </#if>
+                                        <#if backList.ctype==4>
+                                                约饭
+                                        </#if>
+                                        </td>
+                                        <td>${backList.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td>${backList.phone}</td>
+                                        <td>
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否恢复该用户')){window.location.href='/admin/delete_backlist.action?id=${backList.id}';}">停用
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-right">
-                <#if raffles??>
-                    <#if (raffles.pages>0) >
-                        <#list 1..raffles.pages as i>
-                            <li><a href="/admin/raffle_list.action?page=${i}">${i}</a></li>
+                <#if backLists??>
+                    <#if (backLists.pages>0) >
+                        <#list 1..backLists.pages as i>
+                            <li><a href="/admin/backlist_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>
