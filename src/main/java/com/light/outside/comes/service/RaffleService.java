@@ -19,9 +19,9 @@ import java.util.*;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -207,6 +207,14 @@ public class RaffleService {
         return raffleModel;
     }
 
+    /**
+     * 根据活动ID获取奖券信息
+     * @param rid
+     * @return
+     */
+    public List<RaffleCouponModel> getRaffleCoupons(long rid){
+        return this.persistentDao.getRaffleCouponByRaffleId(rid);
+    }
 
     public void deleteCoupon(long id) {
         CouponModel couponModel = this.persistentDao.getCouponById(id);
@@ -232,14 +240,35 @@ public class RaffleService {
     /**
      * 初始化奖品
      */
-    Map<Long,List<RaffleCouponModel>> raffleMap=new HashMap<Long, List<RaffleCouponModel>>();
-    public void initRaffle(){
-        List<RaffleModel> raffleModels=this.persistentDao.getRaffles(0,100);
-        if(raffleModels!=null&&raffleModels.size()>0) {
-            for(RaffleModel raffleModel:raffleModels) {
-                long rid=raffleModel.getId();
+    Map<Long, List<RaffleCouponModel>> raffleMap = new HashMap<Long, List<RaffleCouponModel>>();
+    public void initRaffle() {
+        List<RaffleModel> raffleModels = this.persistentDao.getRaffles(0, 100);
+        if (raffleModels != null && raffleModels.size() > 0) {
+            for (RaffleModel raffleModel : raffleModels) {
+                long rid = raffleModel.getId();
                 List<RaffleCouponModel> raffleCouponModels = this.persistentDao.getRaffleCouponByRaffleId(rid);
-                raffleMap.put(rid,raffleCouponModels);
+                //需要补全空的奖项
+                if (raffleCouponModels.size() < 8) {
+                    int sumWinrate = 0;
+                    int total = 0;
+                    float gapTotal = 0;
+                    for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
+                        sumWinrate += raffleCouponModel.getWinrate();
+                        total += raffleCouponModel.getQuantity();
+                    }
+                    float a = sumWinrate / 100f;
+                    gapTotal = (total / (a)) - total;
+//                    补全剩余百分比
+                    if (sumWinrate < 100) {
+                        RaffleCouponModel raffleCouponModel = new RaffleCouponModel();
+                        raffleCouponModel.setTitle("没有中奖!");
+                        raffleCouponModel.setId(0);
+                        raffleCouponModel.setWinrate(100 - sumWinrate);
+                        raffleCouponModel.setQuantity((int) gapTotal);
+                        raffleCouponModels.add(raffleCouponModel);
+                    }
+                }
+                raffleMap.put(rid, raffleCouponModels);
             }
         }
 
@@ -248,31 +277,147 @@ public class RaffleService {
 
     /**
      * 抽奖
+     *
      * @return
      */
     public synchronized RaffleCouponModel drawRaffle(long rid) {
-        long uid=0;
-        String phone="18888888888";
-        List<RaffleCouponModel> raffleCouponModels=null;
-        if(raffleMap!=null&&raffleMap.size()>0){
-            raffleCouponModels=raffleMap.get(rid);
+        long uid = 0;
+        String phone = "18888888888";
+        List<RaffleCouponModel> raffleCouponModels = null;
+        if (raffleMap != null && raffleMap.size() > 0) {
+            raffleCouponModels = raffleMap.get(rid);
         }
-        if(raffleCouponModels!=null&&raffleCouponModels.size()>0) {
-            //Collections.shuffle(raffleCouponModels);
-            int randomNumber = (int) (Math.random()*100);
+        if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
+            int randomNumber = (int) (Math.random() * total(rid));//随机数
             int priority = 0;
             for (RaffleCouponModel g : raffleCouponModels) {
                 priority += g.getWinrate();
-                if (priority >= randomNumber) {
-                    // 若有数量限制需要从奖品库移出奖品
+                if (randomNumber > 0 && priority >= randomNumber) {
+                    //奖品数量减少
+                    //g.setQuantity(g.getQuantity() - 1);
                     //保存优惠券
-                    CouponRecordModel couponRecordModel=this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL);
-                    this.persistentDao.editCouponRecordStatusById(couponRecordModel.getId(),CONST.RAFFLE_STATUS_NORMAL,uid,phone);
-                    return g;
+                    if (g.getId() > 0) {
+                        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL,0,1);
+                        if (couponRecordModels != null) {
+                            CouponRecordModel couponRecordModel=couponRecordModels.get(0);
+                            this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
+                            return g;
+                        }
+                    } else {
+                        return null;
+                    }
                 }
             }
         }
         // 抽奖次数多于奖品时谢谢参与
         return null;
+    }
+
+    /**
+     * 奖品总数
+     *
+     * @param rid
+     * @return
+     */
+    private int total(long rid) {
+        int result = 0;
+        int sum = 0;
+        List<RaffleCouponModel> raffleCouponModels = raffleMap.get(rid);
+        if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
+            for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
+                result += raffleCouponModel.getWinrate();
+                sum += raffleCouponModel.getQuantity();
+            }
+        }
+        System.out.println("剩余奖券数量:" + sum);
+        return result;
+    }
+
+    /**
+     * 根据奖品ID抽奖
+     * @param rcid
+     * @return
+     */
+    public synchronized RaffleCouponModel drawRaffleByRage(long rcid) {
+        long uid = 0;
+        String phone = "18888888888";
+        RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
+        double rate = raffleCouponModel.getWinrate() / 100.00f;
+        System.out.println(rate);
+        int result = percentageRandom(rate);
+        if (result > 0) {
+            List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL,0,1);
+            if (couponRecordModels != null) {
+                CouponRecordModel couponRecordModel=couponRecordModels.get(0);
+                this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
+                return raffleCouponModel;
+            }
+        }
+//        List<RaffleCouponModel> raffleCouponModels = null;
+//        if (raffleMap != null && raffleMap.size() > 0) {
+//            raffleCouponModels = raffleMap.get(rid);
+//        }
+//        if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
+//            int randomNumber = (int) (Math.random() * total(rid));//随机数
+//            int priority = 0;
+//            for (RaffleCouponModel g : raffleCouponModels) {
+//                priority += g.getWinrate();
+//                if (randomNumber > 0 && priority >= randomNumber) {
+//                    //奖品数量减少
+//                    //g.setQuantity(g.getQuantity() - 1);
+//                    //保存优惠券
+//                    if (g.getId() > 0) {
+//                        CouponRecordModel couponRecordModel = this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL);
+//                        if (couponRecordModel != null) {
+//                            this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
+//                            return g;
+//                        }
+//                    } else {
+//                        return null;
+//                    }
+//                }
+//            }
+//        }
+        // 抽奖次数多于奖品时谢谢参与
+        return null;
+    }
+
+    /**
+     * 查询中奖纪录
+     * @param cid
+     * @return
+     */
+    public List<CouponRecordModel> queryCouponRecords(long cid){
+        List<CouponRecordModel> couponRecordModels=this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND,0,10);
+        return  couponRecordModels;
+    }
+
+    /**
+     * 根据概率生成随机数1 中奖 0未中奖
+     *
+     * @param rate
+     * @return
+     */
+    private static int percentageRandom(double rate) {
+        double randomNumber=0.00f;
+        randomNumber = Math.random();
+        if (randomNumber >= 0 && randomNumber <= rate) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public static void main(String[] args) {
+        int c1 = 0;
+        int c0 = 0;
+        for (int i = 0; i < 100; i++) {
+            int r = percentageRandom(0.10f);
+            if (r == 0) {
+                c0++;
+            } else {
+                c1++;
+            }
+        }
+        System.out.println(c0 + "  " + c1);
     }
 }

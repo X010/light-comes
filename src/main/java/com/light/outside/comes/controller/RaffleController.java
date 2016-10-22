@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.json.Json;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -78,17 +79,39 @@ public class RaffleController {
      * @return
      */
     @RequestMapping("lottery_d.action")
-    public String lottery_d() {
+    public String lottery_d(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
+        long rid=RequestTools.RequestLong(request, "rid", 13);
+        List<CouponRecordModel> couponRecordModels=raffleService.queryCouponRecords(rid);
+        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
+        data.put("records",couponRecordModels);
+        data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
         return "lottery_d";
     }
 
+    @RequestMapping("raffle_coupon.action")
+    @ResponseBody
+    public String raffle_coupon(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
+        long rid=RequestTools.RequestLong(request, "rid", 13);
+        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
+        String result=JsonTools.jsonSer(raffleCouponModels);
+        return result;
+    }
+    /**
+     * 抽奖
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("lottery_draw.action")
     @ResponseBody
     public String lottery_draw(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response){
+        long id=RequestTools.RequestLong(request, "id", 22);
         long rid= RequestTools.RequestInt(request,"rid",13);
         int code=0;
         String msg="谢谢参与!";
-        RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(rid);
+        //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
+        RaffleCouponModel raffleCouponModel=raffleService.drawRaffleByRage(id);
         if(raffleCouponModel!=null){
             code=1;
             msg="恭喜你，抽中"+raffleCouponModel.getTitle();
