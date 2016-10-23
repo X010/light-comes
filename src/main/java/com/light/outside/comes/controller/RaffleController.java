@@ -28,9 +28,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -79,25 +79,30 @@ public class RaffleController {
      * @return
      */
     @RequestMapping("lottery_d.action")
-    public String lottery_d(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
-        long rid=RequestTools.RequestLong(request, "rid", 13);
-        List<CouponRecordModel> couponRecordModels=raffleService.queryCouponRecords(rid);
-        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
-        data.put("records",couponRecordModels);
+    public String lottery_d(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        long rid = RequestTools.RequestLong(request, "rid", 13);
+        long uid = RequestTools.RequestLong(request, "uid", 0);
+        List<CouponRecordModel> couponRecordModels = raffleService.queryCouponRecords(rid);
+        List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
+        int rCount = raffleService.getUserRaffleCount(uid, rid);
+        data.put("rCount", rCount);
+        data.put("records", couponRecordModels);
         data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
         return "lottery_d";
     }
 
     @RequestMapping("raffle_coupon.action")
     @ResponseBody
-    public String raffle_coupon(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response) {
-        long rid=RequestTools.RequestLong(request, "rid", 13);
-        List<RaffleCouponModel> raffleCouponModels= raffleService.getRaffleCoupons(rid);
-        String result=JsonTools.jsonSer(raffleCouponModels);
+    public String raffle_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        long rid = RequestTools.RequestLong(request, "rid", 13);
+        List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
+        String result = JsonTools.jsonSer(raffleCouponModels);
         return result;
     }
+
     /**
      * 抽奖
+     *
      * @param data
      * @param request
      * @param response
@@ -105,21 +110,26 @@ public class RaffleController {
      */
     @RequestMapping("lottery_draw.action")
     @ResponseBody
-    public String lottery_draw(Map<String, Object> data,HttpServletRequest request,HttpServletRequest response){
-        long id=RequestTools.RequestLong(request, "id", 22);
-        long rid= RequestTools.RequestInt(request,"rid",13);
-        int code=0;
-        String msg="谢谢参与!";
+    public String lottery_draw(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        long id = RequestTools.RequestLong(request, "id", 22);
+        long rid = RequestTools.RequestInt(request, "rid", 13);
+        long uid = RequestTools.RequestInt(request, "uid", 0);
+        int code = 0;
+        String msg = "谢谢参与!";
         //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
-        RaffleCouponModel raffleCouponModel=raffleService.drawRaffleByRage(id);
-        if(raffleCouponModel!=null){
-            code=1;
-            msg="恭喜你，抽中"+raffleCouponModel.getTitle();
-            data.put("id",raffleCouponModel.getId());
+        RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
+        //更新抽奖次数
+        raffleService.addRaffleCount(uid, rid, 1);
+        int rCount = raffleService.getRaffleCount(uid, rid);
+        if (raffleCouponModel != null) {
+            code = 1;
+            msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
+            data.put("id", raffleCouponModel.getId());
         }
-        data.put("code",code);
+        data.put("code", code);
         data.put("msg", msg);
-        String result=JsonTools.jsonSer(data);
+        data.put("rCount", rCount);
+        String result = JsonTools.jsonSer(data);
         System.out.println(result);
         return result;
     }

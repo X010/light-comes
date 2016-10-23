@@ -73,6 +73,25 @@ public interface PersistentDao {
             "group by rid,cid")
     public List<RaffleCouponModel> getRaffleCouponByRaffleId(@Param("rid") long rid);
 
+    /**
+     * 查询抽奖次数
+     * @param rid
+     * @param uid
+     * @return
+     */
+    @Select("select * from comes_raffle_user where uid=#{uid} and rid=#{rid}")
+    public RaffleUserModel getRaffleUserByRaffleId(@Param("rid") long rid,@Param("uid") long uid);
+
+    /**
+     * 增加或者新建抽奖次数
+     * @param uid
+     * @param rid
+     * @param count
+     * @return
+     */
+    @Insert("insert into comes_raffle_user(uid,rid,count) values(#{uid},#{rid},#{count}) ON DUPLICATE KEY UPDATE count=count+1")
+    public int updateRaffleUserByRaffleId(@Param("uid") long uid,@Param("rid") long rid,@Param("count") int count);
+
     @Select("select ccr.id,ccr.title,concat(left(ccr.phone,3),'****',right(phone,4)) phone,ccr.uid,ccr.cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
             "where ccr.cid=crc.cid " +
             "and crc.rid=#{rid} " +

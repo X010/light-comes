@@ -26,14 +26,14 @@
 td{ display: block; width: 30%; height: 100%; float:left; margin-left: 2%;}
 td span{width: 200px; height: 200px; position: absolute;}
 #start{ border: none; background-color: #fff;}
-.lot1{ background: url("../images/1000.png"); background-size: 100%; }
-.lot2{ background: url("../images/1000.png"); background-size: 100%; }
-.lot3{ background: url("../images/1000.png"); background-size: 100%; }
-.lot4{ background: url("../images/1000.png"); background-size: 100%; }
-.lot5{ background: url("../images/1000.png"); background-size: 100%; }
-.lot6{ background: url("../images/1000.png"); background-size: 100%; }
-.lot7{ background: url("../images/1000.png"); background-size: 100%; }
-.lot8{ background: url("../images/1000.png"); background-size: 100%; }
+#lot1{ background: url("../images/1000.png"); background-size: 100%; }
+#lot2{ background: url("../images/1000.png"); background-size: 100%; }
+#lot3{ background: url("../images/1000.png"); background-size: 100%; }
+#lot4{ background: url("../images/1000.png"); background-size: 100%; }
+#lot5{ background: url("../images/1000.png"); background-size: 100%; }
+#lot6{ background: url("../images/1000.png"); background-size: 100%; }
+#lot7{ background: url("../images/1000.png"); background-size: 100%; }
+#lot8{ background: url("../images/1000.png"); background-size: 100%; }
 #click{ background: url("../images/click.png"); background-size: 100%;}
 #floatimg{ position:absolute; z-index:9; width: 100%; height:100%; top:0;  display: none;}
 #floatimg img{width: 100%; height: 100%;}

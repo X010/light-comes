@@ -209,12 +209,30 @@ public class RaffleService {
 
     /**
      * 根据活动ID获取奖券信息
+     *
      * @param rid
      * @return
      */
-    public List<RaffleCouponModel> getRaffleCoupons(long rid){
+    public List<RaffleCouponModel> getRaffleCoupons(long rid) {
         return this.persistentDao.getRaffleCouponByRaffleId(rid);
     }
+
+    /**
+     * 获取用户抽奖次数
+     *
+     * @param uid
+     * @param rid
+     * @return
+     */
+    public int getUserRaffleCount(long uid, long rid) {
+        RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
+        if (raffleUserModel == null) {
+            return 3;
+        } else {
+            return 3-raffleUserModel.getCount();
+        }
+    }
+
 
     public void deleteCoupon(long id) {
         CouponModel couponModel = this.persistentDao.getCouponById(id);
@@ -241,6 +259,7 @@ public class RaffleService {
      * 初始化奖品
      */
     Map<Long, List<RaffleCouponModel>> raffleMap = new HashMap<Long, List<RaffleCouponModel>>();
+
     public void initRaffle() {
         List<RaffleModel> raffleModels = this.persistentDao.getRaffles(0, 100);
         if (raffleModels != null && raffleModels.size() > 0) {
@@ -297,9 +316,9 @@ public class RaffleService {
                     //g.setQuantity(g.getQuantity() - 1);
                     //保存优惠券
                     if (g.getId() > 0) {
-                        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL,0,1);
+                        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
                         if (couponRecordModels != null) {
-                            CouponRecordModel couponRecordModel=couponRecordModels.get(0);
+                            CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                             this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
                             return g;
                         }
@@ -335,6 +354,7 @@ public class RaffleService {
 
     /**
      * 根据奖品ID抽奖
+     *
      * @param rcid
      * @return
      */
@@ -343,12 +363,11 @@ public class RaffleService {
         String phone = "18888888888";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         double rate = raffleCouponModel.getWinrate() / 100.00f;
-        System.out.println(rate);
         int result = percentageRandom(rate);
         if (result > 0) {
-            List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL,0,1);
+            List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
             if (couponRecordModels != null) {
-                CouponRecordModel couponRecordModel=couponRecordModels.get(0);
+                CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                 this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
                 return raffleCouponModel;
             }
@@ -382,14 +401,33 @@ public class RaffleService {
         return null;
     }
 
+    public boolean addRaffleCount(long uid, long rid, int count) {
+        return  this.persistentDao.updateRaffleUserByRaffleId(uid, rid, count) > 0;
+    }
+
+    /**
+     * 查询剩余抽奖次数
+     * @param uid
+     * @param rid
+     * @return
+     */
+    public int getRaffleCount(long uid,long rid){
+        RaffleUserModel raffleUserModel=this.persistentDao.getRaffleUserByRaffleId(rid,uid);
+        if(raffleUserModel==null){
+            return 3;
+        }else{
+            return 3-raffleUserModel.getCount();
+        }
+    }
     /**
      * 查询中奖纪录
+     *
      * @param cid
      * @return
      */
-    public List<CouponRecordModel> queryCouponRecords(long cid){
-        List<CouponRecordModel> couponRecordModels=this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND,0,10);
-        return  couponRecordModels;
+    public List<CouponRecordModel> queryCouponRecords(long cid) {
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND, 0, 10);
+        return couponRecordModels;
     }
 
     /**
@@ -399,7 +437,7 @@ public class RaffleService {
      * @return
      */
     private static int percentageRandom(double rate) {
-        double randomNumber=0.00f;
+        double randomNumber = 0.00f;
         randomNumber = Math.random();
         if (randomNumber >= 0 && randomNumber <= rate) {
             return 1;

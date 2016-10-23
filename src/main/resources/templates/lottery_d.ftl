@@ -18,7 +18,7 @@
     <img src="/images/bg.png"/>
 
     <div class="top">
-        <p>抽奖次数:<span class="count">3</span><span>次</span></p>
+        <p>剩余抽奖次数:<span id="count" class="count">${rCount!}</span><span>次</span></p>
     </div>
     <table id="center">
         <tr>
@@ -90,9 +90,9 @@
                 //arr[i][j] = i * n + j;
                 //奖品放入数组中其他补充0
                 if (index < coupons.length) {
-                    index=coupons[index].id;
-                }else{
-                    index=0;
+                    index = coupons[index].id;
+                } else {
+                    index = 0;
                 }
                 console.log(index);
                 arr[i][j] = index;
@@ -191,18 +191,27 @@
     for (i = 0; i < span.length; i++) {
         if (number > 0) {
             span[i].onclick = function () {
-                $.ajax({
-                    url: "lottery_draw.action",
-                    type: "POST",
-                    success: function (result) {
-                        var r = jQuery.parseJSON(result);
-                        if (r.code == 1) {
-                            floatimg.style.display = "block";
-                        } else {
-                            alert("没有中奖！");
+                var rc =${rCount};
+                if (rc == 0) {
+                    alert("今日抽奖次数已用完。")
+                } else {
+                    $.ajax({
+                        url: "lottery_draw.action",
+                        type: "POST",
+                        success: function (result) {
+                            var r = jQuery.parseJSON(result);
+                            var rCount = r.rCount;
+                            $('.count').each(function () {
+                                $(this).text(rCount);
+                            });
+                            if (r.code == 1) {
+                                floatimg.style.display = "block";
+                            } else {
+                                alert("没有中奖！");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
         else {

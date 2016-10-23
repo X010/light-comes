@@ -28,3 +28,9 @@ a.on{border-top:5px solid #f15739;}
 p.on{color:#f15739;}
 footer>a img{position:relative; width:40%; margin-top:15px;}
 footer>a p{font-size: 36px; color:#c7c7c7;}
+.footer{position: fixed;left: 0;bottom: 0;height:150px; width: 100%; }
+.footer-left{ width: 60%; height:150px; background: #fff; float: left; }
+.footer-right{ width: 40%;height:150px; background: #ff825f; float: left; color: #fff; margin:0 auto;}
+.footer-left p,.footer-right p{ line-height: 150px;font-size: 2.6rem;}
+.footer-left p{margin-left: 10%; font-weight: 600;}
+.footer-right p{margin-left: 30%;}
