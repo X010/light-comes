@@ -22,19 +22,13 @@
     </div>
     <table id="center">
         <tr>
-            <td class="lot1"><span></span></td>
-            <td class="lot2"><span></span></td>
-            <td class="lot3"><span></span></td>
+            <td id="lot1"><span></span></td><td id="lot2"><span></span></td><td id="lot3"><span></span></td>
         </tr>
         <tr>
-            <td class="lot8"><span></span></td>
-            <td onclick="StartGame()" id="click"></td>
-            <td class="lot4"><span></span></td>
+            <td id="lot8"><span></span></td><td onclick="StartGame()" id="click"></td><td id="lot4"><span></span></td>
         </tr>
         <tr>
-            <td class="lot7"><span></span></td>
-            <td class="lot6"><span></span></td>
-            <td class="lot5"><span></span></td>
+            <td id="lot7"><span></span></td><td id="lot6"><span></span></td><td id="lot5"><span></span></td>
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
