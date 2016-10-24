@@ -1,6 +1,7 @@
 package com.light.outside.comes.service.admin;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +20,8 @@ import java.util.List;
  */
 @Service
 public class LoginService {
+
+
     @Autowired
     private UserDao userDao;
 
@@ -43,6 +47,25 @@ public class LoginService {
     }
 
 
+    public void editUsers(UsersModel usersModel) {
+        Preconditions.checkNotNull(usersModel);
+        UsersModel editUser = this.getUsersById(usersModel.getId());
+        if (editUser != null) {
+            if (!Strings.isNullOrEmpty(usersModel.getPassword())) {
+                editUser.setPassword(usersModel.getPassword());
+            }
+            editUser.setReal_name(usersModel.getReal_name());
+            editUser.setUpdate_time(new Date());
+            this.userDao.updateUser(editUser);
+        }
+    }
+
+    public UsersModel getUsersById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.userDao.getUserById(id);
+    }
+
+
     public void deleteUsers(long id) {
         Preconditions.checkArgument(id > 0);
 
@@ -61,7 +84,7 @@ public class LoginService {
 
         List<UsersModel> usersModels = this.userDao.getUsers(pageModel.getStart(), pageModel.getSize());
 
-        PageResult<UsersModel> usersModelPageResult=new PageResult<UsersModel>();
+        PageResult<UsersModel> usersModelPageResult = new PageResult<UsersModel>();
         usersModelPageResult.setData(usersModels);
         usersModelPageResult.setPageModel(pageModel);
         usersModelPageResult.setTotal(total);

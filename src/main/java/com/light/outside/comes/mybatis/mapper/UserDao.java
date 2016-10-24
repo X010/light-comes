@@ -17,7 +17,7 @@ public interface UserDao {
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addUser(UsersModel userModel);
 
-    @Update("update comes_admin_users set real_name=#{real_name},user_name=#{user_name},password=#{password},status=#{status}")
+    @Update("update comes_admin_users set real_name=#{real_name},password=#{password},update_time=#{update_time} where id=#{id}")
     public void updateUser(UsersModel userModel);
 
     @Select("select * from comes_admin_users where user_name=#{user_name} limit 1")
@@ -25,7 +25,7 @@ public interface UserDao {
 
 
     @Select("select * from comes_admin_users where id=#{id}")
-    public UserModel getUserById(@Param("id") long id);
+    public UsersModel getUserById(@Param("id") long id);
 
     @Select("select * from comes_admin_users limit  #{start},#{size}")
     public List<UsersModel> getUsers(@Param("start")int start,@Param("size")int size);

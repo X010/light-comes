@@ -581,7 +581,15 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("create_user.action")
-    public String create_user() {
+    public String create_user(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        String action = request.getParameter("action");
+        String id = request.getParameter("id");
+        if (!Strings.isNullOrEmpty(action) && CONST.EDIT.equalsIgnoreCase(action) && !Strings.isNullOrEmpty(id)) {
+            UsersModel usersModel = this.loginService.getUsersById(Long.valueOf(id));
+            if (usersModel != null) {
+                data.put("users", usersModel);
+            }
+        }
         return "admin/create_user";
     }
 
@@ -592,13 +600,19 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("save_user.action")
-    public String save_user(UsersModel userModel) {
-        if (userModel != null) {
-            userModel.setStatus(CONST.RAFFLE_STATUS_INIT);
-            userModel.setCreate_time(new Date());
-            this.loginService.addUsers(userModel);
-        }
+    public String save_user(UsersModel userModel, HttpServletRequest request) {
 
+        String editid = request.getParameter("editid");
+        if (!Strings.isNullOrEmpty(editid)) {
+            userModel.setId(Long.valueOf(editid));
+            this.loginService.editUsers(userModel);
+        } else {
+            if (userModel != null) {
+                userModel.setStatus(CONST.RAFFLE_STATUS_INIT);
+                userModel.setCreate_time(new Date());
+                this.loginService.addUsers(userModel);
+            }
+        }
         return "redirect:/admin/user_list.action";
     }
 

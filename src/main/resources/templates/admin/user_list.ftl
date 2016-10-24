@@ -33,7 +33,8 @@
                                             <td>${user.real_name}</td>
                                             <td>${user.user_name}</td>
                                             <td>
-                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定删除该用户')){window.location.href='/admin/delete_user.action?id=#{user.id}';}">停用</a>
+                                                <a class="badge  bg-green" href="/admin/create_user.action?action=edit&id=${user.id}">修改密码</a>
+                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定删除该用户')){window.location.href='/admin/delete_user.action?id=${user.id}';}">停用</a>
                                             </td>
                                         </tr>
                                     </#list>
