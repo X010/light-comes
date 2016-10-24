@@ -217,7 +217,7 @@
 
     $(function () {
         document.title = "焦点图上传";
-        $("#estate").addClass("active");
+        $("#fouces").addClass("active");
         setNav("焦点图", "创建焦点图");
     });
 

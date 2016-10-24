@@ -2,10 +2,12 @@ package com.light.outside.comes.controller.admin;
 
 import com.google.common.base.Strings;
 import com.light.outside.comes.model.*;
+import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.service.*;
+import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.service.admin.MainFrameService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.FileUtil;
@@ -66,6 +68,9 @@ public class MainFrameController {
 
     @Autowired
     private QblkService qblkService;
+
+    @Autowired
+    private LoginService loginService;
 
     /**
      * 登陆
@@ -577,8 +582,24 @@ public class MainFrameController {
      */
     @RequestMapping("create_user.action")
     public String create_user() {
-
         return "admin/create_user";
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param userModel
+     * @return
+     */
+    @RequestMapping("save_user.action")
+    public String save_user(UsersModel userModel) {
+        if (userModel != null) {
+            userModel.setStatus(CONST.RAFFLE_STATUS_INIT);
+            userModel.setCreate_time(new Date());
+            this.loginService.addUsers(userModel);
+        }
+
+        return "redirect:/admin/user_list.action";
     }
 
     /**
@@ -588,10 +609,31 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("user_list.action")
-    public String user_list(PageModel pageModel) {
+    public String user_list(PageModel pageModel, Map<String, Object> data) {
+        PageResult<UsersModel> usersModelPageResult = this.loginService.getUsers(pageModel);
 
-
+        if (usersModelPageResult != null) {
+            data.put("users", usersModelPageResult);
+        }
         return "admin/user_list";
+    }
+
+    /**
+     * 删除某用户
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete_user.action")
+    public String delete_user(@RequestParam("id") long id) {
+        if (id > 0) {
+            try {
+                this.loginService.deleteUsers(id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "redirect:/admin/user_list.action";
     }
 
     /**
