@@ -2,102 +2,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>抽奖</title>
-    <link type="text/css" rel="stylesheet" href="css/header.css" />
-    <link type="text/css" rel="stylesheet" href="css/lottery.css" />
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <script type="text/javascript" src="js/jquery.min.js" ></script>
-    <script src="js/swiper-3.3.1.jquery.min.js"></script>
+    <title>拍卖</title>
+    <link type="text/css" rel="stylesheet" href="/css/header.css" />
+    <link type="text/css" rel="stylesheet" href="/css/lottery.css" />
+    <link rel="stylesheet" href="/css/swiper.min.css">
+    <script type="text/javascript" src="/js/jquery.min.js" ></script>
+    <script src="/js/swiper-3.3.1.jquery.min.js"></script>
 </head>
 
 <body>
 <div id="banner">
     <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="images/caro1.png" /></div>
-        <div class="swiper-slide"><img src="images/caro2.png" /></div>
-        <div class="swiper-slide"><img src="images/caro1.png" /></div>
-        <div class="swiper-slide"><img src="images/caro2.png" /></div>
+    <#if focus??>
+        <#list focus as focu>
+            <div class="swiper-slide"><a href="${focu.link}"><img src="${focu.image}"/></a></div>
+        </#list>
+    </#if>
     </div>
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-    <li class="msg" onclick="location.href='auction_d.ftl'">
-        <div class="msg-left">
-            <img src="images/img2.jpg" />
-        </div>
-        <div class="msg-right">
-            <p>微信群分享:13天带你穿越丝路大话西游</p>
-            <div class="msg-author">
-                <img src="images/header.png" />
-                <p>by<span class="author">小强</span></p>
+<#if auctions??>
+    <#list auctions as auction>
+        <li class="msg" onclick="location.href='/auction/auction_d.action?aid=${auction.id}'">
+            <div class="msg-left">
+                <img src="${auction.good_photo!}"/>
             </div>
-        </div>
-        <div class="clear"></div>
-    </li>
-    <li class="msg" onclick="location.href='auction_d.ftl'">
-        <div class="msg-left">
-            <img src="images/img2.jpg" />
-        </div>
-        <div class="msg-right">
-            <p>微信群分享:13天带你穿越丝路大话西游</p>
-            <div class="msg-author">
-                <img src="images/header.png" />
-                <p>by<span class="author">小强</span></p>
+            <div class="msg-right">
+                <p><span class="author">${auction.title!}</span></p>
+                <div class="msg-author">
+                    <p>${auction.price!}</p>
+                </div>
             </div>
-        </div>
-        <div class="clear"></div>
-    </li>
-    <li class="msg" onclick="location.href='lottery_d.html'">
-        <div class="msg-left">
-            <img src="images/img2.jpg" />
-        </div>
-        <div class="msg-right">
-            <p>微信群分享:13天带你穿越丝路大话西游</p>
-            <div class="msg-author">
-                <img src="images/header.png" />
-                <p>by<span class="author">小强</span></p>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </li>
-    <li class="msg" onclick="location.href='auction_d.ftl'">
-        <div class="msg-left">
-            <img src="images/img2.jpg" />
-        </div>
-        <div class="msg-right">
-            <p>微信群分享:13天带你穿越丝路大话西游</p>
-            <div class="msg-author">
-                <img src="images/header.png" />
-                <p>by<span class="author">小强</span></p>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </li>
+            <div class="clear"></div>
+        </li>
+    </#list>
+</#if>
     <div style="height: 180px; width:100%;"></div>
 </ul>
 
 <footer>
     <a href="/">
-        <img  src="images/ticket.png"/>
+        <img  src="/images/ticket.png"/>
         <p>抽奖券</p>
     </a>
     <a href="/" class="on">
-        <img class="" src="images/auction_on.png"/>
+        <img class="" src="/images/auction_on.png"/>
         <p class="on">拍卖</p>
     </a>
     <a href="/">
-        <img class="" src="images/date.png"/>
+        <img class="" src="/images/date.png"/>
         <p>约饭</p>
     </a>
     <a href="/">
-        <img class="" src="images/discount.png"/>
+        <img class="" src="/images/discount.png"/>
         <p>砍价</p>
     </a>
     <a href="/">
-        <img class="" src="images/mine.png"/>
+        <img class="" src="/images/mine.png"/>
         <p>我的</p>
     </a>
 </footer>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     window.onload = function() {
         var mySwiper1 = new Swiper('#header',{

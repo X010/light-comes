@@ -31,9 +31,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -68,12 +68,14 @@ public class AuctionController {
         PageResult<AuctionModel> auctionModelPageResult = auctionService.getAuctions(pageModel);
         List<AuctionModel> auctionModels = auctionModelPageResult.getData();
         if (auctionModels != null) {
-            data.put("auction", auctionModels);
+            data.put("auctions", auctionModels);
         }
         return "auction";
     }
+
     /**
      * 出价
+     *
      * @param data
      * @param request
      * @param response
@@ -81,39 +83,41 @@ public class AuctionController {
      */
     @RequestMapping("bid.action")
     @ResponseBody
-    public String bid(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
+    public String bid(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
         //出价
-        float price= Float.parseFloat(request.getParameter("price").toString());
-        long aid=Long.parseLong(request.getParameter("aid").toString());
-        UserModel userModel= (UserModel) request.getSession().getAttribute("user");
-        boolean isSuccess=auctionService.bidAuction(userModel, aid, price);
-        int code=0;
-        String msg="出价失败！";
-        if(isSuccess) {
-            code=1;
-            msg="出价成功！";
+        float price = Float.parseFloat(request.getParameter("price").toString());
+        long aid = Long.parseLong(request.getParameter("aid").toString());
+        UserModel userModel = (UserModel) request.getSession().getAttribute("user");
+        boolean isSuccess = auctionService.bidAuction(userModel, aid, price);
+        int code = 0;
+        String msg = "出价失败！";
+        if (isSuccess) {
+            code = 1;
+            msg = "出价成功！";
         }
         data.put("isSuccess", isSuccess);
-        data.put("msg",msg);
-        data.put("code",code);
+        data.put("msg", msg);
+        data.put("code", code);
         //保存出价记录返回结果
         return JsonTools.jsonSer(data);
     }
 
-    @RequestMapping("auction_detail.acton")
-    public String auctionDetail(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response){
-        int auctionId=RequestTools.RequestInt(request,"id",0);
+    @RequestMapping("auction_d.action")
+    public String auctionDetail(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        int auctionId = RequestTools.RequestInt(request, "aid", 0);
         //查询拍卖活动
-        AuctionModel auctionModel=auctionService.queryAuctionById(auctionId);
+        AuctionModel auctionModel = auctionService.queryAuctionById(auctionId);
         //查询出价记录
-        List<AuctionRecordsModel> auctionRecordsModels=auctionService.queryAuctionRecordsByAid(auctionId);
+        List<AuctionRecordsModel> auctionRecordsModels = auctionService.queryAuctionRecordsByAid(auctionId);
         //秒数
-        long second=DateUtils.betweenSeconds(auctionModel.getEnd_time());
-        auctionModel.setTime_second((int) second);
+        if (auctionModel != null) {
+            long second = DateUtils.betweenSeconds(auctionModel.getEnd_time());
+            auctionModel.setTime_second((int) second);
+            data.put("second", second);
+        }
         data.put("auction", auctionModel);
-        data.put("auctionRecords",auctionRecordsModels);
-        data.put("second",second);
-        return "admin/auction_d";
+        data.put("auctionRecords", auctionRecordsModels);
+        return "auction_d";
     }
 
 }

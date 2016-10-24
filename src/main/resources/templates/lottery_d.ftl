@@ -35,7 +35,7 @@
         <img src="/images/float.png"/>
     </div>
     <div id="down">
-        <p>获取人名单</p>
+        <p>获奖人名单</p>
 
         <div class="downarrow"></div>
     </div>

@@ -24,7 +24,7 @@
 <ul id="msglist">
 <#if raffles??>
     <#list raffles as raffle>
-        <li class="msg" onclick="location.href='/raffle/lottery_d.action'">
+        <li class="msg" onclick="location.href='/raffle/lottery_d.action?rid=${raffle.id}'">
             <div class="msg-left">
                 <img src="${raffle.photo}"/>
             </div>
