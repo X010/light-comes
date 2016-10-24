@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <form action="/admin/save_backlist.action" method="post">
+                    <form action="/admin/save_backlist.action" id="backlist_form" name="backlist_form" method="post">
                         <div class="box-header with-border">
                             <div class="col-md-12">
                                 <div class="col-md-4">
@@ -94,6 +94,23 @@
         document.title = "抽奖";
         $("#user").addClass("active");
         setNav("设置", "黑名单设置");
+
+        $("#backlist_form").validate({
+            rules:{
+                phone: {
+                    required: true,
+                    minlength: 11,
+                    maxlength:11
+                }
+            },
+            messages: {
+                phone: {
+                    required: "请输入用户手机号码",
+                    minlength: "您的用户名不能少于11位字符",
+                    maxlength: "您的用户不能多于11位字符"
+                }
+            }
+        });
     })
 </script>
 <#include "in_footer.ftl">
