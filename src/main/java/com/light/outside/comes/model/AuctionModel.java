@@ -98,6 +98,7 @@ public class AuctionModel extends BaseModel {
      */
     private String memo;
 
+
     public String getMemo() {
         return memo;
     }
