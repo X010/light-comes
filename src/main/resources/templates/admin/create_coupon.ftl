@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_coupon.action" method="post">
+    <form action="/admin/save_coupon.action" id="coupon_form" name="coupon_form" method="post">
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -122,6 +122,53 @@
         setNav("抽奖", "创建优惠卷");
 
         $('#rang_time').daterangepicker();
+
+
+        $("#coupon_form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                rang_time: {
+                    required: true
+                },
+                num: {
+                    required: true
+                },
+                price: {
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "请输入名称",
+                    minlength: "您的用户名不能少于4位字符",
+                    maxlength: "您的用户不能多于16位字符"
+                }
+                , rang_time: {
+                    required: "请选择时间范围"
+                },
+                num: {
+                    required: "请输入数量"
+                },
+                price: {
+                    required: "输入优惠劵价格"
+                }
+            },
+            submitHandler: function (form) {
+                var selectType = parseInt($("#ctype").val());
+                if (selectType == 3) {
+                    var cate2 = $("#cate2").val();
+                    if (cate2 == null || cate2 == 'undefined' || cate2 == '') {
+                        alert("请选择对应的商品");
+                        return false;
+                    }
+                }
+                form.submit();
+            }
+        });
     });
 
 

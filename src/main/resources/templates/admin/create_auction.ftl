@@ -38,7 +38,9 @@
                                 <input type="text" class="form-control"
 
                                 <#if auction??>
+                                    <#if auction.memo??>
                                        value="${auction.memo}"
+                                    </#if>
                                 </#if>
 
                                        name="memo" id="memo" placeholder="填写介绍活动的内容">
@@ -197,7 +199,7 @@
                 setp_amount: {
                     required: true
                 },
-                time_second:{
+                time_second: {
                     required: true
                 }
             },
@@ -224,9 +226,22 @@
                 setp_amount: {
                     required: "请输入加价幅度"
                 },
-                time_second:{
+                time_second: {
                     required: "请输入提前读秒时间数"
                 }
+            },
+            submitHandler: function (form) {
+                var editid = $("#editid").val();
+                if (editid != null && editid != '' && editid != 'undefined') {
+
+                } else {
+                    var cate2 = $("#goodsid").val();
+                    if (cate2 == null || cate2 == 'undefined' || cate2 == '') {
+                        alert("请选择对应的商品");
+                        return false;
+                    }
+                }
+                form.submit();
             }
         });
     });

@@ -98,6 +98,7 @@ public class AuctionModel extends BaseModel {
      */
     private String memo;
 
+
     public String getMemo() {
         return memo;
     }
@@ -115,7 +116,10 @@ public class AuctionModel extends BaseModel {
     }
 
     public String getGood_photo() {
-        return CONST.QBLK_PHOTO_URL + good_photo;
+        if (!this.good_photo.contains(CONST.QBLK_PHOTO_URL)) {
+            return CONST.QBLK_PHOTO_URL + good_photo;
+        }
+        return this.good_photo;
     }
 
     public void setGood_photo(String good_photo) {
