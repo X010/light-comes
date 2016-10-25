@@ -8,9 +8,9 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_banquet.action" method="post">
+    <form action="/admin/save_banquet.action" id="banquet_form" name="banquet_form" method="post">
     <#if banquet??>
-        <input id="editid" name="editid" value="${banquet.id}" type="hidden" />
+        <input id="editid" name="editid" value="${banquet.id}" type="hidden"/>
     </#if>
 
         <section class="content">
@@ -24,9 +24,9 @@
                             <div class="form-group">
                                 <label for="title">饭局名称</label>
                                 <input type="text" class="form-control"
-                                       <#if banquet??>
-                                           value="${banquet.title}"
-                                       </#if>
+                                <#if banquet??>
+                                       value="${banquet.title}"
+                                </#if>
 
                                        name="title" id="title" placeholder="如：东来顺商务餐">
                             </div>
@@ -126,6 +126,73 @@
         setNav("约饭", "创建饭局");
         $("#info").wysihtml5();
         $('#rang_time').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD HH:mm:ss'});
+
+        //JS验证
+        $("#banquet_form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                memo: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 48
+                },
+                rang_time: {
+                    required: true
+                },
+                number: {
+                    required: true
+                },
+                amount: {
+                    required: true
+                },
+                author_nickname: {
+                    required: true
+                },
+                author_telephone: {
+                    required: true
+                },
+                info: {
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "请输入名称",
+                    minlength: "您的用户名不能少于4位字符",
+                    maxlength: "您的用户不能多于16位字符"
+                },
+                memo: {
+                    required: "请输入说明信息",
+                    minlength: "您的用户名不能少于5位字符",
+                    maxlength: "您的用户不能多于48位字符"
+                },
+                rang_time: {
+                    required: "请选择时间范围"
+                },
+                number: {
+                    required: "请输入每桌人数"
+                },
+                amount: {
+                    required: "请输入每个需要交的钱"
+                },
+                author_nickname: {
+                    required: "请输入承办人"
+                },
+                author_telephone: {
+                    required: "请输入承办人电话"
+                },
+                author_address: {
+                    required: "请输入承办地址"
+                },
+                info: {
+                    required: "请输入酒水礼品说明"
+                }
+            }
+        });
     })
 </script>
 <#include "in_footer.ftl">
