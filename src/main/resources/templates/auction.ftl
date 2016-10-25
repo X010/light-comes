@@ -29,7 +29,7 @@
                 <img src="${auction.good_photo!}"/>
             </div>
             <div class="msg-right">
-                <p><span class="author">${auction.title!}</span></p>
+                <p><span class="author">${auction.good_name!}</span></p>
                 <div class="msg-author">
                     <p>${auction.price!}</p>
                 </div>

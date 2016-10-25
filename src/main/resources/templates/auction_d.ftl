@@ -11,20 +11,19 @@
     <a class="left" onclick="window.history.back();">
         <img src="/images/back.png"/>
     </a>
-
     <p>拍卖活动一</p>
 </header>
 <div id="banner">
-    <img src="/images/caro1.png"/>
+    <img src="${auction.good_photo!}"/>
 </div>
 <div class="auction">
     <div class="msg-auct">
         <img src="/images/auction_on.png"/>
 
         <div class="title">
-            <h3>${auction.good_name!}</h3>
+            <h3>${auction.title!}</h3>
 
-            <p>${auction.title!}</p>
+            <p>${auction.good_name!}</p>
         </div>
     </div>
     <div class="msg-time">
