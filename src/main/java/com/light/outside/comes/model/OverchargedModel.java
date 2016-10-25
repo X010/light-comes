@@ -1,6 +1,7 @@
 package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
+import com.light.outside.comes.utils.CONST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,7 +124,10 @@ public class OverchargedModel extends BaseModel {
     }
 
     public String getGood_name() {
-        return good_name;
+        if (!this.good_photo.contains(CONST.QBLK_PHOTO_URL)) {
+            return CONST.QBLK_PHOTO_URL + good_photo;
+        }
+        return this.good_photo;
     }
 
     public void setGood_name(String good_name) {
