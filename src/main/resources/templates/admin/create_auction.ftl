@@ -9,7 +9,7 @@
 
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_auction.action" method="post">
+    <form action="/admin/save_auction.action" id="auction_form" name="auction_form" method="post">
     <#if auction??>
         <input type="hidden" id="editid" name="editid" value="${auction.id}"/>
     </#if>
@@ -52,9 +52,9 @@
                                     </div>
                                     <input type="text" class="form-control pull-right"
 
-                                           <#if auction??>
+                                    <#if auction??>
                                            value="${auction.rang_time}"
-                                           </#if>
+                                    </#if>
 
                                            name="rang_time" id="rang_time"/>
                                 </div>
@@ -65,9 +65,9 @@
                                 <div class="input-group">
                                     <input type="number" class="form-control"
 
-                                           <#if auction??>
-                                               value="${auction.deposit}"
-                                           </#if>
+                                    <#if auction??>
+                                           value="${auction.deposit}"
+                                    </#if>
 
                                            name="deposit" id="deposit" placeholder="如：1">
                                 </div>
@@ -123,16 +123,17 @@
                                     <#if auction??>
                                            value="${auction.good_name}"
 
-                                            disabled
+                                           disabled
                                     </#if>
 
                                            id="searchKeyword" class="form-control">
                                         <span class="input-group-btn">
                                             <button class="btn btn-info btn-flat"
-                                                <#if auction??>
-                                                disabled
-                                                </#if>
-                                                    onclick="loadSearchCommodity();" type="button">搜索</button>
+                                            <#if auction??>
+                                                    disabled
+                                            </#if>
+                                                    onclick="loadSearchCommodity();" type="button">搜索
+                                            </button>
                                         </span>
                                 </div>
                                 <table id="goods_list" class="table table-striped">
@@ -170,7 +171,65 @@
         setNav("拍卖", "创建拍卖商品");
 
         $('#rang_time').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD HH:mm:ss'});
-    })
+
+        //JS验证
+        $("#auction_form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                memo: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 48
+                },
+                rang_time: {
+                    required: true
+                },
+                deposit: {
+                    required: true
+                },
+                amount: {
+                    required: true
+                },
+                setp_amount: {
+                    required: true
+                },
+                time_second:{
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "请输入名称",
+                    minlength: "您的用户名不能少于4位字符",
+                    maxlength: "您的用户不能多于16位字符"
+                },
+                memo: {
+                    required: "请输入说明信息",
+                    minlength: "您的用户名不能少于5位字符",
+                    maxlength: "您的用户不能多于48位字符"
+                },
+                rang_time: {
+                    required: "请选择时间范围"
+                },
+                deposit: {
+                    required: "请输入最低保证金"
+                },
+                amount: {
+                    required: "请输入起拍价格"
+                },
+                setp_amount: {
+                    required: "请输入加价幅度"
+                },
+                time_second:{
+                    required: "请输入提前读秒时间数"
+                }
+            }
+        });
+    });
 
     /**
      * 搜索商品信息

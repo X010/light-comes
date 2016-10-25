@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_raffle.action" enctype="multipart/form-data" method="post">
+    <form action="/admin/save_raffle.action" id="raffle_form" name="raffle_form" enctype="multipart/form-data" method="post">
     <#if editid??>
         <input type="hidden" name="editid" id="editid" value="${editid}"/>
     </#if>
@@ -260,6 +260,40 @@
 
         $('#rang_time').daterangepicker();
 
+
+        //JS验证
+        $("#raffle_form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                memo: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 48
+                },
+                rang_time: {
+                    required: true
+                }
+            },
+            messages: {
+                memo: {
+                    required: "请输入说明信息",
+                    minlength: "您的用户名不能少于5位字符",
+                    maxlength: "您的用户不能多于48位字符"
+                },
+                title: {
+                    required: "请输入名称",
+                    minlength: "您的用户名不能少于4位字符",
+                    maxlength: "您的用户不能多于16位字符"
+                }
+                , rang_time: {
+                    required: "请选择时间范围"
+                }
+            }
+        });
 
     <#if raffle_str??>
         var coupon_items =${raffle_str};

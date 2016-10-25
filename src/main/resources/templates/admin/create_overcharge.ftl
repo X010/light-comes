@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form id="create_overcharge_form" action="/admin/save_overcharge.action" method="post">
+    <form id="create_overcharge_form"  name="create_overcharge_form" action="/admin/save_overcharge.action" method="post">
 
     <#if overcharged??>
         <input type="hidden" id="editid" name="editid" value="${overcharged.id}"/>
@@ -119,6 +119,41 @@
         setNav("砍价", "创建砍价商品");
 
         $('#rang_time').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD HH:mm:ss'});
+
+        $("#create_overcharge_form").validate({
+            rules: {
+                title: {
+                    required: true,
+                    minlength: 4,
+                    maxlength: 16
+                },
+                rang_time: {
+                    required: true
+                },
+                subtract_price: {
+                    required: true
+                },
+                amount: {
+                    required: true
+                }
+            },
+            messages: {
+                title: {
+                    required: "请输入名称",
+                    minlength: "您的用户名不能少于4位字符",
+                    maxlength: "您的用户不能多于16位字符"
+                },
+                rang_time: {
+                    required: "请选择时间范围"
+                },
+                subtract_price: {
+                    required: "请输入每次砍价幅度"
+                },
+                amount: {
+                    required: "请输入底价"
+                }
+            }
+        });
     });
 
     /**
