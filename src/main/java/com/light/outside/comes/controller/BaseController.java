@@ -1,6 +1,7 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.admin.UsersModel;
+import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ public class BaseController {
 	private HttpSession session;
 	
 	public static final String SESSION_KEY_USERINFO = "sys_user";
+	public static final String SESSION_KEY_APP_USERINFO = "app_user";
 	
 	protected void setSession(String key, Object value){
 		session.setAttribute(key, value);
@@ -28,12 +30,25 @@ public class BaseController {
 
 
 	/**
-	 *
+	 *后端用户
 	 */
 	public UsersModel getUserInfo(){
 		Object obj = session.getAttribute(SESSION_KEY_USERINFO);
 		if(obj != null){
 			return (UsersModel)obj;
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * 前端登录用户
+	 * @return
+	 */
+	public UserModel getAppUserInfo(){
+		Object obj = session.getAttribute(SESSION_KEY_APP_USERINFO);
+		if(obj != null){
+			return (UserModel)obj;
 		}else{
 			return null;
 		}

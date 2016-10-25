@@ -2,11 +2,14 @@ package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
+import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.service.BackListService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import com.sun.tools.internal.jxc.ap.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +42,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("raffle")
-public class RaffleController {
+public class RaffleController extends BaseController{
 
     @Autowired
     private RaffleService raffleService;
@@ -47,6 +50,8 @@ public class RaffleController {
 
     @Autowired
     private FocusImageService focusImageService;
+    @Autowired
+    private BackListService backListService;
 
     /**
      * 抽奖列表
@@ -111,21 +116,32 @@ public class RaffleController {
     @RequestMapping("lottery_draw.action")
     @ResponseBody
     public String lottery_draw(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        UserModel userModel=getAppUserInfo();
         long id = RequestTools.RequestLong(request, "id", 22);
         long rid = RequestTools.RequestInt(request, "rid", 13);
-        long uid = RequestTools.RequestInt(request, "uid", 0);
+        //long uid =userModel.getId();
+        long uid =RequestTools.RequestInt(request, "uid", 0);
         int code = 0;
         String msg = "谢谢参与!";
-        //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
-        RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
+        int rCount=0;
+        //查询黑名单
+        //TODO 获取用户手机号码
+        BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
+        //用户不在黑名单中
+        if (backList == null) {
+            //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
+            RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
+            if (raffleCouponModel != null) {
+                code = 1;
+                msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
+                data.put("id", raffleCouponModel.getId());
+            }
+        }
         //更新抽奖次数
         raffleService.addRaffleCount(uid, rid, 1);
-        int rCount = raffleService.getRaffleCount(uid, rid);
-        if (raffleCouponModel != null) {
-            code = 1;
-            msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
-            data.put("id", raffleCouponModel.getId());
-        }
+        //获取最新的抽奖次数
+        rCount= raffleService.getRaffleCount(uid, rid);
+
         data.put("code", code);
         data.put("msg", msg);
         data.put("rCount", rCount);

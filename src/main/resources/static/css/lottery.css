@@ -42,9 +42,9 @@ td span{width: 200px; height: 200px; position: absolute;}
 .downarrow{ width: 3rem; height:3rem; text-align: center; background: url("../images/down.png") no-repeat; background-size: 100%; margin: 20px auto;}
 #downlist{ position: absolute; width: 100%; height: 90%; top:110%;}
 #downlist p{ font-size: 2.8rem; text-align: center;}
-.list{ margin: 60px auto; width: 70%;}
+.list{ margin: 60px auto; width: 75%;}
 .person{ width: 100%; line-height: 100px; margin:20px 0;}
 .person img{ display:inline-block; width: 16%; margin:20px 40px; box-shadow: 0 20px 30px #ccc; border-radius: 50%;}
-.person span{ font-size: 3rem;  letter-spacing: 2px;}
+.person span{ font-size: 2.1rem;  letter-spacing: 2px;}
 .name {font-weight: bold;}
-.project{color:rgb(158,158,158);}
+.project{color:rgb(158,158,158);margin-left:60px;}

@@ -54,7 +54,6 @@
     <div class="auct-success">
         <div class="succ-top">
             <p class="title-succ">拍卖成功!</p>
-
             <p id="close">x</p>
         </div>
         <div class="succ-main">

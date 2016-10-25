@@ -47,7 +47,6 @@
     <#if records??>
         <#list records as record>
             <div class="person">
-                <img src="/images/header.png"/>
                 <span class="name">${record.phone!}|</span>
                 <span class="project">${record.title!}</span>
             </div>
@@ -88,7 +87,7 @@
                 } else {
                     index = 0;
                 }
-                console.log(index);
+                //console.log(index);
                 arr[i][j] = index;
             }
         }
@@ -187,7 +186,7 @@
             span[i].onclick = function () {
                 var rc =${rCount};
                 if (rc == 0) {
-                    alert("今日抽奖次数已用完。")
+                    alert("抽奖次数已用完。")
                 } else {
                     $.ajax({
                         url: "lottery_draw.action",
