@@ -185,7 +185,7 @@
         if (number > 0) {
             span[i].onclick = function () {
                 var rc =${rCount};
-                if (rc == 0) {
+                if (rc <= 0) {
                     alert("抽奖次数已用完。")
                 } else {
                     $.ajax({

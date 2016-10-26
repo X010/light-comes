@@ -7,6 +7,8 @@ import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.mybatis.mapper.UserDao;
+import com.light.outside.comes.qbkl.dao.ReadDao;
+import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class LoginService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private ReadDao readDao;
+
     public boolean login(String userName, String pwd, HttpServletRequest request) {
         boolean isSuccess = false;
         UsersModel usersModel = userDao.queryUserByPwd(userName, pwd);
@@ -32,6 +37,24 @@ public class LoginService {
             isSuccess = true;
             HttpSession session = request.getSession();
             session.setAttribute(LoginController.SESSION_KEY_USERINFO, usersModel);
+        }
+        return isSuccess;
+    }
+
+    /**
+     * 客户端登录
+     * @param phone
+     * @param pwd
+     * @param request
+     * @return
+     */
+    public boolean clientLogin(String phone,String pwd,HttpServletRequest request){
+        boolean isSuccess = false;
+        UserModel userModel = readDao.getUserByPassword(phone, pwd);
+        if (userModel != null) {
+            isSuccess = true;
+            HttpSession session = request.getSession();
+            session.setAttribute(LoginController.SESSION_KEY_APP_USERINFO, userModel);
         }
         return isSuccess;
     }

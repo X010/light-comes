@@ -74,6 +74,29 @@ public class RaffleController extends BaseController {
     }
 
     /**
+     * 下拉接个口
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("lottery_list.action")
+    @ResponseBody
+    public String lotterList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response){
+        int page=RequestTools.RequestInt(request,"page",1);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(Integer.MAX_VALUE);
+        PageResult<RaffleModel> raffleModelPageResult = this.raffleService.getRaffles(pageModel);
+        List<RaffleModel> raffleModels = raffleModelPageResult.getData();
+        if(raffleModels!=null&&raffleModels.size()>0) {
+            return JsonTools.jsonSer(raffleModels);
+        }else{
+            return "";
+        }
+    }
+
+    /**
      * 抽奖
      *
      * @return
@@ -119,24 +142,27 @@ public class RaffleController extends BaseController {
         int code = 0;
         String msg = "谢谢参与!";
         int rCount = 0;
-        //查询黑名单
-        //TODO 获取用户手机号码
-        BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
-        //用户不在黑名单中
-        if (backList == null) {
-            //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
-            RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
-            if (raffleCouponModel != null) {
-                code = 1;
-                msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
-                data.put("id", raffleCouponModel.getId());
-            }
-        }
-        //更新抽奖次数
-        raffleService.addRaffleCount(uid, rid, 1);
         //获取最新的抽奖次数
         rCount = raffleService.getRaffleCount(uid, rid);
-
+        if(rCount>0) {
+            //查询黑名单
+            //TODO 获取用户手机号码
+            BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
+            //用户不在黑名单中
+            if (backList == null) {
+                //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
+                RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
+                if (raffleCouponModel != null) {
+                    code = 1;
+                    msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
+                    data.put("id", raffleCouponModel.getId());
+                }
+            }
+            //更新抽奖次数(如果不存在则新增，存在则+1)
+            raffleService.addRaffleCount(uid, rid, 1);
+        }else{
+            msg="您的抽奖次数已用完!";
+        }
         data.put("code", code);
         data.put("msg", msg);
         data.put("rCount", rCount);

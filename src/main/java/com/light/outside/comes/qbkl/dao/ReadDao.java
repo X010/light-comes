@@ -36,6 +36,14 @@ public interface ReadDao {
     UserModel getUserByPhone(@Param("phone") String phone);
 
     /**
+     * 根据用户名密码获取用户
+     * @param phone
+     * @return
+     */
+    @Select("select * from t_user where phone=#{phone} and passwd=md5(#{pwd})")
+    UserModel getUserByPassword(@Param("phone") String phone,@Param("pwd") String pwd);
+
+    /**
      * 根据商品名查询商品
      *
      * @return

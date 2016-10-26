@@ -15,7 +15,6 @@
 .msg-author{ width:100%;}
 .msg-author img{ display:block; width: 50px; height:50px; float:left; margin:10px;}
 .author{ font-weight:bold;}
-
 #container{ position:absolute;width:100%;height:93%;top:7%;left:0px;}
 #container img{width:100%; height:100%;}
 .top{ position: absolute; top:20%; left: 20%;}
@@ -26,15 +25,15 @@
 td{ display: block; width: 30%; height: 100%; float:left; margin-left: 2%;}
 td span{width: 200px; height: 200px; position: absolute;}
 #start{ border: none; background-color: #fff;}
-#lot1{ background: url("../images/1000.png"); background-size: 100%; }
-#lot2{ background: url("../images/1000.png"); background-size: 100%; }
-#lot3{ background: url("../images/1000.png"); background-size: 100%; }
-#lot4{ background: url("../images/1000.png"); background-size: 100%; }
-#lot5{ background: url("../images/1000.png"); background-size: 100%; }
-#lot6{ background: url("../images/1000.png"); background-size: 100%; }
-#lot7{ background: url("../images/1000.png"); background-size: 100%; }
-#lot8{ background: url("../images/1000.png"); background-size: 100%; }
-#click{ background: url("../images/click.png"); background-size: 100%;}
+#lot1{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot2{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot3{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot4{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot5{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot6{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot7{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#lot8{ background: url("../images/1000.png"); background-size: 100% 100%; }
+#click{ background: url("../images/click.png"); background-size: 100% 100%;}
 #floatimg{ position:absolute; z-index:9; width: 100%; height:100%; top:0;  display: none;}
 #floatimg img{width: 100%; height: 100%;}
 #down{ position: absolute; bottom:20px; text-align: center; margin:0 auto; width: 100%;color:#fff;}
