@@ -59,6 +59,18 @@ public class LoginService {
         return isSuccess;
     }
 
+    /**
+     * 微信登录
+     * @param openid
+     * @param nickname
+     * @param headimg
+     * @param sex
+     * @return
+     */
+    public UserModel wechatLogin(String openid,String nickname,String headimg,String sex){
+        return new UserModel();
+    }
+
 
     public void addUsers(UsersModel usersModel) {
         Preconditions.checkNotNull(usersModel);

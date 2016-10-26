@@ -55,6 +55,21 @@ public class BaseController {
 	}
 
 	/**
+	 * app用户
+	 * @param userModel
+	 */
+	protected void setAppUserInfo(UserModel userModel){
+		session.setAttribute(SESSION_KEY_USERINFO, userModel);
+	}
+
+	/**
+	 *后端用户
+	 * @param userModel
+	 */
+	protected void setUserInfo(UsersModel userModel){
+		session.setAttribute(SESSION_KEY_USERINFO, userModel);
+	}
+	/**
 	 *
 	 * @param response
 	 * @param strMsg
