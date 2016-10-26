@@ -71,14 +71,18 @@
     </div>
 </div>
 
+<#--<div class="footer">-->
+    <#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
+    <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
+<#--</div>-->
 <div class="footer">
-    <div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>
-    <div class="footer-right" id="auction"><p>拍下来</p></div>
+    <div id = "deposit">报名交保证金</div>
 </div>
 <script type="text/javascript">
     var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
     var closebtn = document.getElementById("close");
+    var deposit = document.getElementById("deposit");
     auct.onclick = function () {
         floatbg.style.display = "block";
     }

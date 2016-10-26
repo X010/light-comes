@@ -31,7 +31,7 @@
             <div class="msg-right">
                 <p><span class="author">${auction.good_name!}</span></p>
                 <div class="msg-author">
-                    <p>${auction.price!}</p>
+                    <p>${auction.memo!}</p>
                 </div>
             </div>
             <div class="clear"></div>
