@@ -224,7 +224,7 @@ public class RaffleService {
     }
 
     /**
-     * 获取用户抽奖次数
+     * 获取用户已经抽奖次数
      *
      * @param uid
      * @param rid
@@ -233,9 +233,25 @@ public class RaffleService {
     public int getUserRaffleCount(long uid, long rid) {
         RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
         if (raffleUserModel == null) {
-            return 3;
+            return 0;
+        }else{
+            return raffleUserModel.getCount();
+        }
+    }
+
+    /**
+     * 查询剩余抽奖次数
+     *
+     * @param uid
+     * @param rid
+     * @return
+     */
+    public int getRaffleCount(long uid, long rid) {
+        RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
+        if (raffleUserModel == null) {
+            return 0;
         } else {
-            return 3 - raffleUserModel.getCount();
+            return raffleUserModel.getCount();
         }
     }
 
@@ -411,21 +427,6 @@ public class RaffleService {
         return this.persistentDao.updateRaffleUserByRaffleId(uid, rid, count) > 0;
     }
 
-    /**
-     * 查询剩余抽奖次数
-     *
-     * @param uid
-     * @param rid
-     * @return
-     */
-    public int getRaffleCount(long uid, long rid) {
-        RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
-        if (raffleUserModel == null) {
-            return 3;
-        } else {
-            return 3 - raffleUserModel.getCount();
-        }
-    }
 
     /**
      * 查询中奖纪录

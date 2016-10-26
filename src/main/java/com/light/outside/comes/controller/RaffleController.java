@@ -26,9 +26,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -75,6 +75,7 @@ public class RaffleController extends BaseController {
 
     /**
      * 下拉接个口
+     *
      * @param data
      * @param request
      * @param response
@@ -82,17 +83,17 @@ public class RaffleController extends BaseController {
      */
     @RequestMapping("lottery_list.action")
     @ResponseBody
-    public String lotterList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response){
-        int page=RequestTools.RequestInt(request,"page",1);
-        int size=RequestTools.RequestInt(request,"size",Integer.MAX_VALUE);
+    public String lotterList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
         PageModel pageModel = new PageModel();
         pageModel.setPage(page);
         pageModel.setSize(size);
         PageResult<RaffleModel> raffleModelPageResult = this.raffleService.getRaffles(pageModel);
         List<RaffleModel> raffleModels = raffleModelPageResult.getData();
-        if(raffleModels!=null&&raffleModels.size()>0) {
+        if (raffleModels != null && raffleModels.size() > 0) {
             return JsonTools.jsonSer(raffleModels);
-        }else{
+        } else {
             return "";
         }
     }
@@ -108,7 +109,12 @@ public class RaffleController extends BaseController {
         long uid = RequestTools.RequestLong(request, "uid", 0);
         List<CouponRecordModel> couponRecordModels = raffleService.queryCouponRecords(rid);
         List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
+        RaffleModel raffleModel = raffleService.getRaffleById(rid);
         int rCount = raffleService.getUserRaffleCount(uid, rid);
+        if (raffleModel != null) {
+            rCount = raffleModel.getTimes() - rCount;
+        }
+
         data.put("rCount", rCount);
         data.put("records", couponRecordModels);
         data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
@@ -144,8 +150,10 @@ public class RaffleController extends BaseController {
         String msg = "谢谢参与!";
         int rCount = 0;
         //获取最新的抽奖次数
-        rCount = raffleService.getRaffleCount(uid, rid);
-        if(rCount>0) {
+        rCount = raffleService.getUserRaffleCount(uid, rid);
+        //获取允许抽奖次数
+        RaffleModel raffleModel = raffleService.getRaffleById(rid);
+        if (rCount < raffleModel.getTimes()) {
             //查询黑名单
             //TODO 获取用户手机号码
             BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
@@ -161,8 +169,9 @@ public class RaffleController extends BaseController {
             }
             //更新抽奖次数(如果不存在则新增，存在则+1)
             raffleService.addRaffleCount(uid, rid, 1);
-        }else{
-            msg="您的抽奖次数已用完!";
+            rCount=rCount-1;
+        } else {
+            msg = "您的抽奖次数已用完!";
         }
         data.put("code", code);
         data.put("msg", msg);
