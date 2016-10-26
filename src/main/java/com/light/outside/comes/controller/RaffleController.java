@@ -84,9 +84,10 @@ public class RaffleController extends BaseController {
     @ResponseBody
     public String lotterList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response){
         int page=RequestTools.RequestInt(request,"page",1);
+        int size=RequestTools.RequestInt(request,"size",Integer.MAX_VALUE);
         PageModel pageModel = new PageModel();
         pageModel.setPage(page);
-        pageModel.setSize(Integer.MAX_VALUE);
+        pageModel.setSize(size);
         PageResult<RaffleModel> raffleModelPageResult = this.raffleService.getRaffles(pageModel);
         List<RaffleModel> raffleModels = raffleModelPageResult.getData();
         if(raffleModels!=null&&raffleModels.size()>0) {
