@@ -1,19 +1,11 @@
 package com.light.outside.comes.controller;
 
-import com.light.outside.comes.model.OverchargedModel;
-import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.service.OverchargedService;
-import com.light.outside.comes.utils.JsonTools;
-import com.light.outside.comes.utils.RequestTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,10 +26,21 @@ import java.util.Map;
  * limitations under the License.
  */
 @Controller
+@RequestMapping("oc")
 public class OverchargedController {
 
     @Autowired
     private OverchargedService overchargedService;
 
-
+    /**
+     * 砍价List
+     *
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("overcharged.action")
+    public String overcharged(Map<String, Object> data, HttpServletRequest request) {
+        return "overcharged";
+    }
 }

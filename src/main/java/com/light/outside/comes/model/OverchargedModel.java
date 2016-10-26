@@ -116,7 +116,10 @@ public class OverchargedModel extends BaseModel {
     }
 
     public String getGood_photo() {
-        return good_photo;
+        if (!this.good_photo.contains(CONST.QBLK_PHOTO_URL)) {
+            return CONST.QBLK_PHOTO_URL + good_photo;
+        }
+        return this.good_photo;
     }
 
     public void setGood_photo(String good_photo) {
@@ -124,10 +127,7 @@ public class OverchargedModel extends BaseModel {
     }
 
     public String getGood_name() {
-        if (!this.good_photo.contains(CONST.QBLK_PHOTO_URL)) {
-            return CONST.QBLK_PHOTO_URL + good_photo;
-        }
-        return this.good_photo;
+        return this.good_name;
     }
 
     public void setGood_name(String good_name) {

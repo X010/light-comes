@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -28,4 +31,9 @@ public class BanquetController {
 
     @Autowired
     private BanquetService banquetService;
+
+    @RequestMapping("banquet.action")
+    public String banquet(Map<String, Object> data, HttpServletRequest request) {
+        return "banquet";
+    }
 }

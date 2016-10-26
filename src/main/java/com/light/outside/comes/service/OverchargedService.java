@@ -8,6 +8,8 @@ import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.utils.CONST;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,9 @@ public class OverchargedService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+
+    private Logger LOG = LoggerFactory.getLogger(OverchargedService.class);
 
 
     @Autowired
@@ -105,5 +110,19 @@ public class OverchargedService {
             overchargedModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.updateOvercharged(overchargedModel);
         }
+    }
+
+    public void clearOvercharged() {
+        List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);
+        if (overchargedModels != null) {
+            for (OverchargedModel overchargedModel : overchargedModels) {
+                if (overchargedModel.getEnd_time().getTime() >= System.currentTimeMillis()&&overchargedModel.getStatus()!=CONST.RAFFLE_STATUS_OVER) {
+                    overchargedModel.setStatus(CONST.RAFFLE_STATUS_OVER);
+                    LOG.info("over overcharged id:" + overchargedModel.getId() + " name:" + overchargedModel.getTitle());
+                    this.updateOvercharged(overchargedModel);
+                }
+            }
+        }
+
     }
 }

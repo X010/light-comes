@@ -42,19 +42,19 @@
 </ul>
 
 <footer>
-    <a href="/">
+    <a href="/raffle/lottery.action">
         <img  src="/images/ticket.png"/>
         <p>抽奖券</p>
     </a>
-    <a href="/" class="on">
+    <a href="/auction/auction.action" class="on">
         <img class="" src="/images/auction_on.png"/>
         <p class="on">拍卖</p>
     </a>
-    <a href="/">
+    <a href="/banquet/banquet.action">
         <img class="" src="/images/date.png"/>
         <p>约饭</p>
     </a>
-    <a href="/">
+    <a href="/oc/overcharged.action">
         <img class="" src="/images/discount.png"/>
         <p>砍价</p>
     </a>

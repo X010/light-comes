@@ -24,6 +24,7 @@
                                 <th>标题</th>
                                 <th>活动开始时间</th>
                                 <th>活动结束时间</th>
+                                <th>状态</th>
                                 <th>创建时间</th>
                                 <th>最低保证金(元)</th>
                                 <th>超拍价格(元)</th>
@@ -40,6 +41,20 @@
                                         <td> ${auction.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                                         <td>
                                         ${auction.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        </td>
+                                        <td>
+                                            <#if auction.status==1>
+                                                正常
+                                            </#if>
+                                            <#if auction.status==2>
+                                                正常
+                                            </#if>
+                                            <#if auction.status==9>
+                                                已删除
+                                            </#if>
+                                            <#if auction.status==8>
+                                                已结束
+                                            </#if>
                                         </td>
                                         <td>
                                         ${auction.create_time?string("yyyy-MM-dd HH:mm:ss")}

@@ -48,6 +48,9 @@
                                             <#if banquet.status==9>
                                                 停用
                                             </#if>
+                                            <#if banquet.status==8>
+                                                已结束
+                                            </#if>
                                         </td>
                                         <td>
                                         ${banquet.create_time?string("yyyy-MM-dd HH:mm:ss")}

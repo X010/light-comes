@@ -11,6 +11,8 @@ import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.utils.CONST;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,8 @@ public class AuctionService {
 
     @Autowired
     private AuctionDao auctionDao;
+
+    private Logger LOG = LoggerFactory.getLogger(AuctionService.class);
 
     /**
      * 添加拍卖商品
@@ -146,6 +150,22 @@ public class AuctionService {
         if (auctionModel != null) {
             auctionModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.updateAuction(auctionModel);
+        }
+    }
+
+    /**
+     * 清除过期的活动
+     */
+    public void clearAuction() {
+        List<AuctionModel> auctionModels = this.persistentDao.getAuctions(1, Integer.MAX_VALUE);
+        if (auctionModels != null) {
+            for (AuctionModel auctionModel : auctionModels) {
+                if (auctionModel.getEnd_time().getTime() >= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                    auctionModel.setStatus(CONST.RAFFLE_STATUS_OVER);
+                    LOG.info("over auction id:" + auctionModel.getId() + " name:" + auctionModel.getTitle());
+                    this.updateAuction(auctionModel);
+                }
+            }
         }
     }
 }
