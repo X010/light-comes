@@ -22,16 +22,16 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#if auctions??>
-    <#list auctions as auction>
-        <li class="msg" onclick="location.href='/auction/auction_d.action?aid=${auction.id}'">
+<#if bs??>
+    <#list bs as b>
+        <li class="msg" onclick="location.href='/auction/auction_d.action?aid=${b.id}'">
             <div class="msg-left">
-                <img src="${auction.good_photo!}"/>
+               <!-- <img src=""/> -->
             </div>
             <div class="msg-right">
-                <p><span class="author">${auction.good_name!}</span></p>
+                <p><span class="author">${b.title!}</span></p>
                 <div class="msg-author">
-                    <p>${auction.price!}</p>
+                    <p>${b.memo!}</p>
                 </div>
             </div>
             <div class="clear"></div>
