@@ -6,6 +6,8 @@ import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,8 @@ public class BanquetService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+    private Logger LOG = LoggerFactory.getLogger(BanquetService.class);
 
     /**
      * 保存饭局
@@ -94,6 +98,22 @@ public class BanquetService {
         if (banquetModel != null) {
             banquetModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.updateBanquet(banquetModel);
+        }
+    }
+
+    /**
+     * 清除过期约饭
+     */
+    public void clearBanquet() {
+        List<BanquetModel> banquetModels = this.persistentDao.getBanquets(1, Integer.MAX_VALUE);
+        if (banquetModels != null) {
+            for (BanquetModel banquetModel : banquetModels) {
+                if (banquetModel.getEnd_time().getTime() >= System.currentTimeMillis() && banquetModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                    banquetModel.setStatus(CONST.RAFFLE_STATUS_OVER);
+                    LOG.info("over banquet id:" + banquetModel.getId() + " name:" + banquetModel.getTitle());
+                    this.updateBanquet(banquetModel);
+                }
+            }
         }
     }
 }

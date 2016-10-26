@@ -1,18 +1,17 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.OverchargedModel;
-import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.service.OverchargedService;
-import com.light.outside.comes.utils.JsonTools;
-import com.light.outside.comes.utils.RequestTools;
+import com.light.outside.comes.service.admin.FocusImageService;
+import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,10 +33,37 @@ import java.util.Map;
  * limitations under the License.
  */
 @Controller
+@RequestMapping("oc")
 public class OverchargedController {
 
     @Autowired
     private OverchargedService overchargedService;
 
+    @Autowired
+    private FocusImageService focusImageService;
 
+    /**
+     * 砍价List
+     *
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("overcharged.action")
+    public String overcharged(Map<String, Object> data, HttpServletRequest request) {
+        //输出焦点图
+        List<FocusImageModel> focusImageModelList = this.focusImageService.queryFocusImageByColumn(CONST.FOCUS_OVERCHARGER);
+        if (focusImageModelList != null) {
+            data.put("focus", focusImageModelList);
+        }
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(1);
+        pageModel.setSize(Integer.MAX_VALUE);
+        PageResult<OverchargedModel> auctionModelPageResult = overchargedService.getOverchargeds(pageModel);
+        List<OverchargedModel> overchargedModels = auctionModelPageResult.getData();
+        if (overchargedModels != null) {
+            data.put("oc", overchargedModels);
+        }
+        return "overcharged";
+    }
 }

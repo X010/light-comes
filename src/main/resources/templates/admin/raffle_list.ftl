@@ -47,6 +47,9 @@
                                         <#if raffle.status==9>
                                             已删除
                                         </#if>
+                                        <#if raffle.status==8>
+                                            已结束
+                                        </#if>
                                     </td>
                                     <td>
                                     ${raffle.start_time?string("yyyy-MM-dd HH:mm:ss")}

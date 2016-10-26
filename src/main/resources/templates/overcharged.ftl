@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>抽奖</title>
+    <title>拍卖</title>
     <link type="text/css" rel="stylesheet" href="/css/header.css"/>
     <link type="text/css" rel="stylesheet" href="/css/lottery.css"/>
     <link rel="stylesheet" href="/css/swiper.min.css">
@@ -22,17 +22,17 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#if raffles??>
-    <#list raffles as raffle>
-        <li class="msg" onclick="location.href='/raffle/lottery_d.action?rid=${raffle.id}'">
+<#if oc??>
+    <#list oc as o>
+        <li class="msg" onclick="location.href='/auction/auction_d.action?aid=${o.id}'">
             <div class="msg-left">
-                <img src="${raffle.photo}"/>
+                <img src="${o.good_photo!}"/>
             </div>
             <div class="msg-right">
-                <p><span class="author">${raffle.title}</span></p>
+                <p><span class="author">${o.title!}</span></p>
 
                 <div class="msg-author">
-                    <p>${raffle.memo}</p>
+                    <p>${o.good_name}</p>
                 </div>
             </div>
             <div class="clear"></div>
@@ -43,21 +43,22 @@
 </ul>
 
 <footer>
-    <a href="/raffle/lottery.action" class="on">
+    <a href="/raffle/lottery.action">
         <img src="/images/ticket.png"/>
-        <p class="on">抽奖券</p>
+
+        <p>抽奖券</p>
     </a>
     <a href="/auction/auction.action">
-        <img class="" src="/images/auction.png"/>
+        <img class="" src="/images/auction_on.png"/>
 
-        <p>拍卖</p>
+        <p class="on">拍卖</p>
     </a>
     <a href="/banquet/banquet.action">
         <img class="" src="/images/date.png"/>
 
         <p>约饭</p>
     </a>
-    <a href="/oc/overcharged.action">
+    <a href="/oc/overcharged.action" class="on">
         <img class="" src="/images/discount.png"/>
 
         <p>砍价</p>
@@ -68,6 +69,7 @@
         <p>我的</p>
     </a>
 </footer>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     window.onload = function () {
         var mySwiper1 = new Swiper('#header', {

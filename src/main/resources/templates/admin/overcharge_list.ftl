@@ -22,6 +22,7 @@
                             <tr>
                                 <th>编号</th>
                                 <th>名称</th>
+                                <th>状态</th>
                                 <th>底价(元)</th>
                                 <th>砍价幅度(元)</th>
                                 <th>开始时间</th>
@@ -36,6 +37,20 @@
                                         <tr>
                                             <td>${overcharged.id}</td>
                                             <td>${overcharged.title}</td>
+                                            <td>
+                                            <#if overcharged.status==1>
+                                                正常
+                                            </#if>
+                                            <#if overcharged.status==2>
+                                                正常
+                                            </#if>
+                                            <#if overcharged.status==9>
+                                                已删除
+                                            </#if>
+                                            <#if overcharged.status==8>
+                                                已结束
+                                            </#if>
+                                            </td>
                                             <td>${overcharged.amount}</td>
                                             <td>${overcharged.subtract_price}</td>
                                             <td>${overcharged.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>

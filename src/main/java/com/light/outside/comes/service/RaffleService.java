@@ -6,10 +6,15 @@ import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -19,9 +24,9 @@ import java.util.*;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,6 +36,7 @@ import java.util.*;
 @Service
 public class RaffleService {
 
+    private Logger LOG = LoggerFactory.getLogger(RaffleService.class);
 
     @Autowired
     private PersistentDao persistentDao;
@@ -229,7 +235,7 @@ public class RaffleService {
         if (raffleUserModel == null) {
             return 3;
         } else {
-            return 3-raffleUserModel.getCount();
+            return 3 - raffleUserModel.getCount();
         }
     }
 
@@ -402,23 +408,25 @@ public class RaffleService {
     }
 
     public boolean addRaffleCount(long uid, long rid, int count) {
-        return  this.persistentDao.updateRaffleUserByRaffleId(uid, rid, count) > 0;
+        return this.persistentDao.updateRaffleUserByRaffleId(uid, rid, count) > 0;
     }
 
     /**
      * 查询剩余抽奖次数
+     *
      * @param uid
      * @param rid
      * @return
      */
-    public int getRaffleCount(long uid,long rid){
-        RaffleUserModel raffleUserModel=this.persistentDao.getRaffleUserByRaffleId(rid,uid);
-        if(raffleUserModel==null){
+    public int getRaffleCount(long uid, long rid) {
+        RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
+        if (raffleUserModel == null) {
             return 3;
-        }else{
-            return 3-raffleUserModel.getCount();
+        } else {
+            return 3 - raffleUserModel.getCount();
         }
     }
+
     /**
      * 查询中奖纪录
      *
@@ -428,6 +436,22 @@ public class RaffleService {
     public List<CouponRecordModel> queryCouponRecords(long cid) {
         List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND, 0, 10);
         return couponRecordModels;
+    }
+
+    /**
+     * 清除过期活动
+     */
+    public void clearRaffle() {
+        List<RaffleModel> raffleModels = this.persistentDao.getRaffles(1, Integer.MAX_VALUE);
+        if (raffleModels != null) {
+            for (RaffleModel raffleModel : raffleModels) {
+                if (raffleModel.getEnd_time().getTime() >= System.currentTimeMillis() && raffleModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                    raffleModel.setStatus(CONST.RAFFLE_STATUS_OVER);
+                    LOG.info("over raffle id:" + raffleModel.getId() + " name:" + raffleModel.getTitle());
+                    this.persistentDao.editRaffle(raffleModel);
+                }
+            }
+        }
     }
 
     /**
