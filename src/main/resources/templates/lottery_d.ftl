@@ -171,7 +171,7 @@
             //click.setAttribute("value","请抽奖");
         }
         center.rows[arr[index][0]].cells[arr[index][1]].style.background = "url(/images/lq.png)";
-        center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize = "100%";
+        center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize="100% 100%";
         if (index > 0)
             prevIndex = index - 1;
         else {
