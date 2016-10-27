@@ -169,7 +169,8 @@ public class RaffleController extends BaseController {
             }
             //更新抽奖次数(如果不存在则新增，存在则+1)
             raffleService.addRaffleCount(uid, rid, 1);
-            rCount=rCount-1;
+            if(rCount>0)
+                rCount=rCount-1;
         } else {
             msg = "您的抽奖次数已用完!";
         }
