@@ -1,7 +1,7 @@
 <html>
-    <body>
-        <script language="JavaScript">
+<body>
+<script language="JavaScript">
 
-        </script>
-    </body>
+</script>
+</body>
 </html>

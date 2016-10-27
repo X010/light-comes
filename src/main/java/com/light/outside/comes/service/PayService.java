@@ -1,11 +1,6 @@
 package com.light.outside.comes.service;
 
 import com.light.outside.comes.model.OrderModel;
-import com.light.outside.comes.mybatis.mapper.PersistentDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,16 +19,11 @@ import org.springframework.stereotype.Service;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-@Service
-public class WeiXinPayService implements PayService {
+public interface PayService {
 
-    @Autowired
-    private PersistentDao persistentDao;
-
-    private final static Logger LOG = LoggerFactory.getLogger(WeiXinPayService.class);
-
-    @Override
-    public void createOrder(OrderModel orderModel) {
-
-    }
+    /**
+     * 创建需要支付订单
+     * @param orderModel
+     */
+    public void createOrder(OrderModel orderModel);
 }
