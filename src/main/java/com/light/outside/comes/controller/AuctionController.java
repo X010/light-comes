@@ -88,12 +88,20 @@ public class AuctionController {
         float price = Float.parseFloat(request.getParameter("price").toString());
         long aid = Long.parseLong(request.getParameter("aid").toString());
         UserModel userModel = (UserModel) request.getSession().getAttribute("user");
-        boolean isSuccess = auctionService.bidAuction(userModel, aid, price);
+        AuctionModel auctionModel = auctionService.getAuctionById(aid);
+        long seconds = DateUtils.betweenSeconds(auctionModel.getEnd_time());
         int code = 0;
         String msg = "出价失败！";
-        if (isSuccess) {
-            code = 1;
-            msg = "出价成功！";
+        if(seconds<=0){
+            msg="拍卖已截止！";
+        }
+        boolean isSuccess = false;
+        if (seconds > 0) {
+            isSuccess = auctionService.bidAuction(userModel, aid, price);
+            if (isSuccess) {
+                code = 1;
+                msg = "出价成功！";
+            }
         }
         data.put("isSuccess", isSuccess);
         data.put("msg", msg);
@@ -111,9 +119,9 @@ public class AuctionController {
         List<AuctionRecordsModel> auctionRecordsModels = auctionService.queryAuctionRecordsByAid(auctionId);
         //秒数
         if (auctionModel != null) {
-            long second = DateUtils.betweenSeconds(auctionModel.getEnd_time());
-            auctionModel.setTime_second((int) second);
-            data.put("second", second);
+            long seconds = DateUtils.betweenSeconds(auctionModel.getEnd_time());
+            auctionModel.setTime_second((int) seconds);
+            data.put("seconds", seconds);
         }
         data.put("auction", auctionModel);
         data.put("auctionRecords", auctionRecordsModels);

@@ -7,6 +7,7 @@ import com.light.outside.comes.service.BackListService;
 import com.light.outside.comes.service.RaffleService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -153,7 +155,12 @@ public class RaffleController extends BaseController {
         rCount = raffleService.getUserRaffleCount(uid, rid);
         //获取允许抽奖次数
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
-        if (rCount < raffleModel.getTimes()) {
+        Date endTime = raffleModel.getEnd_time();
+        long seconds = DateUtils.betweenSeconds(endTime);
+        if (seconds < 0) {
+            msg ="抽奖已截止!";
+        }
+        if (seconds > 0 && rCount < raffleModel.getTimes()) {
             //查询黑名单
             //TODO 获取用户手机号码
             BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
@@ -169,8 +176,8 @@ public class RaffleController extends BaseController {
             }
             //更新抽奖次数(如果不存在则新增，存在则+1)
             raffleService.addRaffleCount(uid, rid, 1);
-            if(rCount>0)
-                rCount=rCount-1;
+            if (rCount > 0)
+                rCount = rCount - 1;
         } else {
             msg = "您的抽奖次数已用完!";
         }
