@@ -22,16 +22,16 @@ import java.util.Map;
  * 发http请求，返回JSON
  */
 public class JsonClient {
-	
+
     private static String ENCODING = "UTF-8";
-	
+
     public static JSONObject post(String url, Map<String, String> paramsMap) {
-    	String resp = doPost(url, paramsMap);
-    	JSONObject obj = JSONObject.parseObject(resp);
-    	return obj;
+        String resp = doPost(url, paramsMap);
+        JSONObject obj = JSONObject.parseObject(resp);
+        return obj;
     }
-    
-	 /**
+
+    /**
      * 基于HttpClient 4.3的通用POST方法
      *
      * @param url       提交的URL
