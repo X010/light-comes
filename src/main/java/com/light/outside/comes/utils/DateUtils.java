@@ -351,6 +351,18 @@ public class DateUtils {
 		long seconds = (endDate.getTime()-beginDate.getTime())/(1000);
 		return seconds;
 	}
+
+	/**
+	 * 获取参数日期于当前日期相减之间的秒数
+	 * @param endDate
+	 * @return
+	 */
+	public static Long endSeconds(Date endDate) {
+		Date beginDate = new Date();
+		long seconds = (endDate.getTime()-beginDate.getTime())/(1000);
+		return seconds;
+	}
+
 	public static Date AddDays(Date date, int days) {
 		Date dt = date;
 		if (dt != null) {

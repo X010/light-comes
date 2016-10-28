@@ -30,9 +30,14 @@
         <img src="/images/clock.png"/>
     <#--剩余时间<span>01</span>时<span>26</span>分<span>36</span>秒-->
     <#if seconds gt 0>
-        剩余时间${seconds}<span>01</span>时<span>26</span>分<span>36</span>秒
-    </#if>
+        剩余时间<span id="day_show">0</span>天
+        <span id="hour_show">0</span>时
+        <span id="minute_show">0</span>分
+        <span id="second_show">0</span>秒
+    <#else>
         拍卖结束!
+    </#if>
+
     </div>
 </div>
 <div class="auct-name">
@@ -78,17 +83,46 @@
 <div class="footer">
     <div id = "deposit">报名交保证金</div>
 </div>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
-    var auct = document.getElementById("auction");
+//    var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
     var closebtn = document.getElementById("close");
     var deposit = document.getElementById("deposit");
-    auct.onclick = function () {
-        floatbg.style.display = "block";
-    }
+//    auct.onclick = function () {
+//        floatbg.style.display = "block";
+//    }
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
+
+    function timer(intDiff){
+        window.setInterval(function(){
+            var day=0,
+                    hour=0,
+                    minute=0,
+                    second=0;//时间默认值
+            if(intDiff > 0){
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            $('#day_show').html(day);
+            $('#hour_show').html(hour);
+            $('#minute_show').html(minute);
+            $('#second_show').html(second);
+            intDiff--;
+        }, 1000);
+    }
+    $(function(){
+        var seconds=${seconds?c};
+        //var intDiff = parseInt(${seconds});//倒计时总秒数量
+        timer(seconds);
+    });
+
 </script>
 </body>
 </html>

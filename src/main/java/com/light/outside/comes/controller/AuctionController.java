@@ -89,7 +89,7 @@ public class AuctionController {
         long aid = Long.parseLong(request.getParameter("aid").toString());
         UserModel userModel = (UserModel) request.getSession().getAttribute("user");
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
-        long seconds = DateUtils.betweenSeconds(auctionModel.getEnd_time());
+        long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
         int code = 0;
         String msg = "出价失败！";
         if(seconds<=0){
@@ -119,7 +119,7 @@ public class AuctionController {
         List<AuctionRecordsModel> auctionRecordsModels = auctionService.queryAuctionRecordsByAid(auctionId);
         //秒数
         if (auctionModel != null) {
-            long seconds = DateUtils.betweenSeconds(auctionModel.getEnd_time());
+            long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
             auctionModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
         }
