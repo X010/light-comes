@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_banquet.action" id="banquet_form" name="banquet_form" method="post">
+    <form action="/admin/save_banquet.action" enctype="multipart/form-data"  id="banquet_form" name="banquet_form" method="post">
     <#if banquet??>
         <input id="editid" name="editid" value="${banquet.id}" type="hidden"/>
     </#if>
@@ -51,6 +51,13 @@
                                            value="${banquet.rang_time}"
                                     </#if>
                                            name="rang_time" id="rang_time"/>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="photo_up">活动图片(建议使用JPG图片)</label>
+
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="photo" name="photo_up" type="file">
                                 </div>
                             </div>
                             <div class="form-group">

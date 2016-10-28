@@ -409,12 +409,20 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("save_banquet.action")
-    public String save_banquet(BanquetModel banquetModel, HttpServletRequest request, HttpServletResponse response) {
+    public String save_banquet(BanquetModel banquetModel, HttpServletRequest request, HttpServletResponse response, @RequestParam("photo_up") MultipartFile file) {
         if (banquetModel != null) {
             banquetModel.rangle_time();
             banquetModel.setCreate_time(new Date());
             banquetModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
 
+            String file_path = null;
+            if (file != null) {
+                file_path = FileUtil.saveFile(file);
+            }
+
+            if (!Strings.isNullOrEmpty(file_path)) {
+                banquetModel.setPhoto(file_path);
+            }
 
             String id = request.getParameter("editid");
 

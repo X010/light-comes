@@ -1,6 +1,7 @@
 package com.light.outside.comes.model;
 
 import com.google.common.base.Strings;
+import com.light.outside.comes.utils.CONST;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -90,6 +91,23 @@ public class BanquetModel extends BaseModel {
      * 解析时间
      */
     private String rang_time;
+
+    /**
+     * 图片
+     */
+    private String photo;
+
+    public String getPhoto() {
+        if (!Strings.isNullOrEmpty(this.photo)&&this.photo.contains(CONST.SITE_URL)) {
+            return photo;
+        } else {
+            return CONST.SITE_URL + this.photo;
+        }
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public String getInfo() {
         return info;

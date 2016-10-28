@@ -158,7 +158,11 @@ public class RaffleModel extends BaseModel {
     }
 
     public String getPhoto() {
-        return CONST.SITE_URL+photo;
+        if (!Strings.isNullOrEmpty(this.photo) && this.photo.contains(CONST.SITE_URL)) {
+            return this.photo;
+        } else {
+            return CONST.SITE_URL + photo;
+        }
     }
 
     public void setPhoto(String photo) {

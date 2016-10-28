@@ -1,6 +1,7 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.light.outside.comes.model.BanquetModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
@@ -88,6 +89,11 @@ public class BanquetService {
      */
     public void updateBanquet(BanquetModel banquetModel) {
         Preconditions.checkNotNull(banquetModel);
+        if (Strings.isNullOrEmpty(banquetModel.getPhoto())) {
+            //使用原来的图片
+            BanquetModel oldBan = this.getBanquetById(banquetModel.getId());
+            banquetModel.setPhoto(oldBan.getPhoto());
+        }
         this.persistentDao.updateBanquet(banquetModel);
     }
 

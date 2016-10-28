@@ -130,14 +130,14 @@ public interface PersistentDao {
     @Select("select * from comes_banquet where id=#{id}")
     public BanquetModel getBanquetById(@Param("id") long id);
 
-    @Insert("insert into comes_banquet(title,amount,outnumber,create_time,start_time,author_nickname,author_telephone,memo,status,author_address,info,end_time)" +
-            "values(#{title},#{amount},#{outnumber},#{create_time},#{start_time},#{author_nickname},#{author_telephone},#{memo},#{status},#{author_address},#{info},#{end_time})")
+    @Insert("insert into comes_banquet(title,amount,outnumber,create_time,start_time,author_nickname,author_telephone,memo,status,author_address,info,end_time,photo)" +
+            "values(#{title},#{amount},#{outnumber},#{create_time},#{start_time},#{author_nickname},#{author_telephone},#{memo},#{status},#{author_address},#{info},#{end_time},#{photo})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addBanquet(BanquetModel banquetModel);
 
 
     @Update("update comes_banquet set  title=#{title},amount=#{amount},outnumber=#{outnumber},start_time=#{start_time},end_time=#{end_time},author_nickname=#{author_nickname}," +
-            "author_telephone=#{author_telephone},memo=#{memo},status=#{status},author_address=#{author_address},info=#{info} where id=#{id}")
+            "author_telephone=#{author_telephone},memo=#{memo},status=#{status},author_address=#{author_address},info=#{info},photo=#{photo} where id=#{id}")
     public void updateBanquet(BanquetModel banquetModel);
 
     @Select("select count(1) from comes_auction where status<>9")
