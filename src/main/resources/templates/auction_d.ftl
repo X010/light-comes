@@ -29,8 +29,8 @@
     <div class="msg-time">
         <img src="/images/clock.png"/>
     <#--剩余时间<span>01</span>时<span>26</span>分<span>36</span>秒-->
-    <#if second gt 0>
-        剩余时间${second}<span>01</span>时<span>26</span>分<span>36</span>秒
+    <#if seconds gt 0>
+        剩余时间${seconds}<span>01</span>时<span>26</span>分<span>36</span>秒
     </#if>
         拍卖结束!
     </div>
