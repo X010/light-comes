@@ -35,10 +35,10 @@ public interface PersistentDao {
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
     @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone} where id=#{id}")
-    public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status,@Param("uid") long uid,@Param("phone") String phone);
+    public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status, @Param("uid") long uid, @Param("phone") String phone);
 
     @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} limit #{star},#{size}")
-    public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status,@Param("star") int star,@Param("size") int size);
+    public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")
     public CouponModel getCouponById(@Param("id") long id);
@@ -75,22 +75,24 @@ public interface PersistentDao {
 
     /**
      * 查询抽奖次数
+     *
      * @param rid
      * @param uid
      * @return
      */
     @Select("select * from comes_raffle_user where uid=#{uid} and rid=#{rid}")
-    public RaffleUserModel getRaffleUserByRaffleId(@Param("rid") long rid,@Param("uid") long uid);
+    public RaffleUserModel getRaffleUserByRaffleId(@Param("rid") long rid, @Param("uid") long uid);
 
     /**
      * 增加或者新建抽奖次数
+     *
      * @param uid
      * @param rid
      * @param count
      * @return
      */
     @Insert("insert into comes_raffle_user(uid,rid,count) values(#{uid},#{rid},#{count}) ON DUPLICATE KEY UPDATE count=count+1")
-    public int updateRaffleUserByRaffleId(@Param("uid") long uid,@Param("rid") long rid,@Param("count") int count);
+    public int updateRaffleUserByRaffleId(@Param("uid") long uid, @Param("rid") long rid, @Param("count") int count);
 
     @Select("select ccr.id,ccr.title,concat(left(ccr.phone,3),'****',right(phone,4)) phone,ccr.uid,ccr.cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
             "where ccr.cid=crc.cid " +
@@ -98,7 +100,7 @@ public interface PersistentDao {
             "and ccr.`status`=#{status} " +
             "order by ccr.createtime desc " +
             "limit #{start},#{size}")
-    public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid,@Param("status") int status,@Param("start") int start, @Param("size") int size);
+    public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
     @Delete("delete from comes_raffle_coupon where rid=#{rid}")
     public void deleteRaffleCouponByRaffleId(@Param("rid") long rid);
@@ -194,4 +196,13 @@ public interface PersistentDao {
 
     @Select("select count(1) from comes_blacklist where status<>9")
     public int totalBackList();
+
+    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime)" +
+            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addOrder(OrderModel orderModel);
+
+
+    @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
+    public void updateOrder(OrderModel orderModel);
 }
