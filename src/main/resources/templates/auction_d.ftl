@@ -24,12 +24,21 @@
         <div class="title">
             <h3>${auction.title!}</h3>
 
-            <p>${auction.good_name!}</p>
+            <p>${auction.good_name!}&nbsp;&nbsp;&nbsp;
+            <#if auctionRecords?exists && auctionRecords?size!=0>
+                <#list auctionRecords as ar>
+                    <#if ar_index==0>
+                        当前价格:${ar.price!}
+                    </#if>
+                </#list>
+            <#else>
+                起拍价格:${auction.amount!}
+            </#if>
+            </p>
         </div>
     </div>
     <div class="msg-time">
         <img src="/images/clock.png"/>
-    <#--剩余时间<span>01</span>时<span>26</span>分<span>36</span>秒-->
     <#if seconds gt 0>
         剩余时间<span id="day_show">0</span>天
         <span id="hour_show">0</span>时
@@ -43,21 +52,16 @@
 </div>
 <div class="auct-name">
     <div class="msgname">
-    <#if auctionRecords??>
     <#--<img src="/images/auct-header.png"/>-->
     <#--<p>拍卖者信息</p>-->
+    <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
             <p>${ar.phone!}|出价:${ar.price!}</p>
-        <#--${ar.uid!}-->
-        <#--${ar.price!}-->
-        <#--${ar.phone!}-->
         </#list>
     <#else>
-        <p>暂时无人竞拍！</p>
+        <p>当前无人竞拍！</p>
     </#if>
     </div>
-
-
 </div>
 <div id="bg-auct">
     <div class="auct-success">

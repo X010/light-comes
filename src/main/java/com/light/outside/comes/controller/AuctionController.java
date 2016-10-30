@@ -89,15 +89,14 @@ public class AuctionController {
         long aid = Long.parseLong(request.getParameter("aid").toString());
         UserModel userModel = (UserModel) request.getSession().getAttribute("user");
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
-        //TODO判断保证金是否支付
+        //TODO 判断保证金是否支付
         long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
         int code = 0;
         String msg = "出价失败！";
-        if(seconds<=0){
-            msg="拍卖已截止！";
-        }
         boolean isSuccess = false;
-        if (seconds > 0) {
+        if (seconds <= 0) {
+            msg = "拍卖已截止！";
+        } else {
             isSuccess = auctionService.bidAuction(userModel, aid, price);
             if (isSuccess) {
                 code = 1;
@@ -113,6 +112,7 @@ public class AuctionController {
 
     /**
      * 拍卖页面
+     *
      * @param data
      * @param request
      * @param response

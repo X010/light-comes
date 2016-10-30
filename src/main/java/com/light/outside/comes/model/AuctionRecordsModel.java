@@ -12,6 +12,15 @@ public class AuctionRecordsModel {
     private long uid;
     private String phone;
     private Date crete_time;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Date getCrete_time() {
         return crete_time;
