@@ -97,8 +97,18 @@ public class BanquetModel extends BaseModel {
      */
     private String photo;
 
+    private int time_second;
+
+    public int getTime_second() {
+        return time_second;
+    }
+
+    public void setTime_second(int time_second) {
+        this.time_second = time_second;
+    }
+
     public String getPhoto() {
-        if (!Strings.isNullOrEmpty(this.photo)&&this.photo.contains(CONST.SITE_URL)) {
+        if (!Strings.isNullOrEmpty(this.photo) && this.photo.contains(CONST.SITE_URL)) {
             return photo;
         } else {
             return CONST.SITE_URL + this.photo;

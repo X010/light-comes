@@ -89,7 +89,7 @@ public class BanquetService {
      */
     public void updateBanquet(BanquetModel banquetModel) {
         Preconditions.checkNotNull(banquetModel);
-        if (Strings.isNullOrEmpty(banquetModel.getPhoto())) {
+        if (Strings.isNullOrEmpty(banquetModel.getPhoto()) || CONST.SITE_URL.equalsIgnoreCase(banquetModel.getPhoto().replace("null", ""))) {
             //使用原来的图片
             BanquetModel oldBan = this.getBanquetById(banquetModel.getId());
             banquetModel.setPhoto(oldBan.getPhoto());
