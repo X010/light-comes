@@ -145,7 +145,7 @@ public interface PersistentDao {
     @Select("select count(1) from comes_auction where status<>9")
     public int auctionTotal();
 
-    @Select("select * from comes_auction where status<>9 limit #{start},#{size}")
+    @Select("select * from comes_auction where status<>9 order by id desc limit #{start},#{size}")
     public List<AuctionModel> getAuctions(@Param("start") int start, @Param("size") int size);
 
     @Select("select * from comes_auction where id=#{id}")
