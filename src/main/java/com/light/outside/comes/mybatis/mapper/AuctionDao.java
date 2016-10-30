@@ -5,6 +5,7 @@ import com.light.outside.comes.model.AuctionRecordsModel;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public interface AuctionDao {
 
     /**
      * 插入出价记录
+     *
      * @param aid
      * @param price
      * @param uid
@@ -24,14 +26,31 @@ public interface AuctionDao {
      * @return
      */
     @Insert("insert into comes_auction_records(aid,price,uid,phone) values(#{aid},#{price},#{uid},#{phone})")
-    public int addAuctionRecords(@Param("aid") long aid,@Param("price") float price,@Param("uid") long uid,@Param("phone") String phone);
+    public int addAuctionRecords(@Param("aid") long aid, @Param("price") float price, @Param("uid") long uid, @Param("phone") String phone);
 
     /**
      * 查询该拍卖纪录
+     *
      * @param aid
      * @return
      */
     @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone,`status` from comes_auction_records where aid=#{aid} group by uid order by price desc ")
     public List<AuctionRecordsModel> selectAuctionRecordsByAid(@Param("aid") long aid);
 
+
+    /**
+     * 获取最大出价者
+     * @param aid
+     * @return
+     */
+    @Select("select * from comes_auction_records where aid=#{aid} order by price desc limit 1")
+    public AuctionRecordsModel getWinAuctionRecord(@Param("aid") long aid);
+
+
+    /**
+     * 更新中奖人
+     * @param auctionRecordsModel
+     */
+    @Update("update comes_auction_records set status=#{status} where id=#{id}")
+    public void updateWinAuactionRecord(AuctionRecordsModel auctionRecordsModel);
 }

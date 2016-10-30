@@ -163,6 +163,18 @@ public class AuctionService {
                 if (auctionModel.getEnd_time().getTime() >= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     auctionModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over auction id:" + auctionModel.getId() + " name:" + auctionModel.getTitle());
+
+                    //选出拍卖中的那个人
+                    AuctionRecordsModel auctionRecordsModel = this.auctionDao.getWinAuctionRecord(auctionModel.getId());
+                    if (auctionRecordsModel != null) {
+                        auctionRecordsModel.setStatus(CONST.WIN);
+                        //更新AuctionRecord
+                        auctionModel.setWin_phone(auctionRecordsModel.getPhone());
+                        auctionModel.setWin_price(auctionRecordsModel.getPrice());
+                        auctionModel.setWin_uid(auctionRecordsModel.getUid());
+                        this.auctionDao.updateWinAuactionRecord(auctionRecordsModel);
+                    }
+
                     this.updateAuction(auctionModel);
                 }
             }

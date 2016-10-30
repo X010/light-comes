@@ -35,6 +35,7 @@ public class CONST {
     public static int ORDER_OVER = 9;//订单过期
     public static int ORDER_PAY = 2;//订单支付
 
+    public static int WIN=5;//获得者
 
     public static int FOCUS_RAFFLE = 1;//抽奖
     public static int FOCUS_OVERCHARGER = 2;//砍价

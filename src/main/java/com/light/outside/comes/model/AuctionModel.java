@@ -98,6 +98,44 @@ public class AuctionModel extends BaseModel {
      */
     private String memo;
 
+    /**
+     * 获奖者ID
+     */
+    private long win_uid;
+
+    /**
+     * 获取者手机号
+     */
+    private String win_phone;
+
+    /**
+     * 最终出价
+     */
+    private float win_price;
+
+    public long getWin_uid() {
+        return win_uid;
+    }
+
+    public void setWin_uid(long win_uid) {
+        this.win_uid = win_uid;
+    }
+
+    public String getWin_phone() {
+        return win_phone;
+    }
+
+    public void setWin_phone(String win_phone) {
+        this.win_phone = win_phone;
+    }
+
+    public float getWin_price() {
+        return win_price;
+    }
+
+    public void setWin_price(float win_price) {
+        this.win_price = win_price;
+    }
 
     public String getMemo() {
         return memo;
