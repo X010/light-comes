@@ -17,7 +17,8 @@
 <body>
 
 <header class="bar bar-nav">
-    <a class="icon icon-left-nav pull-left"  onclick="window.history.back();" id="navBackBtn"></a>
+    <a class="icon icon-left-nav pull-left" onclick="window.history.back();" id="navBackBtn"></a>
+
     <h1 class="title">我的拍卖</h1>
 </header>
 <div class="content">
@@ -29,7 +30,30 @@
         </div>
     </div>
     <div class="mui-order-list" id="containerList">
-
+        <div class="items">
+            <div class="mui-panel item-order">
+                <div class="item-order-info">
+                    <div id="item-group"><span class="item-code">活动名称:</span></div>
+                </div>
+                <div class="item-goods-list">
+                    <div class="items">
+                        <div class="item-col">
+                            <div class="item-goods">
+                                <div class="item-gname">
+                                    <span class="item-flag"></span>
+                                </div>
+                                <div class="item-total"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-order-ext clearfix">
+                    <div class="pull-left item-price-total">最后出价：<strong></strong> 元</div>
+                    <div class="pull-right">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="mui-empty">

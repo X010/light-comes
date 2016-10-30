@@ -1,17 +1,22 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.BanquetModel;
+import com.light.outside.comes.model.OrderModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.admin.FocusImageModel;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
+import com.light.outside.comes.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -74,9 +79,41 @@ public class BanquetController {
             long seconds = DateUtils.endSeconds(banquetModel.getEnd_time());
             banquetModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
+
+            //判断是否已经预约了饭局
+
+
             return "banquet_d";
         } else {
             return "redirect:/banquet/banquet.action";
         }
     }
+
+    /**
+     * 进行支付
+     *
+     * @param data
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("dopaybanquet.action")
+    public String doPayBanquet(Map<String, Object> data, HttpServletRequest request) {
+        String res = "";
+        try {
+            UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
+            if (userModel != null) {
+                long aid = Long.valueOf(request.getParameter("aid"));
+
+                OrderModel orderModel = this.banquetService.payBanquet(aid, userModel);
+                if (orderModel != null) {
+                    res = JsonParser.simpleJson(orderModel);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
 }

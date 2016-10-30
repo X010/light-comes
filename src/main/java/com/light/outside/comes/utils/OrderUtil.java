@@ -1,7 +1,5 @@
 package com.light.outside.comes.utils;
 
-import java.util.UUID;
-
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,16 +17,10 @@ import java.util.UUID;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class CouponCardUtil {
+public class OrderUtil {
 
-    /**
-     * 生成卡号
-     *
-     * @param id
-     * @return
-     */
-    public static String produceCouponCardNo(long id) {
-        return UUID.randomUUID().toString();
+
+    public static String getOrderNo() {
+        return "2" + System.currentTimeMillis();
     }
-
 }

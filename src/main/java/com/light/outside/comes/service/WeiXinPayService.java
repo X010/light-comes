@@ -37,9 +37,9 @@ public class WeiXinPayService implements PayService {
     private final static Logger LOG = LoggerFactory.getLogger(WeiXinPayService.class);
 
     @Override
-    public void createOrder(OrderModel orderModel) {
+    public long createOrder(OrderModel orderModel) {
         Preconditions.checkNotNull(orderModel);
-        this.persistentDao.addOrder(orderModel);
+        return this.persistentDao.addOrder(orderModel);
     }
 
     @Override

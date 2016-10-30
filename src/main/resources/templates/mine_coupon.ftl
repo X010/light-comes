@@ -34,7 +34,7 @@
         <div class="items">
             <div class="mui-panel item-order">
                 <div class="item-order-info">
-                    <div id="item-group"><span class="item-code">订单号</span></div>
+                    <div id="item-group"><span class="item-code">优惠劵号:</span></div>
                 </div>
                 <div class="item-goods-list">
                     <div class="items">

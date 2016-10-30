@@ -26,7 +26,7 @@ public interface PayService {
      *
      * @param orderModel
      */
-    public void createOrder(OrderModel orderModel);
+    public long createOrder(OrderModel orderModel);
 
     /**
      * 根据ID获取订单

@@ -3,15 +3,19 @@ package com.light.outside.comes.service;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.light.outside.comes.model.BanquetModel;
+import com.light.outside.comes.model.OrderModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.OrderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +41,9 @@ public class BanquetService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+    @Autowired
+    private PayService payService;
 
     private Logger LOG = LoggerFactory.getLogger(BanquetService.class);
 
@@ -105,6 +112,45 @@ public class BanquetService {
             banquetModel.setStatus(CONST.RAFFLE_STATUS_DELETE);
             this.updateBanquet(banquetModel);
         }
+    }
+
+    /**
+     * 支付约饭
+     *
+     * @param aid
+     * @param userModel
+     * @return
+     */
+    public OrderModel payBanquet(long aid, UserModel userModel) {
+        Preconditions.checkArgument(aid > 0);
+        Preconditions.checkNotNull(userModel);
+
+        OrderModel orderModel = null;
+        try {
+            BanquetModel banquetModel = this.getBanquetById(aid);
+            if (banquetModel != null) {
+                orderModel = new OrderModel();
+                orderModel.setAmount(banquetModel.getAmount());
+                orderModel.setAname(banquetModel.getTitle());
+                orderModel.setAtype(CONST.FOCUS_BANQUET);
+                orderModel.setCreatetime(new Date());
+                orderModel.setPhone(userModel.getPhone());
+                orderModel.setUid(userModel.getId());
+                orderModel.setStatus(CONST.ORDER_PAY);
+                orderModel.setPtype(CONST.PAY_WEIXIN);
+                orderModel.setOrderNo(OrderUtil.getOrderNo());
+                orderModel.setPaytime(new Date());
+
+                long oid = this.payService.createOrder(orderModel);
+                if (oid > 0) {
+                    orderModel.setId(oid);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return orderModel;
     }
 
     /**
