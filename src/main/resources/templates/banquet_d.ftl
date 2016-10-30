@@ -75,7 +75,7 @@
 </div>
 <#if banquet.status==2>
 <div class="footer">
-    <div id="deposit" onclick="alert('支付还在对接中');">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+    <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
 </div>
 </#if>
 </body>
@@ -83,8 +83,14 @@
     /**
      * 发送交定金请求
      */
-    function send_submit_order() {
-
+    function send_submit_order(aid) {
+        $.ajax({
+            url: "/banquet/dopaybanquet.action?aid=" + aid,
+            dataType: "json",
+            success: function (data, textStatus) {
+                console.log(data);
+            }
+        });
     }
 
 
