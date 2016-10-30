@@ -195,7 +195,7 @@
                 var rc =${rCount};
                 number = rc;
                 if (rc <= 0) {
-                    alert("抽奖次数已用完。")
+                    layer.style.display = "block";
                 } else {
                     $.ajax({
                         url: "lottery_draw.action?rid=${raffle.id}&id=",
@@ -210,7 +210,7 @@
                             if (r.code == 1) {
                                 floatimg.style.display = "block";
                             } else {
-                                alert("没有中奖！");
+                                layer.style.display = "block";
                             }
                         }
                     });
@@ -227,7 +227,12 @@
     floatimg.onclick = function () {
         floatimg.style.display = 'none';
     }
-
+    closebtn.onclick = function () {
+        layer.style.display = "none";
+    }
+    okbtn.onclick = function () {
+        layer.style.display = "none";
+    }
     //
     //    $(function () {
     //        $("#center").click(function () {

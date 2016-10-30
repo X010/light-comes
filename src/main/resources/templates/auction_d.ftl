@@ -73,19 +73,15 @@
         <div class="succ-main">
             <div class="msg-succ">
                 <img src="/images/auct.png"/>
-
                 <div class="msg-r">
-                    <h4>天之蓝经典酒</h4>
-
+                    <h4>${auction.good_name!}</h4>
                     <p>数量 x1</p>
-
                     <p>成交价格 389元</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <#--<div class="footer">-->
 <#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
 <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
