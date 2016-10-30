@@ -33,7 +33,7 @@ public class ClientLoginController extends BaseController{
     @RequestMapping(value = "login.action",method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public String login(Map<String, Object> data,HttpServletRequest request, HttpServletResponse response){
-        String phone= RequestTools.RequestString(request, "phone", "");
+        String phone= RequestTools.RequestString(request, "username", "");
         String password= RequestTools.RequestString(request,"password","");
         boolean isSuccess=loginService.clientLogin(phone, password, request);
         if(isSuccess) {
@@ -47,6 +47,19 @@ public class ClientLoginController extends BaseController{
             return JsonTools.jsonSer(data);
         }
     }
+
+    /**
+     * 跳转登录页面
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "to_login.action",method = {RequestMethod.POST, RequestMethod.GET})
+    public String toLogin(Map<String, Object> data,HttpServletRequest request, HttpServletResponse response){
+        return "login";
+    }
+
 
     @RequestMapping(value = "wechatLogin.action",method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody

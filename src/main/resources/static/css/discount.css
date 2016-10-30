@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* CSS Document */
+#banner{width: 100%;  height:580px;  overflow: hidden; position:relative; box-shadow: 0 0 30px #333;}
+#banner .swiper-slide {position:relative;  text-align:center;  }
+#banner img {  width: 100%;  }
+.pagination {position: absolute;z-index: 20;bottom: 10px;width: 100%;text-align: center;right:0;
+}
+.msg{ border-bottom:2px solid #ccc; border-top: 2px solid #ccc; width:80%; margin:0 auto; padding:40px; text-decoration:none; list-style:none;}
+#msglist{ position:absolute; top:640px; background-color:#fff; width:100%;}
+.msg-left,.msg-right,.msg-author p{float:left;}
+.msg-left{width: 14rem; height: 14rem;}
+.msg-left img{width: 100%; height: 100%;}
+.msg-right{width: 55%; margin-left: 100px;}
+.msg-right h4{ font-size: 40px; font-weight: bold;}
+.msg-right p{ font-size:40px; color:#747474; line-height:60px; margin-top: 10px;}
+.msg-author{ width:100%;}
+.msg-author img{ display:block; width: 50px; height:50px; float:left; margin:10px;}
+
+.discount{ width: 100%; height: 320px; position: relative; background: #fff; box-shadow: 0 10px 50px #ccc; margin-top: 30px;}
+.msg-auct{ width: 86%; margin:0 auto; padding: 40px; border-bottom: 1px solid #666;}
+.msg-auct img{ width: 40px; height: 40px; float: left; margin:10px;}
+.msg-auct span{ display: inline-block;}
+.msg-auct p{ font-size: 2.4rem; margin: 20px 0; color:#6e6e6e;}
+.title{ font-size: 3rem;  margin-left:100px;}
+.msg-time{ width: 86%; margin: 50px auto; font-size: 2.6rem; font-weight: bold;}
+.msg-time img{ width: 40px; margin: 0 40px 0 10px;}
+.msg-time span{ color:#f57e63; margin-left: 15px; font-weight: 500;}
+
+.auct-name{ width: 100%; height: 160px; position: relative; background: #fff; box-shadow: 0 10px 50px #ccc; margin-top: 30px;}
+.msgname{ width: 84%; margin: 0 auto; padding:20px 0;}
+.msgname img{ width: 40px;}
+.msgname p{ font-size: 2.6rem; font-weight: 600; display: inline-block; padding: 30px 50px;}
+
+#bg-auct{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display: none;}
+.auct-success{ position: absolute; top:22%; left: 8%; width: 80%; height: 41%; z-index: 99; background: #fff; border-radius: 20px; padding: 2%}
+.succ-top{ font-size: 2.6rem; width: 100%;}
+.succ-top p{ text-align: center;  margin:60px auto; float: left;}
+.title-succ{ width: 80%;}
+#close{ color:#ff825f; width: 20%; font-size: 3.6rem; line-height: 2rem; cursor: pointer;}
+.msg-succ{ width: 86%; margin: 0 auto;}
+.msg-succ img{ width: 300px; float: left;}
+.msg-r{ float: left;  margin-left: 5%;}
+.msg-r h4{font-size: 3rem; border-bottom: 1px solid #666; padding-bottom: 40px; margin-bottom: 40px;}
+.msg-r p{ font-size: 2.4rem;color: #6e6e6e; padding-top: 10px;}
+
+#deposit{ width: 90%; margin: 0 auto; line-height: 150px; font-size: 2.6rem; text-align: center; color: #fff; background-color: #f57e63;}

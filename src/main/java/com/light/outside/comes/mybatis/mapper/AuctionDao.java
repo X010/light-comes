@@ -31,7 +31,7 @@ public interface AuctionDao {
      * @param aid
      * @return
      */
-    @Select("select * from comes_auction_records where aid=#{aid} group by uid order by price desc ")
+    @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone from comes_auction_records where aid=#{aid} group by uid order by price desc ")
     public List<AuctionRecordsModel> selectAuctionRecordsByAid(@Param("aid") long aid);
 
 }

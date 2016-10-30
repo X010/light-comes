@@ -152,7 +152,7 @@
                 if (isload){
                     loadMore();
                 }
-                setTimeout(function(){sentIt = true;},600);
+                setTimeout(function(){sentIt = true;},1000);
             }
         });
         function loadMore(){
@@ -182,13 +182,13 @@
                         }
                         else {
                             spinner.stop(target);
-                            alert("没有了");
+                            alert("没有了1");
                             isload = false;
                         }
                     }
                     else {
                         spinner.stop(target);
-                        alert("没有了");
+                        alert("没有了2");
                         isload = false;
                     }
                 },
@@ -199,7 +199,7 @@
                     }
                     if(status=="parsererror"){
                         spinner.stop(target);
-                        alert("没有了");
+                        alert("没有了3");
                         isload = false;
                     }
                 }
