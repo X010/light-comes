@@ -31,9 +31,31 @@
         </div>
     </div>
     <div class="mui-order-list" id="containerList">
-
+        <div class="items">
+            <div class="mui-panel item-order">
+                <div class="item-order-info">
+                    <div id="item-group"><span class="item-code">订单号</span></div>
+                </div>
+                <div class="item-goods-list">
+                    <div class="items">
+                        <div class="item-col">
+                            <div class="item-goods">
+                                <div class="item-gname">
+                                    <span class="item-flag">单品类</span>
+                                </div>
+                                <div class="item-total"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-order-ext clearfix">
+                    <div class="pull-left item-price-total">金额：<strong></strong> 元</div>
+                    <div class="pull-right">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
     <div class="mui-empty">
         <div class="item-icon">
             <span class="icon micon-empty"></span>
