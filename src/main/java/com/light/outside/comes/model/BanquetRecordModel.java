@@ -18,14 +18,8 @@ import java.util.Date;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 支付订单类
  */
-public class OrderModel extends BaseModel {
-
-    /**
-     * 支付金额
-     */
-    private float amount;
+public class BanquetRecordModel extends BaseModel {
 
     /**
      * 状态
@@ -33,75 +27,43 @@ public class OrderModel extends BaseModel {
     private int status;
 
     /**
-     * 活动类型
+     * 标题
      */
-    private int atype;
+    private String title;
 
     /**
-     * 活动名称
+     * 金额
      */
-    private String aname;
+    private float amount;
 
     /**
-     * 支付类型
-     */
-    private int ptype;
-
-    /**
-     * 支付手号机
+     * 手机号码
      */
     private String phone;
+
 
     /**
      * 用户ID
      */
     private long uid;
 
-    /**
-     * 创建时间
-     */
-    private Date createtime;
-
-    /**
-     * 支付时间
-     */
-    private Date paytime;
-
-    /**
-     * 订单号
-     */
-    private String orderNo;
 
     /**
      * 活动ID
      */
     private long aid;
 
-
-    public long getAid() {
-        return aid;
-    }
-
-    public void setAid(long aid) {
-        this.aid = aid;
-    }
-
-    public String getOrderNo() {
-        return orderNo;
-    }
+    /**
+     * 订单号
+     */
+    private String orderNo;
 
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
+    /**
+     * 创建时间
+     */
+    private Date createtime;
 
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
 
     public int getStatus() {
         return status;
@@ -111,28 +73,20 @@ public class OrderModel extends BaseModel {
         this.status = status;
     }
 
-    public int getAtype() {
-        return atype;
+    public String getTitle() {
+        return title;
     }
 
-    public void setAtype(int atype) {
-        this.atype = atype;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getAname() {
-        return aname;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setAname(String aname) {
-        this.aname = aname;
-    }
-
-    public int getPtype() {
-        return ptype;
-    }
-
-    public void setPtype(int ptype) {
-        this.ptype = ptype;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public String getPhone() {
@@ -151,19 +105,27 @@ public class OrderModel extends BaseModel {
         this.uid = uid;
     }
 
+    public long getAid() {
+        return aid;
+    }
+
+    public void setAid(long aid) {
+        this.aid = aid;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     public Date getCreatetime() {
         return createtime;
     }
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
-    }
-
-    public Date getPaytime() {
-        return paytime;
-    }
-
-    public void setPaytime(Date paytime) {
-        this.paytime = paytime;
     }
 }

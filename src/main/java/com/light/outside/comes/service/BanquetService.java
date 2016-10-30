@@ -114,6 +114,7 @@ public class BanquetService {
         }
     }
 
+
     /**
      * 支付约饭
      *
@@ -140,7 +141,7 @@ public class BanquetService {
                 orderModel.setPtype(CONST.PAY_WEIXIN);
                 orderModel.setOrderNo(OrderUtil.getOrderNo());
                 orderModel.setPaytime(new Date());
-
+                orderModel.setAid(aid);
                 long oid = this.payService.createOrder(orderModel);
                 if (oid > 0) {
                     orderModel.setId(oid);

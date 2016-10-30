@@ -197,8 +197,8 @@ public interface PersistentDao {
     @Select("select count(1) from comes_blacklist where status<>9")
     public int totalBackList();
 
-    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime)" +
-            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime})")
+    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime,aid)" +
+            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime},#{aid})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOrder(OrderModel orderModel);
 
