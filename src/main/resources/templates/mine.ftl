@@ -7,7 +7,7 @@
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
     <style>
         .container{ position:absolute;width:100%;height:93%;top:7%;left:0px; background: #f3f3f3;}
-        .head{ background: url("images/mine-bg.png" ) no-repeat; background-size:100% 100%; width: 100%; height: 30%;}
+        .head{ background: url("/images/mine-bg.png" ) no-repeat; background-size:100% 100%; width: 100%; height: 30%;}
         .head img{ position:absolute;width:250px; height:250px; left: 36%; top:5%;}
         .head p{ text-align: center; font-size: 2.8rem; color:#fff; padding-top:36%;}
         .mainlist{ margin-top: 5%; width: 100%; height: 32%; background: #fff;}
