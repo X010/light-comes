@@ -41,7 +41,7 @@ public class SessionFilter implements javax.servlet.Filter {
             }
         }
         //客户端登录验证
-        else if (url.contains("lottery_list.action") || url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
+        else if (url.contains("auction_list.action") || url.contains("lottery_list.action") || url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             response.setContentType("text/html;charset=UTF-8");
             response.setHeader("Access-Control-Allow-Origin", "*");

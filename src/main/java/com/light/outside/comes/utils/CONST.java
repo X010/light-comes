@@ -8,9 +8,9 @@ package com.light.outside.comes.utils;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ public class CONST {
 
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
     public static int RAFFLE_STATUS_INIT = 1;//初始化
-    public static int RAFFLE_STATUS_BIND = 3;//初始化
+    public static int RAFFLE_STATUS_BIND = 3;//已绑定到用户
     public static int RAFFLE_STATUS_DELETE = 9;//删除
     public static int RAFFLE_STATUS_OVER = 8;//结束
 
@@ -42,6 +42,9 @@ public class CONST {
     public static int FOCUS_AUCTION = 3;//拍续
     public static int FOCUS_BANQUET = 4;//约饭
 
-
     public static int PAY_WEIXIN = 1;
+
+    public static int AUCTION_STATUS_BID = 1;//出价
+    public static int AUCTION_STATUS_SUCCESSED = 2;//拍卖成功
+
 }
