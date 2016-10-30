@@ -108,6 +108,16 @@ public class AuctionService {
     }
 
     /**
+     * 查询最高出价
+     * @param aid
+     * @param uid
+     * @return
+     */
+    public AuctionRecordsModel queryTopRecord(long aid,long uid){
+        return auctionDao.queryAuctionRecords(aid,uid);
+    }
+
+    /**
      * 查询出价记录
      *
      * @param aid

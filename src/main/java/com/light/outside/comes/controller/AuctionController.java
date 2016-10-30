@@ -12,6 +12,7 @@ import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import com.sun.xml.internal.rngom.parse.host.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("auction")
-public class AuctionController {
+public class AuctionController extends BaseController {
 
     @Autowired
     private AuctionService auctionService;
@@ -73,6 +74,14 @@ public class AuctionController {
         return "auction";
     }
 
+    /**
+     * 拍卖活动列表API
+     *
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("auction_list.action")
     @ResponseBody
     public String auctionList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
@@ -104,9 +113,10 @@ public class AuctionController {
         //出价
         float price = Float.parseFloat(request.getParameter("price").toString());
         long aid = Long.parseLong(request.getParameter("aid").toString());
-        UserModel userModel = (UserModel) request.getSession().getAttribute("user");
+        UserModel userModel = getAppUserInfo();
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
         //TODO 判断保证金是否支付
+        //获取截止时间
         long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
         int code = 0;
         String msg = "出价失败！";
@@ -114,10 +124,21 @@ public class AuctionController {
         if (seconds <= 0) {
             msg = "拍卖已截止！";
         } else {
-            isSuccess = auctionService.bidAuction(userModel, aid, price);
-            if (isSuccess) {
-                code = 1;
-                msg = "出价成功！";
+            //查询是否有更高的出价
+            AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid, userModel.getId());
+            float topPrice = 0;
+            if (auctionRecordsModel != null) {
+                topPrice = auctionRecordsModel.getPrice();
+            }
+            if (price > topPrice) {
+                isSuccess = auctionService.bidAuction(userModel, aid, price);
+                if (isSuccess) {
+                    code = 1;
+                    msg = "出价成功！";
+                }
+            } else {
+                msg = "出价失败，目前最高价格:" + topPrice;
+                data.put("topPrice", topPrice);
             }
         }
         data.put("isSuccess", isSuccess);

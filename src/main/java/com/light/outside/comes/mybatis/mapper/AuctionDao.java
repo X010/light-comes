@@ -25,8 +25,17 @@ public interface AuctionDao {
      * @param phone
      * @return
      */
-    @Insert("insert into comes_auction_records(aid,price,uid,phone) values(#{aid},#{price},#{uid},#{phone})")
+    @Insert("insert into comes_auction_records(aid,price,uid,phone,status) values(#{aid},#{price},#{uid},#{phone},1)")
     public int addAuctionRecords(@Param("aid") long aid, @Param("price") float price, @Param("uid") long uid, @Param("phone") String phone);
+
+    /**
+     * 查询目前最高价格
+     * @param aid
+     * @param uid
+     * @return
+     */
+    @Insert("select * from comes_auction_records where aid=#{aid} and uid=#{uid} order by price desc limit 1")
+    public AuctionRecordsModel queryAuctionRecords(@Param("aid") long aid,@Param("uid") long uid);
 
     /**
      * 查询该拍卖纪录

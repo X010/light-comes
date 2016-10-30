@@ -157,7 +157,7 @@
 
     var index=0,           //当前亮区位置
             prevIndex=0,          //前一位置
-            Speed=300,           //初始速度
+            Speed=200,           //初始速度
             Time,            //定义对象
             arr = GetSide(3,3),         //初始化数组
             EndIndex=0,           //决定在哪一格变慢
@@ -221,9 +221,7 @@
 
         for (i = 0; i < span.length; i++) {
             span[i].onclick = function () {
-                var rc =${rCount};
-                number = rc;
-                if (rc <= 0) {
+                if (number <= 0) {
                     layer.style.display = "block";
                 } else {
                     $.ajax({

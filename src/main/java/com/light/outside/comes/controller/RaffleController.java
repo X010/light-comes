@@ -165,14 +165,13 @@ public class RaffleController extends BaseController {
         long seconds = DateUtils.betweenSeconds(endTime);
         int remainCount = raffleModel.getTimes() - rCount;
         if (seconds < 0) {
-            msg = "抽奖已截止!";
+            msg = "抽奖活动已截止!";
         } else if (remainCount > 0) {
             //查询黑名单
             //TODO 获取用户手机号码
             BackList backList = backListService.getBackListByPhoneAndCtype(phone, CONST.FOCUS_RAFFLE);
             //用户不在黑名单中
             if (backList == null) {
-                //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
                 RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id, phone);
                 if (raffleCouponModel != null) {
                     code = 1;
