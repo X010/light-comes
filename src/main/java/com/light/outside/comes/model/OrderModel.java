@@ -67,6 +67,18 @@ public class OrderModel extends BaseModel {
      */
     private Date paytime;
 
+    /**
+     * 订单号
+     */
+    private String orderNo;
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
     public float getAmount() {
         return amount;
