@@ -14,7 +14,7 @@
         {{# for(var i = 0, len = d.length; i < len; i++){ }}
         <li class="msg" onclick="location.href='lottery_d.action?rid={{d[i].id}}'">
             <div class="msg-left">
-                <img src="{{d[i].photo}}" />
+                <#--<img src="{{d[i].photo}}" />-->
             </div>
             <div class="msg-right">
                 <h3>{{d[i].title}}</h3>
@@ -160,7 +160,7 @@
             $.ajax({
                 type:'GET',
                 url:'lottery_list.action?page='+pages,
-                timeout : 5000, //超时时间设置，单位毫秒
+                timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
                 beforeSend: function () {
@@ -178,16 +178,15 @@
                             pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
                             spinner.stop(target);
+                            isload = true;
                         }
                         else {
                             spinner.stop(target);
-                            alert("没有了1");
                             isload = false;
                         }
                     }
                     else {
                         spinner.stop(target);
-                        alert("没有了2");
                         isload = false;
                     }
                 },
@@ -199,6 +198,7 @@
                     if(status=="parsererror"){
                         spinner.stop(target);
                         isload = false;
+                        console.log("pasererror");
                     }
                 }
             });
