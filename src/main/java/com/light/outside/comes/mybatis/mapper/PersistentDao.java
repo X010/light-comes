@@ -37,7 +37,7 @@ public interface PersistentDao {
     @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone} where id=#{id}")
     public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status, @Param("uid") long uid, @Param("phone") String phone);
 
-    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} limit #{star},#{size}")
+    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status}  order  by id desc limit #{star},#{size}")
     public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")
@@ -126,7 +126,7 @@ public interface PersistentDao {
     @Select("select count(1) from comes_banquet where status<>9")
     public int banquetTotal();
 
-    @Select("select * from comes_banquet where status<>9 limit #{start},#{size}")
+    @Select("select * from comes_banquet where status<>9 order  by id desc  limit #{start},#{size}")
     public List<BanquetModel> getBanquets(@Param("start") int start, @Param("size") int size);
 
     @Select("select * from comes_banquet where id=#{id}")
@@ -157,7 +157,7 @@ public interface PersistentDao {
     public long addAuction(AuctionModel auctionModel);
 
     @Update("update comes_auction  set title=#{title},amount=#{amount},status=#{status},deposit=#{deposit},setp_amount=#{setp_amount},time_second=#{time_second}," +
-            "start_time=#{start_time},end_time=#{end_time},memo=#{memo} where id=#{id}")
+            "start_time=#{start_time},end_time=#{end_time},memo=#{memo},win_uid=#{win_uid},win_phone=#{win_phone},win_price=#{win_price} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
     @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name)" +
@@ -172,7 +172,7 @@ public interface PersistentDao {
     @Select("select count(1) from comes_overcharged where status<>9")
     public int overchargedTotal();
 
-    @Select("select * from comes_overcharged where status<>9 limit #{start},#{size}")
+    @Select("select * from comes_overcharged where status<>9 order by id desc limit #{start},#{size}")
     public List<OverchargedModel> getOverchargeds(@Param("start") int start, @Param("size") int size);
 
     @Select("select * from comes_overcharged where id=#{id}")
@@ -191,7 +191,7 @@ public interface PersistentDao {
     @Select("select * from comes_blacklist where phone=#{phone} and ctype=#{ctype} limit 1")
     public BackList getBackListByPhoneAndCtype(@Param("phone") String phone, @Param("ctype") int ctype);
 
-    @Select("select * from comes_blacklist where status<>9 limit #{start},#{size}")
+    @Select("select * from comes_blacklist where status<>9 order  by id desc  limit #{start},#{size}")
     public List<BackList> getBackLists(@Param("start") int start, @Param("size") int size);
 
     @Select("select count(1) from comes_blacklist where status<>9")
