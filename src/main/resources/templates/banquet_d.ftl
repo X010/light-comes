@@ -52,7 +52,7 @@
 </div>
 <div class="auct-name" style="height: auto;">
     <div class="msgname">
-        <p>活动地址：<span style="font-weight: normal;font-size: 24px;">${banquet.author_address}</span></p>
+        <p>活动地址：<span style="font-weight: normal;font-size: 30px;">${banquet.author_address}</span></p>
     </div>
 </div>
 <div class="auct-name" style="height: auto;">

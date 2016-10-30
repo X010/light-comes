@@ -296,6 +296,7 @@
                 <filtering>true</filtering>
                 <excludes>
                     <exclude>static/dist/fonts/**</exclude>
+                    <exclude>static/ratchet/fonts/**</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -303,6 +304,7 @@
                 <filtering>false</filtering>
                 <includes>
                     <include>static/dist/fonts/**</include>
+                    <include>static/ratchet/fonts/**</include>
                 </includes>
             </resource>
         </resources>

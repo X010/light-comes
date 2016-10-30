@@ -16,4 +16,48 @@ public class MineController {
         return "mine";
     }
 
+    /**
+     * 我的拍卖
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("mine_auction.action")
+    public String mine_auction(Map<String, Object> data) {
+        return "mine_auction";
+    }
+
+    /**
+     * 我的优惠劵
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("mine_coupon.action")
+    public String mine_coupon(Map<String, Object> data) {
+        return "mine_coupon";
+    }
+
+
+    /**
+     * 我的砍价活动
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("mine_overcharged.action")
+    public String mine_overcharged(Map<String, Object> data) {
+        return "mine_overcharged";
+    }
+
+    /**
+     * 我的饭局
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("mine_banquet.action")
+    public String mine_banquet(Map<String, Object> data) {
+        return "mine_banquet";
+    }
 }
