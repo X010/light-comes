@@ -34,7 +34,7 @@ public interface AuctionDao {
      * @param uid
      * @return
      */
-    @Insert("select * from comes_auction_records where aid=#{aid} and uid=#{uid} order by price desc limit 1")
+    @Select("select * from comes_auction_records where aid=#{aid} and uid=#{uid} order by price desc limit 1")
     public AuctionRecordsModel queryAuctionRecords(@Param("aid") long aid,@Param("uid") long uid);
 
     /**

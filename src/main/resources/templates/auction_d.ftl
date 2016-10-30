@@ -23,6 +23,7 @@
 
         <div class="title">
             <h3>${auction.title!}</h3>
+
             <p>${auction.good_name!}<br>
             <#if auctionRecords?exists && auctionRecords?size!=0>
                 <#list auctionRecords as ar>
@@ -72,9 +73,12 @@
         <div class="succ-main">
             <div class="msg-succ">
                 <img src="/images/auct.png"/>
+
                 <div class="msg-r">
                     <h4>${auction.good_name!}</h4>
+
                     <p>数量 x1</p>
+
                     <p>成交价格 389元</p>
                 </div>
             </div>
@@ -87,19 +91,42 @@
 <#--</div>-->
 <div class="footer">
 <#if seconds gt 0>
+    <#if isSuccess>
+        <div class="footer">
+            <div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>
+            <div class="footer-right" id="auction"><p>拍下来</p></div>
+        </div>
+    </#if>
+<#else>
     <div id="deposit">报名交保证金</div>
 </#if>
 </div>
 
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
-    //    var auct = document.getElementById("auction");
+    var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
     var closebtn = document.getElementById("close");
     var deposit = document.getElementById("deposit");
-    //    auct.onclick = function () {
-    //        floatbg.style.display = "block";
-    //
+    auct.onclick = function () {
+//        floatbg.style.display = "block";
+        var price = $("#price").val();
+        $.ajax({
+            url: "bid.action?price=" + price + "&aid=${auction.id}",
+            type: "POST",
+            success: function (result) {
+                var r = jQuery.parseJSON(result);
+                if (r.code == 1) {
+                    alert(r.msg);
+                } else {
+                    alert(r.msg);
+                }
+            }
+        });
+    }
+    deposit.onclick = function () {
+        window.location.href = "auction_margin.action";
+    }
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
@@ -130,6 +157,7 @@
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);
     });
+
 
 </script>
 </body>

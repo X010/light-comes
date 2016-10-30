@@ -26,9 +26,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -109,12 +109,19 @@ public class AuctionService {
 
     /**
      * 查询最高出价
+     *
      * @param aid
      * @param uid
      * @return
      */
-    public AuctionRecordsModel queryTopRecord(long aid,long uid){
-        return auctionDao.queryAuctionRecords(aid,uid);
+    public AuctionRecordsModel queryTopRecord(long aid, long uid) {
+        return auctionDao.queryAuctionRecords(aid, uid);
+//        List<AuctionRecordsModel> list =
+//        if (list != null && list.size() > 0) {
+//            return list.get(0);
+//        } else {
+//            return null;
+//        }
     }
 
     /**

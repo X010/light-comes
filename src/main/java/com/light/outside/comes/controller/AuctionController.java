@@ -1,12 +1,10 @@
 package com.light.outside.comes.controller;
 
-import com.light.outside.comes.model.AuctionModel;
-import com.light.outside.comes.model.AuctionRecordsModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
+import com.light.outside.comes.service.PayService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
@@ -49,6 +47,8 @@ public class AuctionController extends BaseController {
     private AuctionService auctionService;
     @Autowired
     private FocusImageService focusImageService;
+    @Autowired
+    private PayService payService;
 
     /**
      * 拍卖活动列表
@@ -169,8 +169,18 @@ public class AuctionController extends BaseController {
             auctionModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
         }
+        data.put("isSuccess",true);
         data.put("auction", auctionModel);
         data.put("auctionRecords", auctionRecordsModels);
+        return "auction_d";
+    }
+
+    @RequestMapping("auction_margin.action")
+    public String margin(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        boolean isSuccess = true;
+        //OrderModel orderModel=new OrderModel();
+        //long id=payService.createOrder(orderModel);
+        data.put("isSuccess", isSuccess);
         return "auction_d";
     }
 
