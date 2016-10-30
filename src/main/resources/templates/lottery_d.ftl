@@ -25,19 +25,19 @@
     </div>
     <table id="center">
         <tr>
-            <td id="lot1"><span></span></td>
-            <td id="lot2"><span></span></td>
-            <td id="lot3"><span></span></td>
+            <td id="lot1"><span class="lot" id="1"></span></td>
+            <td id="lot2"><span class="lot" id="2"></span></td>
+            <td id="lot3"><span class="lot" id="3"></span></td>
         </tr>
         <tr>
-            <td id="lot8"><span></span></td>
+            <td id="lot8"><span class="lot" id="8"></span></td>
             <td onclick="StartGame()" id="click"></td>
-            <td id="lot4"><span></span></td>
+            <td id="lot4"><span class="lot" id="4"></span></td>
         </tr>
         <tr>
-            <td id="lot7"><span></span></td>
-            <td id="lot6"><span></span></td>
-            <td id="lot5"><span></span></td>
+            <td id="lot7"><span class="lot" id="7"></span></td>
+            <td id="lot6"><span class="lot"  id="6"></span></td>
+            <td id="lot5"><span class="lot" id="5"></span></td>
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
@@ -65,10 +65,20 @@
 <div id="layer">
     <div class="layer-msg">
         <div class="suc-top">
-            <p class="title-suc">抽奖次数已用完!</p>
+            <p class="title-suc">再来一次!</p>
             <p id="close-btn" name="close-btn">x</p>
         </div>
         <button type="button" id="ok-btn" name="ok-btn">好的</button>
+    </div>
+</div>
+
+<div id="over">
+    <div class="layer-msg">
+        <div class="suc-top">
+            <p class="title-suc">抽奖次数已用完!</p>
+            <p id="closebtn">x</p>
+        </div>
+        <button type="button" id="okbtn">好的</button>
     </div>
 </div>
 
@@ -84,10 +94,12 @@
 
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
+    var result_num;
     window.onload = function () {
         setTimeout(function () {
             window.scrollTo(0, 1)
         }, 0);
+        result_num=rand(4);
     };
     var click = document.getElementById("click");
     /*
@@ -168,9 +180,14 @@
             quick=0;           //加速
     span = document.getElementsByTagName("span");
     floatimg = document.getElementById("floatimg");
-    closebtn = document.getElementById("close-btn");
-    okbtn = document.getElementById("ok-btn");
+
+    close_btn = document.getElementById("close-btn");
+    closebtn = document.getElementById("closebtn");
+    ok_btn = document.getElementById("ok-btn")
+    okbtn = document.getElementById("okbtn");
     layer = document.getElementById("layer");
+    over = document.getElementById("over");
+
     nothit=document.getElementById("nothit");
     nothitclosebtn = document.getElementById("nothit-close-btn");
     nothitokbtn = document.getElementById("nothit-ok-btn");
@@ -218,7 +235,7 @@
         }
         index++;
     }
-
+/*
         for (i = 0; i < span.length; i++) {
             span[i].onclick = function () {
                 if (number <= 0) {
@@ -244,7 +261,7 @@
                     });
                 }
             }
-        }
+        }*/
     //            if(number>0){
     //                floatimg.style.display = "block";
     //                number--;
@@ -252,6 +269,7 @@
     //            }
     //            else{alert("下次再来!")}
     //    }
+    /*
     floatimg.onclick = function () {
         floatimg.style.display = 'none';
     }
@@ -267,6 +285,7 @@
     nothitokbtn.onclick = function () {
         nothit.style.display = "none";
     }
+    */
     //
     //    $(function () {
     //        $("#center").click(function () {
@@ -285,6 +304,67 @@
     //        });
     //    });
 
+    function getByClass(sClass){
+        var aResult=[];
+        var aEle=document.getElementsByTagName('*');
+        for(var i=0;i<aEle.length;i++){
+            /*当className相等时添加到数组中*/
+            if(aEle[i].className==sClass){
+                aResult.push(aEle[i]);
+            }
+        }
+        return aResult;
+    };
+    var lot=getByClass("lot");
+    function rand(num){
+        //中奖宝箱存放位置
+        var count=8;
+        var rand_num =new Array;//新数组
+        var originalArray=new Array;//原数组
+//给原数组originalArray赋值
+        for (var i=0;i<count;i++){
+            originalArray[i]=i+1;
+        }
+        originalArray.sort(function(){ return 0.5 - Math.random(); });
+        for (var i=0;i<num;i++){
+            console.log(originalArray[i]+" , ");
+            rand_num.push(originalArray[i]);
+        }
+        return(rand_num);
+    };
+    for(var i=0;i<lot.length;i++) {
+        lot[i].onclick = function () {
+            if (result_num.indexOf(parseInt(this.id)) != -1) {
+                floatimg.style.display = "block";
+            }
+            else {
+                layer.style.display = "block";
+            }
+            if (number > 0) {
+                number--;
+            }
+            else {
+                over.style.display = "block";
+                layer.style.display = "none";
+                floatimg.style.display = 'none';
+            }
+        }
+        floatimg.onclick = function () {
+            floatimg.style.display = 'none';
+        }
+        close_btn.onclick = function () {
+            layer.style.display = "none";
+        }
+        ok_btn.onclick = function () {
+            layer.style.display = "none";
+        }
+        closebtn.onclick = function () {
+            over.style.display = "none";
+        }
+        okbtn.onclick = function () {
+            over.style.display = "none";
+        }
+    }
     function changeStr(allstr, start, end, changeStr) {
         //allstr:原始字符串，start,开始位置,end：结束位  置,str：要改变的字，changeStr:改变后的字
         return allstr.substring(0, start - 1) + changeStr + allstr.substring(end, allstr.length);

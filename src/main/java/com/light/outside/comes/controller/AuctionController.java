@@ -169,18 +169,26 @@ public class AuctionController extends BaseController {
             auctionModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
         }
-        data.put("isSuccess",true);
+        data.put("isPay",true);
         data.put("auction", auctionModel);
         data.put("auctionRecords", auctionRecordsModels);
         return "auction_d";
     }
 
+    /**
+     * 支付保证金页面
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("auction_margin.action")
     public String margin(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-        boolean isSuccess = true;
+        //暂时先跳过支付保证金
+        boolean isPay = true;
         //OrderModel orderModel=new OrderModel();
         //long id=payService.createOrder(orderModel);
-        data.put("isSuccess", isSuccess);
+        data.put("isPay", isPay);
         return "auction_d";
     }
 

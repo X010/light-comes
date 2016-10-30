@@ -37,6 +37,7 @@ footer>a p{font-size: 36px; color:#c7c7c7;}
 
 /*float*/
 #layer{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
+#over{ display: none;}
 .layer-msg{ position: absolute; top:35%; left: 8%; width: 80%; height:20%; z-index: 99; background: #fff; border-radius: 20px; padding: 2%}
 .layer-msg button{ width: 30%;height:30%; font-size: 1.8rem; margin-left: 30%; color:#fff; background: #ff825f;}
 .suc-top{ font-size: 2.6rem; width: 100%;}

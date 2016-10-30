@@ -25,7 +25,7 @@ public interface AuctionDao {
      * @param phone
      * @return
      */
-    @Insert("insert into comes_auction_records(aid,price,uid,phone,status) values(#{aid},#{price},#{uid},#{phone},1)")
+    @Insert("insert into comes_auction_records(aid,price,uid,phone,status,create_time) values(#{aid},#{price},#{uid},#{phone},1,now())")
     public int addAuctionRecords(@Param("aid") long aid, @Param("price") float price, @Param("uid") long uid, @Param("phone") String phone);
 
     /**
@@ -43,7 +43,7 @@ public interface AuctionDao {
      * @param aid
      * @return
      */
-    @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone,`status` from comes_auction_records where aid=#{aid} group by uid order by price desc ")
+    @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone,`status` from comes_auction_records where aid=#{aid} order by price desc ")
     public List<AuctionRecordsModel> selectAuctionRecordsByAid(@Param("aid") long aid);
 
 

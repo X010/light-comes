@@ -90,16 +90,21 @@
 <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
 <#--</div>-->
 <div class="footer">
-<#if seconds gt 0>
-    <#if isSuccess>
-        <div class="footer">
-            <div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>
-            <div class="footer-right" id="auction"><p>拍下来</p></div>
-        </div>
-    </#if>
-<#else>
+<#--<#if seconds gt 0>-->
+<#--<#if isSuccess>-->
+<#--<div class="footer" id="divPrice">-->
+<#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
+<#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
+<#--</div>-->
+<#--</#if>-->
+<#--<#else>-->
+<#--<div id="deposit">报名交保证金</div>-->
+<#--</#if>-->
+    <div id="price">
+        <div class="footer-left"><p>出价:<input type="text" name="txtPirce" id="txtPrice" value="0"></p></div>
+        <div class="footer-right" id="auction"><p>拍下来</p></div>
+    </div>
     <div id="deposit">报名交保证金</div>
-</#if>
 </div>
 
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -107,10 +112,12 @@
     var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
     var closebtn = document.getElementById("close");
+    var price = document.getElementById("price");
     var deposit = document.getElementById("deposit");
+
     auct.onclick = function () {
 //        floatbg.style.display = "block";
-        var price = $("#price").val();
+        var price = $("#txtPrice").val();
         $.ajax({
             url: "bid.action?price=" + price + "&aid=${auction.id}",
             type: "POST",
@@ -118,17 +125,12 @@
                 var r = jQuery.parseJSON(result);
                 if (r.code == 1) {
                     alert(r.msg);
+                    location.reload();
                 } else {
                     alert(r.msg);
                 }
             }
         });
-    }
-    deposit.onclick = function () {
-        window.location.href = "auction_margin.action";
-    }
-    closebtn.onclick = function () {
-        floatbg.style.display = "none";
     }
 
     function timer(intDiff) {
@@ -150,6 +152,7 @@
             $('#minute_show').html(minute);
             $('#second_show').html(second);
             intDiff--;
+            seconds2 = intDiff;
         }, 1000);
     }
     $(function () {
@@ -158,6 +161,26 @@
         timer(seconds);
     });
 
+    var isPay =${isPay?c};
+    var seconds2 =${seconds?c};
+    <#--var seconds=${seconds?c};-->
+//    auct.onclick = function () {
+//        floatbg.style.display = "block";
+//    }
+    closebtn.onclick = function () {
+        floatbg.style.display = "none";
+    }
+    deposit.onclick = function () {
+        window.location.href = "auction_margin.action";
+    }
+    if (isPay == 'true' && seconds2 > 0) {
+        deposit.style.display = "block";
+        price.style.display = "none";
+    }
+    else {
+        price.style.display = "block";
+        deposit.style.display = "none";
+    }
 
 </script>
 </body>
