@@ -1,7 +1,6 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.model.BanquetModel;
-import com.light.outside.comes.model.OverchargedModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.admin.FocusImageModel;
@@ -59,5 +58,10 @@ public class BanquetController {
             data.put("bs", banquetModels);
         }
         return "banquet";
+    }
+
+    @RequestMapping("banquet_d.action")
+    public String banquet_d(Map<String, Object> data, HttpServletRequest request) {
+        return "banquet_d";
     }
 }

@@ -49,9 +49,9 @@
         <p>抽奖券</p>
     </a>
     <a href="/auction/auction.action">
-        <img class="" src="/images/auction_on.png"/>
+        <img class="" src="/images/auction.png"/>
 
-        <p class="on">拍卖</p>
+        <p >拍卖</p>
     </a>
     <a href="/banquet/banquet.action">
         <img class="" src="/images/date.png"/>
@@ -59,9 +59,9 @@
         <p>约饭</p>
     </a>
     <a href="/oc/overcharged.action" class="on">
-        <img class="" src="/images/discount.png"/>
+        <img class="" src="/images/discount_on.png"/>
 
-        <p>砍价</p>
+        <p class="on">砍价</p>
     </a>
     <a href="/">
         <img class="" src="/images/mine.png"/>

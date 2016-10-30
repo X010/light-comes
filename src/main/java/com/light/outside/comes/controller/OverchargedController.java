@@ -66,4 +66,16 @@ public class OverchargedController {
         }
         return "overcharged";
     }
+
+    /**
+     * 砍价说情页面
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("overcharged_d.action")
+    public String overcharged_d(Map<String,Object> data,HttpServletRequest request)
+    {
+        return "overcharged_d";
+    }
 }

@@ -24,7 +24,7 @@
 <ul id="msglist">
 <#if bs??>
     <#list bs as b>
-        <li class="msg" onclick="location.href='/auction/auction_d.action?aid=${b.id}'">
+        <li class="msg" onclick="location.href='/banquet/banquet_d.action?aid=${b.id}'">
             <div class="msg-left">
                 <#if b.photo??>
                     <img src="${b.photo}" />
@@ -51,14 +51,14 @@
         <p>抽奖券</p>
     </a>
     <a href="/auction/auction.action">
-        <img class="" src="/images/auction_on.png"/>
+        <img class="" src="/images/auction.png"/>
 
-        <p class="on">拍卖</p>
+        <p >拍卖</p>
     </a>
     <a href="/banquet/banquet.action" class="on">
         <img class="" src="/images/date.png"/>
 
-        <p>约饭</p>
+        <p  class="on">约饭</p>
     </a>
     <a href="/oc/overcharged.action">
         <img class="" src="/images/discount.png"/>
