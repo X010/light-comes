@@ -23,16 +23,15 @@
 
         <div class="title">
             <h3>${auction.title!}</h3>
-
-            <p>${auction.good_name!}&nbsp;&nbsp;&nbsp;
+            <p>${auction.good_name!}<br>
             <#if auctionRecords?exists && auctionRecords?size!=0>
                 <#list auctionRecords as ar>
                     <#if ar_index==0>
-                        当前价格:${ar.price!}
+                        当前价格:${ar.price!}&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
                     </#if>
                 </#list>
             <#else>
-                起拍价格:${auction.amount!}
+                起拍价格:${auction.amount!}&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
             </#if>
             </p>
         </div>
@@ -87,8 +86,11 @@
 <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
 <#--</div>-->
 <div class="footer">
+<#if seconds gt 0>
     <div id="deposit">报名交保证金</div>
+</#if>
 </div>
+
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     //    var auct = document.getElementById("auction");
@@ -97,7 +99,7 @@
     var deposit = document.getElementById("deposit");
     //    auct.onclick = function () {
     //        floatbg.style.display = "block";
-    //    }
+    //
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }

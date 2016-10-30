@@ -99,7 +99,7 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             out = response.getWriter();
             out.println("<script language='javascript' type='text/javascript'>");
-            out.println("alert('请先登录!');window.top.location.href='" + request.getContextPath() + "/qblk/to_login.action'");
+            out.println("window.top.location.href='" + request.getContextPath() + "/qblk/to_login.action'");
             out.println("</script>");
         } catch (IOException e) {
             e.printStackTrace();

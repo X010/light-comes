@@ -5,6 +5,9 @@
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
+    <style>
+        #nothit{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
+    </style>
 </head>
 <body>
 <header>
@@ -42,7 +45,6 @@
     </div>
     <div id="down">
         <p>获奖人名单</p>
-
         <div class="downarrow"></div>
     </div>
 </div>
@@ -60,6 +62,26 @@
     </#if>
     </div>
 </div>
+<div id="layer">
+    <div class="layer-msg">
+        <div class="suc-top">
+            <p class="title-suc">抽奖次数已用完!</p>
+            <p id="close-btn" name="close-btn">x</p>
+        </div>
+        <button type="button" id="ok-btn" name="ok-btn">好的</button>
+    </div>
+</div>
+
+<div id="nothit">
+    <div class="layer-msg">
+        <div class="suc-top">
+            <p class="title-suc">很遗憾，没有中奖!</p>
+            <p id="nothit-close-btn" >x</p>
+        </div>
+        <button type="button" id="nothit-ok-btn">好的</button>
+    </div>
+</div>
+
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     window.onload = function () {
@@ -132,19 +154,26 @@
         return resultArr;
     }
 
-    var index = 0,           //当前亮区位置
-            prevIndex = 0,          //前一位置
-            Speed = 200,           //初始速度
+
+    var index=0,           //当前亮区位置
+            prevIndex=0,          //前一位置
+            Speed=300,           //初始速度
             Time,            //定义对象
-            arr = GetSide(3, 3),         //初始化数组
-            EndIndex = 0,           //决定在哪一格变慢
+            arr = GetSide(3,3),         //初始化数组
+            EndIndex=0,           //决定在哪一格变慢
             center = document.getElementById("center"),
-            cycle = 1,           //转动圈数
-            EndCycle = 0,           //计算圈数
-            flag = false,           //结束转动标志
-            quick = 0;           //加速
+            cycle=1,           //转动圈数
+            EndCycle=0,           //计算圈数
+            flag=false,           //结束转动标志
+            quick=0;           //加速
     span = document.getElementsByTagName("span");
     floatimg = document.getElementById("floatimg");
+    closebtn = document.getElementById("close-btn");
+    okbtn = document.getElementById("ok-btn");
+    layer = document.getElementById("layer");
+    nothit=document.getElementById("nothit");
+    nothitclosebtn = document.getElementById("nothit-close-btn");
+    nothitokbtn = document.getElementById("nothit-ok-btn");
     number = ${rCount};
 
     function StartGame() {
@@ -198,7 +227,7 @@
                     layer.style.display = "block";
                 } else {
                     $.ajax({
-                        url: "lottery_draw.action?rid=${raffle.id}&id=",
+                        url: "lottery_draw.action?rid=${raffle.id}&id="+this.id,
                         type: "POST",
                         success: function (result) {
                             var r = jQuery.parseJSON(result);
@@ -210,7 +239,8 @@
                             if (r.code == 1) {
                                 floatimg.style.display = "block";
                             } else {
-                                layer.style.display = "block";
+                                //layer.style.display = "block";
+                                nothit.style.display="block";
                             }
                         }
                     });
@@ -232,6 +262,12 @@
     }
     okbtn.onclick = function () {
         layer.style.display = "none";
+    }
+    nothitclosebtn.onclick = function () {
+        nothit.style.display = "none";
+    }
+    nothitokbtn.onclick = function () {
+        nothit.style.display = "none";
     }
     //
     //    $(function () {

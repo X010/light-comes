@@ -80,7 +80,7 @@ public interface PersistentDao {
      * @param uid
      * @return
      */
-    @Select("select * from comes_raffle_user where uid=#{uid} and rid=#{rid}")
+    @Select("select * from comes_raffle_user where uid=#{uid} and rid=#{rid} and raffle_date=current_date()")
     public RaffleUserModel getRaffleUserByRaffleId(@Param("rid") long rid, @Param("uid") long uid);
 
     /**
@@ -91,7 +91,7 @@ public interface PersistentDao {
      * @param count
      * @return
      */
-    @Insert("insert into comes_raffle_user(uid,rid,count) values(#{uid},#{rid},#{count}) ON DUPLICATE KEY UPDATE count=count+1")
+    @Insert("insert into comes_raffle_user(uid,rid,count,raffle_date) values(#{uid},#{rid},#{count},current_date()) ON DUPLICATE KEY UPDATE count=count+1")
     public int updateRaffleUserByRaffleId(@Param("uid") long uid, @Param("rid") long rid, @Param("count") int count);
 
     @Select("select ccr.id,ccr.title,concat(left(ccr.phone,3),'****',right(phone,4)) phone,ccr.uid,ccr.cid from comes_conpon_records ccr, comes_raffle_coupon crc " +

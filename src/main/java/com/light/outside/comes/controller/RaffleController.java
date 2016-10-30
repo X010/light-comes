@@ -153,7 +153,7 @@ public class RaffleController extends BaseController {
         long rid = RequestTools.RequestInt(request, "rid", 13);
         long uid = userModel.getId();
         //long uid = RequestTools.RequestInt(request, "uid", 0);
-        String phone = "18684997340";
+        String phone = userModel.getPhone();
         int code = 0;
         String msg = "谢谢参与!";
         int rCount = 0;

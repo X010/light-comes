@@ -428,7 +428,7 @@ public class RaffleService {
 
 
     /**
-     * 查询中奖纪录
+     * 查询中奖记录
      *
      * @param cid
      * @return
