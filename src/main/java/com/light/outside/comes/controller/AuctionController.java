@@ -73,6 +73,23 @@ public class AuctionController {
         return "auction";
     }
 
+    @RequestMapping("auction_list.action")
+    @ResponseBody
+    public String auctionList(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(size);
+        PageResult<AuctionModel> auctionModelPageResult = this.auctionService.getAuctions(pageModel);
+        List<AuctionModel> raffleModels = auctionModelPageResult.getData();
+        if (raffleModels != null && raffleModels.size() > 0) {
+            return JsonTools.jsonSer(raffleModels);
+        } else {
+            return "";
+        }
+    }
+
     /**
      * 出价
      *

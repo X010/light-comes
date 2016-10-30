@@ -14,7 +14,7 @@
         {{# for(var i = 0, len = d.length; i < len; i++){ }}
         <li class="msg" onclick="location.href='lottery_d.action?rid={{d[i].id}}'">
             <div class="msg-left">
-                <#--<img src="{{d[i].photo}}" />-->
+                <img src="{{d[i].photo}}" />
             </div>
             <div class="msg-right">
                 <h3>{{d[i].title}}</h3>
@@ -215,7 +215,6 @@
                 $("#msglist").append(html);
             });
         }
-
 
     }
 </script>
