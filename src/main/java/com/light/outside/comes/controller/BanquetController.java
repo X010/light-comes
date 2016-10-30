@@ -7,9 +7,11 @@ import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -61,7 +63,20 @@ public class BanquetController {
     }
 
     @RequestMapping("banquet_d.action")
-    public String banquet_d(Map<String, Object> data, HttpServletRequest request) {
-        return "banquet_d";
+    public String banquet_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {
+        BanquetModel banquetModel = null;
+        if (aid > 0) {
+            banquetModel = this.banquetService.getBanquetById(aid);
+        }
+        if (banquetModel != null) {
+            data.put("banquet", banquetModel);
+            //秒数
+            long seconds = DateUtils.endSeconds(banquetModel.getEnd_time());
+            banquetModel.setTime_second((int) seconds);
+            data.put("seconds", seconds);
+            return "banquet_d";
+        } else {
+            return "redirect:/banquet/banquet.action";
+        }
     }
 }

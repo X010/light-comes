@@ -13,5 +13,8 @@
     </a>
     <p>拍卖活动一</p>
 </header>
+<div id="banner">
+    <img src=""/>
+</div>
 </body>
 </html>

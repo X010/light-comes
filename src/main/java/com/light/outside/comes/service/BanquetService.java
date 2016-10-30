@@ -89,7 +89,7 @@ public class BanquetService {
      */
     public void updateBanquet(BanquetModel banquetModel) {
         Preconditions.checkNotNull(banquetModel);
-        if (Strings.isNullOrEmpty(banquetModel.getPhoto())) {
+        if (Strings.isNullOrEmpty(banquetModel.getPhoto()) || CONST.SITE_URL.equalsIgnoreCase(banquetModel.getPhoto().replace("null", ""))) {
             //使用原来的图片
             BanquetModel oldBan = this.getBanquetById(banquetModel.getId());
             banquetModel.setPhoto(oldBan.getPhoto());
@@ -114,7 +114,7 @@ public class BanquetService {
         List<BanquetModel> banquetModels = this.persistentDao.getBanquets(1, Integer.MAX_VALUE);
         if (banquetModels != null) {
             for (BanquetModel banquetModel : banquetModels) {
-                if (banquetModel.getEnd_time().getTime() >= System.currentTimeMillis() && banquetModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                if (banquetModel.getEnd_time().getTime() <= System.currentTimeMillis() && banquetModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     banquetModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over banquet id:" + banquetModel.getId() + " name:" + banquetModel.getTitle());
                     this.updateBanquet(banquetModel);

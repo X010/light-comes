@@ -116,7 +116,7 @@ public class OverchargedService {
         List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);
         if (overchargedModels != null) {
             for (OverchargedModel overchargedModel : overchargedModels) {
-                if (overchargedModel.getEnd_time().getTime() >= System.currentTimeMillis()&&overchargedModel.getStatus()!=CONST.RAFFLE_STATUS_OVER) {
+                if (overchargedModel.getEnd_time().getTime() <= System.currentTimeMillis()&&overchargedModel.getStatus()!=CONST.RAFFLE_STATUS_OVER) {
                     overchargedModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over overcharged id:" + overchargedModel.getId() + " name:" + overchargedModel.getTitle());
                     this.updateOvercharged(overchargedModel);
