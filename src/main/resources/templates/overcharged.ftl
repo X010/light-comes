@@ -63,7 +63,7 @@
 
         <p class="on">砍价</p>
     </a>
-    <a href="/">
+    <a href="/my/mine.action">
         <img class="" src="/images/mine.png"/>
 
         <p>我的</p>

@@ -78,9 +78,8 @@
 
         <p>砍价</p>
     </a>
-    <a href="/">
+    <a href="/my/mine.action">
         <img class="" src="/images/mine.png"/>
-
         <p>我的</p>
     </a>
 </footer>
@@ -199,7 +198,6 @@
                     }
                     if(status=="parsererror"){
                         spinner.stop(target);
-                        alert("没有了3");
                         isload = false;
                     }
                 }
