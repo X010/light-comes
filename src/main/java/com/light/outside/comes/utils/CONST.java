@@ -31,6 +31,9 @@ public class CONST {
 
 
     public static String EDIT = "EDIT";//修改的标识
+    public static int ORDER_CREATE = 1;//创建订单
+    public static int ORDER_OVER = 9;//订单过期
+    public static int ORDER_PAY = 2;//订单支付
 
 
     public static int FOCUS_RAFFLE = 1;//抽奖

@@ -23,7 +23,26 @@ public interface PayService {
 
     /**
      * 创建需要支付订单
+     *
      * @param orderModel
      */
     public void createOrder(OrderModel orderModel);
+
+    /**
+     * 根据ID获取订单
+     *
+     * @param id
+     * @return
+     */
+    public OrderModel getOrderById(long id);
+
+
+    /**
+     * 根据ID修改订单状态
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    public OrderModel updateOrder(long id, int status);
 }

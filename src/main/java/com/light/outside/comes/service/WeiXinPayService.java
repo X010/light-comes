@@ -1,11 +1,15 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.OrderModel;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.utils.CONST;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,6 +38,27 @@ public class WeiXinPayService implements PayService {
 
     @Override
     public void createOrder(OrderModel orderModel) {
+        Preconditions.checkNotNull(orderModel);
+        this.persistentDao.addOrder(orderModel);
+    }
 
+    @Override
+    public OrderModel getOrderById(long id) {
+        Preconditions.checkArgument(id > 0);
+        return this.persistentDao.getOrderById(id);
+    }
+
+    @Override
+    public OrderModel updateOrder(long id, int status) {
+        Preconditions.checkArgument(id > 0);
+        OrderModel updateModel = this.getOrderById(id);
+        if (updateModel != null) {
+            updateModel.setStatus(status);
+            if (status == CONST.ORDER_PAY) {
+                updateModel.setPaytime(new Date());
+            }
+            this.persistentDao.updateOrder(updateModel);
+        }
+        return updateModel;
     }
 }

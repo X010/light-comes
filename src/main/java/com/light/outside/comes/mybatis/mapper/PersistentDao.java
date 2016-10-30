@@ -202,6 +202,8 @@ public interface PersistentDao {
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOrder(OrderModel orderModel);
 
+    @Select("select * from comes_order where id=#{id}")
+    public OrderModel getOrderById(@Param("id")long id);
 
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
