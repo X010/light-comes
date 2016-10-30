@@ -11,6 +11,7 @@
     <a class="left" onclick="window.history.back();">
         <img src="/images/back.png"/>
     </a>
+
     <p>拍卖活动一</p>
 </header>
 <div id="banner">
@@ -42,22 +43,27 @@
 </div>
 <div class="auct-name">
     <div class="msgname">
-        <img src="/images/auct-header.png"/>
-
-        <p>拍卖者信息</p>
     <#if auctionRecords??>
+    <#--<img src="/images/auct-header.png"/>-->
+    <#--<p>拍卖者信息</p>-->
         <#list auctionRecords as ar>
-        ${ar.uid!}
-        ${ar.price!}
-        ${ar.phone!}
+            <p>${ar.phone!}|出价:${ar.price!}</p>
+        <#--${ar.uid!}-->
+        <#--${ar.price!}-->
+        <#--${ar.phone!}-->
         </#list>
+    <#else>
+        <p>暂时无人竞拍！</p>
     </#if>
     </div>
+
+
 </div>
 <div id="bg-auct">
     <div class="auct-success">
         <div class="succ-top">
             <p class="title-succ">拍卖成功!</p>
+
             <p id="close">x</p>
         </div>
         <div class="succ-main">
@@ -77,32 +83,32 @@
 </div>
 
 <#--<div class="footer">-->
-    <#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
-    <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
+<#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
+<#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
 <#--</div>-->
 <div class="footer">
-    <div id = "deposit">报名交保证金</div>
+    <div id="deposit">报名交保证金</div>
 </div>
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
-//    var auct = document.getElementById("auction");
+    //    var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
     var closebtn = document.getElementById("close");
     var deposit = document.getElementById("deposit");
-//    auct.onclick = function () {
-//        floatbg.style.display = "block";
-//    }
+    //    auct.onclick = function () {
+    //        floatbg.style.display = "block";
+    //    }
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
 
-    function timer(intDiff){
-        window.setInterval(function(){
-            var day=0,
-                    hour=0,
-                    minute=0,
-                    second=0;//时间默认值
-            if(intDiff > 0){
+    function timer(intDiff) {
+        window.setInterval(function () {
+            var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;//时间默认值
+            if (intDiff > 0) {
                 day = Math.floor(intDiff / (60 * 60 * 24));
                 hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
                 minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
@@ -117,8 +123,8 @@
             intDiff--;
         }, 1000);
     }
-    $(function(){
-        var seconds=${seconds?c};
+    $(function () {
+        var seconds =${seconds?c};
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);
     });

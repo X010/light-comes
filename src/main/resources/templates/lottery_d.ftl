@@ -22,13 +22,19 @@
     </div>
     <table id="center">
         <tr>
-            <td id="lot1"><span></span></td><td id="lot2"><span></span></td><td id="lot3"><span></span></td>
+            <td id="lot1"><span></span></td>
+            <td id="lot2"><span></span></td>
+            <td id="lot3"><span></span></td>
         </tr>
         <tr>
-            <td id="lot8"><span></span></td><td onclick="StartGame()" id="click"></td><td id="lot4"><span></span></td>
+            <td id="lot8"><span></span></td>
+            <td onclick="StartGame()" id="click"></td>
+            <td id="lot4"><span></span></td>
         </tr>
         <tr>
-            <td id="lot7"><span></span></td><td id="lot6"><span></span></td><td id="lot5"><span></span></td>
+            <td id="lot7"><span></span></td>
+            <td id="lot6"><span></span></td>
+            <td id="lot5"><span></span></td>
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
@@ -80,14 +86,17 @@
             arr.push([]);
             for (var j = 0; j < n; j++) {
                 var index = i * n + j;
-                //arr[i][j] = i * n + j;
                 //奖品放入数组中其他补充0
                 if (index < coupons.length) {
-                    index = coupons[index].id;
+                    if(i!=1&&j!=1) {
+                        index = coupons[index].id;
+                    }else{
+                        index=0;
+                    }
                 } else {
                     index = 0;
                 }
-                //console.log(index);
+                console.log(i+'  '+j+'  '+index);
                 arr[i][j] = index;
             }
         }
@@ -125,7 +134,7 @@
 
     var index = 0,           //当前亮区位置
             prevIndex = 0,          //前一位置
-            Speed = 300,           //初始速度
+            Speed = 200,           //初始速度
             Time,            //定义对象
             arr = GetSide(3, 3),         //初始化数组
             EndIndex = 0,           //决定在哪一格变慢
@@ -136,7 +145,7 @@
             quick = 0;           //加速
     span = document.getElementsByTagName("span");
     floatimg = document.getElementById("floatimg");
-    number = 3;
+    number = ${rCount};
 
     function StartGame() {
 
@@ -171,7 +180,8 @@
             //click.setAttribute("value","请抽奖");
         }
         center.rows[arr[index][0]].cells[arr[index][1]].style.background = "url(/images/lq.png)";
-        center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize="100% 100%";
+        center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize = "100% 100%";
+        //alert(center.rows[arr[index][0]].cells[arr[index][1]].innerHTML);
         if (index > 0)
             prevIndex = index - 1;
         else {
@@ -180,22 +190,22 @@
         index++;
     }
 
-
-    for (i = 0; i < span.length; i++) {
-        if (number > 0) {
+        for (i = 0; i < span.length; i++) {
             span[i].onclick = function () {
                 var rc =${rCount};
+                number = rc;
                 if (rc <= 0) {
                     alert("抽奖次数已用完。")
                 } else {
                     $.ajax({
-                        url: "lottery_draw.action",
+                        url: "lottery_draw.action?rid=${raffle.id}&id=",
                         type: "POST",
                         success: function (result) {
                             var r = jQuery.parseJSON(result);
                             var rCount = r.rCount;
                             $('.count').each(function () {
                                 $(this).text(rCount);
+                                number = rCount;
                             });
                             if (r.code == 1) {
                                 floatimg.style.display = "block";
@@ -207,16 +217,13 @@
                 }
             }
         }
-        else {
-            alert("下次再来！")
-        }
-//            if(number>0){
-//                floatimg.style.display = "block";
-//                number--;
-//                console.log(number);
-//            }
-//            else{alert("下次再来!")}
-    }
+    //            if(number>0){
+    //                floatimg.style.display = "block";
+    //                number--;
+    //                console.log(number);
+    //            }
+    //            else{alert("下次再来!")}
+    //    }
     floatimg.onclick = function () {
         floatimg.style.display = 'none';
     }

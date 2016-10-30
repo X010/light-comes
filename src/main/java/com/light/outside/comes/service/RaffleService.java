@@ -380,9 +380,8 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public synchronized RaffleCouponModel drawRaffleByRage(long rcid) {
+    public synchronized RaffleCouponModel drawRaffleByRage(long rcid,String phone) {
         long uid = 0;
-        String phone = "18888888888";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         double rate = raffleCouponModel.getWinrate() / 100.00f;
         int result = percentageRandom(rate);

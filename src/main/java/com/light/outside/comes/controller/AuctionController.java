@@ -89,6 +89,7 @@ public class AuctionController {
         long aid = Long.parseLong(request.getParameter("aid").toString());
         UserModel userModel = (UserModel) request.getSession().getAttribute("user");
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
+        //TODO判断保证金是否支付
         long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
         int code = 0;
         String msg = "出价失败！";
@@ -110,6 +111,13 @@ public class AuctionController {
         return JsonTools.jsonSer(data);
     }
 
+    /**
+     * 拍卖页面
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("auction_d.action")
     public String auctionDetail(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
         int auctionId = RequestTools.RequestInt(request, "aid", 0);

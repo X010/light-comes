@@ -62,7 +62,6 @@ public class RaffleController extends BaseController {
         if (focusImageModelList != null) {
             data.put("focus", focusImageModelList);
         }
-
         //输出抽奖活动列表
         PageModel pageModel = new PageModel();
         pageModel.setPage(1);
@@ -108,15 +107,21 @@ public class RaffleController extends BaseController {
     @RequestMapping("lottery_d.action")
     public String lottery_d(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
         long rid = RequestTools.RequestLong(request, "rid", 13);
-        long uid = RequestTools.RequestLong(request, "uid", 0);
+        UserModel userModel = getAppUserInfo();
+        long uid = userModel.getId();
         List<CouponRecordModel> couponRecordModels = raffleService.queryCouponRecords(rid);
         List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
         int rCount = raffleService.getUserRaffleCount(uid, rid);
         if (raffleModel != null) {
-            rCount = raffleModel.getTimes() - rCount;
+            int remainCount = raffleModel.getTimes() - rCount;
+            if (remainCount < 0) {
+                rCount = 0;
+            } else {
+                rCount = remainCount;
+            }
         }
-
+        data.put("raffle", raffleModel);
         data.put("rCount", rCount);
         data.put("records", couponRecordModels);
         data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
@@ -146,8 +151,9 @@ public class RaffleController extends BaseController {
         UserModel userModel = getAppUserInfo();
         long id = RequestTools.RequestLong(request, "id", 22);
         long rid = RequestTools.RequestInt(request, "rid", 13);
-        //long uid =userModel.getId();
-        long uid = RequestTools.RequestInt(request, "uid", 0);
+        long uid = userModel.getId();
+        //long uid = RequestTools.RequestInt(request, "uid", 0);
+        String phone = "18684997340";
         int code = 0;
         String msg = "谢谢参与!";
         int rCount = 0;
@@ -157,33 +163,38 @@ public class RaffleController extends BaseController {
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
         Date endTime = raffleModel.getEnd_time();
         long seconds = DateUtils.betweenSeconds(endTime);
+        int remainCount = raffleModel.getTimes() - rCount;
         if (seconds < 0) {
-            msg ="抽奖已截止!";
-        }
-        if (seconds > 0 && rCount < raffleModel.getTimes()) {
+            msg = "抽奖已截止!";
+        } else if (remainCount > 0) {
             //查询黑名单
             //TODO 获取用户手机号码
-            BackList backList = backListService.getBackListByPhoneAndCtype("18684997340", CONST.FOCUS_RAFFLE);
+            BackList backList = backListService.getBackListByPhoneAndCtype(phone, CONST.FOCUS_RAFFLE);
             //用户不在黑名单中
             if (backList == null) {
                 //RaffleCouponModel raffleCouponModel=raffleService.drawRaffle(id);
-                RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id);
+                RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id, phone);
                 if (raffleCouponModel != null) {
                     code = 1;
                     msg = "恭喜你，抽中" + raffleCouponModel.getTitle();
                     data.put("id", raffleCouponModel.getId());
                 }
             }
-            //更新抽奖次数(如果不存在则新增，存在则+1)
-            raffleService.addRaffleCount(uid, rid, 1);
-            if (rCount > 0)
-                rCount = rCount - 1;
         } else {
             msg = "您的抽奖次数已用完!";
         }
+        //更新抽奖次数(如果不存在则新增，存在则+1)
+        raffleService.addRaffleCount(uid, rid, 1);
+        remainCount--;
+        if (remainCount < 0) {
+            remainCount = 0;
+        }
+//        if (rCount > 0)
+//            rCount = rCount - 1;
+
         data.put("code", code);
         data.put("msg", msg);
-        data.put("rCount", rCount);
+        data.put("rCount", remainCount);
         String result = JsonTools.jsonSer(data);
         System.out.println(result);
         return result;
