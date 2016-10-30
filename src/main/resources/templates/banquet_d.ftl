@@ -50,9 +50,9 @@
         <p>联系电话：<span style="font-weight: normal;"> ${banquet.author_telephone}</span></p>
     </div>
 </div>
-<div class="auct-name">
+<div class="auct-name" style="height: auto;">
     <div class="msgname">
-        <p >活动地址：<span style="font-weight: normal;">${banquet.author_address}</span> </p>
+        <p>活动地址：<span style="font-weight: normal;font-size: 24px;">${banquet.author_address}</span></p>
     </div>
 </div>
 <div class="auct-name" style="height: auto;">
@@ -73,9 +73,11 @@
     <br/>
     <br/>
 </div>
+<#if banquet.status==2>
 <div class="footer">
-    <div id="deposit">我要约饭</div>
+    <div id="deposit">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
 </div>
+</#if>
 </body>
 <script language="JavaScript">
     function timer(intDiff) {
@@ -100,7 +102,7 @@
         }, 1000);
     }
 
-    $(function(){
+    $(function () {
         var seconds =${seconds?c};
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);

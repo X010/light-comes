@@ -160,7 +160,7 @@ public class AuctionService {
         List<AuctionModel> auctionModels = this.persistentDao.getAuctions(1, Integer.MAX_VALUE);
         if (auctionModels != null) {
             for (AuctionModel auctionModel : auctionModels) {
-                if (auctionModel.getEnd_time().getTime() >= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                if (auctionModel.getEnd_time().getTime() <= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     auctionModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over auction id:" + auctionModel.getId() + " name:" + auctionModel.getTitle());
 

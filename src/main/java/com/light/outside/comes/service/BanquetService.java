@@ -114,7 +114,7 @@ public class BanquetService {
         List<BanquetModel> banquetModels = this.persistentDao.getBanquets(1, Integer.MAX_VALUE);
         if (banquetModels != null) {
             for (BanquetModel banquetModel : banquetModels) {
-                if (banquetModel.getEnd_time().getTime() >= System.currentTimeMillis() && banquetModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                if (banquetModel.getEnd_time().getTime() <= System.currentTimeMillis() && banquetModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     banquetModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over banquet id:" + banquetModel.getId() + " name:" + banquetModel.getTitle());
                     this.updateBanquet(banquetModel);

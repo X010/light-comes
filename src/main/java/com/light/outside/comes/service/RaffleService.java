@@ -445,7 +445,7 @@ public class RaffleService {
         List<RaffleModel> raffleModels = this.persistentDao.getRaffles(1, Integer.MAX_VALUE);
         if (raffleModels != null) {
             for (RaffleModel raffleModel : raffleModels) {
-                if (raffleModel.getEnd_time().getTime() >= System.currentTimeMillis() && raffleModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
+                if (raffleModel.getEnd_time().getTime() <= System.currentTimeMillis() && raffleModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     raffleModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over raffle id:" + raffleModel.getId() + " name:" + raffleModel.getTitle());
                     this.persistentDao.editRaffle(raffleModel);
