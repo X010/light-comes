@@ -5,16 +5,82 @@
     <title>约饭</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
+    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
+    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
     <a class="left" onclick="window.history.back();">
         <img src="/images/back.png"/>
     </a>
-    <p>拍卖活动一</p>
+
+    <p>${oc.title}</p>
 </header>
 <div id="banner">
-    <img src=""/>
+    <img src="${oc.good_photo}"/>
+</div>
+
+<div class="auction">
+    <div class="msg-auct">
+        <img src="/images/auction_on.png"/>
+
+        <div class="title">
+            <h3>${oc.title!}</h3>
+
+            <p>${oc.good_name}</p>
+        </div>
+
+
+    </div>
+    <div class="msg-time">
+        <img src="/images/clock.png"/>
+    <#if seconds gt 0>
+        剩余时间<span id="day_show">0</span>天
+        <span id="hour_show">0</span>时
+        <span id="minute_show">0</span>分
+        <span id="second_show">0</span>秒
+    <#else>
+        该活动已结束!
+    </#if>
+    </div>
+</div>
+
+<div class="auct-name">
+    <div class="msgname">
+        <p>砍价者信息</p>
+    </div>
 </div>
 </body>
+
+<script language="JavaScript">
+    function timer(intDiff) {
+        window.setInterval(function () {
+            var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;//时间默认值
+            if (intDiff > 0) {
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            $('#day_show').html(day);
+            $('#hour_show').html(hour);
+            $('#minute_show').html(minute);
+            $('#second_show').html(second);
+            intDiff--;
+        }, 1000);
+    }
+
+    $(function () {
+        $.alert("xxxx");
+        var seconds =${seconds?c};
+        //var intDiff = parseInt(${seconds});//倒计时总秒数量
+        timer(seconds);
+    });
+</script>
 </html>

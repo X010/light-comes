@@ -82,6 +82,19 @@ public class OverchargedModel extends BaseModel {
      */
     private String good_name;
 
+    /**
+     * 秒数
+     */
+    private int time_second;
+
+    public int getTime_second() {
+        return time_second;
+    }
+
+    public void setTime_second(int time_second) {
+        this.time_second = time_second;
+    }
+
     public long getGoodsid() {
         return goodsid;
     }
