@@ -7,15 +7,15 @@
 .msg-auct span{ display: inline-block;}
 .msg-auct p{ font-size: 14px; margin: 20px 0; color:#6e6e6e; line-height: 12px;}
 .title{ font-size: 20px;  margin-left:50px;}
-.title h3{ font-size: 18px;}
-.msg-time{ width: 86%; margin: 15px auto; font-size: 18px; font-weight: bold; padding-bottom:20px;}
+.title h3{ font-size: 16px;}
+.msg-time{ width: 86%; margin: 15px auto; font-size: 16px; font-weight: bold; padding-bottom:20px;}
 .msg-time img{ width: 20px; margin: 0 10px;}
 .msg-time span{ color:#f57e63; margin-left: 15px; font-weight: 500;}
 
 .auct-name{ width: 100%; position: relative; background: #fff; box-shadow: 0 10px 30px #ccc; margin: 20px 0 100px 0;}
 .msgname{ width: 86%; margin: 0 auto;}
 .msgname img{ width: 40px;}
-.msgname p{ font-size: 18px; font-weight: 600; display: inline-block; padding: 20px;}
+.msgname p{ font-size: 14px; font-weight: 600; display: inline-block; padding: 20px;}
 
 #bg-auct{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 100%; top:0; z-index: 99; display: none;}
 .auct-success{ position: absolute; top:22%; left: 8%; width: 80%; height: 40%; z-index: 99; background: #fff; border-radius: 5px; padding: 2%}
