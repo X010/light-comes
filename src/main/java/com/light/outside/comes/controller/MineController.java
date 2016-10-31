@@ -1,8 +1,11 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.controller.admin.LoginController;
+import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -12,7 +15,8 @@ import java.util.Map;
 @RequestMapping("my")
 public class MineController {
     @RequestMapping("mine.action")
-    public String mine(Map<String, Object> data) {
+    public String mine(Map<String, Object> data, HttpServletRequest request) {
+        UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
         return "mine";
     }
 
