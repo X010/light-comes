@@ -8,9 +8,9 @@ package com.light.outside.comes.utils;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ package com.light.outside.comes.utils;
 public class CONST {
 
 
-    public static String SITE_URL = "http://www.nmc.com:8001/";
+    public static String SITE_URL = "http://qulk.dssmp.com/";
     public static String QBLK_PHOTO_URL = "http://120.27.154.7:8069/yeshizuile/frontend/web/images/goods/list_img/";
 
     public static int RAFFLE_STATUS_NORMAL = 2;//正常

@@ -74,6 +74,7 @@ public class BanquetController {
             banquetModel = this.banquetService.getBanquetById(aid);
         }
         if (banquetModel != null) {
+            UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
             data.put("banquet", banquetModel);
             //秒数
             long seconds = DateUtils.endSeconds(banquetModel.getEnd_time());
@@ -81,8 +82,8 @@ public class BanquetController {
             data.put("seconds", seconds);
 
             //判断是否已经预约了饭局
-
-
+            boolean isJoin = this.banquetService.isJoinBanquet(userModel, aid);
+            data.put("isjoin", isJoin);
             return "banquet_d";
         } else {
             return "redirect:/banquet/banquet.action";

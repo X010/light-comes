@@ -2,10 +2,8 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.light.outside.comes.model.BanquetModel;
-import com.light.outside.comes.model.OrderModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
+import com.light.outside.comes.mybatis.mapper.BanquetDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
@@ -41,6 +39,9 @@ public class BanquetService {
 
     @Autowired
     private PersistentDao persistentDao;
+
+    @Autowired
+    private BanquetDao banquetDao;
 
     @Autowired
     private PayService payService;
@@ -105,6 +106,24 @@ public class BanquetService {
     }
 
 
+    /**
+     * 判断是否参与过该饭局
+     *
+     * @param userModel
+     * @param aid       活动ID
+     * @return
+     */
+    public boolean isJoinBanquet(UserModel userModel, long aid) {
+        Preconditions.checkNotNull(userModel);
+        Preconditions.checkArgument(aid > 0);
+        boolean res = false;
+        BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
+        if (banquetRecordModel != null && banquetRecordModel.getStatus() == CONST.ORDER_PAY) {
+            res = true;
+        }
+        return res;
+    }
+
     public void deleteBanquet(long id) {
         Preconditions.checkArgument(id > 0);
         BanquetModel banquetModel = this.getBanquetById(id);
@@ -145,6 +164,37 @@ public class BanquetService {
                 long oid = this.payService.createOrder(orderModel);
                 if (oid > 0) {
                     orderModel.setId(oid);
+                }
+
+
+                //写入记录
+                BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
+                if (banquetRecordModel == null) {
+                    banquetRecordModel = new BanquetRecordModel();
+                    banquetRecordModel.setAid(aid);
+                    banquetRecordModel.setTitle(banquetModel.getTitle());
+                    banquetRecordModel.setUid(userModel.getId());
+                    banquetRecordModel.setPhone(userModel.getPhone());
+                    banquetRecordModel.setAmount(banquetModel.getAmount());
+                    banquetRecordModel.setOrderNo(orderModel.getOrderNo());
+                    banquetRecordModel.setCreatetime(new Date());
+                } else {
+                    //更新当前记录的支付号
+                    banquetRecordModel.setOrderNo(orderModel.getOrderNo());
+                }
+
+                if (orderModel.getStatus() == CONST.ORDER_PAY) {
+                    banquetRecordModel.setStatus(CONST.ORDER_PAY);
+                } else {
+                    banquetRecordModel.setStatus(CONST.ORDER_CREATE);
+                }
+
+                if (banquetRecordModel.getId() > 0) {
+                    //更新
+                    this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+                } else {
+                    //创建
+                    this.banquetDao.addBanquetRecordModel(banquetRecordModel);
                 }
             }
         } catch (Exception e) {

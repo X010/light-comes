@@ -40,7 +40,7 @@
                         <div class="item-col">
                             <div class="item-goods">
                                 <div class="item-gname">
-                                    <span class="item-flag"></span>
+                                    <span class="item-flag">状态</span>
                                 </div>
                                 <div class="item-total"></div>
                             </div>
