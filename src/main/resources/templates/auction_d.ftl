@@ -6,6 +6,9 @@
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
+    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
@@ -107,8 +110,6 @@
     </div>
     <div id="deposit">报名交保证金</div>
 </div>
-
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
@@ -125,10 +126,10 @@
             success: function (result) {
                 var r = jQuery.parseJSON(result);
                 if (r.code == 1) {
-                    alert(r.msg);
+                    $.alert(r.msg);
                     location.reload();
                 } else {
-                    alert(r.msg);
+                    $.alert(r.msg);
                 }
             }
         });

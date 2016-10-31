@@ -75,6 +75,6 @@ footer>a p{font-size: 14px; color:#c7c7c7;}
 .loginbox{width: 84%; height: 22%; background: #fff; position: absolute; top:25%; left:8%; border-radius: 15px;}
 .loginbox input{ height: 50%; width: 84%; margin-left: 8%; border-bottom: 1px solid #333; font-size:14px;}
 .login{ width:84%; height: 8%; background: #ffb03a; position: absolute; top:52%; left: 8%; font-size:18px; color:#fff; border-radius: 10px;}
-.btm{ position: absolute; bottom: 5%; font-size: 18px;  width: 80%;}
+.btm{ position: absolute; bottom: 5%; font-size: 14px;  width: 80%;}
 .register{ float: left; margin-left: 15%;}
 .forgot{ float: right;}

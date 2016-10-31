@@ -9,7 +9,7 @@
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
     <style>
         .container{ position:absolute;width:100%;height:93%;top:7%;left:0px; background: #f3f3f3;}
-                .head{ background: url("images/mine-bg.png" ) no-repeat; background-size:100% 100%; width: 100%; height: 30%;}
+                .head{ background: url("/images/mine-bg.png" ) no-repeat; background-size:100% 100%; width: 100%; height: 30%;}
                 .head img{ position:absolute;width:100px; height:100px; left: 36%; top:5%;}
                 .head p{ text-align: center; font-size: 20px; color:#fff; padding-top:36%;}
                 .mainlist{ margin-top: 5%; width: 100%; height: 32%; background: #fff;}
@@ -70,5 +70,27 @@
             退出登录
     </div>
 </div>
+<footer>
+        <a href="lottery.html">
+            <img  src="images/ticket.png"/>
+            <p>抽奖券</p>
+        </a>
+        <a href="auction.html">
+            <img class="" src="images/auction.png"/>
+            <p>拍卖</p>
+        </a>
+        <a href="">
+            <img class="" src="images/date.png"/>
+            <p>约饭</p>
+        </a>
+        <a href="discount.html">
+            <img src="images/discount.png"/>
+            <p >砍价</p>
+        </a>
+        <a class="on">
+            <img src="images/mine_on.png"/>
+            <p class="on">我的</p>
+        </a>
+    </footer>
 </body>
 </html>
