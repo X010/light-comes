@@ -11,7 +11,7 @@
 .swiper-wp8-vertical{-ms-touch-action:pan-x;touch-action:pan-x}
 .swiper-pagination{position:absolute;text-align:center;-webkit-transition:300ms;-moz-transition:300ms;-o-transition:300ms;transition:300ms;-ms-transform:translate3d(0,0,0);-o-transform:translate3d(0,0,0);transform:translate3d(0,0,0);z-index:10}
 .swiper-pagination.swiper-pagination-hidden{opacity:0}
-.swiper-pagination-bullet{width:20px;height:20px;display:inline-block;border-radius:100%;background:#ccc;opacity:.2;margin-left:10px;}
+.swiper-pagination-bullet{width:7px;height:7px;display:inline-block;border-radius:100%;background:#ccc;opacity:.2;margin-left:10px;}
 .swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}
 .swiper-pagination-white .swiper-pagination-bullet{background:#fff}
 .swiper-pagination-bullet-active{opacity:1;background:#fff}
