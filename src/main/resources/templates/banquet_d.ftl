@@ -75,7 +75,11 @@
 </div>
 <#if banquet.status==2>
 <div class="footer">
-    <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+    <#if isjoin>
+        <div id="deposit">您已预约该饭局</div>
+    <#else>
+        <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+    </#if>
 </div>
 </#if>
 </body>

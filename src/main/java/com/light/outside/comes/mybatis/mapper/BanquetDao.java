@@ -34,4 +34,6 @@ public interface BanquetDao {
             "values(#{status},#{title},#{amount},#{phone},#{uid},#{aid},#{orderNo},#{createtime})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public void addBanquetRecordModel(BanquetRecordModel banquetRecordModel);
+
+
 }

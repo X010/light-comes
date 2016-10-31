@@ -106,6 +106,24 @@ public class BanquetService {
     }
 
 
+    /**
+     * 判断是否参与过该饭局
+     *
+     * @param userModel
+     * @param aid       活动ID
+     * @return
+     */
+    public boolean isJoinBanquet(UserModel userModel, long aid) {
+        Preconditions.checkNotNull(userModel);
+        Preconditions.checkArgument(aid > 0);
+        boolean res = false;
+        BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
+        if (banquetRecordModel != null && banquetRecordModel.getStatus() == CONST.ORDER_PAY) {
+            res = true;
+        }
+        return res;
+    }
+
     public void deleteBanquet(long id) {
         Preconditions.checkArgument(id > 0);
         BanquetModel banquetModel = this.getBanquetById(id);
