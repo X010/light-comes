@@ -7,9 +7,11 @@ import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.service.OverchargedService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -69,13 +71,28 @@ public class OverchargedController {
 
     /**
      * 砍价说情页面
+     *
      * @param data
      * @param request
      * @return
      */
     @RequestMapping("overcharged_d.action")
-    public String overcharged_d(Map<String,Object> data,HttpServletRequest request)
-    {
+    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {
+        try {
+            if (aid > 0) {
+                //输出基本信息
+                OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
+                if (overchargedModel != null) {
+                    long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
+
+                    overchargedModel.setTime_second((int) seconds);
+                    data.put("seconds", seconds);
+                    data.put("oc", overchargedModel);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "overcharged_d";
     }
 }

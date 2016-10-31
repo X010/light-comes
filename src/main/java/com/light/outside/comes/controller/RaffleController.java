@@ -180,7 +180,7 @@ public class RaffleController extends BaseController {
             BackList backList = backListService.getBackListByPhoneAndCtype(phone, CONST.FOCUS_RAFFLE);
             //用户不在黑名单中
             if (backList == null) {
-                RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id, phone);
+                RaffleCouponModel raffleCouponModel = raffleService.drawRaffleByRage(id,uid, phone);
                 if (raffleCouponModel != null) {
                     code = 1;
                     msg = "恭喜你，抽中" + raffleCouponModel.getTitle();

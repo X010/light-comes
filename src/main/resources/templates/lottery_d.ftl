@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
     <style>
-        #nothit{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
+        #nothit {
+            position: absolute;
+            background-color: rgba(149, 147, 148, .8);
+            width: 100%;
+            height: 93%;
+            top: 120px;
+            z-index: 99;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -46,6 +55,7 @@
     </div>
     <div id="down">
         <p>获奖人名单</p>
+
         <div class="downarrow"></div>
     </div>
 </div>
@@ -67,6 +77,7 @@
     <div class="layer-msg">
         <div class="suc-top">
             <p class="title-suc">抽奖次数已用完!</p>
+
             <p id="close-btn" name="close-btn">x</p>
         </div>
         <button type="button" id="ok-btn" name="ok-btn">好的</button>
@@ -88,7 +99,8 @@
     <div class="layer-msg">
         <div class="suc-top">
             <p class="title-suc">很遗憾，没有中奖!</p>
-            <p id="nothit-close-btn" >x</p>
+
+            <p id="nothit-close-btn">x</p>
         </div>
         <button type="button" id="nothit-ok-btn">好的</button>
     </div>
@@ -96,28 +108,28 @@
 
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
-     var result_num;
-     var raffle_data;
-        //下面两个变量需要渲染模板的时候填充
-        //1. 活动id
-        var rid=15;
-        //2. 剩余可抽奖次数
-        var rcount=3;
+    var result_num;
+    var raffle_data;
+    //下面两个变量需要渲染模板的时候填充
+    //1. 活动id
+    var rid =${raffle.id};
+    //2. 剩余可抽奖次数
+    var rcount =${rCount};
     window.onload = function () {
         setTimeout(function () {
             window.scrollTo(0, 1)
         }, 0);
         $.ajax({
-                     type: "GET",
-                     url: "http://121.43.117.240:8087/raffle/lottery_raffle.action?rid=15",
-                     dataType: "json",
-                     success: function(data){
-                     	raffle_data = data.raffleCouponModels
-                     	        result_num=rand(data.raffleCouponModels.length);
+            type: "GET",
+            url: "http://121.43.117.240:8087/raffle/lottery_raffle.action?rid=15",
+            dataType: "json",
+            success: function (data) {
+                raffle_data = data.raffleCouponModels
+                result_num = rand(data.raffleCouponModels.length);
 
 
-                     }
-                 })
+            }
+        })
     };
     var click = document.getElementById("click");
     /*
@@ -140,15 +152,15 @@
                 var index = i * n + j;
                 //奖品放入数组中其他补充0
                 if (index < coupons.length) {
-                    if(i!=1&&j!=1) {
+                    if (i != 1 && j != 1) {
                         index = coupons[index].id;
-                    }else{
-                        index=0;
+                    } else {
+                        index = 0;
                     }
                 } else {
                     index = 0;
                 }
-                console.log(i+'  '+j+'  '+index);
+                console.log(i + '  ' + j + '  ' + index);
                 arr[i][j] = index;
             }
         }
@@ -185,23 +197,23 @@
     }
 
 
-    var index=0,           //当前亮区位置
-            prevIndex=0,          //前一位置
-            Speed=200,           //初始速度
+    var index = 0,           //当前亮区位置
+            prevIndex = 0,          //前一位置
+            Speed = 200,           //初始速度
             Time,            //定义对象
-            arr = GetSide(3,3),         //初始化数组
-            EndIndex=0,           //决定在哪一格变慢
+            arr = GetSide(3, 3),         //初始化数组
+            EndIndex = 0,           //决定在哪一格变慢
             center = document.getElementById("center"),
-            cycle=1,           //转动圈数
-            EndCycle=0,           //计算圈数
-            flag=false,           //结束转动标志
-            quick=0;           //加速
+            cycle = 1,           //转动圈数
+            EndCycle = 0,           //计算圈数
+            flag = false,           //结束转动标志
+            quick = 0;           //加速
     span = document.getElementsByTagName("span");
     floatimg = document.getElementById("floatimg");
     closebtn = document.getElementById("close-btn");
     okbtn = document.getElementById("ok-btn");
     layer = document.getElementById("layer");
-    nothit=document.getElementById("nothit");
+    nothit = document.getElementById("nothit");
     nothitclosebtn = document.getElementById("nothit-close-btn");
     nothitokbtn = document.getElementById("nothit-ok-btn");
     number = ${rCount};
@@ -249,82 +261,85 @@
         index++;
     }
 
-    function getByClass(sClass){
-            var aResult=[];
-            var aEle=document.getElementsByTagName('*');
-            for(var i=0;i<aEle.length;i++){
-                /*当className相等时添加到数组中*/
-                if(aEle[i].className==sClass){
-                    aResult.push(aEle[i]);
-                }
+    function getByClass(sClass) {
+        var aResult = [];
+        var aEle = document.getElementsByTagName('*');
+        for (var i = 0; i < aEle.length; i++) {
+            /*当className相等时添加到数组中*/
+            if (aEle[i].className == sClass) {
+                aResult.push(aEle[i]);
             }
-            return aResult;
-        };
-        var lot=getByClass("lot");
-        function rand(num){
-            //中奖宝箱存放位置
-            var count=8;
-            var rand_num =new Array;//新数组
-            var originalArray=new Array;//原数组
-    //给原数组originalArray赋值
-            for (var i=0;i<count;i++){
-                originalArray[i]=i+1;
-            }
-            originalArray.sort(function(){ return 0.5 - Math.random(); });
-            for (var i=0;i<num;i++){
-                console.log(originalArray[i]+" , ");
-                rand_num.push(originalArray[i]);
-            }
-            return(rand_num);
-        };
-        function success_function(data)
-        {
+        }
+        return aResult;
+    }
+    ;
+    var lot = getByClass("lot");
+    function rand(num) {
+        //中奖宝箱存放位置
+        var count = 8;
+        var rand_num = new Array;//新数组
+        var originalArray = new Array;//原数组
+        //给原数组originalArray赋值
+        for (var i = 0; i < count; i++) {
+            originalArray[i] = i + 1;
+        }
+        originalArray.sort(function () {
+            return 0.5 - Math.random();
+        });
+        for (var i = 0; i < num; i++) {
+            console.log(originalArray[i] + " , ");
+            rand_num.push(originalArray[i]);
+        }
+        return (rand_num);
+    }
+    ;
+    function success_function(data) {
         //do what you want do
         var data = data
-        }
-            function post_lo(id, rid){
-            	     urls = "http://121.43.117.240:8087/raffle/lottery_draw.action?id="+id +"&rid=" + rid
-            	     var data;
-            	     $.ajax({
-                     type: "GET",
-                     url: urls,
-                     async:false,
-                     dataType: "json",
-                     success: function(data){
-                     	result =  data;
-                     	//success_function(data);
-
-                    }
-                 })
-            	  return result;
+    }
+    function post_lo(id, rid) {
+        urls = "http://121.43.117.240:8087/raffle/lottery_draw.action?id=" + id + "&rid=" + rid
+        var data;
+        $.ajax({
+            type: "GET",
+            url: urls,
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                result = data;
+                //success_function(data);
 
             }
-        for (i = 0; i < span.length; i++) {
-            span[i].onclick = function () {
-                if (number <= 0) {
-                    layer.style.display = "block";
-                } else {
-                    $.ajax({
-                        url: "lottery_draw.action?rid=${raffle.id}&id="+this.id,
-                        type: "POST",
-                        success: function (result) {
-                            var r = jQuery.parseJSON(result);
-                            var rCount = r.rCount;
-                            $('.count').each(function () {
-                                $(this).text(rCount);
-                                number = rCount;
-                            });
-                            if (r.code == 1) {
-                                floatimg.style.display = "block";
-                            } else {
-                                //layer.style.display = "block";
-                                nothit.style.display="block";
-                            }
+        })
+        return result;
+
+    }
+    for (i = 0; i < span.length; i++) {
+        span[i].onclick = function () {
+            if (number <= 0) {
+                layer.style.display = "block";
+            } else {
+                $.ajax({
+                    url: "lottery_draw.action?rid=${raffle.id}&id=" + this.id,
+                    type: "POST",
+                    success: function (result) {
+                        var r = jQuery.parseJSON(result);
+                        var rCount = r.rCount;
+                        $('.count').each(function () {
+                            $(this).text(rCount);
+                            number = rCount;
+                        });
+                        if (r.code == 1) {
+                            floatimg.style.display = "block";
+                        } else {
+                            //layer.style.display = "block";
+                            nothit.style.display = "block";
                         }
-                    });
-                }
+                    }
+                });
             }
         }
+    }
     //            if(number>0){
     //                floatimg.style.display = "block";
     //                number--;
