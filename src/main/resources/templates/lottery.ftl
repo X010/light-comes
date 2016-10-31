@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>抽奖</title>
     <link type="text/css" rel="stylesheet" href="/css/header.css"/>
     <link type="text/css" rel="stylesheet" href="/css/lottery.css"/>
@@ -55,8 +56,9 @@
         <#--</li>-->
     <#--</#list>-->
 <#--</#if>-->
-    <#--<div style="height: 180px; width:100%;"></div>-->
 </ul>
+<div style="height:70px;bottom:0;">
+<div id="firstDiv"></div>
 
 <footer>
     <a href="/raffle/lottery.action" class="on">
@@ -115,27 +117,27 @@
 
 
         var opts = {
-            lines: 11 // The number of lines to draw
-            , length: 20 // The length of each line
-            , width: 10 // The line thickness
-            , radius: 30 // The radius of the inner circle
-            , scale: 0.5 // Scales overall size of the spinner
-            , corners: 1 // Corner roundness (0..1)
-            , color: '#000' // #rgb or #rrggbb or array of colors
-            , opacity: 0.25 // Opacity of the lines
-            , rotate: 0 // The rotation offset
-            , direction: 1 // 1: clockwise, -1: counterclockwise
-            , speed: 1 // Rounds per second
-            , trail: 60 // Afterglow percentage
-            , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
-            , zIndex: 2e9 // The z-index (defaults to 2000000000)
-            , className: 'spinner' // The CSS class to assign to the spinner
-            , top: '85%' // Top position relative to parent
-            , left: '50%' // Left position relative to parent
-            , shadow: false // Whether to render a shadow
-            , hwaccel: true // Whether to use hardware acceleration
-            , position: 'fixed' // Element positioning
-        }
+                        lines: 10 // The number of lines to draw
+                        , length: 5 // The length of each line
+                        , width: 8 // The line thickness
+                        , radius: 10 // The radius of the inner circle
+                        , scale: 0.5 // Scales overall size of the spinner
+                        , corners: 1 // Corner roundness (0..1)
+                        , color: '#000' // #rgb or #rrggbb or array of colors
+                        , opacity: 0.25 // Opacity of the lines
+                        , rotate: 0 // The rotation offset
+                        , direction: 1 // 1: clockwise, -1: counterclockwise
+                        , speed: 1 // Rounds per second
+                        , trail: 60 // Afterglow percentage
+                        , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                        , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                        , className: 'spinner' // The CSS class to assign to the spinner
+                        , top: '85%' // Top position relative to parent
+                        , left: '50%' // Left position relative to parent
+                        , shadow: false // Whether to render a shadow
+                        , hwaccel: true // Whether to use hardware acceleration
+                        , position: 'fixed' // Element positioning
+                    }
         var spinner = null;
         var spinner_div = 0;
         var pages = 1;

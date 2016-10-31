@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
@@ -84,10 +85,28 @@
 
 <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
+     var result_num;
+     var raffle_data;
+        //下面两个变量需要渲染模板的时候填充
+        //1. 活动id
+        var rid=15;
+        //2. 剩余可抽奖次数
+        var rcount=3;
     window.onload = function () {
         setTimeout(function () {
             window.scrollTo(0, 1)
         }, 0);
+        $.ajax({
+                     type: "GET",
+                     url: "http://121.43.117.240:8087/raffle/lottery_raffle.action?rid=15",
+                     dataType: "json",
+                     success: function(data){
+                     	raffle_data = data.raffleCouponModels
+                     	        result_num=rand(data.raffleCouponModels.length);
+
+
+                     }
+                 })
     };
     var click = document.getElementById("click");
     /*
@@ -219,6 +238,56 @@
         index++;
     }
 
+    function getByClass(sClass){
+            var aResult=[];
+            var aEle=document.getElementsByTagName('*');
+            for(var i=0;i<aEle.length;i++){
+                /*当className相等时添加到数组中*/
+                if(aEle[i].className==sClass){
+                    aResult.push(aEle[i]);
+                }
+            }
+            return aResult;
+        };
+        var lot=getByClass("lot");
+        function rand(num){
+            //中奖宝箱存放位置
+            var count=8;
+            var rand_num =new Array;//新数组
+            var originalArray=new Array;//原数组
+    //给原数组originalArray赋值
+            for (var i=0;i<count;i++){
+                originalArray[i]=i+1;
+            }
+            originalArray.sort(function(){ return 0.5 - Math.random(); });
+            for (var i=0;i<num;i++){
+                console.log(originalArray[i]+" , ");
+                rand_num.push(originalArray[i]);
+            }
+            return(rand_num);
+        };
+        function success_function(data)
+        {
+        //do what you want do
+        var data = data
+        }
+            function post_lo(id, rid){
+            	     urls = "http://121.43.117.240:8087/raffle/lottery_draw.action?id="+id +"&rid=" + rid
+            	     var data;
+            	     $.ajax({
+                     type: "GET",
+                     url: urls,
+                     async:false,
+                     dataType: "json",
+                     success: function(data){
+                     	result =  data;
+                     	//success_function(data);
+
+                    }
+                 })
+            	  return result;
+
+            }
         for (i = 0; i < span.length; i++) {
             span[i].onclick = function () {
                 if (number <= 0) {
