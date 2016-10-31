@@ -70,5 +70,27 @@
             退出登录
     </div>
 </div>
+<footer>
+        <a href="lottery.html">
+            <img  src="images/ticket.png"/>
+            <p>抽奖券</p>
+        </a>
+        <a href="auction.html">
+            <img class="" src="images/auction.png"/>
+            <p>拍卖</p>
+        </a>
+        <a href="">
+            <img class="" src="images/date.png"/>
+            <p>约饭</p>
+        </a>
+        <a href="discount.html">
+            <img src="images/discount.png"/>
+            <p >砍价</p>
+        </a>
+        <a class="on">
+            <img src="images/mine_on.png"/>
+            <p class="on">我的</p>
+        </a>
+    </footer>
 </body>
 </html>
