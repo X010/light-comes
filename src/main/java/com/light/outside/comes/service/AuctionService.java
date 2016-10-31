@@ -114,8 +114,8 @@ public class AuctionService {
      * @param uid
      * @return
      */
-    public AuctionRecordsModel queryTopRecord(long aid, long uid) {
-        return auctionDao.queryAuctionRecords(aid, uid);
+    public AuctionRecordsModel queryTopRecord(long aid) {
+        return auctionDao.queryAuctionRecords(aid);
 //        List<AuctionRecordsModel> list =
 //        if (list != null && list.size() > 0) {
 //            return list.get(0);

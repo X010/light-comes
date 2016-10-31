@@ -10,7 +10,6 @@ import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -125,12 +123,14 @@ public class AuctionController extends BaseController {
             msg = "拍卖已截止！";
         } else {
             //查询是否有更高的出价
-            AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid, userModel.getId());
+            AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid);
             float topPrice = 0;
             if (auctionRecordsModel != null) {
                 topPrice = auctionRecordsModel.getPrice();
             }
-            if (price > topPrice) {
+            if((price-topPrice)<auctionModel.getSetp_amount()){
+                msg="加价幅度必须大于"+auctionModel.getSetp_amount()+"元";
+            }else if (price > topPrice) {
                 isSuccess = auctionService.bidAuction(userModel, aid, price);
                 if (isSuccess) {
                     code = 1;
@@ -184,10 +184,20 @@ public class AuctionController extends BaseController {
      */
     @RequestMapping("auction_margin.action")
     public String margin(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        UserModel userModel=getAppUserInfo();
+        float amount=Float.parseFloat(request.getParameter("amount"));
+        long aid=RequestTools.RequestLong(request,"aid",0);
+        OrderModel orderModel=new OrderModel();
+        orderModel.setAmount(amount);
+        orderModel.setAtype(CONST.FOCUS_AUCTION);
+        orderModel.setAid(aid);
+        orderModel.setUid(userModel.getId());
+        orderModel.setPhone(userModel.getPhone());
+        orderModel.setAname("");
+        orderModel.setStatus(CONST.ORDER_PAY);
+        long id=payService.createOrder(orderModel);
         //暂时先跳过支付保证金
         boolean isPay = true;
-        //OrderModel orderModel=new OrderModel();
-        //long id=payService.createOrder(orderModel);
         data.put("isPay", isPay);
         return "auction_d";
     }

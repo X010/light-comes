@@ -321,7 +321,7 @@
         var count=8;
         var rand_num =new Array;//新数组
         var originalArray=new Array;//原数组
-//给原数组originalArray赋值
+        //给原数组originalArray赋值
         for (var i=0;i<count;i++){
             originalArray[i]=i+1;
         }

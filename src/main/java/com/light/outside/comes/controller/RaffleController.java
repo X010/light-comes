@@ -128,7 +128,15 @@ public class RaffleController extends BaseController {
         return "lottery_d";
     }
 
-    @RequestMapping("raffle_coupon.action")
+    @RequestMapping("lottery_raffle.action")
+    @ResponseBody
+    public String lottery_raffle(Map<String,Object> data,HttpServletRequest request, HttpServletRequest response){
+        long rid = RequestTools.RequestLong(request, "rid", 13);
+        RaffleModel raffleModel = raffleService.getRaffleById(rid);
+        return JsonTools.jsonSer(raffleModel);
+    }
+
+    @RequestMapping("lottery_raffle_coupon.action")
     @ResponseBody
     public String raffle_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
         long rid = RequestTools.RequestLong(request, "rid", 13);
@@ -152,8 +160,8 @@ public class RaffleController extends BaseController {
         long id = RequestTools.RequestLong(request, "id", 22);
         long rid = RequestTools.RequestInt(request, "rid", 13);
         long uid = userModel.getId();
-        //long uid = RequestTools.RequestInt(request, "uid", 0);
-        String phone = userModel.getPhone();
+//        long uid = RequestTools.RequestInt(request, "uid", 7);
+        String phone = userModel.getPhone();//"18888888888";
         int code = 0;
         String msg = "谢谢参与!";
         int rCount = 0;
@@ -188,9 +196,6 @@ public class RaffleController extends BaseController {
         if (remainCount < 0) {
             remainCount = 0;
         }
-//        if (rCount > 0)
-//            rCount = rCount - 1;
-
         data.put("code", code);
         data.put("msg", msg);
         data.put("rCount", remainCount);

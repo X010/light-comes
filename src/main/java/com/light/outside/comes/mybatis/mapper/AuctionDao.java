@@ -31,11 +31,10 @@ public interface AuctionDao {
     /**
      * 查询目前最高价格
      * @param aid
-     * @param uid
      * @return
      */
-    @Select("select * from comes_auction_records where aid=#{aid} and uid=#{uid} order by price desc limit 1")
-    public AuctionRecordsModel queryAuctionRecords(@Param("aid") long aid,@Param("uid") long uid);
+    @Select("select * from comes_auction_records where aid=#{aid} order by price desc limit 1")
+    public AuctionRecordsModel queryAuctionRecords(@Param("aid") long aid);
 
     /**
      * 查询该拍卖纪录

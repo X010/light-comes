@@ -383,14 +383,16 @@ public class RaffleService {
     public synchronized RaffleCouponModel drawRaffleByRage(long rcid,String phone) {
         long uid = 0;
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
-        double rate = raffleCouponModel.getWinrate() / 100.00f;
-        int result = percentageRandom(rate);
-        if (result > 0) {
-            List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
-            if (couponRecordModels != null) {
-                CouponRecordModel couponRecordModel = couponRecordModels.get(0);
-                this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
-                return raffleCouponModel;
+        if(raffleCouponModel!=null) {
+            double rate = raffleCouponModel.getWinrate() / 100.00f;
+            int result = percentageRandom(rate);
+            if (result > 0) {
+                List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
+                if (couponRecordModels != null) {
+                    CouponRecordModel couponRecordModel = couponRecordModels.get(0);
+                    this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
+                    return raffleCouponModel;
+                }
             }
         }
 //        List<RaffleCouponModel> raffleCouponModels = null;
