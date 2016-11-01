@@ -284,7 +284,7 @@
         return result;
 
     }
-    for (i = 0; i < span.length; i++) {
+    /*for (i = 0; i < span.length; i++) {
         span[i].onclick = function () {
             if (number <= 0) {
                 layer.style.display = "block";
@@ -309,7 +309,7 @@
                 });
             }
         }
-    }
+    }*/
     //            if(number>0){
     //                floatimg.style.display = "block";
     //                number--;
@@ -317,7 +317,7 @@
     //            }
     //            else{alert("下次再来!")}
     //    }
-    floatimg.onclick = function () {
+    /*floatimg.onclick = function () {
         floatimg.style.display = 'none';
     }
     closebtn.onclick = function () {
@@ -331,7 +331,7 @@
     }
     nothitokbtn.onclick = function () {
         nothit.style.display = "none";
-    }
+    }*/
     //
     //    $(function () {
     //        $("#center").click(function () {
@@ -349,7 +349,45 @@
     //            });
     //        });
     //    });
+    for(var i=0;i<lot.length;i++){
 
+            lot[i].onclick = function(){
+                if(result_num.indexOf(parseInt(this.id))!=-1){
+                	raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
+                	data = post_lo(raffle.id, rid)
+                	console.log(data)
+                    floatimg.style.display = "block";
+                }
+                else {
+                	data = post_lo("0", rid)
+                	console.log(data)
+                    layer.style.display = "block";
+                }
+                if(number>0){
+                    number--;
+                }
+                else{
+                    over.style.display = "block";
+                    layer.style.display = "none";
+                    floatimg.style.display = 'none';
+                }
+            }
+            floatimg.onclick = function () {
+                floatimg.style.display = 'none';
+            }
+            close_btn.onclick = function () {
+                layer.style.display = "none";
+            }
+            ok_btn.onclick = function () {
+                layer.style.display = "none";
+            }
+            closebtn.onclick = function () {
+                over.style.display = "none";
+            }
+            okbtn.onclick = function () {
+                over.style.display = "none";
+            }
+        }
     function changeStr(allstr, start, end, changeStr) {
         //allstr:原始字符串，start,开始位置,end：结束位  置,str：要改变的字，changeStr:改变后的字
         return allstr.substring(0, start - 1) + changeStr + allstr.substring(end, allstr.length);
