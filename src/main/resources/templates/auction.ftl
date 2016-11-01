@@ -55,8 +55,9 @@
         <#--</li>-->
     <#--</#list>-->
 <#--</#if>-->
-    <#--<div style="height: 180px; width:100%;"></div>-->
 </ul>
+<div style="height:70px;bottom:0;">
+<div id="firstDiv"></div>
 
 <footer>
     <a href="/raffle/lottery.action">
