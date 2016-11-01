@@ -186,6 +186,8 @@
     floatimg = document.getElementById("floatimg");
     closebtn = document.getElementById("close-btn");
     okbtn = document.getElementById("ok-btn");
+    close_btn = document.getElementById("close-btn");
+    ok_btn = document.getElementById("ok-btn");
     layer = document.getElementById("layer");
     nothit=document.getElementById("nothit");
     nothitclosebtn = document.getElementById("nothit-close-btn");
