@@ -6,6 +6,7 @@
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
     <style>
         #nothit{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
     </style>
@@ -97,7 +98,7 @@
         }, 0);
         $.ajax({
             type: "GET",
-            url: "http://121.43.117.240:8087/raffle/lottery_raffle.action?rid=15",
+            url: "lottery_raffle.action?rid="+rid,
             dataType: "json",
             success: function(data){
                 raffle_data = data.raffleCouponModels
@@ -270,7 +271,7 @@
         var data = data
     }
     function post_lo(id, rid){
-        urls = "http://121.43.117.240:8087/raffle/lottery_draw.action?id="+id +"&rid=" + rid
+        urls = "lottery_draw.action?id="+id +"&rid=" + rid
         var data;
         $.ajax({
             type: "GET",
@@ -340,21 +341,6 @@
                             floatimg.style.display = 'none';
                         }
                     }
-                    floatimg.onclick = function () {
-                        floatimg.style.display = 'none';
-                    }
-                    close_btn.onclick = function () {
-                        layer.style.display = "none";
-                    }
-                    ok_btn.onclick = function () {
-                        layer.style.display = "none";
-                    }
-                    closebtn.onclick = function () {
-                        over.style.display = "none";
-                    }
-                    okbtn.onclick = function () {
-                        over.style.display = "none";
-                    }
                 }
             }
         }
@@ -364,5 +350,6 @@
     }
 
 </script>
+<script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </body>
 </html>
