@@ -52,9 +52,29 @@
         <p>砍价者信息</p>
     </div>
 </div>
+
+<div class="footer">
+<#if oc.status==2>
+    <#if join>
+        <div id="deposit">您已砍过一刀</div>
+    <#else>
+        <div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>
+    </#if>
+</#if>
+</div>
 </body>
 
 <script language="JavaScript">
+    function send_overcharged(aid) {
+        $.ajax({
+            url: "/oc/send_overcharged.action?aid=" + aid,
+            dataType: "json",
+            success: function (data, textStatus) {
+                console.log(data)
+            }
+        });
+    }
+
     function timer(intDiff) {
         window.setInterval(function () {
             var day = 0,
@@ -78,7 +98,6 @@
     }
 
     $(function () {
-        $.alert("xxxx");
         var seconds =${seconds?c};
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);

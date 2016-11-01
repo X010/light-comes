@@ -23,6 +23,7 @@
                                 <th>编号</th>
                                 <th>名称</th>
                                 <th>状态</th>
+                                <th>初始价(元)</th>
                                 <th>底价(元)</th>
                                 <th>砍价幅度(元)</th>
                                 <th>开始时间</th>
@@ -52,6 +53,7 @@
                                             </#if>
                                             </td>
                                             <td>${overcharged.amount}</td>
+                                            <td>${overcharged.over_amount}</td>
                                             <td>${overcharged.subtract_price}</td>
                                             <td>${overcharged.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                                             <td>${overcharged.end_time?string("yyyy-MM-dd HH:mm:ss")}</td>

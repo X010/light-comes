@@ -2,17 +2,21 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.OverchargedModel;
+import com.light.outside.comes.model.OverchargedRecordModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.mybatis.mapper.OverchargedDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,9 +46,87 @@ public class OverchargedService {
 
     private Logger LOG = LoggerFactory.getLogger(OverchargedService.class);
 
+    @Autowired
+    private OverchargedDao overchargedDao;
 
     @Autowired
     private ReadDao readDao;
+
+    /**
+     * 是否参与过该活动
+     *
+     * @param aid
+     * @param phone
+     * @return
+     */
+    public boolean isJoinOvercharged(long aid, String phone) {
+        boolean res = false;
+        OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid, phone);
+        if (overchargedRecordModel != null) {
+            res = true;
+        }
+        return res;
+    }
+
+    /**
+     * 添加砍价记录
+     *
+     * @param aid
+     * @param userModel
+     * @return
+     */
+    public OverchargedRecordModel overchargedRecordModel(long aid, UserModel userModel) {
+        Preconditions.checkNotNull(userModel);
+        OverchargedRecordModel orm = new OverchargedRecordModel();
+        orm.setStatus(CONST.RAFFLE_STATUS_INIT);
+        orm.setAid(aid);
+        orm.setUid(userModel.getId());
+        orm.setPhone(userModel.getPhone());
+        orm.setCreatetime(new Date());
+
+        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid, userModel.getPhone());
+        if (ownOrm == null) {
+
+            OverchargedModel overchargedModel = this.getOverchargedModel(aid);
+            if (overchargedModel != null) {
+                orm.setAname(overchargedModel.getTitle());
+
+                //获取前一个出价者
+                OverchargedRecordModel preOrm = this.overchargedDao.getWinOverChargedRecordModel(aid);
+                float preAmount = overchargedModel.getAmount();
+                if (preOrm != null) {
+                    preAmount = preOrm.getAmount();
+                }
+                float currentAmount = preAmount - 2 * overchargedModel.getSubtract_price();
+                if (currentAmount < overchargedModel.getOver_amount()) {
+                    //已经获取该商品
+                    orm.setStatus(CONST.WIN);
+                    if (overchargedModel.getOver_amount() > (preAmount - overchargedModel.getSubtract_price())) {
+                        orm.setAmount(preAmount - overchargedModel.getSubtract_price());
+                    } else {
+                        orm.setAmount(overchargedModel.getOver_amount());
+                    }
+
+                    this.overchargedDao.addOverchargedRecordModel(orm);
+                    //需要标记该活动已结束
+
+                    overchargedModel.setStatus(CONST.RAFFLE_STATUS_OVER);
+                    overchargedModel.setEnd_time(new Date());
+
+                    this.updateOvercharged(overchargedModel);
+                } else {
+                    //该砍价者只是一个路过者
+                    orm.setAmount(preAmount - overchargedModel.getSubtract_price());
+                    //添加到数据库
+                    this.overchargedDao.addOverchargedRecordModel(orm);
+                }
+            }
+        } else {
+            //已经出过价了
+            orm.setStatus(CONST.RAFFLE_STATUS_OVER);
+        }
+        return orm;
+    }
 
     /**
      * 添加OverChage
@@ -116,7 +198,7 @@ public class OverchargedService {
         List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);
         if (overchargedModels != null) {
             for (OverchargedModel overchargedModel : overchargedModels) {
-                if (overchargedModel.getEnd_time().getTime() <= System.currentTimeMillis()&&overchargedModel.getStatus()!=CONST.RAFFLE_STATUS_OVER) {
+                if (overchargedModel.getEnd_time().getTime() <= System.currentTimeMillis() && overchargedModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     overchargedModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over overcharged id:" + overchargedModel.getId() + " name:" + overchargedModel.getTitle());
                     this.updateOvercharged(overchargedModel);

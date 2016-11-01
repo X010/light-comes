@@ -1,6 +1,7 @@
 package com.light.outside.comes.mybatis.mapper;
 
 import com.light.outside.comes.model.OverchargedModel;
+import com.light.outside.comes.model.OverchargedRecordModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,6 +22,15 @@ public interface OverchargedDao {
     public int updateOvercharged(OverchargedModel overchargedModel);
 
     @Delete("delete from comes_overcharged where id=#{id}")
-    public int deleteOvercharged(@Param("id")int id);
+    public int deleteOvercharged(@Param("id") int id);
 
+    @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit 1")
+    public OverchargedRecordModel getWinOverChargedRecordModel(@Param("aid") long aid);
+
+    @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} limit 1")
+    public OverchargedRecordModel getOverChargedRecordByPhoneAndAid(@Param("aid") long aid, @Param("phone") String phone);
+
+    @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount)values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addOverchargedRecordModel(OverchargedRecordModel overchargedRecordModel);
 }
