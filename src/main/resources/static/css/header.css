@@ -12,11 +12,7 @@ input[type='button']{cursor: pointer;}
 .clear{ clear:both;}
 
 /*头部*/
-<<<<<<< HEAD
-header{ position:fixed; top:0; z-index:9; width:100%; height:60px; line-height:60px; background-color: #fff; color:#000; text-align:center; box-shadow: 0 0 200px #ccc;}
-=======
 header{ position:fixed; top:0; z-index:9; width:100%; height:50px; line-height:50px; background-color: #fff; color:#000; text-align:center; box-shadow: 0 0 200px #ccc;}
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 header span{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 header .left{ position:absolute; float:left; top:0; left:1.5rem;}
 .left img{ width: 100%;}
@@ -26,18 +22,6 @@ header p.left{ left:3.2rem;}
 header p.right{ right:3.2rem;}
 
 /*底部*/
-<<<<<<< HEAD
-footer{position: fixed;left: 0;bottom: 0;height:70px;background: #fff;color:#000;width:100%; border-top:1px solid #f1522f;padding:0 0 1rem; line-height: 40px; box-shadow:0 0 10px #ccc;}
-footer>a{ display:block; float:left;width:19%; margin:0 0.2%;text-align: center;color:#000;text-decoration:none; }
-a.on{border-top:5px solid #f15739;}
-p.on{color:#f15739;}
-footer>a img{position:relative; width:40%; height: 30px; margin-top:15px;}
-footer>a p{font-size: 14px; color:#c7c7c7;}
-.footer{position: fixed;left: 0;bottom: 0;height:150px; width: 100%; }
-.footer-left{ width: 65%; height:150px; background: #fff; float: left; }
-.footer-right{ width: 35%;height:150px; background: #ff825f; float: left; color: #fff; margin:0 auto;}
-.footer-left p,.footer-right p{ line-height: 150px;font-size: 2.6rem;}
-=======
 footer{position: fixed;left: 0;bottom: 0;height:60px;background: #fff;color:#000;width:100%; border-top:1px solid #f1522f;padding:0 0 1rem; line-height: 40px; box-shadow:0 0 10px #ccc;}
 footer>a{ display:block; float:left;width:19%; margin:0 0.2%;text-align: center;color:#000;text-decoration:none; }
 a.on{border-top:5px solid #f15739;}
@@ -48,26 +32,16 @@ footer>a p{font-size: 14px; color:#c7c7c7;}
 .footer-left{ width: 65%; height:60px; background: #fff; float: left; }
 .footer-right{ width: 35%;height:60px; background: #ff825f; float: left; color: #fff; margin:0 auto;}
 .footer-left p,.footer-right p{ line-height: 60px;font-size: 16px;}
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 .footer-left p{margin-left: 10%; font-weight: 600;}
 .footer-right p{margin-left: 30%;}
 
 /*float*/
-<<<<<<< HEAD
-#layer{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
-#over{ display: none;}
-.layer-msg{ position: absolute; top:35%; left: 8%; width: 80%; height:20%; z-index: 99; background: #fff; border-radius: 20px; padding: 2%}
-.layer-msg button{ width: 30%;height:30%; font-size: 1.8rem; margin-left: 30%; color:#fff; background: #ff825f;}
-.suc-top{ font-size: 2.6rem; width: 100%;}
-.suc-top p{ text-align: center;  margin:60px auto; float: left;}
-=======
 #layer{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:60px; z-index: 99; display:none; }
 #over{ display: none;}
 .layer-msg{ position: absolute; top:35%; left: 8%; width: 80%; height:20%; z-index: 99; background: #fff; border-radius: 5px; padding: 2%}
 .layer-msg button{ width: 30%;height:30%; font-size: 12px; margin-left: 30%; color:#fff; background: #ff825f;}
 .suc-top{ font-size: 16px; width: 100%;}
 .suc-top p{ text-align: center;  margin:30px auto; float: left;}
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 .title-suc{ width: 80%;}
 #close-btn{ color:#ff825f; width: 10%; font-size: 20px; line-height: 20px; cursor: pointer;}
 

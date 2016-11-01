@@ -9,9 +9,6 @@
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
-    <a class="left" onclick="window.history.back();">
-        <img src="/images/back.png"/>
-    </a>
     <p>请先登录</p>
 </header>
 <div id="container">

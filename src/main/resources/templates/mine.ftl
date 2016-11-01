@@ -86,10 +86,6 @@
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
-    <a class="left">
-
-    </a>
-
     <p>个人资料</p>
 </header>
 <div class="container">
@@ -158,7 +154,7 @@
         <p>砍价</p>
     </a>
     <a class="on" href="/my/mine.action">
-        <img class="" src="/images/mine.png"/>
+        <img class="" src="/images/mine_on.png"/>
 
         <p class="on">我的</p>
     </a>

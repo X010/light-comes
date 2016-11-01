@@ -62,7 +62,7 @@
 
 <footer>
     <a href="/raffle/lottery.action" class="on">
-        <img src="/images/ticket.png"/>
+        <img src="/images/ticket_on.png"/>
         <p class="on">抽奖券</p>
     </a>
     <a href="/auction/auction.action">

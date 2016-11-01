@@ -1,44 +1,25 @@
 @charset "UTF-8";
 /* CSS Document */
-<<<<<<< HEAD
-@media only screen and (min-device-width : 320px) and (max-device-width : 1024px) { select:focus, textarea:focus, input:focus { font-size: 16px !important; } }
-=======
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 #banner{width: 100%;   overflow: hidden; position:relative; box-shadow: 0 0 15px #333;}
 #banner .swiper-slide {position:relative;  text-align:center;  }
 #banner img {  width: 100%;  }
 .pagination {position: absolute;z-index: 20;bottom: 10px;width: 100%;text-align: center;right:0;
 }
 .msg{ border-bottom: 1px solid #ccc; width:80%; margin:0 auto; padding:20px; text-decoration:none; list-style:none;}
-<<<<<<< HEAD
-#msglist{ position:absolute; top:260px; background-color:#fff; width:100%; }
-=======
 #msglist{ top:260px; background-color:#fff; width:100%; }
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 .msg-left,.msg-right,.msg-author p{float:left;}
 .msg-left{width: 100px; height: 100px;}
 .msg-left img{width: 100%; height: 100%;}
 .msg-right{width: 55%; margin-left: 20px;}
-<<<<<<< HEAD
-<<<<<<< HEAD
-.msg-right p,.msg-right h3{ font-size:20px; color:#424242; line-height:30px;}
-=======
 .msg-right p,.msg-right h3{ font-size:18px; color:#424242; line-height:30px;}
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
-=======
-.msg-right p,.msg-right h3{ font-size:16px; color:#424242; line-height:30px;}
->>>>>>> 1402075635bd14f939488912534034b166dbb736
 .msg-author{ width:100%;}
 .msg-author img{ display:block; width: 30px; height:30px; float:left; margin:10px;}
 .author{ font-weight:bold;}
 
 .container{ width:100%;height:93%;top:0;left:0;}
-<<<<<<< HEAD
-=======
 #container{ position:absolute;width:100%;height:93%;top:7%;left:0px;}
->>>>>>> af974068eb4fae991566a62ccc9fdc1d1fe20e84
 #container img{width:100%; height:100%;}
-.top{ position: absolute; top:22%; left: 20%;}
+.top{ position: absolute; top:24%; left: 20%;}
 .top p{ color:rgb(96,27,77); font-weight:bolder;font-size: 18px;}
 .top span{color:rgb(255,193,64);}
 .count{  font-size: 28px;}
@@ -58,10 +39,10 @@ td span{width: 100px; height: 100px; position: absolute;}
 #floatimg{ position:absolute; z-index:9; width: 100%; height:100%; top:0;  display: none;}
 #floatimg img{width: 100%; height: 100%;}
 #down{ position: absolute; bottom:0; text-align: center; margin:0 auto; width: 100%;color:#fff;}
-#down p{ font-size:14px;}
+#down p{ font-size:18px;}
 .downarrow{ width: 20px; height:20px; text-align: center; background: url("../images/down.png") no-repeat; background-size: 100%; margin: 20px auto;}
 #downlist{ position: absolute; width: 100%; height: 90%; top:110%;}
-#downlist p{ font-size: 18px; text-align: center;}
+#downlist p{ font-size: 20px; text-align: center;}
 .list{ margin: 30px auto; width: 80%;}
 .person{ width: 100%; line-height: 36px; margin:20px 0;}
 .person img{ display:inline-block; width: 16%; margin:20px 40px; box-shadow: 0 20px 30px #ccc; border-radius: 50%;}
