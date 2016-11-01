@@ -8,10 +8,10 @@
 .msg{ border-bottom: 1px solid #ccc; width:80%; margin:0 auto; padding:20px; text-decoration:none; list-style:none;}
 #msglist{ top:260px; background-color:#fff; width:100%; }
 .msg-left,.msg-right,.msg-author p{float:left;}
-.msg-left{width: 100px; height: 100px;}
+.msg-left{width: 80px; height: 80px;}
 .msg-left img{width: 100%; height: 100%;}
 .msg-right{width: 55%; margin-left: 20px;}
-.msg-right p,.msg-right h3{ font-size:18px; color:#424242; line-height:30px;}
+.msg-right p,.msg-right h3{ font-size:14px; color:#424242; line-height:30px;}
 .msg-author{ width:100%;}
 .msg-author img{ display:block; width: 30px; height:30px; float:left; margin:10px;}
 .author{ font-weight:bold;}

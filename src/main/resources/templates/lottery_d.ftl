@@ -182,13 +182,13 @@
             EndCycle=0,           //计算圈数
             flag=false,           //结束转动标志
             quick=0;           //加速
-    span = document.getElementsByTagName("span");
     floatimg = document.getElementById("floatimg");
     closebtn = document.getElementById("close-btn");
     okbtn = document.getElementById("ok-btn");
     close_btn = document.getElementById("close-btn");
     ok_btn = document.getElementById("ok-btn");
     layer = document.getElementById("layer");
+    over = document.getElementById("over");
     nothit=document.getElementById("nothit");
     nothitclosebtn = document.getElementById("nothit-close-btn");
     nothitokbtn = document.getElementById("nothit-ok-btn");

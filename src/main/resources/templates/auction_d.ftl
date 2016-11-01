@@ -60,7 +60,10 @@
     <#--<p>拍卖者信息</p>-->
     <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
-            <p>${ar.phone!}|出价:${ar.price!}</p>
+            <p>2016-10-30 23:48:33
+                <span class="auct-span">${ar.phone!}</span>
+                <span class="auct-span">出价:${ar.price!}</span>
+            </p>
         </#list>
     <#else>
         <p>当前无人竞拍！</p>
