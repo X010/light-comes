@@ -25,19 +25,19 @@
     </div>
     <table id="center">
         <tr>
-            <td id="lot1"><span></span></td>
-            <td id="lot2"><span></span></td>
-            <td id="lot3"><span></span></td>
+            <td id="lot1"><span class="lot"></span></td>
+            <td id="lot2"><span class="lot"></span></td>
+            <td id="lot3"><span class="lot"></span></td>
         </tr>
         <tr>
-            <td id="lot8"><span></span></td>
-            <td onclick="StartGame()" id="click"></td>
-            <td id="lot4"><span></span></td>
+            <td id="lot8"><span class="lot"></span></td>
+            <td id="click"></td>
+            <td id="lot4"><span class="lot"></span></td>
         </tr>
         <tr>
-            <td id="lot7"><span></span></td>
-            <td id="lot6"><span></span></td>
-            <td id="lot5"><span></span></td>
+            <td id="lot7"><span class="lot"></span></td>
+            <td id="lot6"><span class="lot"></span></td>
+            <td id="lot5"><span class="lot"></span></td>
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
@@ -190,15 +190,15 @@
     nothit=document.getElementById("nothit");
     nothitclosebtn = document.getElementById("nothit-close-btn");
     nothitokbtn = document.getElementById("nothit-ok-btn");
+    lotclick = document.getElementById("click");
     number = ${rCount};
 
     function StartGame() {
 
         flag = false;
-        //EndIndex=Math.floor(Math.random()*7);
-        //EndCycle=Math.floor(Math.random()*4);
         EndCycle = 1;
         Time = setInterval(Star, Speed);
+        boxflag = true;
     }
 
     function Star(num) {
@@ -207,9 +207,7 @@
             //跑N圈减速
             if (cycle == EndCycle + 1) {
                 clearInterval(Time);
-                //Speed=300;
                 flag = true;         //触发结束
-                //Time=setInterval(Star,Speed);
             }
         }
 
@@ -233,6 +231,7 @@
             prevIndex = arr.length - 1;
         }
         index++;
+        boxflag = true;
     }
 
     function getByClass(sClass){
@@ -278,38 +277,15 @@
             dataType: "json",
             success: function(data){
                 result =  data;
-                //success_function(data);
+            },
+            error: function (error) {
+                result = error;
             }
         })
         return result;
 
     }
-    /*for (i = 0; i < span.length; i++) {
-        span[i].onclick = function () {
-            if (number <= 0) {
-                layer.style.display = "block";
-            } else {
-                $.ajax({
-                    url: "lottery_draw.action?rid=${raffle.id}&id="+this.id,
-                    type: "POST",
-                    success: function (result) {
-                        var r = jQuery.parseJSON(result);
-                        var rCount = r.rCount;
-                        $('.count').each(function () {
-                            $(this).text(rCount);
-                            number = rCount;
-                        });
-                        if (r.code == 1) {
-                            floatimg.style.display = "block";
-                        } else {
-                            //layer.style.display = "block";
-                            nothit.style.display="block";
-                        }
-                    }
-                });
-            }
-        }
-    }*/
+
     //            if(number>0){
     //                floatimg.style.display = "block";
     //                number--;
@@ -317,21 +293,7 @@
     //            }
     //            else{alert("下次再来!")}
     //    }
-    /*floatimg.onclick = function () {
-        floatimg.style.display = 'none';
-    }
-    closebtn.onclick = function () {
-        layer.style.display = "none";
-    }
-    okbtn.onclick = function () {
-        layer.style.display = "none";
-    }
-    nothitclosebtn.onclick = function () {
-        nothit.style.display = "none";
-    }
-    nothitokbtn.onclick = function () {
-        nothit.style.display = "none";
-    }*/
+
     //
     //    $(function () {
     //        $("#center").click(function () {
@@ -349,43 +311,49 @@
     //            });
     //        });
     //    });
-    for(var i=0;i<lot.length;i++){
 
-            lot[i].onclick = function(){
-                if(result_num.indexOf(parseInt(this.id))!=-1){
-                	raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
-                	data = post_lo(raffle.id, rid)
-                	console.log(data)
-                    floatimg.style.display = "block";
+    lotclick.onclick=function () {
+            StartGame();
+            if(boxflag){
+                for(var i=0;i<lot.length;i++){
+
+                    lot[i].onclick = function(){
+                        if(result_num.indexOf(parseInt(this.id))!=-1){
+                            raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
+                            data = post_lo(raffle.id, rid)
+                            console.log(data)
+                            floatimg.style.display = "block";
+                        }
+                        else {
+                            data = post_lo("0", rid)
+                            console.log(data)
+                            layer.style.display = "block";
+                        }
+                        if(number>0){
+                            number--;
+                        }
+                        else{
+                            over.style.display = "block";
+                            layer.style.display = "none";
+                            floatimg.style.display = 'none';
+                        }
+                    }
+                    floatimg.onclick = function () {
+                        floatimg.style.display = 'none';
+                    }
+                    close_btn.onclick = function () {
+                        layer.style.display = "none";
+                    }
+                    ok_btn.onclick = function () {
+                        layer.style.display = "none";
+                    }
+                    closebtn.onclick = function () {
+                        over.style.display = "none";
+                    }
+                    okbtn.onclick = function () {
+                        over.style.display = "none";
+                    }
                 }
-                else {
-                	data = post_lo("0", rid)
-                	console.log(data)
-                    layer.style.display = "block";
-                }
-                if(number>0){
-                    number--;
-                }
-                else{
-                    over.style.display = "block";
-                    layer.style.display = "none";
-                    floatimg.style.display = 'none';
-                }
-            }
-            floatimg.onclick = function () {
-                floatimg.style.display = 'none';
-            }
-            close_btn.onclick = function () {
-                layer.style.display = "none";
-            }
-            ok_btn.onclick = function () {
-                layer.style.display = "none";
-            }
-            closebtn.onclick = function () {
-                over.style.display = "none";
-            }
-            okbtn.onclick = function () {
-                over.style.display = "none";
             }
         }
     function changeStr(allstr, start, end, changeStr) {
