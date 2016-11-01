@@ -11,7 +11,7 @@ public class AuctionRecordsModel {
     private float price;
     private long uid;
     private String phone;
-    private Date crete_time;
+    private Date create_time;
     private int status;
 
     public int getStatus() {
@@ -22,12 +22,12 @@ public class AuctionRecordsModel {
         this.status = status;
     }
 
-    public Date getCrete_time() {
-        return crete_time;
+    public Date getCreate_time() {
+        return create_time;
     }
 
-    public void setCrete_time(Date crete_time) {
-        this.crete_time = crete_time;
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
     }
 
     public long getId() {

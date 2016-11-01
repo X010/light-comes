@@ -42,7 +42,7 @@ public interface AuctionDao {
      * @param aid
      * @return
      */
-    @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone,`status` from comes_auction_records where aid=#{aid} order by price desc ")
+    @Select("select id,aid,price,uid,concat(left(phone,3),'****',right(phone,4)) phone,`status`,create_time from comes_auction_records where aid=#{aid} order by price desc ")
     public List<AuctionRecordsModel> selectAuctionRecordsByAid(@Param("aid") long aid);
 
 

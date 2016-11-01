@@ -60,7 +60,7 @@
     <#--<p>拍卖者信息</p>-->
     <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
-            <p>2016-10-30 23:48:33
+            <p>${ar.create_time?string('yyyy-MM-dd HH:mm:ss')}
                 <span class="auct-span">${ar.phone!}</span>
                 <span class="auct-span">出价:${ar.price!}</span>
             </p>
