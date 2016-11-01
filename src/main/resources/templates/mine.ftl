@@ -42,13 +42,13 @@
         .mainlist {
             margin-top: 5%;
             width: 100%;
-            height: 32%;
+            height: 210px;
             background: #fff;
         }
 
         .mainlist li {
             height: 9%;
-            border-bottom: 2px solid #ccc;
+            border-bottom: 1px solid #ccc;
             padding: 4%;
         }
 
@@ -67,20 +67,20 @@
             float: right;
             font-size: 24px;
             color: #ccc;
-            margin-right: 5rem;
-            line-height: 24px;
+            margin-right: 10px;
+            line-height: 20px;
         }
 
         .quit {
             width: 40%;
-            height: 5%;
+            height: 6%;
             margin-top: 6%;
             margin-left: 30%;
             border-radius: 20px;
             background: #ff6375;
             color: #fff;
             text-align: center;
-            line-height: 34px;
+            line-height: 36px;
         }
     </style>
 </head>
