@@ -49,6 +49,23 @@ public class BanquetService {
     private Logger LOG = LoggerFactory.getLogger(BanquetService.class);
 
     /**
+     * 根据状态获取我参与的活动
+     *
+     * @param status
+     * @param pageModel
+     * @param userModel
+     * @return
+     */
+    public List<BanquetModel> getBanquetModelByMe(int status, PageModel pageModel, UserModel userModel) {
+        Preconditions.checkArgument(status > 0);
+        Preconditions.checkNotNull(pageModel);
+        Preconditions.checkNotNull(userModel);
+
+
+        return null;
+    }
+
+    /**
      * 保存饭局
      *
      * @param banquetModel

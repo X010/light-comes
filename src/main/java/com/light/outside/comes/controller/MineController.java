@@ -2,6 +2,11 @@ package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.service.AuctionService;
+import com.light.outside.comes.service.BanquetService;
+import com.light.outside.comes.service.OverchargedService;
+import com.light.outside.comes.service.RaffleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,6 +19,19 @@ import java.util.Map;
 @Controller
 @RequestMapping("my")
 public class MineController {
+
+    @Autowired
+    private OverchargedService overchargedService;
+
+    @Autowired
+    private BanquetService banquetService;
+
+    @Autowired
+    private AuctionService auctionService;
+
+    @Autowired
+    private RaffleService raffleService;
+
     @RequestMapping("mine.action")
     public String mine(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
