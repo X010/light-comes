@@ -97,7 +97,7 @@
         }, 0);
         $.ajax({
             type: "GET",
-            url: "http://121.43.117.240:8087/raffle/lottery_raffle.action?rid=15",
+            url: "lottery_raffle.action?rid="+rid,
             dataType: "json",
             success: function(data){
                 raffle_data = data.raffleCouponModels
@@ -270,7 +270,7 @@
         var data = data
     }
     function post_lo(id, rid){
-        urls = "http://121.43.117.240:8087/raffle/lottery_draw.action?id="+id +"&rid=" + rid
+        urls = "lottery_draw.action?id="+id +"&rid=" + rid
         var data;
         $.ajax({
             type: "GET",
