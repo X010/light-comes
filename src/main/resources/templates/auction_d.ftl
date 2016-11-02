@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
@@ -92,13 +93,9 @@
         </div>
     </div>
 </div>
-<#--<div class="footer">-->
-<#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
-<#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
-<#--</div>-->
 <div class="footer">
 <#--<#if seconds gt 0>-->
-<#--<#if isSuccess>-->
+<#--<#if isPay>-->
 <#--<div class="footer" id="divPrice">-->
 <#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
 <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
@@ -169,9 +166,9 @@
     var isPay =${isPay?c};
     var seconds2 =${seconds?c};
     <#--var seconds=${seconds?c};-->
-//    auct.onclick = function () {
-//        floatbg.style.display = "block";
-//    }
+    //    auct.onclick = function () {
+    //        floatbg.style.display = "block";
+    //    }
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
@@ -181,10 +178,12 @@
     if (isPay == 'true' && seconds2 > 0) {
         deposit.style.display = "block";
         price.style.display = "none";
-    }
-    else {
+    } else if (seconds2 > 0) {
         price.style.display = "block";
         deposit.style.display = "none";
+    }else{
+        price.style.display = "none";
+        deposit.style.display = "none"
     }
 
 </script>

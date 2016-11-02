@@ -50,7 +50,7 @@
     </div>
 </div>
 <div id="downlist">
-    <p>获取人名单</p>
+    <p>获奖人名单</p>
 
     <div class="list">
     <#if records??>
