@@ -92,7 +92,7 @@
     <div class="head">
         <img src="/images/portrait.png"/>
 
-        <p>18674118888</p>
+        <p>${um.phone}</p>
     </div>
     <ul class="mainlist">
 
