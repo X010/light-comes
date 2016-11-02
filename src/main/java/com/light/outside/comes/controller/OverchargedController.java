@@ -100,6 +100,12 @@ public class OverchargedController {
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
                     data.put("join", isJoin);
+
+                    //获取砍价清单
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    if (orms != null) {
+                        data.put("orms", orms);
+                    }
                 }
             }
         } catch (Exception e) {
