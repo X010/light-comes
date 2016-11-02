@@ -129,6 +129,17 @@ public class OverchargedService {
     }
 
     /**
+     * 获取出价列表
+     *
+     * @param aid
+     * @return
+     */
+    public List<OverchargedRecordModel> getOverchargedRecords(long aid) {
+        Preconditions.checkArgument(aid > 0);
+        return this.overchargedDao.getOverchargedRecords(aid);
+    }
+
+    /**
      * 添加OverChage
      *
      * @param overchargedModel
@@ -193,6 +204,7 @@ public class OverchargedService {
             this.updateOvercharged(overchargedModel);
         }
     }
+
 
     public void clearOvercharged() {
         List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);

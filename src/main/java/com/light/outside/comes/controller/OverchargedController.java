@@ -66,13 +66,31 @@ public class OverchargedController {
         }
         PageModel pageModel = new PageModel();
         pageModel.setPage(1);
-        pageModel.setSize(Integer.MAX_VALUE);
         PageResult<OverchargedModel> auctionModelPageResult = overchargedService.getOverchargeds(pageModel);
         List<OverchargedModel> overchargedModels = auctionModelPageResult.getData();
         if (overchargedModels != null) {
             data.put("oc", overchargedModels);
         }
         return "overcharged";
+    }
+
+    /**
+     * 前端分页获取接口
+     *
+     * @param data
+     * @param pageModel
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("overcharged_list.action")
+    public String overcharged_list(Map<String, Object> data, PageModel pageModel) {
+        PageResult<OverchargedModel> overchargedModelPageResult = this.overchargedService.getOverchargeds(pageModel);
+        List<OverchargedModel> overchargedModels = overchargedModelPageResult.getData();
+        if (overchargedModels != null && overchargedModels.size() > 0) {
+            return JsonTools.jsonSer(overchargedModels);
+        } else {
+            return "";
+        }
     }
 
     /**
@@ -100,6 +118,12 @@ public class OverchargedController {
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
                     data.put("join", isJoin);
+
+                    //获取砍价清单
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    if (orms != null) {
+                        data.put("orms", orms);
+                    }
                 }
             }
         } catch (Exception e) {

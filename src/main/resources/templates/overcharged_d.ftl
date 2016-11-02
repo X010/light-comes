@@ -50,7 +50,20 @@
 
 <div class="auct-name">
     <div class="msgname">
-        <p>砍价者信息</p>
+        <p><strong>砍价者信息</strong></p>
+    </div>
+    <div class="msgname">
+        <p>
+        <#if orms??>
+            <#list orms as orm>
+            ${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
+            ${orm.phone}&nbsp;&nbsp;
+                砍掉:<strong style="color: red">${oc.subtract_price}</strong> 元
+            </#list>
+        <#else>
+            无人参与砍价!
+        </#if>
+        </p>
     </div>
 </div>
 
@@ -71,7 +84,18 @@
             url: "/oc/send_overcharged.action?aid=" + aid,
             dataType: "json",
             success: function (data, textStatus) {
-                console.log(data)
+                if (data != null) {
+                    if (data.status == 1) {
+                        $.alert("您成功砍了一刀,但未获取该商品");
+
+                        $("#deposit").html("您已砍过一刀");
+                        $("#deposit").click(function () {
+                            $.alert("您已参与过该活动");
+                        });
+                    } else if (data.status == 5) {
+                        $.alert("恭喜您成功获取该商品去我的进行支付!");
+                    }
+                }
             }
         });
     }
