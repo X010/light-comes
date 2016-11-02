@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>约饭</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
@@ -53,14 +54,14 @@
 </div>
 <div class="auct-name" style="height: auto;">
     <div class="msgname">
-        <p>活动地址：<span style="font-weight: normal;font-size: 30px;">${banquet.author_address}</span></p>
+        <p>活动地址：<span>${banquet.author_address}</span></p>
     </div>
 </div>
 <div class="auct-name" style="height: auto;">
     <div class="msgname">
         <p style="width: 100%;">酒水礼品说明：</p>
     </div>
-    <div class="msgname" style="padding-left:30px;margin-top: 10px;font-size: 36px;line-height:60px;font-weight: normal;">
+    <div class="msgname" style="padding-left:30px;font-size: 14px;line-height:36px;">
     <#if banquet.info??>
     ${banquet.info}
     <#else>

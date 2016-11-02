@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone = no">
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
@@ -60,7 +61,7 @@
     <#--<p>拍卖者信息</p>-->
     <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
-            <p>2016-10-30 23:48:33
+            <p>10-30 23:48:33
                 <span class="auct-span">${ar.phone!}</span>
                 <span class="auct-span">出价:${ar.price!}</span>
             </p>
@@ -108,7 +109,7 @@
 <#--<div id="deposit">报名交保证金</div>-->
 <#--</#if>-->
     <div id="price">
-        <div class="footer-left"><p>出价:<input type="text" name="txtPirce" id="txtPrice" value="0"></p></div>
+        <div class="footer-left"><p>出价:</p><input type="text" name="txtPirce" id="txtPrice" value="0"></div>
         <div class="footer-right" id="auction"><p>拍下来</p></div>
     </div>
     <div id="deposit">报名交保证金</div>

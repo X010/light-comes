@@ -3,15 +3,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>登陆</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
 </head>
 <body style="background-color: #f3f3f3;">
-<header>
-    <p>请先登录</p>
-</header>
-<div id="container">
+<div class="container">
     <img src="/images/loginbg.png"/>
     <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
