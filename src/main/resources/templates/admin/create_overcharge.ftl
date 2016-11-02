@@ -57,12 +57,21 @@
                                        placeholder="如：1">
                             </div>
                             <div class="form-group">
-                                <label for="amount">底价</label>
+                                <label for="amount">活动价</label>
                                 <input type="number" name="amount"
-                                <#if overcharged??>
+                                      <#if overcharged??>
                                        value="${overcharged.amount}"
-                                </#if>
+                                    </#if>
                                        class="form-control" id="amount"
+                                       placeholder="如：2">
+                            </div>
+                            <div class="form-group">
+                                <label for="over_amount">活动底价</label>
+                                <input type="number" name="over_amount"
+                                <#if overcharged??>
+                                       value="${overcharged.over_amount}"
+                                </#if>
+                                       class="form-control" id="over_amount"
                                        placeholder="如：2">
                             </div>
                             <div class="form-group">
@@ -135,6 +144,9 @@
                 },
                 amount: {
                     required: true
+                },
+                over_amount: {
+                    required: true
                 }
             },
             messages: {
@@ -150,6 +162,9 @@
                     required: "请输入每次砍价幅度"
                 },
                 amount: {
+                    required: "请输入活动初始价"
+                },
+                over_amount: {
                     required: "请输入底价"
                 }
             },

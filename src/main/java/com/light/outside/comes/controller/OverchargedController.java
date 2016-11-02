@@ -1,17 +1,22 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.OverchargedModel;
+import com.light.outside.comes.model.OverchargedRecordModel;
 import com.light.outside.comes.model.PageModel;
 import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.model.admin.FocusImageModel;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.OverchargedService;
 import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
+import com.light.outside.comes.utils.JsonTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -43,6 +48,7 @@ public class OverchargedController {
 
     @Autowired
     private FocusImageService focusImageService;
+
 
     /**
      * 砍价List
@@ -81,6 +87,7 @@ public class OverchargedController {
         try {
             if (aid > 0) {
                 //输出基本信息
+                UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
                     long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
@@ -88,11 +95,41 @@ public class OverchargedController {
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
+
+
+                    //获取该用户是否已经砍过价
+                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
+                    data.put("join", isJoin);
+
+                    //获取砍价清单
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    if (orms != null) {
+                        data.put("orms", orms);
+                    }
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "overcharged_d";
+    }
+
+
+    @ResponseBody
+    @RequestMapping("send_overcharged.action")
+    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {
+        String res = "";
+        if (aid > 0) {
+            try {
+                UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
+                if (userModel != null) {
+                    OverchargedRecordModel orm = this.overchargedService.overchargedRecordModel(aid, userModel);
+                    res = JsonTools.jsonSer(orm);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
     }
 }

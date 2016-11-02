@@ -51,10 +51,51 @@
     <div class="msgname">
         <p>砍价者信息</p>
     </div>
+
+    <div class="msgname">
+    <#if orms??>
+        <#list orms as orm>
+            ${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
+            ${orm.phone}&nbsp;&nbsp;
+            砍掉:${oc.subtract_price}元
+        </#list>
+    </#if>
+    </div>
+</div>
+
+<div class="footer">
+<#if oc.status==2>
+    <#if join>
+        <div id="deposit">您已砍过一刀</div>
+    <#else>
+        <div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>
+    </#if>
+</#if>
 </div>
 </body>
 
 <script language="JavaScript">
+    function send_overcharged(aid) {
+        $.ajax({
+            url: "/oc/send_overcharged.action?aid=" + aid,
+            dataType: "json",
+            success: function (data, textStatus) {
+                if (data != null) {
+                    if (data.status == 1) {
+                        $.alert("您成功砍了一刀,但未获取该商品");
+
+                        $("#deposit").html("您已砍过一刀");
+                        $("#deposit").click(function () {
+                            $.alert("您已参与过该活动");
+                        });
+                    } else if (data.status == 5) {
+                        $.alert("恭喜您成功获取该商品去我的进行支付!");
+                    }
+                }
+            }
+        });
+    }
+
     function timer(intDiff) {
         window.setInterval(function () {
             var day = 0,
@@ -78,7 +119,6 @@
     }
 
     $(function () {
-        $.alert("xxxx");
         var seconds =${seconds?c};
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);

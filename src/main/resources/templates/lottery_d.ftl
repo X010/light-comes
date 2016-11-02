@@ -6,6 +6,7 @@
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
     <style>
         #nothit{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:120px; z-index: 99; display:none; }
     </style>
@@ -193,7 +194,6 @@
     nothitclosebtn = document.getElementById("nothit-close-btn");
     nothitokbtn = document.getElementById("nothit-ok-btn");
     lotclick = document.getElementById("click");
-    number = ${rCount};
 
     function StartGame() {
 
@@ -288,72 +288,31 @@
 
     }
 
-    //            if(number>0){
-    //                floatimg.style.display = "block";
-    //                number--;
-    //                console.log(number);
-    //            }
-    //            else{alert("下次再来!")}
-    //    }
-
-    //
-    //    $(function () {
-    //        $("#center").click(function () {
-    //            $.ajax({
-    //                url: "lottery_draw.action",
-    //                type: "POST",
-    //                success: function (result) {
-    //                    var r = jQuery.parseJSON(result);
-    //                    if (r.code == 1) {
-    //                        floatimg.style.display = "block";
-    //                    } else {
-    //                        alert("没有中奖！");
-    //                    }
-    //                }
-    //            });
-    //        });
-    //    });
 
     lotclick.onclick=function () {
             StartGame();
             if(boxflag){
                 for(var i=0;i<lot.length;i++){
-
                     lot[i].onclick = function(){
-                        if(result_num.indexOf(parseInt(this.id))!=-1){
-                            raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
-                            data = post_lo(raffle.id, rid)
-                            console.log(data)
-                            floatimg.style.display = "block";
-                        }
-                        else {
-                            data = post_lo("0", rid)
-                            console.log(data)
-                            layer.style.display = "block";
-                        }
-                        if(number>0){
-                            number--;
-                        }
+                        if(rcount>0){
+                            if(result_num.indexOf(parseInt(this.id))!=-1){
+                                raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
+                                data = post_lo(raffle.id, rid)
+                                console.log(data)
+                                $("#count").innerHTML=data.rCount
+                                $.alert(data.msg)
+                            }
+                            else {
+                                data = post_lo("0", rid)
+                                console.log(data)
+                                $("#count").innerHTML=data.rCount
+                                $.alert(data.msg)
+                            }
+                            rcount--;
+                            }
                         else{
-                            over.style.display = "block";
-                            layer.style.display = "none";
-                            floatimg.style.display = 'none';
+                             $.alert("抽奖次数已用完");
                         }
-                    }
-                    floatimg.onclick = function () {
-                        floatimg.style.display = 'none';
-                    }
-                    close_btn.onclick = function () {
-                        layer.style.display = "none";
-                    }
-                    ok_btn.onclick = function () {
-                        layer.style.display = "none";
-                    }
-                    closebtn.onclick = function () {
-                        over.style.display = "none";
-                    }
-                    okbtn.onclick = function () {
-                        over.style.display = "none";
                     }
                 }
             }
@@ -364,5 +323,6 @@
     }
 
 </script>
+<script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </body>
 </html>

@@ -32,7 +32,7 @@ public class OverchargedModel extends BaseModel {
     private Date create_time;
 
     /**
-     * 底价
+     * 活动初始价
      */
     private float amount;
 
@@ -86,6 +86,20 @@ public class OverchargedModel extends BaseModel {
      * 秒数
      */
     private int time_second;
+
+    /**
+     * 底价
+     */
+    private float over_amount;
+
+
+    public float getOver_amount() {
+        return over_amount;
+    }
+
+    public void setOver_amount(float over_amount) {
+        this.over_amount = over_amount;
+    }
 
     public int getTime_second() {
         return time_second;

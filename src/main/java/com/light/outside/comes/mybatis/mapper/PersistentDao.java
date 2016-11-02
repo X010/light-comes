@@ -160,13 +160,13 @@ public interface PersistentDao {
             "start_time=#{start_time},end_time=#{end_time},memo=#{memo},win_uid=#{win_uid},win_phone=#{win_phone},win_price=#{win_price} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
-    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name)" +
-            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name})")
+    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount)" +
+            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOvercharged(OverchargedModel overchargedModel);
 
 
-    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time}  where id=#{id}")
+    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time},over_amount=#{over_amount}  where id=#{id}")
     public void updateOvercharged(OverchargedModel overchargedModel);
 
     @Select("select count(1) from comes_overcharged where status<>9")
@@ -203,7 +203,7 @@ public interface PersistentDao {
     public long addOrder(OrderModel orderModel);
 
     @Select("select * from comes_order where id=#{id}")
-    public OrderModel getOrderById(@Param("id")long id);
+    public OrderModel getOrderById(@Param("id") long id);
 
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
