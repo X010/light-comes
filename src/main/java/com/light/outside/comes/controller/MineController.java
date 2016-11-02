@@ -17,6 +17,9 @@ public class MineController {
     @RequestMapping("mine.action")
     public String mine(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
+        if (userModel != null) {
+            data.put("um", userModel);
+        }
         return "mine";
     }
 

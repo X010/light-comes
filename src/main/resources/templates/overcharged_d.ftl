@@ -49,17 +49,20 @@
 
 <div class="auct-name">
     <div class="msgname">
-        <p>砍价者信息</p>
+        <p><strong>砍价者信息</strong></p>
     </div>
-
     <div class="msgname">
-    <#if orms??>
-        <#list orms as orm>
+        <p>
+        <#if orms??>
+            <#list orms as orm>
             ${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
             ${orm.phone}&nbsp;&nbsp;
-            砍掉:${oc.subtract_price}元
-        </#list>
-    </#if>
+                砍掉:<strong style="color: red">${oc.subtract_price}</strong> 元
+            </#list>
+        <#else>
+            无人参与砍价!
+        </#if>
+        </p>
     </div>
 </div>
 
