@@ -15,7 +15,7 @@
     <img src="/images/loginbg.png"/>
     <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
-            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #333;">
+            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #ccc;">
             <input id="password" type="password" name="password" class="pw" placeholder="请输入密码">
         </div>
         <input id="loginBtn" type="button" value="登录" class="login">

@@ -34,9 +34,9 @@
 
         .head p {
             text-align: center;
-            font-size: 20px;
+            font-size: 16px;
             color: #fff;
-            padding-top: 36%;
+            padding-top: 40%;
         }
 
         .mainlist {

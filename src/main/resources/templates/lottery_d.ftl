@@ -299,13 +299,13 @@
                                 raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
                                 data = post_lo(raffle.id, rid)
                                 console.log(data)
-                                $("#count").innerHTML=data.rCount
+                                $("#count").text(data.rCount)
                                 $.alert(data.msg)
                             }
                             else {
                                 data = post_lo("0", rid)
                                 console.log(data)
-                                $("#count").innerHTML=data.rCount
+                                $("#count").text(data.rCount)
                                 $.alert(data.msg)
                             }
                             rcount--;

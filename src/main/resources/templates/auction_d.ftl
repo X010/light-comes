@@ -93,7 +93,7 @@
     </div>
 </div>
 <#--<div class="footer">-->
-<#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
+<#--<div class="footer-left"><p>出价:</p><input type="text" name="price" id="price" value="0"></div>-->
 <#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
 <#--</div>-->
 <div class="footer">

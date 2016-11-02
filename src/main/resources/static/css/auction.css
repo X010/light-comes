@@ -10,9 +10,9 @@
 .msg-auct p{ font-size: 14px; margin: 8px 0; color:#6e6e6e; line-height: 22px;}
 .title{ font-size: 20px;  margin-left:50px;}
 .title h3{ font-size: 18px;}
-.msg-time{ width: 86%; margin: 15px auto; font-size: 18px; font-weight: bold; padding-bottom:20px;}
+.msg-time{ width: 86%; margin: 15px auto; font-size: 16px; font-weight: bold; padding-bottom:20px;}
 .msg-time img{ width: 20px; margin: 0 10px;}
-.msg-time span{ color:#f57e63; margin-left: 2px; }
+.msg-time span{ color:#f57e63; }
 
 .auct-name{ width: 100%; position: relative; background: #fff; box-shadow: 0 10px 30px #ccc; margin: 20px 0 100px 0;}
 .msgname{ width: 86%; margin: 0 auto;}
