@@ -36,7 +36,7 @@
             text-align: center;
             font-size: 16px;
             color: #fff;
-            padding-top: 150px;
+            padding-top: 135px;
         }
 
         .mainlist {
