@@ -8,6 +8,8 @@
     <link type="text/css" rel="stylesheet" href="/css/header.css"/>
     <link type="text/css" rel="stylesheet" href="/css/lottery.css"/>
     <link rel="stylesheet" href="/css/swiper.min.css">
+    <script type="text/javascript" src="/js/laytpl.js"></script>
+        <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script src="/js/swiper-3.3.1.jquery.min.js"></script>
     <script id="post_list" type="text/html">
