@@ -40,23 +40,6 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#--<#if raffles??>-->
-    <#--<#list raffles as raffle>-->
-        <#--<li class="msg" onclick="location.href='/raffle/lottery_d.action?rid=${raffle.id}'">-->
-            <#--<div class="msg-left">-->
-                <#--<img src="${raffle.photo}"/>-->
-            <#--</div>-->
-            <#--<div class="msg-right">-->
-                <#--<p><span class="author">${raffle.title}</span></p>-->
-
-                <#--<div class="msg-author">-->
-                    <#--<p>${raffle.memo}</p>-->
-                <#--</div>-->
-            <#--</div>-->
-            <#--<div class="clear"></div>-->
-        <#--</li>-->
-    <#--</#list>-->
-<#--</#if>-->
 </ul>
 <div style="height:70px;bottom:0;">
 <div id="firstDiv"></div>
@@ -86,37 +69,8 @@
         <p>我的</p>
     </a>
 </footer>
+<script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript">
-    window.onload = function () {
-        var mySwiper1 = new Swiper('#header', {
-            freeMode: true,
-            slidesPerView: 'auto',
-        });
-        var mySwiper2 = new Swiper('#banner', {
-            autoplay: 5000,
-            visibilityFullFit: true,
-            loop: true,
-            pagination: '.pagination',
-        });
-
-        var tabsSwiper = new Swiper('#tabs-container', {
-            speed: 500,
-            onSlideChangeStart: function () {
-                $(".tabs .active").removeClass('active')
-                $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active')
-            }
-        })
-        $(".tabs a").on('touchstart mousedown', function (e) {
-            e.preventDefault()
-            $(".tabs .active").removeClass('active')
-            $(this).addClass('active')
-            tabsSwiper.slideTo($(this).index())
-        })
-        $(".tabs a").click(function (e) {
-            e.preventDefault()
-        })
-
-
         var opts = {
                         lines: 10 // The number of lines to draw
                         , length: 5 // The length of each line
@@ -218,8 +172,6 @@
                 $("#msglist").append(html);
             });
         }
-
-    }
 </script>
 </body>
 </html>
