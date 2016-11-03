@@ -63,6 +63,7 @@
 </div>
 
 <#if banquet.status==2>
+<div style="height:70px;bottom:0;"></div>
 <div class="footer">
     <#if isjoin>
         <div id="deposit">您已预约该饭局</div>
