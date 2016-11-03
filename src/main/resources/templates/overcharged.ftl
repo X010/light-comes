@@ -14,7 +14,7 @@
     <script src="/js/swiper-3.3.1.jquery.min.js"></script>
     <script id="post_list" type="text/html">
                 {{# for(var i = 0, len = d.length; i < len; i++){ }}
-                <li class="msg" onclick="location.href='/oc/overcharged_list.action?aid={{d[i].id}}'">
+                <li class="msg" onclick="location.href='/oc/overcharged_d.action?aid={{d[i].id}}'">
                     <div class="msg-left">
                         <img src="{{d[i].good_photo}}" />
                     </div>
@@ -118,7 +118,7 @@
             console.log('+++'+pages)
             $.ajax({
                 type:'GET',
-                url:'lottery_list.action?page='+pages,
+                url:'/oc/overcharged_list.action?page='+pages,
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
