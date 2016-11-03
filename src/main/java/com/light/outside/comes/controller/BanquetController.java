@@ -1,18 +1,13 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
-import com.light.outside.comes.model.BanquetModel;
-import com.light.outside.comes.model.OrderModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.admin.FocusImageService;
-import com.light.outside.comes.utils.CONST;
-import com.light.outside.comes.utils.DateUtils;
-import com.light.outside.comes.utils.JsonParser;
-import com.light.outside.comes.utils.JsonTools;
+import com.light.outside.comes.utils.*;
+import com.sun.xml.internal.rngom.parse.host.Base;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +26,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +37,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("banquet")
-public class BanquetController {
+public class BanquetController extends BaseController {
 
     @Autowired
     private BanquetService banquetService;
@@ -135,6 +130,23 @@ public class BanquetController {
             e.printStackTrace();
         }
         return res;
+    }
+
+    /**
+     * 我的约饭数据
+     */
+    @RequestMapping("mine_banquest_list.action")
+    @ResponseBody
+    public String mine_banquert_list(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(size);
+        UserModel userModel = getAppUserInfo();
+        PageResult<BanquetRecordModel> banquetRecordModelPageResult = banquetService.getBanquetRecordPage(userModel.getId(), status, pageModel);
+        return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
     }
 
 }

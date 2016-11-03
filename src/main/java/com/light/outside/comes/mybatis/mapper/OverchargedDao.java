@@ -37,4 +37,25 @@ public interface OverchargedDao {
     @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount)values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOverchargedRecordModel(OverchargedRecordModel overchargedRecordModel);
+
+    /**
+     * 根据uid和status查询记录
+     * @param uid
+     * @param status
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_overcharged_record where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    public List<OverchargedRecordModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+
+    /**
+     * 根据uid查询记录
+     * @param uid
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_overcharged_record where uid=#{uid} limit #{start},#{size}")
+    public List<OverchargedRecordModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
 }

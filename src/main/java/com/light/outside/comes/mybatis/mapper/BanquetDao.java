@@ -3,6 +3,8 @@ package com.light.outside.comes.mybatis.mapper;
 import com.light.outside.comes.model.BanquetRecordModel;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -24,6 +26,27 @@ public interface BanquetDao {
 
     @Select("select * from comes_banquet_records where aid=#{aid} and phone=#{phone} limit 1")
     public BanquetRecordModel getBanquetRecordByAidAndPhone(@Param("aid") long aid, @Param("phone") String phone);
+
+
+    /**
+     * 查询约会记录
+     * @param uid
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_banquet_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    public List<BanquetRecordModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status, @Param("start") int start,@Param("size") int size);
+
+    /**
+     * 查询约会记录
+     * @param uid
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_banquet_records where uid=#{uid} limit #{start},#{size}")
+    public List<BanquetRecordModel> getBanquetRecordPageByUid(@Param("uid") long uid, @Param("start") int start,@Param("size") int size);
 
 
     @Update("update comes_banquet_records set status=#{status},orderNo=#{orderNo} where id=#{id}")

@@ -24,9 +24,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -236,4 +236,26 @@ public class BanquetService {
             }
         }
     }
+
+    /**
+     * 分页查询约饭
+     *
+     * @param uid
+     * @param status
+     * @param pageModel
+     * @return
+     */
+    public PageResult<BanquetRecordModel> getBanquetRecordPage(long uid, int status, PageModel pageModel) {
+        PageResult<BanquetRecordModel> banquetRecordModelPageResult = new PageResult<BanquetRecordModel>();
+        List<BanquetRecordModel> banquetRecordModels;
+        if (status > 0)
+            banquetRecordModels = banquetDao.getBanquetRecordPageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+        else
+            banquetRecordModels = banquetDao.getBanquetRecordPageByUid(uid, pageModel.getStart(), pageModel.getSize());
+        banquetRecordModelPageResult.setData(banquetRecordModels);
+        banquetRecordModelPageResult.setPageModel(pageModel);
+        return banquetRecordModelPageResult;
+    }
+
+
 }

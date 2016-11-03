@@ -12,6 +12,7 @@ import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonTools;
+import com.light.outside.comes.utils.RequestTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +42,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("oc")
-public class OverchargedController {
+public class OverchargedController extends BaseController{
 
     @Autowired
     private OverchargedService overchargedService;
@@ -149,5 +150,25 @@ public class OverchargedController {
             }
         }
         return res;
+    }
+
+    /**
+     * 我的砍价记录
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("mine_overcharged_list.action")
+    @ResponseBody
+    public String mine_overcharged_list(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(size);
+        UserModel userModel = getAppUserInfo();
+        PageResult<OverchargedRecordModel> banquetRecordModelPageResult = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
+        return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
     }
 }

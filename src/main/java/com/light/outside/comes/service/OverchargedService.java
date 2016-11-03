@@ -1,6 +1,7 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.light.outside.comes.model.OverchargedModel;
 import com.light.outside.comes.model.OverchargedRecordModel;
 import com.light.outside.comes.model.PageModel;
@@ -27,9 +28,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -227,5 +228,25 @@ public class OverchargedService {
             }
         }
 
+    }
+
+    /**
+     * 查询砍价记录
+     * @param uid
+     * @param status
+     * @param pageModel
+     * @return
+     */
+    public PageResult<OverchargedRecordModel> getOverchargedRecordPage(long uid, int status, PageModel pageModel) {
+        PageResult<OverchargedRecordModel> overchargedRecordModelPageResult = new PageResult<OverchargedRecordModel>();
+        List<OverchargedRecordModel> overchargedRecordModels = Lists.newArrayList();
+        if (status > 0) {
+            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+        } else {
+            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPageByUid(uid, pageModel.getStart(), pageModel.getSize());
+        }
+        overchargedRecordModelPageResult.setData(overchargedRecordModels);
+        overchargedRecordModelPageResult.setPageModel(pageModel);
+        return overchargedRecordModelPageResult;
     }
 }
