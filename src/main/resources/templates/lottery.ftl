@@ -40,23 +40,6 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#--<#if raffles??>-->
-    <#--<#list raffles as raffle>-->
-        <#--<li class="msg" onclick="location.href='/raffle/lottery_d.action?rid=${raffle.id}'">-->
-            <#--<div class="msg-left">-->
-                <#--<img src="${raffle.photo}"/>-->
-            <#--</div>-->
-            <#--<div class="msg-right">-->
-                <#--<p><span class="author">${raffle.title}</span></p>-->
-
-                <#--<div class="msg-author">-->
-                    <#--<p>${raffle.memo}</p>-->
-                <#--</div>-->
-            <#--</div>-->
-            <#--<div class="clear"></div>-->
-        <#--</li>-->
-    <#--</#list>-->
-<#--</#if>-->
 </ul>
 <div style="height:70px;bottom:0;">
 <div id="firstDiv"></div>
@@ -189,8 +172,6 @@
                 $("#msglist").append(html);
             });
         }
-
-    }
 </script>
 </body>
 </html>

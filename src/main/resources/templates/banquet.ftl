@@ -38,22 +38,6 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#if bs??>
-    <#list bs as b>
-        <li class="msg" onclick="location.href='/banquet/banquet_d.action?aid=${b.id}'">
-            <div class="msg-left">
-                <#if b.photo??>
-                    <img src="${b.photo}" />
-                </#if>
-            </div>
-            <div class="msg-right">
-                <h3>${b.title!}</span></h3>
-                <p>${b.memo!}</p>
-            </div>
-            <div class="clear"></div>
-        </li>
-    </#list>
-</#if>
 </ul>
 <div style="height:70px;bottom:0;">
 <div id="firstDiv"></div>
@@ -188,8 +172,6 @@
                     $("#msglist").append(html);
                 });
             }
-
-        }
 </script>
 </body>
 </html>

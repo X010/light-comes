@@ -38,20 +38,6 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#if oc??>
-    <#list oc as o>
-        <li class="msg" onclick="location.href='/oc/overcharged_list.action?aid=${o.id}'">
-            <div class="msg-left">
-                <img src="${o.good_photo!}"/>
-            </div>
-            <div class="msg-right">
-                <h3>${o.title!}</h3>
-                <p>${o.good_name}</p>
-            </div>
-            <div class="clear"></div>
-        </li>
-    </#list>
-</#if>
 </ul>
 <div style="height:70px;bottom:0;">
 <div id="firstDiv"></div>
@@ -186,8 +172,6 @@
                 $("#msglist").append(html);
             });
         }
-
-    }
 </script>
 </body>
 </html>

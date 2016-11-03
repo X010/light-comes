@@ -40,22 +40,6 @@
     <div class="pagination"></div>
 </div>
 <ul id="msglist">
-<#--<#if auctions??>-->
-    <#--<#list auctions as auction>-->
-        <#--<li class="msg" onclick="location.href='/auction/auction_d.action?aid=${auction.id}'">-->
-            <#--<div class="msg-left">-->
-                <#--<img src="${auction.good_photo!}"/>-->
-            <#--</div>-->
-            <#--<div class="msg-right">-->
-                <#--<p><span class="author">${auction.good_name!}</span></p>-->
-                <#--<div class="msg-author">-->
-                    <#--<p>${auction.memo!}</p>-->
-                <#--</div>-->
-            <#--</div>-->
-            <#--<div class="clear"></div>-->
-        <#--</li>-->
-    <#--</#list>-->
-<#--</#if>-->
 </ul>
 <div style="height:70px;bottom:0;">
 <div id="firstDiv"></div>
@@ -186,7 +170,6 @@
             });
         }
 
-    }
 </script>
 </body>
 </html>
