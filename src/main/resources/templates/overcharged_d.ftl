@@ -48,11 +48,11 @@
     </div>
 </div>
 
-<div class="auct-name">
-    <div class="msgname">
+<div class="auct-name" style="padding-bottom:20px;">
+    <div class="msgt">
         <p><strong>砍价者信息</strong></p>
     </div>
-    <div class="msgname">
+    <div class="msgt">
         <p>
         <#if orms??>
             <#list orms as orm>

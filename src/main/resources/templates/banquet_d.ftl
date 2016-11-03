@@ -43,25 +43,25 @@
     </div>
 </div>
 <div class="auct-name">
-    <div class="msgname">
-        <p>承办人： <span style="font-weight: normal;">${banquet.author_nickname}</span></p>
+    <div class="msgn">
+        <p><span class="msgbold">承办人：</span><span>${banquet.author_nickname}</span></p>
     </div>
 </div>
 <div class="auct-name">
-    <div class="msgname">
-        <p>联系电话：<span style="font-weight: normal;"> ${banquet.author_telephone}</span></p>
+    <div class="msgn">
+        <p><span class="msgbold">联系电话：</span><span>${banquet.author_telephone}</span></p>
     </div>
 </div>
 <div class="auct-name" style="height: auto;">
-    <div class="msgname">
-        <p>活动地址：<span>${banquet.author_address}</span></p>
+    <div class="msgn">
+        <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
     </div>
 </div>
 <div class="auct-name" style="height: auto;">
-    <div class="msgname">
-        <p style="width: 100%;">酒水礼品说明：</p>
+    <div class="msgn">
+        <p style="width: 100%;"><span class="msgbold">酒水礼品说明：<span></p>
     </div>
-    <div class="msgname" style="padding-left:30px;font-size: 14px;line-height:36px;">
+    <p style="line-height:36px;">
     <#if banquet.info??>
     ${banquet.info}
     <#else>
@@ -74,7 +74,7 @@
     <br/>
     <br/>
     <br/>
-</div>
+    </p>
 <#if banquet.status==2>
 <div class="footer">
     <#if isjoin>
