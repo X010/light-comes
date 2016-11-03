@@ -80,7 +80,15 @@ public interface PersistentDao {
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status}")
-    public List<RaffleCouponModel> getRaffleCouponByUser(@Param("uid") long uid,@Param("status") int status);
+    public List<CouponRecordModel> getRaffleCouponByUserStatus(@Param("uid") long uid,@Param("status") int status);
+
+    /**
+     * 查询所有优惠券
+     * @param uid
+     * @return
+     */
+    @Select("select * from comes_conpon_records where uid=#{uid}")
+    public List<CouponRecordModel> getRaffleCouponByUser(@Param("uid") long uid);
 
     /**
      * 查询抽奖次数

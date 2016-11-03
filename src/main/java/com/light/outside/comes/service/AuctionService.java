@@ -95,9 +95,13 @@ public class AuctionService {
         return auctionDao.getAuctionsById(id);
     }
 
-    public List<AuctionRecordsModel> queryAuctionRecordsByUser(long uid,int status){
-        return auctionDao.queryAuctionRecordsByUser(uid,status);
+    public List<AuctionRecordsModel> queryAuctionRecordsByUser(long uid, int status) {
+        if (status > 0)
+            return auctionDao.queryAuctionRecordsByUserStatus(uid, status);
+        else
+            return auctionDao.queryAuctionRecordsByUser(uid);
     }
+
     /**
      * 出价
      *

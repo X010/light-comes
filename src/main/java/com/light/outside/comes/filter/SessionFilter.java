@@ -41,17 +41,10 @@ public class SessionFilter implements javax.servlet.Filter {
             }
         }
         //客户端登录验证
-        else if (url.contains("lottery_draw.action")||url.contains("lottery_raffle_coupon.action")||url.contains("lottery_raffle.action")||url.contains("auction_list.action") || url.contains("lottery_list.action") || url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
+        else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
-            response.setContentType("text/html;charset=UTF-8");
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "0");
-            response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
-            response.setHeader("Access-Control-Allow-Credentials", "true");
-            response.setHeader("XDomainRequestAllowed", "1");
             chain.doFilter(request, response);
-        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/")) {
+        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/")||url.contains("/my/")) {
             if (session.getAttribute(LoginController.SESSION_KEY_APP_USERINFO) == null) {
                 session.invalidate();
                 clientLoginOut(request, response);
@@ -59,13 +52,13 @@ public class SessionFilter implements javax.servlet.Filter {
                 chain.doFilter(request, response);
             }
         } else {
-            response.setContentType("text/html;charset=UTF-8");
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-            response.setHeader("Access-Control-Max-Age", "0");
-            response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
-            response.setHeader("Access-Control-Allow-Credentials", "true");
-            response.setHeader("XDomainRequestAllowed", "1");
+//            response.setContentType("text/html;charset=UTF-8");
+//            response.setHeader("Access-Control-Allow-Origin", "*");
+//            response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//            response.setHeader("Access-Control-Max-Age", "0");
+//            response.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
+//            response.setHeader("Access-Control-Allow-Credentials", "true");
+//            response.setHeader("XDomainRequestAllowed", "1");
             chain.doFilter(request, response);
         }
     }

@@ -88,7 +88,7 @@
     <div class="head">
         <img src="/images/portrait.png"/>
 
-        <p>${um.phone}</p>
+        <p>${um.phone!}</p>
     </div>
     <ul class="mainlist">
 

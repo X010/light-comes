@@ -2,6 +2,8 @@ package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.AuctionRecordsModel;
+import com.light.outside.comes.model.CouponRecordModel;
+import com.light.outside.comes.model.RaffleCouponModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.RaffleService;
@@ -55,6 +57,7 @@ public class MineController extends BaseController {
         int status=RequestTools.RequestInt(request,"status",0);
         UserModel userModel = getAppUserInfo();
         List<AuctionRecordsModel> list = auctionService.queryAuctionRecordsByUser(userModel.getId(), status);
+        data.put("status",status);
         data.put("records", list);
         return "mine_auction";
     }
@@ -69,7 +72,9 @@ public class MineController extends BaseController {
     public String mine_coupon(Map<String, Object> data,HttpServletRequest request) {
         int status=RequestTools.RequestInt(request,"status",0);
         UserModel userModel = getAppUserInfo();
-        raffleService.getRaffleCouponByUser(userModel.getId(),status);
+        List<CouponRecordModel> couponRecordModels= raffleService.getRaffleCouponByUser(userModel.getId(), status);
+        data.put("records",couponRecordModels);
+        data.put("status",status);
         return "mine_coupon";
     }
 

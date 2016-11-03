@@ -24,9 +24,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -213,8 +213,11 @@ public class RaffleService {
         return raffleModel;
     }
 
-    public List<RaffleCouponModel> getRaffleCouponByUser(long uid,int status){
-        return  this.persistentDao.getRaffleCouponByUser(uid,status);
+    public List<CouponRecordModel> getRaffleCouponByUser(long uid, int status) {
+        if (status > 0)
+            return this.persistentDao.getRaffleCouponByUserStatus(uid, status);
+        else
+            return this.persistentDao.getRaffleCouponByUser(uid);
     }
 
     /**
@@ -238,7 +241,7 @@ public class RaffleService {
         RaffleUserModel raffleUserModel = this.persistentDao.getRaffleUserByRaffleId(rid, uid);
         if (raffleUserModel == null) {
             return 0;
-        }else{
+        } else {
             return raffleUserModel.getCount();
         }
     }
@@ -384,9 +387,9 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public synchronized RaffleCouponModel drawRaffleByRage(long rcid,long uid,String phone) {
+    public synchronized RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
-        if(raffleCouponModel!=null) {
+        if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
             int result = percentageRandom(rate);
             if (result > 0) {

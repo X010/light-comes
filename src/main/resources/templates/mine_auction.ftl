@@ -24,43 +24,54 @@
 <div class="content">
     <div class="mui-order-cate">
         <div class="segmented-control" id="orderStatusList">
-            <a class="control-item active" id="order_status_0" href="">全部</a>
-            <a class="control-item" id="order_status_1" href="">已拍得</a>
-            <a class="control-item" id="order_status_2" href="">未拍得</a>
+            <a class="control-item <#if status==0>active</#if>" id="order_status_0" href="mine_auction.action">全部</a>
+            <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_auction.action?status=2">已拍得</a>
+            <a class="control-item <#if status==1>active</#if>" id="order_status_2" href="mine_auction.action?status=1">未拍得</a>
         </div>
     </div>
     <div class="mui-order-list" id="containerList">
         <div class="items">
-            <div class="mui-panel item-order">
-                <div class="item-order-info">
-                    <div id="item-group"><span class="item-code">活动名称:</span></div>
-                </div>
-                <div class="item-goods-list">
-                    <div class="items">
-                        <div class="item-col">
-                            <div class="item-goods">
-                                <div class="item-gname">
-                                    <span class="item-flag">状态</span>
+        <#if records??>
+            <#list records as record>
+                <div class="mui-panel item-order">
+                    <div class="item-order-info">
+                        <div id="item-group"><span class="item-code">活动名称:${record.title!}</span></div>
+                    </div>
+                    <div class="item-goods-list">
+                        <div class="items">
+                            <div class="item-col">
+                                <div class="item-goods">
+                                    <div class="item-gname">
+                                        <span class="item-flag">
+                                            <#if record.status==1>
+                                                未拍得
+                                            <#else>
+                                                已拍得
+                                            </#if>
+
+                                        </span>
+                                    </div>
+                                    <div class="item-total"></div>
                                 </div>
-                                <div class="item-total"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="item-order-ext clearfix">
-                    <div class="pull-left item-price-total">最后出价：<strong></strong> 元</div>
-                    <div class="pull-right">
+                    <div class="item-order-ext clearfix">
+                        <div class="pull-left item-price-total">最后出价：<strong>${record.price}</strong> 元</div>
+                        <div class="pull-right">
+                        </div>
                     </div>
                 </div>
+            </#list>
+        <#else>
+            <div class="mui-empty">
+                <div class="item-icon">
+                    <span class="icon micon-empty"></span>
+                </div>
+                <div class="item-title">该状态下没有订单~</div>
             </div>
+        </#if>
         </div>
-    </div>
-
-    <div class="mui-empty">
-        <div class="item-icon">
-            <span class="icon micon-empty"></span>
-        </div>
-        <div class="item-title">该状态下没有订单~</div>
     </div>
 </div>
 </body>
