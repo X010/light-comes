@@ -53,13 +53,18 @@
         <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
     </div>
     <div class="msgn">
-        <p style="width: 100%;"><span class="msgbold">酒水礼品说明：<span></p>
+        <p style="width: 100%;">
+        <span class="msgbold">酒水礼品说明：<span>
+        <span>
+            <#if banquet.info??>
+            ${banquet.info}
+            <#else>
+                无
+            </#if>
+         </span>
+        </p>
     </div>
-    <#if banquet.info??>
-    <p style="line-height:36px;">${banquet.info}</p>
-    <#else>
-        无
-    </#if>
+
 </div>
 
 <#if banquet.status==2>
