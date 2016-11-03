@@ -46,8 +46,6 @@
     <div class="msgn">
         <p><span class="msgbold">承办人：</span><span>${banquet.author_nickname}</span></p>
     </div>
-</div>
-<div class="auct-name">
     <div class="msgn">
         <p><span class="msgbold">联系电话：</span><span>${banquet.author_telephone}</span></p>
     </div>
