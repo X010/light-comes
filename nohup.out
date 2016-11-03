@@ -5909,3 +5909,39 @@ Caused by: java.util.concurrent.TimeoutException: Idle timeout expired: 30001/30
 	... 1 common frames omitted
 
 2016-11-03 22:04:22.855  WARN 21749 --- [qtp609903028-17] org.eclipse.jetty.server.HttpChannel     : Could not send response error 500: java.io.IOException: java.util.concurrent.TimeoutException: Idle timeout expired: 30001/30000 ms
+2016-11-03 22:55:31.803  INFO 21749 --- [       Thread-2] ationConfigEmbeddedWebApplicationContext : Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@468437d: startup date [Thu Nov 03 22:03:34 CST 2016]; root of context hierarchy
+2016-11-03 22:55:31.805  INFO 21749 --- [       Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans on shutdown
+2016-11-03 22:55:31.807  INFO 21749 --- [       Thread-2] o.s.j.e.a.AnnotationMBeanExporter        : Unregistering JMX-exposed beans
+2016-11-03 22:55:31.813  WARN 21749 --- [       Thread-2] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method 'close' failed on bean with name 'comesSqlSessionTemplate': java.lang.UnsupportedOperationException: Manual close is not allowed over a Spring managed SqlSession
+2016-11-03 22:55:31.827  WARN 21749 --- [       Thread-2] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method 'close' failed on bean with name 'dataSource': java.lang.NoClassDefFoundError: com/mysql/jdbc/ProfilerEventHandlerFactory
+2016-11-03 22:55:31.828  WARN 21749 --- [       Thread-2] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method 'close' failed on bean with name 'qblkDataSource': java.lang.NoClassDefFoundError: com/mysql/jdbc/ProfilerEventHandlerFactory
+2016-11-03 22:55:31.828  INFO 21749 --- [       Thread-2] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'scheduler'
+2016-11-03 22:55:31.833  INFO 21749 --- [       Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService
+Exception in thread "Thread-2" java.lang.NoClassDefFoundError: org/eclipse/jetty/util/FutureCallback
+	at org.eclipse.jetty.server.AbstractConnector.shutdown(AbstractConnector.java:285)
+	at org.eclipse.jetty.server.AbstractNetworkConnector.shutdown(AbstractNetworkConnector.java:108)
+	at org.eclipse.jetty.server.ServerConnector.shutdown(ServerConnector.java:341)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:404)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:89)
+	at org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainer.stop(JettyEmbeddedServletContainer.java:177)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.stopAndReleaseEmbeddedServletContainer(EmbeddedWebApplicationContext.java:295)
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.doClose(EmbeddedWebApplicationContext.java:151)
+	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:804)
+Caused by: java.lang.ClassNotFoundException: org.eclipse.jetty.util.FutureCallback
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:370)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:362)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:361)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at org.springframework.boot.loader.LaunchedURLClassLoader.doLoadClass(LaunchedURLClassLoader.java:177)
+	at org.springframework.boot.loader.LaunchedURLClassLoader.loadClass(LaunchedURLClassLoader.java:143)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 9 more
+Caused by: java.util.zip.ZipException: invalid stored block lengths
+	at java.util.zip.InflaterInputStream.read(InflaterInputStream.java:164)
+	at org.springframework.boot.loader.jar.ZipInflaterInputStream.read(ZipInflaterInputStream.java:52)
+	at sun.misc.Resource.getBytes(Resource.java:124)
+	at java.net.URLClassLoader.defineClass(URLClassLoader.java:462)
+	at java.net.URLClassLoader.access$100(URLClassLoader.java:73)
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:368)
+	... 16 more
