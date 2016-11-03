@@ -29,13 +29,13 @@ a.on{border-top:5px solid #f15739;}
 p.on{color:#f15739;}
 footer>a img{position:relative; width:40%; height: 25px; margin-top:10px;}
 footer>a p{font-size: 14px; color:#c7c7c7;}
-.footer{position: fixed;left: 0;bottom: 0;height:60px; width: 100%; border-top:1px solid #f3f3f3; }
-.footer-left{ width: 65%; height:60px; background: #fff; float: left; }
-.footer-right{ width: 35%;height:60px; background: #ff825f; float: left; color: #fff; margin:0 auto;}
-.footer-left p,.footer-right p{ line-height: 60px;font-size: 16px;}
+.footer{position: fixed;left: 0;bottom: 0;height:50px; width: 100%; border-top:1px solid #f3f3f3; }
+.footer-left{ width: 65%; background: #fff; float: left; }
+.footer-right{ width: 35%; background: #ff825f; float: left; color: #fff; margin:0 auto;}
+.footer-left p,.footer-right p{ line-height: 50px;font-size: 16px;}
 .footer-left p{margin-left: 10%; font-weight: 600; float:left; width:20%;}
 .footer-right p{margin-left: 30%;}
-#txtPrice{font-size:16px; font-weight:600; float:left; width:50%;line-height:60px;}
+#txtPrice{font-size:16px; font-weight:600; float:left; width:50%;line-height:50px;}
 
 /*float*/
 #layer{ position: absolute; background-color:rgba(149,147,148,.8); width: 100%; height: 93%; top:60px; z-index: 99; display:none; }
