@@ -97,11 +97,31 @@ public class AuctionService {
 
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(long uid, int status) {
         if (status > 0)
-            return auctionDao.queryAuctionRecordsByUserStatus(uid, status);
+            return auctionDao.queryAuctionRecordsByUserStatus(uid, status,0,100);
         else
-            return auctionDao.queryAuctionRecordsByUser(uid);
+            return auctionDao.queryAuctionRecordsByUser(uid,0,100);
     }
 
+    /**
+     * 分页查询
+     * @param uid
+     * @param status
+     * @param pageModel
+     * @return
+     */
+    public PageResult<AuctionRecordsModel> queryAuctionRecordsByUserModel(long uid, int status,PageModel pageModel) {
+        PageResult<AuctionRecordsModel> auctionModelPageResult = new PageResult<AuctionRecordsModel>();
+        List<AuctionRecordsModel> auctionRecordsModels;
+        int total=0;
+        if (status > 0)
+            auctionRecordsModels=auctionDao.queryAuctionRecordsByUserStatus(uid, status,pageModel.getStart(),pageModel.getSize());
+        else
+            auctionRecordsModels= auctionDao.queryAuctionRecordsByUser(uid,pageModel.getStart(),pageModel.getSize());
+        auctionModelPageResult.setData(auctionRecordsModels);
+        auctionModelPageResult.setPageModel(pageModel);
+        auctionModelPageResult.setTotal(total);
+        return auctionModelPageResult;
+    }
     /**
      * 出价
      *

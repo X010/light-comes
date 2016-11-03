@@ -203,4 +203,25 @@ public class RaffleController extends BaseController {
         System.out.println(result);
         return result;
     }
+
+
+
+    @RequestMapping("mine_coupon_list.action")
+    @ResponseBody
+    public String mine_coupon_list(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(size);
+        UserModel userModel = getAppUserInfo();
+        PageResult<CouponRecordModel> list = raffleService.getRaffleCouponPageByUser(userModel.getId(), status, pageModel);
+        List<CouponRecordModel> couponRecordModels = list.getData();
+        if (couponRecordModels != null && couponRecordModels.size() > 0) {
+            return JsonTools.jsonSer(couponRecordModels);
+        } else {
+            return "";
+        }
+    }
 }

@@ -1,12 +1,11 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
-import com.light.outside.comes.model.AuctionRecordsModel;
-import com.light.outside.comes.model.CouponRecordModel;
-import com.light.outside.comes.model.RaffleCouponModel;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
 import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.OverchargedService;
@@ -54,13 +53,16 @@ public class MineController extends BaseController {
      */
     @RequestMapping("mine_auction.action")
     public String mine_auction(Map<String, Object> data, HttpServletRequest request) {
-        int status=RequestTools.RequestInt(request,"status",0);
+        int status = RequestTools.RequestInt(request, "status", 0);
         UserModel userModel = getAppUserInfo();
         List<AuctionRecordsModel> list = auctionService.queryAuctionRecordsByUser(userModel.getId(), status);
-        data.put("status",status);
+        data.put("status", status);
         data.put("records", list);
         return "mine_auction";
     }
+
+
+
 
     /**
      * 我的优惠劵
@@ -69,12 +71,12 @@ public class MineController extends BaseController {
      * @return
      */
     @RequestMapping("mine_coupon.action")
-    public String mine_coupon(Map<String, Object> data,HttpServletRequest request) {
-        int status=RequestTools.RequestInt(request,"status",0);
+    public String mine_coupon(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
         UserModel userModel = getAppUserInfo();
-        List<CouponRecordModel> couponRecordModels= raffleService.getRaffleCouponByUser(userModel.getId(), status);
-        data.put("records",couponRecordModels);
-        data.put("status",status);
+        List<CouponRecordModel> couponRecordModels = raffleService.getRaffleCouponByUser(userModel.getId(), status);
+        data.put("records", couponRecordModels);
+        data.put("status", status);
         return "mine_coupon";
     }
 
