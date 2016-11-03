@@ -1,5 +1,6 @@
 package com.light.outside.comes.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.google.common.base.Strings;
 import com.light.outside.comes.utils.CONST;
 
@@ -85,6 +86,7 @@ public class BanquetModel extends BaseModel {
     /**
      * 酒水礼品说明
      */
+    @JSONField(serialize = false)
     private String info;
 
     /**

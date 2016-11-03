@@ -22,13 +22,15 @@
                             <tr>
                                 <th>编号</th>
                                 <th>标题</th>
-                                <th>活动开始时间</th>
-                                <th>活动结束时间</th>
+                                <th>是否成交</th>
+                                <th>成交价格</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
                                 <th>最低保证金(元)</th>
                                 <th>超拍价格(元)</th>
-                                <th>拍卖商品名称</th>
+                                <!--      <th>拍卖商品名称</th>-->
                                 <th>加价(元)</th>
                                 <th>操作</th>
                             </tr>
@@ -38,9 +40,11 @@
                                     <tr>
                                         <td>${auction.id}</td>
                                         <td>${auction.title}</td>
-                                        <td> ${auction.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td> ${auction.start_time?string("MM月dd日 HH:mm:ss")}</td>
                                         <td>
-                                        ${auction.end_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        ${auction.end_time?string("MM月dd日 HH:mm:ss")}
                                         </td>
                                         <td>
                                             <#if auction.status==1>
@@ -57,7 +61,7 @@
                                             </#if>
                                         </td>
                                         <td>
-                                        ${auction.create_time?string("yyyy-MM-dd HH:mm:ss")}
+                                        ${auction.create_time?string("MM月dd日 HH:mm:ss")}
                                         </td>
                                         <td>
                                         ${auction.deposit}
@@ -65,17 +69,22 @@
                                         <td>
                                         ${auction.amount}
                                         </td>
+                                        <!--
                                         <td>
                                         ${auction.good_name}
                                         </td>
+                                        -->
                                         <td>
                                         ${auction.setp_amount}
                                         </td>
                                         <td>
                                             <a class="badge  bg-green" href="/admin/create_auction.action?action=edit&id=${auction.id}">编缉</a>
                                             &nbsp;&nbsp;
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该拍卖活动')){window.location.href='/admin/delete_auction.action?id=${auction.id}';}">停用
+                                            <a class="badge  bg-red"
+                                               href="javascript:if(confirm('您是否确定停用该拍卖活动')){window.location.href='/admin/delete_auction.action?id=${auction.id}';}">停用
                                             </a>
+                                            &nbsp;&nbsp;
+                                            <a class="badge  bg-blue" href="/admin/auction_list_detail.action?id=#{auction.id}">参与者信息</a>
                                         </td>
                                     </tr>
                                 </#list>

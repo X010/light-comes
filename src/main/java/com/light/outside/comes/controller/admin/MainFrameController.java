@@ -22,10 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -107,6 +104,76 @@ public class MainFrameController {
     @RequestMapping("mainframe.action")
     public String mainframe(HttpServletRequest request, HttpServletResponse response) {
         return "admin/mainframe";
+    }
+
+    /**
+     * 优惠劵详情
+     *
+     * @param data
+     * @param pageModel
+     * @param id
+     * @return
+     */
+    @RequestMapping("coupon_list_detail.action")
+    public String coupon_list_detail(Map<String, Objects> data, PageModel pageModel, @RequestParam("id") Long id) {
+
+        return "admin/coupon_list_detail";
+    }
+
+
+    /**
+     * 拍卖活动详情
+     *
+     * @param data
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("auction_list_detail.action")
+    public String auction_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+
+        return "admin/auction_list_detail";
+    }
+
+    /**
+     * 抽奖活动详情
+     *
+     * @param data
+     * @param pageModel
+     * @param id
+     * @return
+     */
+    @RequestMapping("raffle_list_detail.action")
+    public String raffle_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+
+        return "admin/raffle_list_detail";
+    }
+
+    /**
+     * 约饭详情列表
+     *
+     * @param data
+     * @param pageModel
+     * @param id
+     * @return
+     */
+    @RequestMapping("banquet_list_detail.action")
+    public String banquet_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+
+        return "admin/banquet_list_detail";
+    }
+
+    /**
+     * 砍价活动详情
+     *
+     * @param data
+     * @param pageModel
+     * @param id
+     * @return
+     */
+    @RequestMapping("overcharged_list_detail.action")
+    public String overcharged_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+
+        return "admin/overcharged_list_detail";
     }
 
     /**

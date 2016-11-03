@@ -23,6 +23,8 @@
                                 <th>编号</th>
                                 <th>名称</th>
                                 <th>状态</th>
+                                <th>现价</th>
+                                <th>剩余时间</th>
                                 <th>初始价(元)</th>
                                 <th>底价(元)</th>
                                 <th>砍价幅度(元)</th>
@@ -32,13 +34,13 @@
                                 <th>商品名称</th>
                                 <th>操作</th>
                             </tr>
-                            <#if overchargeds??>
-                                <#if overchargeds.data??>
-                                    <#list overchargeds.data as overcharged>
-                                        <tr>
-                                            <td>${overcharged.id}</td>
-                                            <td>${overcharged.title}</td>
-                                            <td>
+                        <#if overchargeds??>
+                            <#if overchargeds.data??>
+                                <#list overchargeds.data as overcharged>
+                                    <tr>
+                                        <td>${overcharged.id}</td>
+                                        <td>${overcharged.title}</td>
+                                        <td>
                                             <#if overcharged.status==1>
                                                 正常
                                             </#if>
@@ -51,24 +53,28 @@
                                             <#if overcharged.status==8>
                                                 已结束
                                             </#if>
-                                            </td>
-                                            <td>${overcharged.amount}</td>
-                                            <td>${overcharged.over_amount}</td>
-                                            <td>${overcharged.subtract_price}</td>
-                                            <td>${overcharged.start_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                            <td>${overcharged.end_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                            <td>${overcharged.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                            <td>${overcharged.good_name}</td>
-                                            <td>
-                                                <a class="badge  bg-green" href="/admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
-                                                &nbsp;&nbsp;
-                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </#list>
-                                </#if>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>${overcharged.amount}</td>
+                                        <td>${overcharged.over_amount}</td>
+                                        <td>${overcharged.subtract_price}</td>
+                                        <td>${overcharged.start_time?string("MM月dd日 HH:mm:ss")}</td>
+                                        <td>${overcharged.end_time?string("MM月dd日 HH:mm:ss")}</td>
+                                        <td>${overcharged.create_time?string("MM月dd日 HH:mm:ss")}</td>
+                                        <td>${overcharged.good_name}</td>
+                                        <td>
+                                            <a class="badge  bg-green" href="/admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
+                                            &nbsp;&nbsp;
+                                            <a class="badge  bg-red"
+                                               href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
+                                            </a>&nbsp;&nbsp;
+                                            <a class="badge  bg-blue" href="/admin/overcharged_list_detail.action?id=#{overcharged.id}">参与者信息</a>
+                                        </td>
+                                    </tr>
+                                </#list>
                             </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>

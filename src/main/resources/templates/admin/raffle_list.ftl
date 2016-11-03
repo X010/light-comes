@@ -62,6 +62,8 @@
                                         &nbsp;&nbsp;
                                         <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该抽奖活动')){window.location.href='/admin/delete_raffle.action?id=#{raffle.id}';}">停用
                                         </a>
+                                        &nbsp;&nbsp;
+                                        <a class="badge  bg-blue" href="/admin/raffle_list_detail.action?id=#{raffle.id}">参与者信息</a>
                                     </td>
                                 </tr>
                             </#list>

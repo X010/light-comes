@@ -73,6 +73,8 @@
                                             <a class="badge  bg-red"
                                                href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='/admin/delete_coupon.action?id=${coupon.id}';}">
                                                 停用</a>
+                                                &nbsp;&nbsp;
+                                            <a class="badge  bg-blue" href="/admin/coupon_list_detail.action?id=${coupon.id}">优惠劵信息</a>
                                         </td>
                                     </tr>
                                 </#list>
