@@ -49,7 +49,8 @@ public class CONST {
 
     public static int PAY_WEIXIN = 1;
 
-    public static int AUCTION_STATUS_BID = 1;//出价
-    public static int AUCTION_STATUS_SUCCESSED = 2;//拍卖成功
+    public static int AUCTION_STATUS_BID = 1;//出价中
+    public static int AUCTION_STATUS_SUCCESSED = 2;//已拍得
+    public static int AUCTION_STATUS_FAIL = 3;//未拍得
 
 }

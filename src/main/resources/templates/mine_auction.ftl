@@ -25,9 +25,9 @@
     <div class="mui-order-cate">
         <div class="segmented-control" id="orderStatusList">
             <a class="control-item <#if status==0>active</#if>" id="order_status_0" href="mine_auction.action">全部</a>
-            <a class="control-item <#if status==3>active</#if>" id="order_status_1" href="mine_auction.action?status=3">已拍得</a>
-            <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_auction.action?status=2">拍卖中</a>
-            <a class="control-item <#if status==1>active</#if>" id="order_status_2" href="mine_auction.action?status=1">未拍得</a>
+            <a class="control-item <#if status==1>active</#if>" id="order_status_1" href="mine_auction.action?status=1">出价中</a>
+            <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_auction.action?status=2">已拍得</a>
+            <a class="control-item <#if status==1>active</#if>" id="order_status_2" href="mine_auction.action?status=3">未拍得</a>
         </div>
     </div>
     <div class="mui-order-list" id="containerList">
