@@ -12,6 +12,7 @@ import com.light.outside.comes.service.admin.FocusImageService;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonParser;
+import com.light.outside.comes.utils.JsonTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +59,6 @@ public class BanquetController {
         }
         PageModel pageModel = new PageModel();
         pageModel.setPage(1);
-        pageModel.setSize(Integer.MAX_VALUE);
         PageResult<BanquetModel> banquets = banquetService.getBanquets(pageModel);
         List<BanquetModel> banquetModels = banquets.getData();
         if (banquetModels != null) {
@@ -66,6 +66,26 @@ public class BanquetController {
         }
         return "banquet";
     }
+
+    /**
+     * 约饭分页接口
+     *
+     * @param data
+     * @param pageModel
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("banquet_list.action")
+    public String banquet_list(Map<String, Object> data, PageModel pageModel) {
+        PageResult<BanquetModel> banquetModelPageResult = this.banquetService.getBanquets(pageModel);
+        List<BanquetModel> banquetModels = banquetModelPageResult.getData();
+        if (banquetModels != null && banquetModels.size() > 0) {
+            return JsonTools.jsonSer(banquetModels);
+        } else {
+            return "";
+        }
+    }
+
 
     @RequestMapping("banquet_d.action")
     public String banquet_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* CSS Document */
-#banner{width: 100%;   overflow: hidden; position:relative; box-shadow: 0 0 15px #333;}
+#banner{width: 100%; height:225px;  overflow: hidden; position:relative; box-shadow: 0 0 15px #333;}
 #banner .swiper-slide {position:relative;  text-align:center;  }
-#banner img {  width: 100%;  }
+#banner img {  width: 100%; height:100%; }
 .pagination {position: absolute;z-index: 20;bottom: 10px;width: 100%;text-align: center;right:0;
 }
 .msg{ border-bottom: 1px solid #ccc; width:80%; margin:0 auto; padding:20px; text-decoration:none; list-style:none;}
@@ -16,12 +16,11 @@
 .msg-author img{ display:block; width: 30px; height:30px; float:left; margin:10px;}
 .author{ font-weight:bold;}
 
-.container{ width:100%;height:93%;top:0;left:0;}
 #container{ position:absolute;width:100%;height:93%;top:7%;left:0px;}
 #container img{width:100%; height:100%;}
 .top{ position: absolute; top:22%; left: 20%;}
 .top p{ color:rgb(96,27,77); font-weight:bolder;font-size: 18px;}
-.top span{color:rgb(255,193,64); letter-spacing: 3px;}
+.top span{color:rgb(255,193,64); padding-left:4px;}
 .count{  font-size: 28px;}
 #center{ position: absolute; width: 77%; height: 49%; top:31%; left:12%; }
 td{ display: block; width: 30%; height: 100%; float:left; margin-left: 2%;}
@@ -40,11 +39,11 @@ td span{width: 100px; height: 100px; position: absolute;}
 #floatimg img{width: 100%; height: 100%;}
 #down{ position: absolute; bottom:0; text-align: center; margin:0 auto; width: 100%;color:#fff;}
 #down p{ font-size:18px;}
-.downarrow{ width: 20px; height:20px; text-align: center; background: url("../images/down.png") no-repeat; background-size: 100%; margin: 20px auto;}
+.downarrow{ width: 20px; height:20px; text-align: center; background: url("../images/down.png") no-repeat; background-size: 100%; margin: 10px auto;}
 #downlist{ position: absolute; width: 100%; height: 90%; top:110%;}
-#downlist p{ font-size: 20px; text-align: center;}
+#downlist p{ font-size: 16px; text-align: center;}
 .list{ margin: 30px auto; width: 80%;}
-.person{ width: 100%; line-height: 36px; margin:20px 0;}
+.person{ width: 100%; line-height: 30px; margin:12px 0;}
 .person img{ display:inline-block; width: 16%; margin:20px 40px; box-shadow: 0 20px 30px #ccc; border-radius: 50%;}
 .person span{ font-size: 16px;  letter-spacing: 1px;}
 .name {font-weight: bold;}

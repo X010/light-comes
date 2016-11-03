@@ -5,8 +5,9 @@ import com.light.outside.comes.model.AuctionRecordsModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.RaffleService;
-import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.RequestTools;
+import com.light.outside.comes.service.BanquetService;
+import com.light.outside.comes.service.OverchargedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("my")
 public class MineController extends BaseController {
+
+    @Autowired
+    private OverchargedService overchargedService;
+
+    @Autowired
+    private BanquetService banquetService;
+
     @Autowired
     private AuctionService auctionService;
+
     @Autowired
     private RaffleService raffleService;
 

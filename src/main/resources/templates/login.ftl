@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>登陆</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
@@ -12,16 +12,12 @@
     <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
-<header>
-    <p>请先登录</p>
-</header>
-<div id="container">
+<div class="container">
     <img src="/images/loginbg.png"/>
 
     <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
-            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱"
-                   style="border-bottom: 1px solid #333;">
+            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #ccc;">
             <input id="password" type="password" name="password" class="pw" placeholder="请输入密码">
         </div>
         <input id="loginBtn" type="button" value="登录" class="login">

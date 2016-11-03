@@ -11,9 +11,9 @@
         .container {
             position: absolute;
             width: 100%;
-            height: 93%;
-            top: 7%;
-            left: 0px;
+            height: 100%;
+            top:0;
+            left: 0;
             background: #f3f3f3;
         }
 
@@ -34,20 +34,19 @@
 
         .head p {
             text-align: center;
-            font-size: 20px;
+            font-size: 16px;
             color: #fff;
-            padding-top: 36%;
+            padding-top: 135px;
         }
 
         .mainlist {
             margin-top: 5%;
             width: 100%;
-            height: 210px;
             background: #fff;
         }
 
         .mainlist li {
-            height: 9%;
+            height: 16px;
             border-bottom: 1px solid #ccc;
             padding: 4%;
         }
@@ -85,9 +84,6 @@
     </style>
 </head>
 <body style="background-color: #f3f3f3;">
-<header>
-    <p>个人资料</p>
-</header>
 <div class="container">
     <div class="head">
         <img src="/images/portrait.png"/>

@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+=======
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone = no">
+>>>>>>> 40a55e19b804cbe6c636c608b2dc1dd657024be9
     <title>抽奖活动</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
@@ -61,7 +67,11 @@
     <#--<p>拍卖者信息</p>-->
     <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
+<<<<<<< HEAD
             <p>${ar.create_time?string('MM-dd HH:mm:ss')}
+=======
+            <p>10-30 23:48:33
+>>>>>>> 40a55e19b804cbe6c636c608b2dc1dd657024be9
                 <span class="auct-span">${ar.phone!}</span>
                 <span class="auct-span">出价:${ar.price!}</span>
             </p>
@@ -91,6 +101,13 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+<#--<div class="footer">-->
+<#--<div class="footer-left"><p>出价:</p><input type="text" name="price" id="price" value="0"></div>-->
+<#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
+<#--</div>-->
+>>>>>>> 40a55e19b804cbe6c636c608b2dc1dd657024be9
 <div class="footer">
 <#--<#if seconds gt 0>-->
 <#--<#if isPay>-->

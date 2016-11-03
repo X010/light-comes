@@ -53,6 +53,18 @@ public class OverchargedService {
     private ReadDao readDao;
 
     /**
+     * 根据状态获取我参与的砍价活动
+     *
+     * @param status
+     * @param pageModel
+     * @param userModel
+     * @return
+     */
+    public List<OverchargedModel> getOverchargedModelByMe(int status, PageModel pageModel, UserModel userModel) {
+        return null;
+    }
+
+    /**
      * 是否参与过该活动
      *
      * @param aid
@@ -157,7 +169,6 @@ public class OverchargedService {
         }
     }
 
-
     /**
      * 获取OverChagred
      *
@@ -174,7 +185,6 @@ public class OverchargedService {
 
         return overchargedModelPageResult;
     }
-
 
     public OverchargedModel getOverchargedModel(long id) {
         Preconditions.checkArgument(id > 0);
@@ -204,7 +214,6 @@ public class OverchargedService {
             this.updateOvercharged(overchargedModel);
         }
     }
-
 
     public void clearOvercharged() {
         List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);
