@@ -2,6 +2,7 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
@@ -218,6 +219,25 @@ public class RaffleService {
             return this.persistentDao.getRaffleCouponByUserStatus(uid, status);
         else
             return this.persistentDao.getRaffleCouponByUser(uid);
+    }
+
+    /**
+     * 我的优惠券api
+     *
+     * @param uid
+     * @param status
+     * @param pageModel
+     * @return
+     */
+    public PageResult<CouponRecordModel> getRaffleCouponPageByUser(long uid, int status, PageModel pageModel) {
+        PageResult<CouponRecordModel> pageResult = new PageResult<CouponRecordModel>();
+        List<CouponRecordModel> couponRecordModels = Lists.newArrayList();
+        if (status > 0)
+            couponRecordModels = this.persistentDao.getRaffleCouponPageByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+        else
+            couponRecordModels = this.persistentDao.getRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+        pageResult.setData(couponRecordModels);
+        return pageResult;
     }
 
     /**

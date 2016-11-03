@@ -202,4 +202,29 @@ public class AuctionController extends BaseController {
         return "auction_d";
     }
 
+    /**
+     * 拍卖API
+     *
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("mine_auction_list.action")
+    @ResponseBody
+    public String mine_auction_list(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        int page = RequestTools.RequestInt(request, "page", 1);
+        int size = RequestTools.RequestInt(request, "size", Integer.MAX_VALUE);
+        PageModel pageModel = new PageModel();
+        pageModel.setPage(page);
+        pageModel.setSize(size);
+        UserModel userModel = getAppUserInfo();
+        PageResult<AuctionRecordsModel> list = auctionService.queryAuctionRecordsByUserModel(userModel.getId(), status, pageModel);
+        List<AuctionRecordsModel> auctionRecordsModels = list.getData();
+        if (auctionRecordsModels != null && auctionRecordsModels.size() > 0) {
+            return JsonTools.jsonSer(auctionRecordsModels);
+        } else {
+            return "";
+        }
+    }
 }
