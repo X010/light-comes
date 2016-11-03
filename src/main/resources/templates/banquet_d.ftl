@@ -51,30 +51,19 @@
     <div class="msgn">
         <p><span class="msgbold">联系电话：</span><span>${banquet.author_telephone}</span></p>
     </div>
-</div>
-<div class="auct-name" style="height: auto;">
     <div class="msgn">
         <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
     </div>
-</div>
-<div class="auct-name" style="height: auto;">
     <div class="msgn">
         <p style="width: 100%;"><span class="msgbold">酒水礼品说明：<span></p>
     </div>
-    <p style="line-height:36px;">
     <#if banquet.info??>
-    ${banquet.info}
+    <p style="line-height:36px;">${banquet.info}</p>
     <#else>
         无
     </#if>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    </p>
+</div>
+
 <#if banquet.status==2>
 <div class="footer">
     <#if isjoin>

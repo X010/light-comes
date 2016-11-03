@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div class="auct-name" style="padding-bottom:20px;">
+<div class="auct-name">
     <div class="msgt">
         <p><strong>砍价者信息</strong></p>
     </div>
