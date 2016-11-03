@@ -21,7 +21,7 @@
 .msgbold{font-weight:600; color:#000;}
 .msgname img{ width: 40px;}
 .msgn p{font-size: 14px; display: inline-block; color:#808080; padding: 12px;}
-.msgt p{font-size: 14px; display: inline-block; color:#808080; padding: 12px;}
+.msgt p{font-size: 12px; display: inline-block; color:#808080; padding: 6px 12px;}
 .msgt{width: 90%;margin: 0 auto;}
 .msgname p{ font-size: 12px; display: inline-block; color:#808080; padding: 12px;}
 .auct-span{ padding-left: 20px;}
