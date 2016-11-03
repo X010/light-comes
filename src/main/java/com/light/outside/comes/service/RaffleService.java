@@ -213,6 +213,10 @@ public class RaffleService {
         return raffleModel;
     }
 
+    public List<RaffleCouponModel> getRaffleCouponByUser(long uid,int status){
+        return  this.persistentDao.getRaffleCouponByUser(uid,status);
+    }
+
     /**
      * 根据活动ID获取奖券信息
      *

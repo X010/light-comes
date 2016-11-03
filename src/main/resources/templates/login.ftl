@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>登陆</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
+    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
@@ -13,12 +17,15 @@
 </header>
 <div id="container">
     <img src="/images/loginbg.png"/>
+
     <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
-            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #333;">
+            <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱"
+                   style="border-bottom: 1px solid #333;">
             <input id="password" type="password" name="password" class="pw" placeholder="请输入密码">
         </div>
         <input id="loginBtn" type="button" value="登录" class="login">
+
         <div class="btm">
             <a class="register">注册账号</a>
             <a class="forgot">找回密码</a>
@@ -26,8 +33,6 @@
     </form>
 </div>
 </body>
-<!-- jQuery 2.1.4 -->
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
@@ -38,12 +43,12 @@
             var userName = Trim($("#username").val(), 'g');
             var userPwd = Trim($("#password").val(), 'g');
             if (userName == '') {
-                alert("手机/邮箱不能为空!");
+                $.alert("手机/邮箱不能为空!");
                 $("#username").focus();
                 return;
             }
             if (userPwd == '') {
-                alert("密码不能为空!");
+                $.alert("密码不能为空!");
                 $("#password").focus();
                 return;
             }
@@ -53,7 +58,7 @@
                 success: function (result) {
                     var r = jQuery.parseJSON(result);
                     if (r.code == 0) {
-                        alert(r.msg);
+                        $.alert(r.msg);
                         $("#username").focus();
                     } else {
                         window.self.location = "/raffle/lottery.action";

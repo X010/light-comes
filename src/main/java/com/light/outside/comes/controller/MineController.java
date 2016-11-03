@@ -1,11 +1,18 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
+import com.light.outside.comes.model.AuctionRecordsModel;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.service.AuctionService;
+import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.RequestTools;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +20,12 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("my")
-public class MineController {
+public class MineController extends BaseController {
+    @Autowired
+    private AuctionService auctionService;
+    @Autowired
+    private RaffleService raffleService;
+
     @RequestMapping("mine.action")
     public String mine(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
@@ -30,7 +42,11 @@ public class MineController {
      * @return
      */
     @RequestMapping("mine_auction.action")
-    public String mine_auction(Map<String, Object> data) {
+    public String mine_auction(Map<String, Object> data, HttpServletRequest request) {
+        int status=RequestTools.RequestInt(request,"status",0);
+        UserModel userModel = getAppUserInfo();
+        List<AuctionRecordsModel> list = auctionService.queryAuctionRecordsByUser(userModel.getId(), status);
+        data.put("records", list);
         return "mine_auction";
     }
 
@@ -41,7 +57,10 @@ public class MineController {
      * @return
      */
     @RequestMapping("mine_coupon.action")
-    public String mine_coupon(Map<String, Object> data) {
+    public String mine_coupon(Map<String, Object> data,HttpServletRequest request) {
+        int status=RequestTools.RequestInt(request,"status",0);
+        UserModel userModel = getAppUserInfo();
+        raffleService.getRaffleCouponByUser(userModel.getId(),status);
         return "mine_coupon";
     }
 

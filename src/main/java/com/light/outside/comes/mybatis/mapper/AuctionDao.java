@@ -61,4 +61,13 @@ public interface AuctionDao {
      */
     @Update("update comes_auction_records set status=#{status} where id=#{id}")
     public void updateWinAuactionRecord(AuctionRecordsModel auctionRecordsModel);
+
+    /**
+     * 根据用户和状态查询拍卖信息
+     * @param uid
+     * @param status
+     * @return
+     */
+    @Select("select * from comes_auction_records where uid=#{uid} and status=#{status}")
+    public List<AuctionRecordsModel> queryAuctionRecordsByUser(@Param("uid") long uid,@Param("status") int status);
 }

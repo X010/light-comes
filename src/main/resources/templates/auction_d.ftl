@@ -61,7 +61,7 @@
     <#--<p>拍卖者信息</p>-->
     <#if auctionRecords?exists && auctionRecords?size!=0>
         <#list auctionRecords as ar>
-            <p>${ar.create_time?string('yyyy-MM-dd HH:mm:ss')}
+            <p>${ar.create_time?string('MM-dd HH:mm:ss')}
                 <span class="auct-span">${ar.phone!}</span>
                 <span class="auct-span">出价:${ar.price!}</span>
             </p>
@@ -84,9 +84,7 @@
 
                 <div class="msg-r">
                     <h4>${auction.good_name!}</h4>
-
                     <p>数量 x1</p>
-
                     <p>成交价格 389元</p>
                 </div>
             </div>
@@ -105,7 +103,7 @@
 <#--<div id="deposit">报名交保证金</div>-->
 <#--</#if>-->
     <div id="price">
-        <div class="footer-left"><p>出价:<input type="text" name="txtPirce" id="txtPrice" value="0"></p></div>
+        <div class="footer-left"><p>出价:</p><input type="text" name="txtPirce" id="txtPrice" value="0"></div>
         <div class="footer-right" id="auction"><p>拍下来</p></div>
     </div>
     <div id="deposit">报名交保证金</div>
