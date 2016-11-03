@@ -50,7 +50,7 @@
 
 <div class="auct-name">
     <div class="msgt">
-        <p><strong>砍价者信息</strong></p>
+        <p style="color:#000; font-size:14px;"><strong>砍价者信息</strong></p>
     </div>
     <div class="msgt">
         <p>
