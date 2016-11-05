@@ -34,7 +34,7 @@ public interface PersistentDao {
     @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
-    @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone} where id=#{id}")
+    @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone}, updatetime=now() where id=#{id}")
     public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status, @Param("uid") long uid, @Param("phone") String phone);
 
     @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status}  order  by id desc limit #{star},#{size}")
