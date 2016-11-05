@@ -64,33 +64,7 @@
         <#if records??>
             <#list records as record>
                 <div class="mui-panel item-order" id="msglist">
-                    <div class="item-order-info">
-                        <div id="item-group"><span class="item-code">活动名称:${record.title!}</span></div>
-                    </div>
-                    <div class="item-goods-list">
-                        <div class="items">
-                            <div class="item-col">
-                                <div class="item-goods">
-                                    <div class="item-gname">
-                                        <span class="item-flag">
-                                            <#if record.status==1>
-                                                未拍得
-                                            <#else>
-                                                已拍得
-                                            </#if>
-
-                                        </span>
-                                    </div>
-                                    <div class="item-total"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-order-ext clearfix">
-                        <div class="pull-left item-price-total">最后出价：<strong>${record.price}</strong> 元</div>
-                        <div class="pull-right">
-                        </div>
-                    </div>
+                    
                 </div>
             </#list>
         <#else>
@@ -208,7 +182,6 @@
             laytpl(gettpl).render(json, function(html){
                 $("#msglist").append(html);
             });
-        }
 </script>
 </body>
 </html>
