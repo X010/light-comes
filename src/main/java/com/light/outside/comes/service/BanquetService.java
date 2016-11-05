@@ -285,4 +285,14 @@ public class BanquetService {
     }
 
 
+    public PageResult<BanquetRecordModel> getBanquetRecordPageByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.banquetDao.getBanquetRecordPageByAidTotal(aid);
+        List<BanquetRecordModel> banquetRecordModels = this.banquetDao.getBanquetRecordPageByAid(aid, pageModel.getStart(), pageModel.getSize());
+        PageResult<BanquetRecordModel> banquetRecordModelPageResult = new PageResult<BanquetRecordModel>();
+        banquetRecordModelPageResult.setData(banquetRecordModels);
+        banquetRecordModelPageResult.setPageModel(pageModel);
+        banquetRecordModelPageResult.setTotal(total);
+        return banquetRecordModelPageResult;
+    }
 }

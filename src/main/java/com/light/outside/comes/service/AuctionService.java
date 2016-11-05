@@ -150,6 +150,18 @@ public class AuctionService {
         return auctionModelPageResult;
     }
 
+
+    public PageResult<AuctionRecordsModel> getAuctionRecordsByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.auctionDao.getAuctionRecordsByAidTotal(aid);
+        List<AuctionRecordsModel> auctionRecordsModels = this.auctionDao.getAcutionRecordsByAid(aid, pageModel.getStart(), pageModel.getSize());
+        PageResult<AuctionRecordsModel> auctionRecordsModelPageResult = new PageResult<AuctionRecordsModel>();
+        auctionRecordsModelPageResult.setData(auctionRecordsModels);
+        auctionRecordsModelPageResult.setPageModel(pageModel);
+        auctionRecordsModelPageResult.setTotal(total);
+        return auctionRecordsModelPageResult;
+    }
+
     /**
      * 出价
      *

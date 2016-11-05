@@ -291,4 +291,16 @@ public class OverchargedService {
         overchargedRecordModelPageResult.setPageModel(pageModel);
         return overchargedRecordModelPageResult;
     }
+
+
+    public PageResult<OverchargedRecordModel> getOverchargedRecordByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.overchargedDao.getOverchargedRecordPageByAidTotal(aid);
+        List<OverchargedRecordModel> overchargedRecordModels = this.overchargedDao.getOverchargedRecordByAid(aid, pageModel.getStart(), pageModel.getSize());
+        PageResult<OverchargedRecordModel> overchargedRecordModelPageResult = new PageResult<OverchargedRecordModel>();
+        overchargedRecordModelPageResult.setData(overchargedRecordModels);
+        overchargedRecordModelPageResult.setPageModel(pageModel);
+        overchargedRecordModelPageResult.setTotal(total);
+        return overchargedRecordModelPageResult;
+    }
 }

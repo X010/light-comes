@@ -16,7 +16,26 @@
 
                     </div>
                     <div class="box-body">
-
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>编号</th>
+                                <th>手机号</th>
+                                <th>拍卖时间</th>
+                                <th>出价(元)</th>
+                            </tr>
+                            <#if ars??>
+                                <#if ars.data??>
+                                    <#list ars.data as ar>
+                                        <tr>
+                                            <td>${ar.id}</td>
+                                            <td>${ar.phone}</td>
+                                            <td>${ar.create_time?string("MM月dd日 HH:mm:ss")}</td>
+                                            <td><span style="color: red">${ar.price}</span></td>
+                                        </tr>
+                                    </#list>
+                                </#if>
+                            </#if>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -40,6 +40,7 @@ public interface OverchargedDao {
 
     /**
      * 根据uid和status查询记录
+     *
      * @param uid
      * @param status
      * @param start
@@ -47,15 +48,23 @@ public interface OverchargedDao {
      * @return
      */
     @Select("select * from comes_overcharged_record where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+    public List<OverchargedRecordModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
+
+
+    @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit #{start},#{size}")
+    public List<OverchargedRecordModel> getOverchargedRecordByAid(@Param("aid") long aid, @Param("start") int start, @Param("size") int size);
+
+    @Select("select count(1) from comes_overcharged_record where aid=#{aid}")
+    public int getOverchargedRecordPageByAidTotal(@Param("aid") long aid);
 
     /**
      * 根据uid查询记录
+     *
      * @param uid
      * @param start
      * @param size
      * @return
      */
     @Select("select * from comes_overcharged_record where uid=#{uid} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
+    public List<OverchargedRecordModel> getOverchargedRecordPageByUid(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 }

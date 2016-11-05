@@ -39,6 +39,23 @@ public interface BanquetDao {
     @Select("select * from comes_banquet_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
     public List<BanquetRecordModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
+
+    /**
+     * 查询约会记录
+     *
+     * @param aid
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_banquet_records where aid=#{aid}  limit #{start},#{size}")
+    public List<BanquetRecordModel> getBanquetRecordPageByAid(@Param("aid") long aid, @Param("start") int start, @Param("size") int size);
+
+
+    @Select("select count(1) from comes_banquet_records where aid=#{aid}")
+    public int getBanquetRecordPageByAidTotal(@Param("aid") long aid);
+
+
     /**
      * 查询约会记录
      *

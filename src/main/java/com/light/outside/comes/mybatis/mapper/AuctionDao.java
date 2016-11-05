@@ -30,6 +30,7 @@ public interface AuctionDao {
 
     /**
      * 查询目前最高价格
+     *
      * @param aid
      * @return
      */
@@ -48,6 +49,7 @@ public interface AuctionDao {
 
     /**
      * 获取最大出价者
+     *
      * @param aid
      * @return
      */
@@ -57,6 +59,7 @@ public interface AuctionDao {
 
     /**
      * 更新中奖人
+     *
      * @param auctionRecordsModel
      */
     @Update("update comes_auction_records set status=#{status} where id=#{id}")
@@ -64,6 +67,7 @@ public interface AuctionDao {
 
     /**
      * 根据用户和状态查询拍卖信息
+     *
      * @param uid
      * @param status
      * @return
@@ -72,11 +76,17 @@ public interface AuctionDao {
             "where t.aid=a.id " +
             "group by t.aid " +
             "limit #{start},#{size} ")
-    public List<AuctionRecordsModel> queryAuctionRecordsByUserStatus(@Param("uid") long uid,@Param("status") int status, @Param("start") int start, @Param("size") int size);
+    public List<AuctionRecordsModel> queryAuctionRecordsByUserStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
+
+    @Select("select * from comes_auction_records where aid=#{aid} order by price desc  limit #{start},#{size}")
+    public List<AuctionRecordsModel> getAcutionRecordsByAid(@Param("aid") long aid, @Param("start") int start, @Param("size") int size);
+
+    @Select("select count(1) from comes_auction_records where aid=#{aid} order by price desc")
+    public int getAuctionRecordsByAidTotal(@Param("aid") long aid);
 
     @Select("select a.title,t.* from (select * from comes_auction_records where uid=#{uid} order by price desc) t,comes_auction a " +
             "where t.aid=a.id " +
-            "group by t.aid "+
+            "group by t.aid " +
             "limit #{start},#{size} ")
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 }

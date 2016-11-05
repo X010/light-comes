@@ -130,7 +130,13 @@ public class MainFrameController {
      */
     @RequestMapping("auction_list_detail.action")
     public String auction_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
-
+        if (id != null && id > 0) {
+            PageResult<AuctionRecordsModel> auctionRecordsModelPageResult = this.auctionService.getAuctionRecordsByAid(id, pageModel);
+            if (auctionRecordsModelPageResult != null) {
+                data.put("ars", auctionRecordsModelPageResult);
+            }
+            data.put("aid", id);
+        }
         return "admin/auction_list_detail";
     }
 
@@ -158,7 +164,14 @@ public class MainFrameController {
      */
     @RequestMapping("banquet_list_detail.action")
     public String banquet_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+        if (id != null && id > 0) {
+            PageResult<BanquetRecordModel> banquetRecordModelPageResult = this.banquetService.getBanquetRecordPageByAid(id, pageModel);
 
+            if (banquetRecordModelPageResult != null) {
+                data.put("brs", banquetRecordModelPageResult);
+            }
+            data.put("aid", id);
+        }
         return "admin/banquet_list_detail";
     }
 
@@ -172,7 +185,14 @@ public class MainFrameController {
      */
     @RequestMapping("overcharged_list_detail.action")
     public String overcharged_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
+        if (id != null && id > 0) {
+            PageResult<OverchargedRecordModel> overchargedRecordModelPageResult = this.overchargedService.getOverchargedRecordByAid(id, pageModel);
 
+            if (overchargedRecordModelPageResult != null) {
+                data.put("ors", overchargedRecordModelPageResult);
+            }
+            data.put("aid", id);
+        }
         return "admin/overcharged_list_detail";
     }
 
