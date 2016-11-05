@@ -64,7 +64,7 @@
         <#if records??>
             <#list records as record>
                 <div class="mui-panel item-order" id="msglist">
-                    
+
                 </div>
             </#list>
         <#else>
@@ -171,7 +171,7 @@
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
-                if(json[i].status=1){
+                if(json[i].status==1){
                     json[i].status = "未拍得";
                 }
                 else{
