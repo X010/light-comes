@@ -163,7 +163,7 @@ public class RaffleController extends BaseController {
 //        long uid = RequestTools.RequestInt(request, "uid", 7);
         String phone = userModel.getPhone();//"18888888888";
         int code = 0;
-        String msg = "很遗憾，没有抽中奖品!";
+        String msg = "谢谢参与!";
         int rCount = 0;
         //获取最新的抽奖次数
         rCount = raffleService.getUserRaffleCount(uid, rid);

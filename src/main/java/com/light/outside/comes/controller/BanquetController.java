@@ -146,7 +146,11 @@ public class BanquetController extends BaseController {
         pageModel.setSize(size);
         UserModel userModel = getAppUserInfo();
         PageResult<BanquetRecordViewModel> banquetRecordModelPageResult = banquetService.getBanquetRecordPage(userModel.getId(), status, pageModel);
-        return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
+        List<BanquetRecordViewModel> banquetRecordModels = banquetRecordModelPageResult.getData();
+        if (banquetRecordModels != null && banquetRecordModels.size() > 0)
+            return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
+        else
+            return "";
     }
 
 }
