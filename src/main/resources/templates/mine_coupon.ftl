@@ -16,11 +16,37 @@
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script id="post_list" type="text/html">
+           {{# for(var i = 0, len = d.length; i < len; i++){ }}
+             <div class="item-order-info">
+                                     <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
+                                 </div>
+                                 <div class="item-goods-list">
+                                     <div class="items">
+                                         <div class="item-col">
+                                             <div class="item-goods">
+                                                 <div class="item-gname">
+                                                     <span class="item-flag">
+                                                         {{d[i].ctype}}
+                                                     </span>
+                                                 </div>
+                                                 <div class="item-total"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="item-order-ext clearfix">
+                                     <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}</strong> 元</div>
+                                     <div class="pull-right">
+                                     </div>
+                                 </div>
+           {{# } }}
+        </script>
 </head>
 <body>
 
 <header class="bar bar-nav">
-    <a class="icon icon-left-nav pull-left" onclick="window.history.back();" id="navBackBtn"></a>
+    <a class="icon icon-left-nav pull-left" onclick="/my/mine.action" id="navBackBtn"></a>
 
     <h1 class="title">我的优惠劵</h1>
 </header>
@@ -37,35 +63,8 @@
         <div class="items">
         <#if records??>
             <#list records as record>
-                <div class="mui-panel item-order">
-                    <div class="item-order-info">
-                        <div id="item-group"><span class="item-code">优惠劵号:</span>${record.cardno!}</div>
-                    </div>
-                    <div class="item-goods-list">
-                        <div class="items">
-                            <div class="item-col">
-                                <div class="item-goods">
-                                    <div class="item-gname">
-                                        <span class="item-flag">
-                                            <#if record.ctype==1>
-                                                全局类
-                                            <#elseif record.ctype==2>
-                                                商品栏目类
-                                            <#else>
-                                                商品类
-                                            </#if>
-                                        </span>
-                                    </div>
-                                    <div class="item-total"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-order-ext clearfix">
-                        <div class="pull-left item-price-total">金额：<strong>${record.price!}</strong> 元</div>
-                        <div class="pull-right">
-                        </div>
-                    </div>
+                <div class="mui-panel item-order" id="msglist">
+
                 </div>
             </#list>
         <#else>
@@ -125,7 +124,7 @@
             console.log('+++'+pages)
             $.ajax({
                 type:'GET',
-                url:'/oc/overcharged_list.action?page='+pages,
+                url:'/raffle/mine_coupon_list.action?status=0?page='+pages+'&size=3,
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
@@ -172,8 +171,14 @@
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
-                if(json[i].good_name.length>20){
-                    json[i].good_name = json[i].good_name.substring(0,20)+"...";
+                if(json[i].ctype == 1){
+                     json[i].ctype = "全局类";
+                }
+                if(json[i].ctype == 2){
+                    json[i].ctype = "商品栏目类";
+                }
+                else{
+                     json[i].ctype = "商品类";
                 }
             }
             var gettpl = document.getElementById('post_list').innerHTML;
