@@ -138,7 +138,7 @@
                 },
                 success : function(re_json){
                     console.log('----'+pages)
-                    if(re_json != " "){
+                    if(re_json != ""){
                         if( re_json.length > 0){
                             pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
@@ -177,11 +177,11 @@
                 else{
                     json_obj[i].status = "已拍得"}
                 }
-            }
             var gettpl = document.getElementById('post_list').innerHTML;
             laytpl(gettpl).render(json_obj, function(html){
                 $("#msglist").append(html);
             });
+            }
 </script>
 </body>
 </html>
