@@ -49,6 +49,11 @@ public class WeiXinPayService implements PayService {
     }
 
     @Override
+    public OrderModel getOrderByUidAndAid(long uid, long aid) {
+        return this.persistentDao.getOrderByUidAndAid(uid,aid);
+    }
+
+    @Override
     public OrderModel updateOrder(long id, int status) {
         Preconditions.checkArgument(id > 0);
         OrderModel updateModel = this.getOrderById(id);

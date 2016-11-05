@@ -10,6 +10,8 @@ import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,7 +42,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("auction")
 public class AuctionController extends BaseController {
-
+    private Logger LOG = LoggerFactory.getLogger(AuctionController.class);
     @Autowired
     private AuctionService auctionService;
     @Autowired
@@ -113,7 +115,6 @@ public class AuctionController extends BaseController {
         long aid = Long.parseLong(request.getParameter("aid").toString());
         UserModel userModel = getAppUserInfo();
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
-        //TODO 判断保证金是否支付
         //获取截止时间
         long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
         int code = 0;
@@ -122,23 +123,30 @@ public class AuctionController extends BaseController {
         if (seconds <= 0) {
             msg = "拍卖已截止！";
         } else {
-            //查询是否有更高的出价
-            AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid);
-            float topPrice = 0;
-            if (auctionRecordsModel != null) {
-                topPrice = auctionRecordsModel.getPrice();
-            }
-            if((price-topPrice)<auctionModel.getSetp_amount()){
-                msg="加价幅度必须大于"+auctionModel.getSetp_amount()+"元";
-            }else if (price > topPrice) {
-                isSuccess = auctionService.bidAuction(userModel, aid, price);
-                if (isSuccess) {
-                    code = 1;
-                    msg = "出价成功！";
+            //TODO 判断保证金是否支付
+            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+            if (orderModel != null && orderModel.getStatus() == CONST.ORDER_PAY) {
+                //查询是否有更高的出价
+                AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid);
+                float topPrice = 0;
+                if (auctionRecordsModel != null) {
+                    topPrice = auctionRecordsModel.getPrice();
+                }
+                if ((price - topPrice) < auctionModel.getSetp_amount()) {
+                    msg = "加价幅度必须大于" + auctionModel.getSetp_amount() + "元";
+                } else if (price > topPrice) {
+                    isSuccess = auctionService.bidAuction(userModel, aid, price);
+                    LOG.info("auction id:" + auctionModel.getId() + " title:" + auctionModel.getTitle() + " aid:" + aid + " phone: " + userModel.getPhone() +" oruce:"+price);
+                    if (isSuccess) {
+                        code = 1;
+                        msg = "出价成功！";
+                    }
+                } else {
+                    msg = "出价失败，目前最高价格:" + topPrice;
+                    data.put("topPrice", topPrice);
                 }
             } else {
-                msg = "出价失败，目前最高价格:" + topPrice;
-                data.put("topPrice", topPrice);
+                msg = "请先支付保证金!";
             }
         }
         data.put("isSuccess", isSuccess);
@@ -169,7 +177,7 @@ public class AuctionController extends BaseController {
             auctionModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
         }
-        data.put("isPay",true);
+        data.put("isPay", true);
         data.put("auction", auctionModel);
         data.put("auctionRecords", auctionRecordsModels);
         return "auction_d";
@@ -177,6 +185,7 @@ public class AuctionController extends BaseController {
 
     /**
      * 支付保证金页面
+     *
      * @param data
      * @param request
      * @param response
@@ -184,18 +193,29 @@ public class AuctionController extends BaseController {
      */
     @RequestMapping("auction_margin.action")
     public String margin(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-        UserModel userModel=getAppUserInfo();
-        float amount=Float.parseFloat(request.getParameter("amount"));
-        long aid=RequestTools.RequestLong(request,"aid",0);
-        OrderModel orderModel=new OrderModel();
-        orderModel.setAmount(amount);
-        orderModel.setAtype(CONST.FOCUS_AUCTION);
-        orderModel.setAid(aid);
-        orderModel.setUid(userModel.getId());
-        orderModel.setPhone(userModel.getPhone());
-        orderModel.setAname("");
-        orderModel.setStatus(CONST.ORDER_PAY);
-        long id=payService.createOrder(orderModel);
+        UserModel userModel = getAppUserInfo();
+        float amount = Float.parseFloat(request.getParameter("amount"));
+        long aid = RequestTools.RequestLong(request, "aid", 0);
+        int status = 0;
+        OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+        //查询拍卖详情
+        AuctionModel auctionModel = auctionService.queryAuctionById(aid);
+        if (orderModel == null) {
+            orderModel = new OrderModel();
+            float deposit = auctionModel.getDeposit();
+            if (deposit == amount) {
+                orderModel.setAmount(amount);
+                orderModel.setAtype(CONST.FOCUS_AUCTION);
+                orderModel.setAid(aid);
+                orderModel.setUid(userModel.getId());
+                orderModel.setPhone(userModel.getPhone());
+                orderModel.setAname(auctionModel.getTitle());
+                orderModel.setStatus(CONST.ORDER_PAY);
+                payService.createOrder(orderModel);//创建订单
+            }
+        } else {
+            payService.updateOrder(orderModel.getId(), status);
+        }
         //暂时先跳过支付保证金
         boolean isPay = true;
         data.put("isPay", isPay);

@@ -83,15 +83,15 @@ public interface PersistentDao {
     public List<CouponRecordModel> getRaffleCouponByUserStatus(@Param("uid") long uid,@Param("status") int status);
 
     /**
-     * 分页查询优惠券
+     * 分页我的查询优惠券
      * @param uid
      * @param status
      * @param start
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<CouponRecordModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+    @Select("select * from comes_conpon_records cr,comes_conpon c where c.id=cr.cid and uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    public List<CouponRecordViewModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
 
     /**
      * 分页查询所有状态优惠券
@@ -100,8 +100,8 @@ public interface PersistentDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid}  limit #{start},#{size}")
-    public List<CouponRecordModel> getRaffleCouponPageByUser(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
+    @Select("select * from comes_conpon_records cr,comes_conpon c where c.id=cr.cid and uid=#{uid}  limit #{start},#{size}")
+    public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
     /**
      * 查询所有优惠券
      * @param uid
@@ -244,4 +244,13 @@ public interface PersistentDao {
 
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
+
+    /**
+     * 根据用户ID和拍卖ID查询
+     * @param uid
+     * @param aid
+     * @return
+     */
+    @Select("select * from comes_order where uid#{uid} and aid=#{aid}")
+    public OrderModel getOrderByUidAndAid(@Param("uid") long uid,@Param("aid") long aid);
 }
