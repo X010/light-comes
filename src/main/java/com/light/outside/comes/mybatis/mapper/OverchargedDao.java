@@ -40,7 +40,6 @@ public interface OverchargedDao {
     public long addOverchargedRecordModel(OverchargedRecordModel overchargedRecordModel);
 
 
-
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit #{start},#{size}")
     public List<OverchargedRecordModel> getOverchargedRecordByAid(@Param("aid") long aid, @Param("start") int start, @Param("size") int size);
 

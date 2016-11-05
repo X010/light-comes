@@ -75,15 +75,17 @@ public interface PersistentDao {
 
     /**
      * 查询优惠券
+     *
      * @param uid
      * @param status
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status}")
-    public List<CouponRecordModel> getRaffleCouponByUserStatus(@Param("uid") long uid,@Param("status") int status);
+    public List<CouponRecordModel> getRaffleCouponByUserStatus(@Param("uid") long uid, @Param("status") int status);
 
     /**
      * 分页我的查询优惠券
+     *
      * @param uid
      * @param status
      * @param start
@@ -91,24 +93,40 @@ public interface PersistentDao {
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<CouponRecordViewModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+    public List<CouponRecordViewModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
     /**
      * 分页查询所有状态优惠券
+     *
      * @param uid
      * @param start
      * @param size
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid}  limit #{start},#{size}")
-    public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
+    public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
+
     /**
      * 查询所有优惠券
+     *
      * @param uid
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid}")
     public List<CouponRecordModel> getRaffleCouponByUser(@Param("uid") long uid);
+
+    /**
+     * 根据优惠劵ID获取
+     *
+     * @param cid
+     * @return
+     */
+    @Select("select count(1) from  comes_conpon_records where cid=#{cid}")
+    public int getCouponRecordByCidTotal(@Param("cid") long cid);
+
+
+    @Select("select * from comes_conpon_records where cid=#{cid} order by id desc limit #{start},#{size}")
+    public List<CouponRecordModel> getCouponRecordByCid(@Param("cid") long cid, @Param("start") int start, @Param("size") int size);
 
     /**
      * 查询抽奖次数
@@ -247,10 +265,22 @@ public interface PersistentDao {
 
     /**
      * 根据用户ID和拍卖ID查询
+     *
      * @param uid
      * @param aid
      * @return
      */
     @Select("select * from comes_order where uid#{uid} and aid=#{aid}")
-    public OrderModel getOrderByUidAndAid(@Param("uid") long uid,@Param("aid") long aid);
+    public OrderModel getOrderByUidAndAid(@Param("uid") long uid, @Param("aid") long aid);
+
+    @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
+    public int getCouponSendNum(@Param("cid") long id);
+
+    /**
+     * 使用过优惠劵
+     * @param id
+     * @return
+     */
+    @Select("select count(1) from comes_conpon_records where cid=#{cid} and status=#{status} and  phone  is not null")
+    public int getCouponUseNum(@Param("cid") long id,@Param("status") int status);
 }

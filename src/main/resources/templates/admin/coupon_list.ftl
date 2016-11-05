@@ -24,6 +24,8 @@
                                 <th>名称</th>
                                 <th>状态</th>
                                 <th>类型</th>
+                                <th>已发放(张)</th>
+                                <th>已使用(张)</th>
                                 <th>数量(张)</th>
                                 <th>金额(元)</th>
                                 <th>开始时间</th>
@@ -59,6 +61,8 @@
                                                 单品型
                                             </#if>
                                         </td>
+                                        <td><span style="color: red">${coupon.sendnum}</span> </td>
+                                        <td><span style="color: red">${coupon.usenum}</span> </td>
                                         <td>${coupon.num}</td>
                                         <td>${coupon.price}</td>
                                         <td>${coupon.use_start_time?string("yyyy-MM-dd")}</td>

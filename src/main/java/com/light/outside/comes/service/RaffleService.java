@@ -28,9 +28,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -206,6 +206,44 @@ public class RaffleService {
     }
 
 
+    public PageResult<CouponModel> getCouponsMoreInfo(PageModel pageModel) {
+        //获取记录数
+        int total = this.persistentDao.couponsTotal();
+        //记录
+        List<CouponModel> couponModels = this.persistentDao.getCoupons(pageModel.getStart(), pageModel.getSize());
+        if (couponModels != null) {
+            for (CouponModel couponModel : couponModels) {
+                //获取使用发送张数与使用张数
+                int sendNum = this.persistentDao.getCouponSendNum(couponModel.getId());
+                couponModel.setSendnum(sendNum);
+                //获取使用使用的张数
+                int useNum = this.persistentDao.getCouponUseNum(couponModel.getId(), CONST.COUPON_STATUS_USED);
+                couponModel.setUsenum(useNum);
+            }
+        }
+        PageResult<CouponModel> couponModelPageResult = new PageResult<CouponModel>();
+        couponModelPageResult.setData(couponModels);
+        couponModelPageResult.setPageModel(pageModel);
+        couponModelPageResult.setTotal(total);
+
+        return couponModelPageResult;
+    }
+
+
+    public PageResult<CouponRecordModel> getCouponRecordModelByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.getCouponRecordByCidTotal(aid);
+
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordByCid(aid, pageModel.getStart(), pageModel.getSize());
+
+        PageResult<CouponRecordModel> couponRecordModelPageResult = new PageResult<CouponRecordModel>();
+        couponRecordModelPageResult.setData(couponRecordModels);
+        couponRecordModelPageResult.setPageModel(pageModel);
+        couponRecordModelPageResult.setTotal(total);
+
+        return couponRecordModelPageResult;
+    }
+
     /**
      * 分页获取抽奖活动
      *
@@ -273,13 +311,14 @@ public class RaffleService {
 
     /**
      * 转换品类
+     *
      * @param recordModels
      */
     private void transfCouponForView(List<CouponRecordViewModel> recordModels) {
         for (CouponRecordViewModel recordModel : recordModels) {
             if (recordModel.getCtype() == 2) {
                 CommodityCategory commodityCategory = categoryModelMap.get(recordModel.getMid());
-                if(commodityCategory!=null) {
+                if (commodityCategory != null) {
                     recordModel.setLimit(commodityCategory.getCategory1() + "-" + commodityCategory.getCategory2());
                 }
             } else if (recordModel.getCtype() == 3) {
