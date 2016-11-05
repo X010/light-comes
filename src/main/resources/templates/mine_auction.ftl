@@ -168,9 +168,9 @@
                 }
             });
         }
-        var json = new Array;
+        //var json = new Array;
         function appendHtml(json){
-            for(var i = 0, len = json.length; i < len; i++)
+            /*for(var i = 0, len = json.length; i < len; i++)
             {
                 if(json[i].status==1){
                     json[i].status = "未拍得";
@@ -178,7 +178,7 @@
                 else{
                     json[i].status = "已拍得"};
                 }
-            }
+            }*/
             var gettpl = document.getElementById('post_list').innerHTML;
             laytpl(gettpl).render(json, function(html){
                 $("#msglist").append(html);
