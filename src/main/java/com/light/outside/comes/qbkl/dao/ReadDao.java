@@ -1,6 +1,5 @@
 package com.light.outside.comes.qbkl.dao;
 
-import com.light.outside.comes.model.GoodsCategoryModel;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.model.UserModel;
