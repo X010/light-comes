@@ -168,6 +168,7 @@
                 }
             });
         }
+        var json = new Array;
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
