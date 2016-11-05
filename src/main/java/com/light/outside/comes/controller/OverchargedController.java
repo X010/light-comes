@@ -166,7 +166,11 @@ public class OverchargedController extends BaseController {
         pageModel.setPage(page);
         pageModel.setSize(size);
         UserModel userModel = getAppUserInfo();
-        PageResult<OverchargedRecordViewModel> banquetRecordModelPageResult = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
-        return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
+        PageResult<OverchargedRecordViewModel> overchargedRecordPage = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
+        List<OverchargedRecordViewModel> list=overchargedRecordPage.getData();
+        if(list!=null&&list.size()>0)
+            return JsonTools.jsonSer(list);
+        else
+            return "";
     }
 }

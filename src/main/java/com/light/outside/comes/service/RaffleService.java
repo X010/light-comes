@@ -480,7 +480,7 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public synchronized RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
+    public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
@@ -489,37 +489,12 @@ public class RaffleService {
                 List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
                 if (couponRecordModels != null) {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
-                    this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
+                    this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     return raffleCouponModel;
                 }
             }
         }
-//        List<RaffleCouponModel> raffleCouponModels = null;
-//        if (raffleMap != null && raffleMap.size() > 0) {
-//            raffleCouponModels = raffleMap.get(rid);
-//        }
-//        if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
-//            int randomNumber = (int) (Math.random() * total(rid));//随机数
-//            int priority = 0;
-//            for (RaffleCouponModel g : raffleCouponModels) {
-//                priority += g.getWinrate();
-//                if (randomNumber > 0 && priority >= randomNumber) {
-//                    //奖品数量减少
-//                    //g.setQuantity(g.getQuantity() - 1);
-//                    //保存优惠券
-//                    if (g.getId() > 0) {
-//                        CouponRecordModel couponRecordModel = this.persistentDao.getCouponRecordModelByCid(g.getCid(), CONST.RAFFLE_STATUS_NORMAL);
-//                        if (couponRecordModel != null) {
-//                            this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.RAFFLE_STATUS_BIND, uid, phone);
-//                            return g;
-//                        }
-//                    } else {
-//                        return null;
-//                    }
-//                }
-//            }
-//        }
-        // 抽奖次数多于奖品时谢谢参与
+        //
         return null;
     }
 
