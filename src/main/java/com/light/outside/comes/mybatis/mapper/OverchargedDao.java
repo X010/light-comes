@@ -2,6 +2,7 @@ package com.light.outside.comes.mybatis.mapper;
 
 import com.light.outside.comes.model.OverchargedModel;
 import com.light.outside.comes.model.OverchargedRecordModel;
+import com.light.outside.comes.model.OverchargedRecordViewModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -46,8 +47,8 @@ public interface OverchargedDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_overcharged_record where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    public List<OverchargedRecordViewModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
 
     /**
      * 根据uid查询记录
@@ -56,6 +57,6 @@ public interface OverchargedDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_overcharged_record where uid=#{uid} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} limit #{start},#{size}")
+    public List<OverchargedRecordViewModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
 }

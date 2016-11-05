@@ -1,10 +1,7 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
-import com.light.outside.comes.model.OverchargedModel;
-import com.light.outside.comes.model.OverchargedRecordModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.OverchargedService;
@@ -31,9 +28,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +39,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("oc")
-public class OverchargedController extends BaseController{
+public class OverchargedController extends BaseController {
 
     @Autowired
     private OverchargedService overchargedService;
@@ -154,6 +151,7 @@ public class OverchargedController extends BaseController{
 
     /**
      * 我的砍价记录
+     *
      * @param data
      * @param request
      * @return
@@ -168,7 +166,7 @@ public class OverchargedController extends BaseController{
         pageModel.setPage(page);
         pageModel.setSize(size);
         UserModel userModel = getAppUserInfo();
-        PageResult<OverchargedRecordModel> banquetRecordModelPageResult = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
+        PageResult<OverchargedRecordViewModel> banquetRecordModelPageResult = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
         return JsonTools.jsonSer(banquetRecordModelPageResult.getData());
     }
 }
