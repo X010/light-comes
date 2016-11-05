@@ -30,23 +30,25 @@ public interface BanquetDao {
 
     /**
      * 查询约会记录
+     *
      * @param uid
      * @param start
      * @param size
      * @return
      */
     @Select("select * from comes_banquet_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<BanquetRecordModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status, @Param("start") int start,@Param("size") int size);
+    public List<BanquetRecordModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
     /**
      * 查询约会记录
+     *
      * @param uid
      * @param start
      * @param size
      * @return
      */
     @Select("select * from comes_banquet_records where uid=#{uid} limit #{start},#{size}")
-    public List<BanquetRecordModel> getBanquetRecordPageByUid(@Param("uid") long uid, @Param("start") int start,@Param("size") int size);
+    public List<BanquetRecordModel> getBanquetRecordPageByUid(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
 
     @Update("update comes_banquet_records set status=#{status},orderNo=#{orderNo} where id=#{id}")
@@ -58,5 +60,8 @@ public interface BanquetDao {
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public void addBanquetRecordModel(BanquetRecordModel banquetRecordModel);
 
+
+    @Select("select count(1) from comes_banquet_records where aid=#{aid}")
+    public int enrollBanquetTotal(@Param("aid") long aid);
 
 }

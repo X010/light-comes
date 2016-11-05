@@ -101,6 +101,33 @@ public class BanquetModel extends BaseModel {
 
     private int time_second;
 
+    /**
+     * 报名人数
+     */
+    private int enroll_num;
+
+    /**
+     * 是否可以成功举行
+     */
+    private int hold;
+
+
+    public int getHold() {
+        return hold;
+    }
+
+    public void setHold(int hold) {
+        this.hold = hold;
+    }
+
+    public int getEnroll_num() {
+        return enroll_num;
+    }
+
+    public void setEnroll_num(int enroll_num) {
+        this.enroll_num = enroll_num;
+    }
+
     public int getTime_second() {
         return time_second;
     }

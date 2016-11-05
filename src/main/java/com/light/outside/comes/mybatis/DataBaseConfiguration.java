@@ -34,7 +34,7 @@ public class DataBaseConfiguration implements EnvironmentAware {
             datasource.setDriverClassName(propertyResolver.getProperty("driverClass"));
             datasource.setUsername(propertyResolver.getProperty("username"));
             datasource.setPassword(propertyResolver.getProperty("password"));
-            datasource.setMaxActive(20);
+            datasource.setMaxActive(5);
             datasource.setInitialSize(1);
             datasource.setMaxActive(60000);
             datasource.setMinIdle(10);

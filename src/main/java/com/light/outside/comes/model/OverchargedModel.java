@@ -92,6 +92,31 @@ public class OverchargedModel extends BaseModel {
      */
     private float over_amount;
 
+    /**
+     * 现价
+     */
+    private float now_price;
+
+    /**
+     * 还有多少天
+     */
+    private int free_time;
+
+    public int getFree_time() {
+        return free_time;
+    }
+
+    public void setFree_time(int free_time) {
+        this.free_time = free_time;
+    }
+
+    public float getNow_price() {
+        return now_price;
+    }
+
+    public void setNow_price(float now_price) {
+        this.now_price = now_price;
+    }
 
     public float getOver_amount() {
         return over_amount;

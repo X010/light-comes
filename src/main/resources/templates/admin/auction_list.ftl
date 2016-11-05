@@ -40,8 +40,16 @@
                                     <tr>
                                         <td>${auction.id}</td>
                                         <td>${auction.title}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            <#if auction.iswin==1>
+                                                <span>成交</span>
+                                            </#if>
+                                        </td>
+                                        <td>
+                                            <#if auction.iswin==1>
+                                            ${auction.win_price}
+                                            </#if>
+                                        </td>
                                         <td> ${auction.start_time?string("MM月dd日 HH:mm:ss")}</td>
                                         <td>
                                         ${auction.end_time?string("MM月dd日 HH:mm:ss")}

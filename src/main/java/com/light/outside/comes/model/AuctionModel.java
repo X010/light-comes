@@ -113,6 +113,19 @@ public class AuctionModel extends BaseModel {
      */
     private float win_price;
 
+    /**
+     * 是否成交
+     */
+    private int iswin;
+
+    public int getIswin() {
+        return iswin;
+    }
+
+    public void setIswin(int iswin) {
+        this.iswin = iswin;
+    }
+
     public long getWin_uid() {
         return win_uid;
     }

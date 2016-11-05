@@ -1,6 +1,7 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.light.outside.comes.model.AuctionModel;
 import com.light.outside.comes.model.AuctionRecordsModel;
 import com.light.outside.comes.model.PageModel;
@@ -26,9 +27,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -86,6 +87,31 @@ public class AuctionService {
     }
 
     /**
+     * 分页面获取更多的拍卖信息
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<AuctionModel> getAuctionsMoreInfo(PageModel pageModel) {
+        int total = this.persistentDao.auctionTotal();
+        List<AuctionModel> auctionModels = this.persistentDao.getAuctions(pageModel.getStart(), pageModel.getSize());
+
+        if (auctionModels != null) {
+            for (AuctionModel auctionModel : auctionModels) {
+                if (auctionModel.getEnd_time().getTime() < System.currentTimeMillis() && !Strings.isNullOrEmpty(auctionModel.getWin_phone())) {
+                    auctionModel.setIswin(1);
+                }
+            }
+        }
+        PageResult<AuctionModel> auctionModelPageResult = new PageResult<AuctionModel>();
+        auctionModelPageResult.setData(auctionModels);
+        auctionModelPageResult.setPageModel(pageModel);
+        auctionModelPageResult.setTotal(total);
+
+        return auctionModelPageResult;
+    }
+
+    /**
      * 根据ID查询拍卖详情
      *
      * @param id
@@ -97,31 +123,33 @@ public class AuctionService {
 
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(long uid, int status) {
         if (status > 0)
-            return auctionDao.queryAuctionRecordsByUserStatus(uid, status,0,100);
+            return auctionDao.queryAuctionRecordsByUserStatus(uid, status, 0, 100);
         else
-            return auctionDao.queryAuctionRecordsByUser(uid,0,100);
+            return auctionDao.queryAuctionRecordsByUser(uid, 0, 100);
     }
 
     /**
      * 分页查询
+     *
      * @param uid
      * @param status
      * @param pageModel
      * @return
      */
-    public PageResult<AuctionRecordsModel> queryAuctionRecordsByUserModel(long uid, int status,PageModel pageModel) {
+    public PageResult<AuctionRecordsModel> queryAuctionRecordsByUserModel(long uid, int status, PageModel pageModel) {
         PageResult<AuctionRecordsModel> auctionModelPageResult = new PageResult<AuctionRecordsModel>();
         List<AuctionRecordsModel> auctionRecordsModels;
-        int total=0;
+        int total = 0;
         if (status > 0)
-            auctionRecordsModels=auctionDao.queryAuctionRecordsByUserStatus(uid, status,pageModel.getStart(),pageModel.getSize());
+            auctionRecordsModels = auctionDao.queryAuctionRecordsByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
         else
-            auctionRecordsModels= auctionDao.queryAuctionRecordsByUser(uid,pageModel.getStart(),pageModel.getSize());
+            auctionRecordsModels = auctionDao.queryAuctionRecordsByUser(uid, pageModel.getStart(), pageModel.getSize());
         auctionModelPageResult.setData(auctionRecordsModels);
         auctionModelPageResult.setPageModel(pageModel);
         auctionModelPageResult.setTotal(total);
         return auctionModelPageResult;
     }
+
     /**
      * 出价
      *

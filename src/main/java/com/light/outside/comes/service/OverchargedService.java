@@ -12,11 +12,13 @@ import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,9 +30,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -187,6 +189,45 @@ public class OverchargedService {
         return overchargedModelPageResult;
     }
 
+    /**
+     * 分页获取砍价信息。包括当前现价，和还有多少时间
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<OverchargedModel> getOverchargedsMoreInfo(PageModel pageModel) {
+        int total = this.persistentDao.auctionTotal();
+        List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(pageModel.getStart(), pageModel.getSize());
+        if (overchargedModels != null) {
+            for (OverchargedModel overchargedModel : overchargedModels) {
+                OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getWinOverChargedRecordModel(overchargedModel.getId());
+                if (overchargedModel.getEnd_time().getTime() >= System.currentTimeMillis()) {
+                    int free_time = 0;
+                    try {
+                        free_time = DateUtils.daysBetween(new Date(), overchargedModel.getEnd_time());
+                        overchargedModel.setFree_time(free_time);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    overchargedModel.setFree_time(0);
+                }
+
+                if (overchargedRecordModel != null) {
+                    overchargedModel.setNow_price(overchargedRecordModel.getAmount());
+                } else {
+                    overchargedModel.setNow_price(overchargedModel.getAmount());
+                }
+            }
+        }
+        PageResult<OverchargedModel> overchargedModelPageResult = new PageResult<OverchargedModel>();
+        overchargedModelPageResult.setData(overchargedModels);
+        overchargedModelPageResult.setPageModel(pageModel);
+        overchargedModelPageResult.setTotal(total);
+
+        return overchargedModelPageResult;
+    }
+
     public OverchargedModel getOverchargedModel(long id) {
         Preconditions.checkArgument(id > 0);
         return this.persistentDao.getOverchargedById(id);
@@ -232,6 +273,7 @@ public class OverchargedService {
 
     /**
      * 查询砍价记录
+     *
      * @param uid
      * @param status
      * @param pageModel

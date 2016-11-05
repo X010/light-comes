@@ -54,8 +54,11 @@
                                                 已结束
                                             </#if>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                        <span style="color: red">${overcharged.now_price}</span></td>
+                                        <td>
+                                            ${overcharged.free_time}天
+                                        </td>
                                         <td>${overcharged.amount}</td>
                                         <td>${overcharged.over_amount}</td>
                                         <td>${overcharged.subtract_price}</td>

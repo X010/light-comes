@@ -359,7 +359,7 @@ public class MainFrameController {
      */
     @RequestMapping("overcharge_list.action")
     public String overcharge_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
-        PageResult<OverchargedModel> overchargedModelPageResult = this.overchargedService.getOverchargeds(pageModel);
+        PageResult<OverchargedModel> overchargedModelPageResult = this.overchargedService.getOverchargedsMoreInfo(pageModel);
         if (overchargedModelPageResult != null) {
             data.put("overchargeds", overchargedModelPageResult);
         }
@@ -440,7 +440,7 @@ public class MainFrameController {
      */
     @RequestMapping("auction_list.action")
     public String auction_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
-        PageResult<AuctionModel> auctionModelPageResult = this.auctionService.getAuctions(pageModel);
+        PageResult<AuctionModel> auctionModelPageResult = this.auctionService.getAuctionsMoreInfo(pageModel);
         if (auctionModelPageResult != null) {
             data.put("auctions", auctionModelPageResult);
         }
@@ -513,7 +513,7 @@ public class MainFrameController {
      */
     @RequestMapping("banquet_list.action")
     public String banquet_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
-        PageResult<BanquetModel> banquetModelPageResult = this.banquetService.getBanquets(pageModel);
+        PageResult<BanquetModel> banquetModelPageResult = this.banquetService.getBanquetsMoreInfo(pageModel);
 
         if (banquetModelPageResult != null) {
             data.put("banquets", banquetModelPageResult);

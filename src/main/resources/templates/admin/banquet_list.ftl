@@ -23,6 +23,7 @@
                                 <th>编号</th>
                                 <th>名称</th>
                                 <th>报名人数</th>
+                                <th>是否可举办</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
                                 <th>开始时间</th>
@@ -39,7 +40,14 @@
                                     <tr>
                                         <td>${banquet.id}</td>
                                         <td>${banquet.title}</td>
-                                        <td></td>
+                                        <td>${banquet.enroll_num}</td>
+                                        <td>
+                                            <#if banquet.hold==1>
+                                                可行
+                                                <#else>
+                                                不可行
+                                            </#if>
+                                        </td>
                                         <td>
                                             <#if banquet.status==1>
                                                 创建
@@ -70,7 +78,8 @@
                                         <td>
                                             <a class="badge  bg-green" href="/admin/create_banquet.action?action=edit&id=${banquet.id}">编缉</a>
                                             &nbsp;&nbsp;
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_banquet.action?id=${banquet.id}';}">停用
+                                            <a class="badge  bg-red"
+                                               href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_banquet.action?id=${banquet.id}';}">停用
                                             </a>&nbsp;&nbsp;
                                             <a class="badge  bg-blue" href="/admin/banquet_list_detail.action?id=#{banquet.id}">参与者信息</a>
                                         </td>
