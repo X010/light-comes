@@ -36,7 +36,7 @@ public interface BanquetDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} and br.`status`=#{status} limit #{start},#{size}")
     public List<BanquetRecordViewModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status, @Param("start") int start,@Param("size") int size);
 
     /**

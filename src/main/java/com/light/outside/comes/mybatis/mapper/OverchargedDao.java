@@ -47,7 +47,7 @@ public interface OverchargedDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and cor.`status`=#{status} limit #{start},#{size}")
     public List<OverchargedRecordViewModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
 
     /**
