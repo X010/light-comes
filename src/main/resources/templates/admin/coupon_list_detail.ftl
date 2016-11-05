@@ -16,7 +16,17 @@
 
                     </div>
                     <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>序号</th>
+                                <th>创建时间</th>
+                                <th>优惠序号</th>
+                                <th>分配手机号</th>
+                                <th>优惠金额</th>
+                                <th>使用时间</th>
+                            </tr>
 
+                        </table>
                     </div>
                 </div>
             </div>

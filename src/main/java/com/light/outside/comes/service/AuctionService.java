@@ -2,10 +2,7 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.light.outside.comes.model.AuctionModel;
-import com.light.outside.comes.model.AuctionRecordsModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
@@ -194,6 +191,20 @@ public class AuctionService {
         return auctionDao.selectAuctionRecordsByAid(aid);
     }
 
+
+    public PageResult<CouponRecordModel> getCouponRecordModelByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.getCouponRecordByCidTotal(aid);
+
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordByCid(aid, pageModel.getStart(), pageModel.getSize());
+
+        PageResult<CouponRecordModel> couponRecordModelPageResult = new PageResult<CouponRecordModel>();
+        couponRecordModelPageResult.setData(couponRecordModels);
+        couponRecordModelPageResult.setPageModel(pageModel);
+        couponRecordModelPageResult.setTotal(total);
+
+        return couponRecordModelPageResult;
+    }
 
     /**
      * @param id

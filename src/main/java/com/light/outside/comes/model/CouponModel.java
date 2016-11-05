@@ -80,6 +80,32 @@ public class CouponModel extends BaseModel {
      */
     private String memo;
 
+    /**
+     * 发放张数
+     */
+    private int sendnum;
+
+    /**
+     * 使用张数
+     */
+    private int usenum;
+
+    public int getSendnum() {
+        return sendnum;
+    }
+
+    public void setSendnum(int sendnum) {
+        this.sendnum = sendnum;
+    }
+
+    public int getUsenum() {
+        return usenum;
+    }
+
+    public void setUsenum(int usenum) {
+        this.usenum = usenum;
+    }
+
     public String getMemo() {
         return memo;
     }

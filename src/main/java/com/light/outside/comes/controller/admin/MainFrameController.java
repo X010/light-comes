@@ -116,7 +116,9 @@ public class MainFrameController {
      */
     @RequestMapping("coupon_list_detail.action")
     public String coupon_list_detail(Map<String, Objects> data, PageModel pageModel, @RequestParam("id") Long id) {
+        if (id != null && id > 0) {
 
+        }
         return "admin/coupon_list_detail";
     }
 
@@ -662,7 +664,7 @@ public class MainFrameController {
      */
     @RequestMapping("coupon_list.action")
     public String coupon_list(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
-        PageResult<CouponModel> couponModelPageResult = this.raffleService.getCoupons(pageModel);
+        PageResult<CouponModel> couponModelPageResult = this.raffleService.getCouponsMoreInfo(pageModel);
         if (couponModelPageResult != null) {
             data.put("coupons", couponModelPageResult);
         }
