@@ -90,7 +90,7 @@ public interface PersistentDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records cr,comes_conpon c where c.id=cr.cid and uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
     public List<CouponRecordViewModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
 
     /**
@@ -100,7 +100,7 @@ public interface PersistentDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records cr,comes_conpon c where c.id=cr.cid and uid=#{uid}  limit #{start},#{size}")
+    @Select("select * from comes_conpon_records where uid=#{uid}  limit #{start},#{size}")
     public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
     /**
      * 查询所有优惠券
