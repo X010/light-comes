@@ -2,6 +2,7 @@ package com.light.outside.comes.mybatis.mapper;
 
 import com.light.outside.comes.model.OverchargedModel;
 import com.light.outside.comes.model.OverchargedRecordModel;
+import com.light.outside.comes.model.OverchargedRecordViewModel;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -38,17 +39,6 @@ public interface OverchargedDao {
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOverchargedRecordModel(OverchargedRecordModel overchargedRecordModel);
 
-    /**
-     * 根据uid和status查询记录
-     *
-     * @param uid
-     * @param status
-     * @param start
-     * @param size
-     * @return
-     */
-    @Select("select * from comes_overcharged_record where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
 
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit #{start},#{size}")
@@ -57,14 +47,11 @@ public interface OverchargedDao {
     @Select("select count(1) from comes_overcharged_record where aid=#{aid}")
     public int getOverchargedRecordPageByAidTotal(@Param("aid") long aid);
 
-    /**
-     * 根据uid查询记录
-     *
-     * @param uid
-     * @param start
-     * @param size
-     * @return
-     */
-    @Select("select * from comes_overcharged_record where uid=#{uid} limit #{start},#{size}")
-    public List<OverchargedRecordModel> getOverchargedRecordPageByUid(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and cor.`status`=#{status} limit #{start},#{size}")
+    public List<OverchargedRecordViewModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
+
+
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} limit #{start},#{size}")
+    public List<OverchargedRecordViewModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
+
 }

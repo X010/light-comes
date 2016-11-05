@@ -272,9 +272,9 @@ public class BanquetService {
      * @param pageModel
      * @return
      */
-    public PageResult<BanquetRecordModel> getBanquetRecordPage(long uid, int status, PageModel pageModel) {
-        PageResult<BanquetRecordModel> banquetRecordModelPageResult = new PageResult<BanquetRecordModel>();
-        List<BanquetRecordModel> banquetRecordModels;
+    public PageResult<BanquetRecordViewModel> getBanquetRecordPage(long uid, int status, PageModel pageModel) {
+        PageResult<BanquetRecordViewModel> banquetRecordModelPageResult = new PageResult<BanquetRecordViewModel>();
+        List<BanquetRecordViewModel> banquetRecordModels;
         if (status > 0)
             banquetRecordModels = banquetDao.getBanquetRecordPageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
         else

@@ -2,10 +2,7 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.light.outside.comes.model.OverchargedModel;
-import com.light.outside.comes.model.OverchargedRecordModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.OverchargedDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
@@ -279,9 +276,9 @@ public class OverchargedService {
      * @param pageModel
      * @return
      */
-    public PageResult<OverchargedRecordModel> getOverchargedRecordPage(long uid, int status, PageModel pageModel) {
-        PageResult<OverchargedRecordModel> overchargedRecordModelPageResult = new PageResult<OverchargedRecordModel>();
-        List<OverchargedRecordModel> overchargedRecordModels = Lists.newArrayList();
+    public PageResult<OverchargedRecordViewModel> getOverchargedRecordPage(long uid, int status, PageModel pageModel) {
+        PageResult<OverchargedRecordViewModel> overchargedRecordModelPageResult = new PageResult<OverchargedRecordViewModel>();
+        List<OverchargedRecordViewModel> overchargedRecordModels = Lists.newArrayList();
         if (status > 0) {
             overchargedRecordModels = this.overchargedDao.getOverchargedRecordPageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
         } else {
