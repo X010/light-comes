@@ -57,7 +57,7 @@
             <a class="control-item" id="order_status_2" href="">已结束</a>
         </div>
     </div>
-    <div class="mui-order-list" id="containerList">
+    <div class="mui-panel mui-order-list" id="containerList">
 
     </div>
 

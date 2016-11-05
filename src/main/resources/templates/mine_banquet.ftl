@@ -36,7 +36,7 @@
                                     </div>
                                      </div>
                                       <div class="item-order-ext clearfix">
-                                      <div class="pull-left item-price-total">订单编号<strong>{{d[i].orderNo}}</strong></div>
+                                      <div class="pull-left item-price-total">订单编号:{{d[i].orderNo}}</div>
                                       <div class="pull-right">
                                       </div>
                                       </div>
@@ -57,7 +57,7 @@
             <a class="control-item" id="order_status_2" href="">已结束</a>
         </div>
     </div>
-    <div class="mui-order-list" id="containerList">
+    <div class="mui-panel  mui-order-list" id="containerList">
 
     </div>
 

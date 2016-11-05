@@ -121,7 +121,7 @@
         });
         function loadMore(){
             var target = $('#firstDiv').get(0);
-            console.log('+++'+pages)
+            console.log('+++'+pages);
             $.ajax({
                 type:'GET',
                 url:'/auction/mine_auction_list.action?status=0&page='+pages+'&size=3',
@@ -168,6 +168,7 @@
                 }
             });
         }
+
         function appendHtml(json_obj){
             for(var i = 0, len = json_obj.length; i < len; i++)
             {
