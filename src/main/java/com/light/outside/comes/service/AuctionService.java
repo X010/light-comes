@@ -142,12 +142,6 @@ public class AuctionService {
      */
     public AuctionRecordsModel queryTopRecord(long aid) {
         return auctionDao.queryAuctionRecords(aid);
-//        List<AuctionRecordsModel> list =
-//        if (list != null && list.size() > 0) {
-//            return list.get(0);
-//        } else {
-//            return null;
-//        }
     }
 
     /**
@@ -206,7 +200,6 @@ public class AuctionService {
                 if (auctionModel.getEnd_time().getTime() <= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
                     auctionModel.setStatus(CONST.RAFFLE_STATUS_OVER);
                     LOG.info("over auction id:" + auctionModel.getId() + " name:" + auctionModel.getTitle());
-
                     //选出拍卖中的那个人
                     AuctionRecordsModel auctionRecordsModel = this.auctionDao.getWinAuctionRecord(auctionModel.getId());
                     if (auctionRecordsModel != null) {

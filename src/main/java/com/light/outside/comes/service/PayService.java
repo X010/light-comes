@@ -36,6 +36,14 @@ public interface PayService {
      */
     public OrderModel getOrderById(long id);
 
+    /**
+     * 根据用户ID和拍卖ID获取订单
+     * @param uid
+     * @param aid
+     * @return
+     */
+    public OrderModel getOrderByUidAndAid(long uid,long aid);
+
 
     /**
      * 根据ID修改订单状态

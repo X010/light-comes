@@ -5,6 +5,9 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
+import com.light.outside.comes.qbkl.dao.ReadDao;
+import com.light.outside.comes.qbkl.model.Commodity;
+import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
 import org.slf4j.Logger;
@@ -41,7 +44,34 @@ public class RaffleService {
 
     @Autowired
     private PersistentDao persistentDao;
+    @Autowired
+    private ReadDao readDao;
 
+    /**
+     * 品类
+     */
+    private Map<Long, CommodityCategory> categoryModelMap;
+    /**
+     * 商品
+     */
+    private Map<Long, String> commodityMap;
+
+    /**
+     * 加载商品类别
+     */
+    public void initCategory() {
+        List<CommodityCategory> goodsCategoryModels = this.readDao.queryCategorys();
+        categoryModelMap = new HashMap<Long, CommodityCategory>();
+        for (CommodityCategory commodityCategory : goodsCategoryModels) {
+            categoryModelMap.put(commodityCategory.getId(), commodityCategory);
+        }
+        List<Commodity> commodities = this.readDao.queryAllCommodityes();
+        commodityMap = new HashMap<Long, String>();
+        for (Commodity commodity : commodities) {
+            commodityMap.put(commodity.getId(), commodity.getName());
+        }
+        System.out.println(" init category and commodity");
+    }
 
     /**
      * 添加劵
@@ -164,7 +194,6 @@ public class RaffleService {
     public PageResult<CouponModel> getCoupons(PageModel pageModel) {
         //获取记录数
         int total = this.persistentDao.couponsTotal();
-
         //记录
         List<CouponModel> couponModels = this.persistentDao.getCoupons(pageModel.getStart(), pageModel.getSize());
 
@@ -229,15 +258,37 @@ public class RaffleService {
      * @param pageModel
      * @return
      */
-    public PageResult<CouponRecordModel> getRaffleCouponPageByUser(long uid, int status, PageModel pageModel) {
-        PageResult<CouponRecordModel> pageResult = new PageResult<CouponRecordModel>();
-        List<CouponRecordModel> couponRecordModels = Lists.newArrayList();
-        if (status > 0)
+    public PageResult<CouponRecordViewModel> getRaffleCouponPageByUser(long uid, int status, PageModel pageModel) {
+        PageResult<CouponRecordViewModel> pageResult = new PageResult<CouponRecordViewModel>();
+        List<CouponRecordViewModel> couponRecordModels = Lists.newArrayList();
+        if (status > 0) {
             couponRecordModels = this.persistentDao.getRaffleCouponPageByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
-        else
+        } else {
             couponRecordModels = this.persistentDao.getRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+        }
+        transfCouponForView(couponRecordModels);
         pageResult.setData(couponRecordModels);
         return pageResult;
+    }
+
+    /**
+     * 转换品类
+     * @param recordModels
+     */
+    private void transfCouponForView(List<CouponRecordViewModel> recordModels) {
+        for (CouponRecordViewModel recordModel : recordModels) {
+            if (recordModel.getCtype() == 2) {
+                CommodityCategory commodityCategory = categoryModelMap.get(recordModel.getMid());
+                if(commodityCategory!=null) {
+                    recordModel.setLimit(commodityCategory.getCategory1() + "-" + commodityCategory.getCategory2());
+                }
+            } else if (recordModel.getCtype() == 3) {
+                String name = commodityMap.get(recordModel.getMid());
+                recordModel.setLimit(name);
+            } else {
+                recordModel.setLimit("全品类");
+            }
+        }
     }
 
     /**

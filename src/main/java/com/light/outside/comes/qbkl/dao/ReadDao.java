@@ -1,5 +1,6 @@
 package com.light.outside.comes.qbkl.dao;
 
+import com.light.outside.comes.model.GoodsCategoryModel;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -16,9 +17,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,11 +38,12 @@ public interface ReadDao {
 
     /**
      * 根据用户名密码获取用户
+     *
      * @param phone
      * @return
      */
     @Select("select * from t_user where phone=#{phone} and passwd=md5(#{pwd})")
-    UserModel getUserByPassword(@Param("phone") String phone,@Param("pwd") String pwd);
+    UserModel getUserByPassword(@Param("phone") String phone, @Param("pwd") String pwd);
 
     /**
      * 根据商品名查询商品
@@ -70,6 +72,20 @@ public interface ReadDao {
      */
     @Select("select * from t_goods where id=#{id}")
     public Commodity getCommodityById(@Param("id") long id);
+
+    /**
+     * 查询所有商品类别
+     * @return
+     */
+    @Select("select id,category1,category2 from t_goods_category")
+    public List<CommodityCategory> queryCategorys();
+
+    /**
+     * 查询所有商品
+     * @return
+     */
+    @Select("select * from t_goods")
+    public List<Commodity> queryAllCommodityes();
 
 
     /**
