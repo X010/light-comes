@@ -62,7 +62,7 @@
                                             </#if>
                                         </td>
                                         <td><span style="color: red">${coupon.sendnum}</span> </td>
-                                        <td><span style="color: red"></span> </td>
+                                        <td><span style="color: red">${coupon.usenum}</span> </td>
                                         <td>${coupon.num}</td>
                                         <td>${coupon.price}</td>
                                         <td>${coupon.use_start_time?string("yyyy-MM-dd")}</td>

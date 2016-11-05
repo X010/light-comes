@@ -216,6 +216,9 @@ public class RaffleService {
                 //获取使用发送张数与使用张数
                 int sendNum = this.persistentDao.getCouponSendNum(couponModel.getId());
                 couponModel.setSendnum(sendNum);
+                //获取使用使用的张数
+                int useNum = this.persistentDao.getCouponUseNum(couponModel.getId(), CONST.COUPON_STATUS_USED);
+                couponModel.setUsenum(useNum);
             }
         }
         PageResult<CouponModel> couponModelPageResult = new PageResult<CouponModel>();
@@ -226,6 +229,20 @@ public class RaffleService {
         return couponModelPageResult;
     }
 
+
+    public PageResult<CouponRecordModel> getCouponRecordModelByAid(long aid, PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.getCouponRecordByCidTotal(aid);
+
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordByCid(aid, pageModel.getStart(), pageModel.getSize());
+
+        PageResult<CouponRecordModel> couponRecordModelPageResult = new PageResult<CouponRecordModel>();
+        couponRecordModelPageResult.setData(couponRecordModels);
+        couponRecordModelPageResult.setPageModel(pageModel);
+        couponRecordModelPageResult.setTotal(total);
+
+        return couponRecordModelPageResult;
+    }
 
     /**
      * 分页获取抽奖活动

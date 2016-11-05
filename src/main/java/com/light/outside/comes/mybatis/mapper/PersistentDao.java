@@ -121,7 +121,7 @@ public interface PersistentDao {
      * @param cid
      * @return
      */
-    @Select("select count(1) comes_conpon_records where cid=#{cid}")
+    @Select("select count(1) from  comes_conpon_records where cid=#{cid}")
     public int getCouponRecordByCidTotal(@Param("cid") long cid);
 
 
@@ -276,6 +276,11 @@ public interface PersistentDao {
     @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
     public int getCouponSendNum(@Param("cid") long id);
 
-
-    //public int getCouponUseNum(@Param("cid") long id);
+    /**
+     * 使用过优惠劵
+     * @param id
+     * @return
+     */
+    @Select("select count(1) from comes_conpon_records where cid=#{cid} and status=#{status} and  phone  is not null")
+    public int getCouponUseNum(@Param("cid") long id,@Param("status") int status);
 }

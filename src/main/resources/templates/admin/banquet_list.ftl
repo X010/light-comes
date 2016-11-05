@@ -40,11 +40,15 @@
                                     <tr>
                                         <td>${banquet.id}</td>
                                         <td>${banquet.title}</td>
-                                        <td>${banquet.enroll_num}</td>
+                                        <td>
+                                        <span style="color: red">
+                                        ${banquet.enroll_num}
+                                        </span>
+                                        </td>
                                         <td>
                                             <#if banquet.hold==1>
                                                 可行
-                                                <#else>
+                                            <#else>
                                                 不可行
                                             </#if>
                                         </td>

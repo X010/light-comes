@@ -47,7 +47,7 @@
                                         </td>
                                         <td>
                                             <#if auction.iswin==1>
-                                            ${auction.win_price}
+                                         <span style="color: red">  ${auction.win_price}</span>
                                             </#if>
                                         </td>
                                         <td> ${auction.start_time?string("MM月dd日 HH:mm:ss")}</td>

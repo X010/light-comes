@@ -192,19 +192,6 @@ public class AuctionService {
     }
 
 
-    public PageResult<CouponRecordModel> getCouponRecordModelByAid(long aid, PageModel pageModel) {
-        Preconditions.checkNotNull(pageModel);
-        int total = this.persistentDao.getCouponRecordByCidTotal(aid);
-
-        List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordByCid(aid, pageModel.getStart(), pageModel.getSize());
-
-        PageResult<CouponRecordModel> couponRecordModelPageResult = new PageResult<CouponRecordModel>();
-        couponRecordModelPageResult.setData(couponRecordModels);
-        couponRecordModelPageResult.setPageModel(pageModel);
-        couponRecordModelPageResult.setTotal(total);
-
-        return couponRecordModelPageResult;
-    }
 
     /**
      * @param id

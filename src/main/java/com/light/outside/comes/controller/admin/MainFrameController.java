@@ -22,7 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -115,9 +118,13 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("coupon_list_detail.action")
-    public String coupon_list_detail(Map<String, Objects> data, PageModel pageModel, @RequestParam("id") Long id) {
+    public String coupon_list_detail(Map<String, Object> data, PageModel pageModel, @RequestParam("id") Long id) {
         if (id != null && id > 0) {
-
+            PageResult<CouponRecordModel> couponRecordModelPageResult = this.raffleService.getCouponRecordModelByAid(id, pageModel);
+            if (couponRecordModelPageResult != null) {
+                data.put("crs", couponRecordModelPageResult);
+            }
+            data.put("aid", id);
         }
         return "admin/coupon_list_detail";
     }
