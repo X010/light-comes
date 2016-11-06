@@ -151,10 +151,6 @@
 
     var isPay =${isPay?c};
     var seconds2 =${seconds?c};
-    <#--var seconds=${seconds?c};-->
-    //    auct.onclick = function () {
-    //        floatbg.style.display = "block";
-    //    }
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
