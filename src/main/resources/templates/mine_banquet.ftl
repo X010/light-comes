@@ -53,7 +53,7 @@
 <body>
 
     <header class="bar bar-nav">
-        <a class="icon icon-left-nav pull-left"  onclick="window.history.back();" id="navBackBtn"></a>
+        <a class="icon icon-left-nav pull-left"  onclick="location.href='/my/mine.action'" id="navBackBtn"></a>
         <h1 class="title">我的约饭</h1>
     </header>
     <div class="content">
