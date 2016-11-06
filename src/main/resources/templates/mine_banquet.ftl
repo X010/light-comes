@@ -37,12 +37,12 @@
            </div>
        </div>
        <div class="item-order-ext clearfix">
-          <div class="pull-left item-price-total">地址:{{d[i].author_address}}</div>
+          <div class="pull-left">地址:{{d[i].author_address}}</div>
           <div class="pull-right">
           </div>
       </div>
        <div class="item-order-ext clearfix">
-          <div class="pull-left item-price-total">时间:{{d[i].start_time}}</div>
+          <div class="pull-left">时间:{{d[i].start_time}}</div>
           <div class="pull-right">
           </div>
       </div>

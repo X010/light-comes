@@ -38,8 +38,14 @@
            </div>
        </div>
        <div class="item-order-ext clearfix">
-           <div class="pull-left item-price-total">活动价格：<strong>{{d[i].amount}}</strong> 元</div>
+       <div class="pull-left item-price-total">活动价格：<strong>{{d[i].amount}}元</strong> </div>
            <div class="pull-right">
+           </div>
+       </div>
+       <div class="item-order-ext clearfix">
+       <div class="pull-left">活动价格：<strong>{{d[i].amount}}元</strong> </div>
+           <div class="pull-right">
+           创建时间：{{d[i].createtime}}
            </div>
        </div>
    </div>
@@ -161,7 +167,15 @@
                 }
             });
                     }
+                    function getLocalTime(nS) {
+                     var date = new Date(parseInt(nS));
+                     return time=[date.getFullYear(), date.getMonth()+1,date.getDate()].join('/');
+                 }
                     function appendHtml(json){
+                        for(var i = 0, len = json.length; i < len; i++)
+                    {
+                       json[i].createtime = getLocalTime(json[i].createtime);
+                   }
                         var gettpl = document.getElementById('post_list').innerHTML;
                         laytpl(gettpl).render(json, function(html){
                             $("#containerList").append(html);

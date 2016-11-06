@@ -20,7 +20,7 @@
             <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #ccc;">
             <input id="password" type="password" name="password" class="pw" placeholder="请输入密码">
         </div>
-        <input id="loginBtn" type="submit" value="登录" class="login">
+        <input id="loginBtn" type="button" value="登录" class="login">
 
         <div class="btm">
             <a class="register">注册账号</a>

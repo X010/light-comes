@@ -37,10 +37,9 @@
            </div>
        </div>
        <div class="item-order-ext clearfix">
-           <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}</strong> 元</div>
+           <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}元</strong></div>
            <div class="pull-right">
             过期时间:{{d[i].use_end_time}}
-
         </div>
     </div>
 </div>

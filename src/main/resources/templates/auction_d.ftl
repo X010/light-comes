@@ -63,7 +63,7 @@
         <#list auctionRecords as ar>
             <p>${ar.create_time?string('MM-dd HH:mm:ss')}
                 <span class="auct-span">${ar.phone!}</span>
-                <span class="auct-span">出价:${ar.price!}</span>
+                <span class="auct-span">出价:${ar.price!}元</span>
             </p>
         </#list>
     <#else>

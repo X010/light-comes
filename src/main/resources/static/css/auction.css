@@ -15,7 +15,7 @@
 .msg-time span{ color:#f57e63; }
 
 .auct-name{ width: 100%; position: relative; padding-bottom:20px; background: #fff; }
-.msgname{ width: 90%; margin: 0 auto; border-bottom:1px solid #ccc;}
+.msgname{ width: 90%; margin: 0 auto;}
 .msgn{ width: 90%;margin: 0 auto; border-bottom:1px solid #ccc;}
 .msgn span{ display:block;float:left;}
 .msgbold{font-weight:600; color:#000;}

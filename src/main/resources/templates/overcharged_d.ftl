@@ -53,17 +53,20 @@
         <p style="color:#000; font-size:14px;"><strong>砍价者信息</strong></p>
     </div>
     <div class="msgt">
-        <p>
+        
         <#if orms??>
             <#list orms as orm>
-            ${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
+            <p>${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
             ${orm.phone}&nbsp;&nbsp;
-                砍掉:<strong style="color: red">${oc.subtract_price}</strong> 元
+                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> 
+            </p>
             </#list>
         <#else>
+        <p>
             无人参与砍价!
-        </#if>
         </p>
+        </#if>
+        
     </div>
 </div>
 
