@@ -62,8 +62,6 @@ public class MineController extends BaseController {
     }
 
 
-
-
     /**
      * 我的优惠劵
      *
@@ -88,7 +86,9 @@ public class MineController extends BaseController {
      * @return
      */
     @RequestMapping("mine_overcharged.action")
-    public String mine_overcharged(Map<String, Object> data) {
+    public String mine_overcharged(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        data.put("status", status);
         return "mine_overcharged";
     }
 
@@ -99,7 +99,9 @@ public class MineController extends BaseController {
      * @return
      */
     @RequestMapping("mine_banquet.action")
-    public String mine_banquet(Map<String, Object> data) {
+    public String mine_banquet(Map<String, Object> data, HttpServletRequest request) {
+        int status = RequestTools.RequestInt(request, "status", 0);
+        data.put("status", status);
         return "mine_banquet";
     }
 }

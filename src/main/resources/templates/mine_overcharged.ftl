@@ -99,7 +99,7 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
-                    var status=${status};
+                    var status=${status?c};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
