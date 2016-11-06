@@ -289,7 +289,6 @@
 
     }
 
-
     lotclick.onclick=function () {
             StartGame();
             if(boxflag){
@@ -297,11 +296,11 @@
                     lot[i].onclick = function(){
                         if(rcount>0){
                             if(result_num.indexOf(parseInt(this.id))!=-1){
-                                raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
-                                data = post_lo(raffle.id, rid)
-                                console.log(data)
-                                $("#count").text(data.rCount)
-                                $.alert(data.msg)
+                                raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)];
+                                data = post_lo(raffle.id, rid);
+                                $("#count").text(data.rCount);
+                                $.alert(data.msg);
+                                window.location.reload();
                             }
                             else {
                                 data = post_lo("0", rid)
