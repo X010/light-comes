@@ -159,14 +159,14 @@
         floatbg.style.display = "none";
     }
     deposit.onclick = function () {
-        window.location.href = "auction_margin.action";
+        window.location.href = "auction_margin.action?amount=${auction.amount!}&aid=${auction.id!}";
     }
-    if (isPay == 'true' && seconds2 > 0) {
-        deposit.style.display = "block";
-        price.style.display = "none";
-    } else if (seconds2 > 0) {
-        price.style.display = "block";
+    if (isPay == true && seconds2 > 0) {
         deposit.style.display = "none";
+        price.style.display = "block";
+    } else if (seconds2 > 0) {
+        price.style.display = "none";
+        deposit.style.display = "block";
     }else{
         footer.style.display = "none";
     }
