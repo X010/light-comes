@@ -56,9 +56,9 @@
         
         <#if orms??>
             <#list orms as orm>
-            <p>${orm.createtime?string("MM月dd日 HH:mm:ss")}&nbsp;&nbsp;
-            ${orm.phone}&nbsp;&nbsp;
-                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> 
+            <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 22%; padding-left:10px; ">
+            ${orm.phone}</span><span style="width: 15%; padding-left: 10px;">
+                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
             </p>
             </#list>
         <#else>

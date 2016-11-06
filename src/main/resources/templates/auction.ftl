@@ -163,6 +163,9 @@
                 if(json[i].memo.length>20){
                     json[i].memo = json[i].memo.substring(0,20)+"...";
                 }
+                if(json[i].good_name.length>16){
+                    json[i].good_name = json[i].good_name.substring(0,16)+"...";
+                }
             }
             var gettpl = document.getElementById('post_list').innerHTML;
             laytpl(gettpl).render(json, function(html){
