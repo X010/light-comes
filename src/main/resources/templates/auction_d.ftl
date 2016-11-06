@@ -32,7 +32,7 @@
             <#if auctionRecords?exists && auctionRecords?size!=0>
                 <#list auctionRecords as ar>
                     <#if ar_index==0>
-                        当前价格:${ar.price!}&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
+                        当前价格:<strong style="color: red;">${ar.price!}元</strong>&nbsp;&nbsp;加价幅度:<strong style="color: red;">${auction.setp_amount!}元</strong>
                     </#if>
                 </#list>
             <#else>
@@ -62,7 +62,7 @@
         <#list auctionRecords as ar>
             <p>${ar.create_time?string('MM-dd HH:mm:ss')}
                 <span class="auct-span">${ar.phone!}</span>
-                <span class="auct-span">出价:${ar.price!}元</span>
+                <span class="auct-span">出价:<strong style="color:red;">${ar.price!}元</strong></span>
             </p>
         </#list>
     <#else>
