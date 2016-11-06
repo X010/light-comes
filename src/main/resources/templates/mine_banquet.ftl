@@ -41,10 +41,10 @@
                  <div class="item-col">
                      <div class="item-goods">
                          <div class="item-gname">
-                             <span class="item-code">
+                             <span class="item-code">地址:{{d[i].author_address}}
                            </span>
                        </div>
-                       <div class="item-total">地址:{{d[i].author_address}}</div>
+                       <div class="item-total"></div>
                    </div>
                </div>
            </div>
