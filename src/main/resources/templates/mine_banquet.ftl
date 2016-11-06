@@ -20,24 +20,24 @@
                    {{# for(var i = 0, len = d.length; i < len; i++){ }}
                      <div class="mui-panel">
                         <div class="item-order-info">
-                                                             <div id="item-group"><span class="item-code">活动名称:{{d[i].title}}</span></div>
+                                                             <div id="item-group"><span class="item-code">发起人:{{d[i].author_nickname}}</span></div>
                                                         </div>
                                                         <div class="item-goods-list">
                                                            <div class="items">
                                                            <div class="item-col">
                                                            <div class="item-goods">
                                                            <div class="item-gname">
-                                                           <span class="item-flag">
-                                                             {{d[i].status}}
+                                                           <span class="item-code">联系电话:
+                                                             {{d[i].author_telephone}}
                                                            </span>
                                                            </div>
-                                                           <div class="item-total"></div>
+                                                           <div class="item-total">地址:{{d[i].author_address}}</div>
                                                            </div>
                                                             </div>
                                                             </div>
                                                              </div>
                                                               <div class="item-order-ext clearfix">
-                                                              <div class="pull-left item-price-total">订单编号:{{d[i].orderNo}}</div>
+                                                              <div class="pull-left item-price-total">时间:{{d[i].start_time}}</div>
                                                               <div class="pull-right">
                                                               </div>
                                                               </div>
@@ -160,8 +160,15 @@
                 }
             });
         }
+        function getLocalTime(nS) {
+                   var date = new Date(parseInt(nS));
+                return time=[date.getFullYear(), date.getMonth()+1,date.getDate()].join('/');
+                }
         function appendHtml(json){
-
+            for(var i = 0, len = json.length; i < len; i++)
+               {
+                 json[i].start_time = getLocalTime(json[i].start_time);
+               }
             var gettpl = document.getElementById('post_list').innerHTML;
             laytpl(gettpl).render(json, function(html){
                 $("#containerList").append(html);
