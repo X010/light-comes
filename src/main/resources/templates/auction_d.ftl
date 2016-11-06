@@ -36,7 +36,7 @@
                     </#if>
                 </#list>
             <#else>
-                起拍价格:${auction.amount!}元&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
+                起拍价格:<strong style="color:red;">${auction.amount!}元</strong>&nbsp;&nbsp;加价幅度:<strong style="color:red">${auction.setp_amount!}元</strong>
             </#if>
             </p>
         </div>
