@@ -14,14 +14,14 @@
 .msg-time img{ width: 20px; margin: 0 10px;}
 .msg-time span{ color:#f57e63; }
 
-.auct-name{ width: 100%; position: relative; padding-bottom:20px; background: #fff; }
+.auct-name{ width: 100%; position: relative; padding-bottom:50px; background: #fff; }
 .msgname{ width: 90%; margin: 0 auto;}
 .msgn{ width: 90%;margin: 0 auto; border-bottom:1px solid #ccc;}
 .msgn span{ display:block;float:left;}
 .msgbold{font-weight:600; color:#000;}
 .msgname img{ width: 40px;}
 .msgn p{font-size: 14px; display: inline-block; color:#808080; padding: 12px;}
-.msgt p{font-size: 12px; display: inline-block; color:#808080; padding: 6px 12px;}
+.msgt p{font-size: 12px; display: inline-block; color:#808080; width:100%; padding: 6px;}
 .msgt{width: 90%;margin: 0 auto;}
 .msgt p span{display: inline-block;}
 .msgname p{ font-size: 12px; display: inline-block; color:#808080; padding: 12px; width: 100%;}
