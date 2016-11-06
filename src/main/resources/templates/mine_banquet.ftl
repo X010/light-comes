@@ -18,28 +18,30 @@
         <script type="text/javascript" src="/js/jquery.min.js"></script>
         <script id="post_list" type="text/html">
                    {{# for(var i = 0, len = d.length; i < len; i++){ }}
-                     <div class="item-order-info">
-                                     <div id="item-group"><span class="item-code">活动名称:{{d[i].title}}</span></div>
-                                </div>
-                                <div class="item-goods-list">
-                                   <div class="items">
-                                   <div class="item-col">
-                                   <div class="item-goods">
-                                   <div class="item-gname">
-                                   <span class="item-flag">
-                                     {{d[i].status}}
-                                   </span>
-                                   </div>
-                                   <div class="item-total"></div>
-                                   </div>
-                                    </div>
-                                    </div>
-                                     </div>
-                                      <div class="item-order-ext clearfix">
-                                      <div class="pull-left item-price-total">订单编号:{{d[i].orderNo}}</div>
-                                      <div class="pull-right">
-                                      </div>
-                                      </div>
+                     <div>
+                        <div class="item-order-info">
+                                                             <div id="item-group"><span class="item-code">活动名称:{{d[i].title}}</span></div>
+                                                        </div>
+                                                        <div class="item-goods-list">
+                                                           <div class="items">
+                                                           <div class="item-col">
+                                                           <div class="item-goods">
+                                                           <div class="item-gname">
+                                                           <span class="item-flag">
+                                                             {{d[i].status}}
+                                                           </span>
+                                                           </div>
+                                                           <div class="item-total"></div>
+                                                           </div>
+                                                            </div>
+                                                            </div>
+                                                             </div>
+                                                              <div class="item-order-ext clearfix">
+                                                              <div class="pull-left item-price-total">订单编号:{{d[i].orderNo}}</div>
+                                                              <div class="pull-right">
+                                                              </div>
+                                                              </div>
+                     </div>
                    {{# } }}
                 </script>
 </head>
@@ -57,7 +59,7 @@
             <a class="control-item" id="order_status_2" href="">已结束</a>
         </div>
     </div>
-    <div class="mui-panel  mui-order-list" id="containerList">
+    <div class="mui-order-list" id="containerList">
 
     </div>
 

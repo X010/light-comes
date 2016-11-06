@@ -18,28 +18,30 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script id="post_list" type="text/html">
        {{# for(var i = 0, len = d.length; i < len; i++){ }}
-           <div class="item-order-info">
-                <div id="item-group"><span class="item-code">活动名称:{{d[i].title}}</span></div>
+           <div class = "mui-panel">
+             <div class="item-order-info">
+                             <div id="item-group"><span class="item-code">活动名称:{{d[i].title}}</span></div>
+                        </div>
+                        <div class="item-goods-list">
+                           <div class="items">
+                           <div class="item-col">
+                           <div class="item-goods">
+                           <div class="item-gname">
+                           <span class="item-flag">
+                             {{d[i].status}}
+                           </span>
+                           </div>
+                           <div class="item-total"></div>
+                           </div>
+                            </div>
+                            </div>
+                             </div>
+                              <div class="item-order-ext clearfix">
+                              <div class="pull-left item-price-total">最后出价：<strong>{{d[i].price}}</strong> 元</div>
+                              <div class="pull-right">
+                              </div>
+                              </div>
            </div>
-           <div class="item-goods-list">
-              <div class="items">
-              <div class="item-col">
-              <div class="item-goods">
-              <div class="item-gname">
-              <span class="item-flag">
-                {{d[i].status}}
-              </span>
-              </div>
-              <div class="item-total"></div>
-              </div>
-               </div>
-               </div>
-                </div>
-                 <div class="item-order-ext clearfix">
-                 <div class="pull-left item-price-total">最后出价：<strong>{{d[i].price}}</strong> 元</div>
-                 <div class="pull-right">
-                 </div>
-                 </div>
        {{# } }}
     </script>
 </head>
@@ -63,7 +65,7 @@
         <div class="items">
         <#if records??>
             <#list records as record>
-                <div class="mui-panel item-order" id="msglist">
+                <div class="item-order" id="msglist">
 
                 </div>
             </#list>

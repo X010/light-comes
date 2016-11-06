@@ -18,28 +18,32 @@
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script id="post_list" type="text/html">
            {{# for(var i = 0, len = d.length; i < len; i++){ }}
-             <div class="item-order-info">
-                                     <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
-                                 </div>
-                                 <div class="item-goods-list">
-                                     <div class="items">
-                                         <div class="item-col">
-                                             <div class="item-goods">
-                                                 <div class="item-gname">
-                                                     <span class="item-flag">
-                                                         {{d[i].ctype}}
-                                                     </span>
+             <div class="mui-panel">
+                <div class="item-order-info">
+                                                     <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
                                                  </div>
-                                                 <div class="item-total"></div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="item-order-ext clearfix">
-                                     <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}</strong> 元</div>
-                                     <div class="pull-right">
-                                     </div>
-                                 </div>
+                                                 <div class="item-goods-list">
+                                                     <div class="items">
+                                                         <div class="item-col">
+                                                             <div class="item-goods">
+                                                                 <div class="item-gname">
+                                                                     <span class="item-flag">
+                                                                         {{d[i].ctype}}
+                                                                     </span>
+                                                                 </div>
+                                                                 <div class="item-total"></div>
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                                 <div class="item-order-ext clearfix">
+                                                     <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}</strong> 元</div>
+                                                     <div class="pull-right">
+                                                        过期时间:{{d[i].use_end_time}}
+
+                                                     </div>
+                                                 </div>
+             </div>
            {{# } }}
         </script>
 </head>
@@ -63,7 +67,7 @@
         <div class="items">
         <#if records??>
             <#list records as record>
-                <div class="mui-panel item-order" id="msglist">
+                <div class="item-order" id="msglist">
 
                 </div>
             </#list>
@@ -168,6 +172,10 @@
                 }
             });
         }
+        function getLocalTime(nS) {
+           var date = new Date(parseInt(nS));
+        return time=[date.getFullYear(), date.getMonth()+1].join('/');
+        }
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
@@ -180,6 +188,7 @@
                 else{
                      json[i].ctype = "商品类";
                 }
+                json[i].use_end_time = getLocalTime(json[i].use_end_time);
             }
             var gettpl = document.getElementById('post_list').innerHTML;
             laytpl(gettpl).render(json, function(html){
