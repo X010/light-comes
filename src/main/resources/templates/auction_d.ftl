@@ -28,7 +28,6 @@
 
         <div class="title">
             <h3>${auction.title!}</h3>
-
             <p>${auction.good_name!}<br>
             <#if auctionRecords?exists && auctionRecords?size!=0>
                 <#list auctionRecords as ar>
@@ -116,7 +115,6 @@
     var deposit = document.getElementById("deposit");
 
     auct.onclick = function () {
-//        floatbg.style.display = "block";
         var price = $("#txtPrice").val();
         $.ajax({
             url: "bid.action?price=" + price + "&aid=${auction.id}",
@@ -132,7 +130,6 @@
             }
         });
     }
-
     function timer(intDiff) {
         window.setInterval(function () {
             var day = 0,
