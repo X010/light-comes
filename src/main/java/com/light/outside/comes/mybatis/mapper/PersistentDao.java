@@ -270,7 +270,7 @@ public interface PersistentDao {
      * @param aid
      * @return
      */
-    @Select("select * from comes_order where uid#{uid} and aid=#{aid}")
+    @Select("select * from comes_order where uid=#{uid} and aid=#{aid}")
     public OrderModel getOrderByUidAndAid(@Param("uid") long uid, @Param("aid") long aid);
 
     @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
