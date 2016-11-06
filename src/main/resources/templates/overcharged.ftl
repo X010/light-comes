@@ -41,7 +41,7 @@
 </div>
 <ul id="msglist">
 </ul>
-<div style="height:70px;bottom:0;">
+<div style="height:70px;bottom:0;"></div>
 <div id="firstDiv"></div>
 
 <footer>
@@ -165,11 +165,11 @@
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
-                if(json[i].good_name.length>26){
-                    json[i].good_name = json[i].good_name.substring(0,26)+"...";
+                if(json[i].good_name.length>32){
+                    json[i].good_name = json[i].good_name.substring(0,32)+"...";
                 }
-                if(json[i].title.length>18){
-                    json[i].title = json[i].title.substring(0,18)+"...";
+                if(json[i].title.length>16){
+                    json[i].title = json[i].title.substring(0,16)+"...";
                 }
             }
             var gettpl = document.getElementById('post_list').innerHTML;
