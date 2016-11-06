@@ -174,7 +174,7 @@
         }
         function getLocalTime(nS) {
            var date = new Date(parseInt(nS));
-        return time=[date.getFullYear(), date.getMonth()+1].join('/');
+        return time=[date.getFullYear(), date.getMonth()+1,date.getDate()].join('/');
         }
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
