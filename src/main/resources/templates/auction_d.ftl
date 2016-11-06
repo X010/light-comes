@@ -90,17 +90,7 @@
         </div>
     </div>
 </div>
-<div class="footer">
-<#--<#if seconds gt 0>-->
-<#--<#if isPay>-->
-<#--<div class="footer" id="divPrice">-->
-<#--<div class="footer-left"><p>出价:<input type="text" name="price" id="price" value="0"></p></div>-->
-<#--<div class="footer-right" id="auction"><p>拍下来</p></div>-->
-<#--</div>-->
-<#--</#if>-->
-<#--<#else>-->
-<#--<div id="deposit">报名交保证金</div>-->
-<#--</#if>-->
+<div class="footer" id="footer">
     <div id="price">
         <div class="footer-left"><p>出价:</p><input type="text" name="txtPirce" id="txtPrice" value=""></div>
         <div class="footer-right" id="auction"><p>拍下来</p></div>
@@ -113,6 +103,7 @@
     var closebtn = document.getElementById("close");
     var price = document.getElementById("price");
     var deposit = document.getElementById("deposit");
+    var footer = document.getElementById("footer");
 
     auct.onclick = function () {
         var price = $("#txtPrice").val();
@@ -177,8 +168,7 @@
         price.style.display = "block";
         deposit.style.display = "none";
     }else{
-        price.style.display = "none";
-        deposit.style.display = "none"
+        footer.style.display = "none";
     }
 
 </script>
