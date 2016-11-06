@@ -290,7 +290,7 @@
     }
     lotclick.onclick=function () {
         if(rcount==0){
-            $.alert("抽奖次数已用完")；
+            $.alert("抽奖次数已用完");
         }
         else{
             StartGame();
