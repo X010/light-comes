@@ -160,17 +160,16 @@ public class RaffleController extends BaseController {
         long id = RequestTools.RequestLong(request, "id", 22);
         long rid = RequestTools.RequestInt(request, "rid", 13);
         long uid = userModel.getId();
-//        long uid = RequestTools.RequestInt(request, "uid", 7);
         String phone = userModel.getPhone();//"18888888888";
         int code = 0;
-        String msg = "谢谢参与!";
+        String msg = "很遗憾，没有中奖!";
         int rCount = 0;
         //获取最新的抽奖次数
         rCount = raffleService.getUserRaffleCount(uid, rid);
         //获取允许抽奖次数
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
         Date endTime = raffleModel.getEnd_time();
-        long seconds = DateUtils.betweenSeconds(endTime);
+        long seconds = DateUtils.endSeconds(endTime);
         int remainCount = raffleModel.getTimes() - rCount;
         if (seconds < 0) {
             msg = "抽奖活动已截止!";
