@@ -78,7 +78,6 @@
                     </div>
                     <div class="item-title">该状态下没有订单~</div>
                 </div>
-                </#else>
                 </#if>
             </div>
         </div>
