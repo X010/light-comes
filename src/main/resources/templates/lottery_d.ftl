@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>抽奖活动</title>
+    <title>${raffle.title!}</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/lottery.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
@@ -17,7 +17,7 @@
     <a class="left" onclick="window.history.back();">
         <img src="/images/back.png"/>
     </a>
-    <p>抽奖活动</p>
+    <p>${raffle.title!}</p>
 </header>
 <div id="container">
     <img src="/images/bg.png"/>

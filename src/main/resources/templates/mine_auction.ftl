@@ -107,6 +107,7 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
+                    var status=${status};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
@@ -126,7 +127,7 @@
                         console.log('+++'+pages);
                         $.ajax({
                             type:'GET',
-                            url:'/auction/mine_auction_list.action?status=0&page='+pages+'&size=3',
+                            url:'/auction/mine_auction_list.action?status='+status+'&page='+pages+'&size=3',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

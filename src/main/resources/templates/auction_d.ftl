@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone = no">
-    <title>抽奖活动</title>
+    <title>${auction.title!}</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
@@ -17,7 +17,7 @@
         <img src="/images/back.png"/>
     </a>
 
-    <p>拍卖活动一</p>
+    <p>${auction.title!}</p>
 </header>
 <div id="banner">
     <img src="${auction.good_photo!}"/>
@@ -36,7 +36,7 @@
                     </#if>
                 </#list>
             <#else>
-                起拍价格:${auction.amount!}&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
+                起拍价格:${auction.amount!}元&nbsp;&nbsp;加价幅度:${auction.setp_amount!}元
             </#if>
             </p>
         </div>

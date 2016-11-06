@@ -39,12 +39,12 @@
        <div class="item-order-ext clearfix">
            <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}元</strong></div>
            <div class="pull-right">
-            过期时间:{{d[i].use_end_time}}
+               使用期限:{{d[i].use_end_time}}~{{d[i].use_end_time}}
         </div>
     </div>
 </div>
 {{# } }}
-</script>
+</script
 </head>
 <body>
 
@@ -108,6 +108,7 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
+                    var status=${status};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
@@ -127,7 +128,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/raffle/mine_coupon_list.action?status=0&page='+pages+'&size=3',
+                            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=3',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
