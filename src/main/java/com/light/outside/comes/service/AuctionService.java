@@ -2,7 +2,10 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.light.outside.comes.model.*;
+import com.light.outside.comes.model.AuctionModel;
+import com.light.outside.comes.model.AuctionRecordsModel;
+import com.light.outside.comes.model.PageModel;
+import com.light.outside.comes.model.PageResult;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
@@ -192,7 +195,6 @@ public class AuctionService {
     }
 
 
-
     /**
      * @param id
      * @return
@@ -209,6 +211,14 @@ public class AuctionService {
      */
     public void updateAuction(AuctionModel auctionModel) {
         Preconditions.checkNotNull(auctionModel);
+        //判断并更攺状态
+        AuctionModel oldAuction = this.getAuctionById(auctionModel.getId());
+        if (oldAuction != null) {
+            if (oldAuction.getStatus() == CONST.RAFFLE_STATUS_OVER && auctionModel.getEnd_time().getTime() >= System.currentTimeMillis()) {
+                auctionModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+            }
+        }
+
         this.persistentDao.updateAuction(auctionModel);
     }
 

@@ -141,11 +141,17 @@ public class BanquetService {
      */
     public void updateBanquet(BanquetModel banquetModel) {
         Preconditions.checkNotNull(banquetModel);
+        BanquetModel oldBan = this.getBanquetById(banquetModel.getId());
         if (Strings.isNullOrEmpty(banquetModel.getPhoto()) || CONST.SITE_URL.equalsIgnoreCase(banquetModel.getPhoto().replace("null", ""))) {
             //使用原来的图片
-            BanquetModel oldBan = this.getBanquetById(banquetModel.getId());
             banquetModel.setPhoto(oldBan.getPhoto());
         }
+
+        //对状态进行修复
+        if (oldBan.getStatus() == CONST.RAFFLE_STATUS_OVER && banquetModel.getEnd_time().getTime() > System.currentTimeMillis()) {
+            banquetModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
+        }
+
         this.persistentDao.updateBanquet(banquetModel);
     }
 
