@@ -288,36 +288,45 @@
         return result;
 
     }
-
-
     lotclick.onclick=function () {
+        if(rcount==0){
+            $.alert("抽奖次数已用完");
+        }
+        else{
             StartGame();
             if(boxflag){
                 for(var i=0;i<lot.length;i++){
                     lot[i].onclick = function(){
                         if(rcount>0){
                             if(result_num.indexOf(parseInt(this.id))!=-1){
-                                raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)]
-                                data = post_lo(raffle.id, rid)
-                                console.log(data)
-                                $("#count").text(data.rCount)
-                                $.alert(data.msg)
+                                raffle = raffle_data[Math.floor(Math.random()*raffle_data.length)];
+                                data = post_lo(raffle.id, rid);
+                                $("#count").text(data.rCount);
+                                $.alert(data.msg,function(){
+                                    window.location.reload();
+                                });
                             }
                             else {
                                 data = post_lo("0", rid)
                                 console.log(data)
                                 $("#count").text(data.rCount)
-                                $.alert(data.msg)
+                                $.alert(data.msg,function(){
+                                    window.location.reload();
+                                });
                             }
                             rcount--;
-                            }
-                        else{
-                             $.alert("抽奖次数已用完");
                         }
-                    }
-                }
-            }
-        }
+                        else{
+                           $.alert("抽奖次数已用完",function(){
+                            window.location.reload();
+                        });
+                       }
+                   }
+               }
+           }
+       }
+   }
+
     function changeStr(allstr, start, end, changeStr) {
         //allstr:原始字符串，start,开始位置,end：结束位  置,str：要改变的字，changeStr:改变后的字
         return allstr.substring(0, start - 1) + changeStr + allstr.substring(end, allstr.length);
