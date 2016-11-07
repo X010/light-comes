@@ -56,9 +56,9 @@
     <div class="content">
         <div class="mui-order-cate">
             <div class="segmented-control" id="orderStatusList">
-                <a class="control-item" id="order_status_0" href="mine_overcharged.action">全部</a>
-                <a class="control-item" id="order_status_1" href="mine_overcharged.action?status=1">进行中</a>
-                <a class="control-item" id="order_status_2" href="mine_overcharged.action?status=2">已结束</a>
+                <a class="control-item <#if status==0>active</#if>" id="order_status_0" href="mine_overcharged.action">全部</a>
+                <a class="control-item <#if status==1>active</#if>" id="order_status_1" href="mine_overcharged.action?status=1">进行中</a>
+                <a class="control-item <#if status==2>active</#if>" id="order_status_2" href="mine_overcharged.action?status=2">已结束</a>
             </div>
         </div>
         <div class="mui-order-list" id="containerList">
