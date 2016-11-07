@@ -56,12 +56,12 @@
         <p style="width: 100%;">
         <span class="msgbold">酒水礼品说明：<span>
         <span>
-            <#if banquet.info??>
-            ${banquet.info}
-            <#else>
-                无
-            </#if>
-         </span>
+        <#if banquet.info??>
+        ${banquet.info}
+        <#else>
+            无
+        </#if>
+        </span>
         </p>
     </div>
 
@@ -87,7 +87,16 @@
             url: "/banquet/dopaybanquet.action?aid=" + aid,
             dataType: "json",
             success: function (data, textStatus) {
+
                 console.log(data);
+
+                if (data != null) {
+                    $.alert("您已成功预约该饭局");
+                    $("#deposit").html("您已预约");
+                    $("#deposit").click(function () {
+                        $.alert("您已参与过该活动");
+                    });
+                }
             }
         });
     }
