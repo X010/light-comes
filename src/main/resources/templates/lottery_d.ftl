@@ -314,7 +314,6 @@
                 for (var i = 0; i < lot.length; i++) {
                     lot[i].onclick = function () {
                         if (rcount > 0) {
-                            alert(this.id);
                             if (result_num.indexOf(parseInt(this.id)) != -1) {
                                 raffle = raffle_data[Math.floor(Math.random() * raffle_data.length)];
                                 data = post_lo(raffle.id, rid);

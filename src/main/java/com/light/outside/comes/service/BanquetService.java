@@ -130,7 +130,11 @@ public class BanquetService {
      */
     public BanquetModel getBanquetById(long id) {
         Preconditions.checkArgument(id > 0);
-        return this.persistentDao.getBanquetById(id);
+        int enroll=this.banquetDao.enrollBanquetTotal(id);
+        BanquetModel banquetModel=this.persistentDao.getBanquetById(id);
+        if(banquetModel!=null)
+            banquetModel.setEnroll_num(enroll);
+        return banquetModel;
     }
 
 

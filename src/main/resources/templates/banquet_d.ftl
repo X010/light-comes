@@ -58,7 +58,7 @@
         <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
     </div>
     <div class="msgn">
-        <p><span class="msgbold">活动时间：</span><span>${banquet.author_address}</span></p>
+        <p><span class="msgbold">活动时间：</span><span>${banquet.create_time?string('yyyy-MM-dd HH:mm')}</span></p>
     </div>
     <div class="msgn">
         <p style="width: 100%;">
