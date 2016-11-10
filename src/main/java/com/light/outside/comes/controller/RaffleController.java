@@ -106,11 +106,11 @@ public class RaffleController extends BaseController {
      */
     @RequestMapping("lottery_d.action")
     public String lottery_d(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
-        long rid = RequestTools.RequestLong(request, "rid", 13);
+        long rid = RequestTools.RequestLong(request, "rid", 0);
         UserModel userModel = getAppUserInfo();
         long uid = userModel.getId();
         List<CouponRecordModel> couponRecordModels = raffleService.queryCouponRecords(rid);
-        List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
+        //List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
         int rCount = raffleService.getUserRaffleCount(uid, rid);
         if (raffleModel != null) {
@@ -124,14 +124,14 @@ public class RaffleController extends BaseController {
         data.put("raffle", raffleModel);
         data.put("rCount", rCount);
         data.put("records", couponRecordModels);
-        data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
+        //data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
         return "lottery_d";
     }
 
     @RequestMapping("lottery_raffle.action")
     @ResponseBody
     public String lottery_raffle(Map<String,Object> data,HttpServletRequest request, HttpServletRequest response){
-        long rid = RequestTools.RequestLong(request, "rid", 13);
+        long rid = RequestTools.RequestLong(request, "rid", 0);
         RaffleModel raffleModel = raffleService.getRaffleById(rid);
         return JsonTools.jsonSer(raffleModel);
     }
@@ -139,7 +139,7 @@ public class RaffleController extends BaseController {
     @RequestMapping("lottery_raffle_coupon.action")
     @ResponseBody
     public String raffle_coupon(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
-        long rid = RequestTools.RequestLong(request, "rid", 13);
+        long rid = RequestTools.RequestLong(request, "rid", 0);
         List<RaffleCouponModel> raffleCouponModels = raffleService.getRaffleCoupons(rid);
         String result = JsonTools.jsonSer(raffleCouponModels);
         return result;
@@ -157,8 +157,8 @@ public class RaffleController extends BaseController {
     @ResponseBody
     public String lottery_draw(Map<String, Object> data, HttpServletRequest request, HttpServletRequest response) {
         UserModel userModel = getAppUserInfo();
-        long id = RequestTools.RequestLong(request, "id", 22);
-        long rid = RequestTools.RequestInt(request, "rid", 13);
+        long id = RequestTools.RequestLong(request, "id", 0);
+        long rid = RequestTools.RequestInt(request, "rid", 0);
         long uid = userModel.getId();
         String phone = userModel.getPhone();//"18888888888";
         int code = 0;

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>约饭</title>
+    <title>${banquet.title}</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
     <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -33,10 +33,15 @@
     <div class="msg-time">
         <img src="/images/clock.png"/>
     <#if seconds gt 0>
-        剩余时间<span id="day_show">0</span>天
-        <span id="hour_show">0</span>时
-        <span id="minute_show">0</span>分
-        <span id="second_show">0</span>秒
+        <#if gapNum gt 0>
+            剩余坐席:${gapNum}位
+        <#else>
+            该活动已满员！
+        </#if>
+        <#--剩余时间<span id="day_show">0</span>天-->
+        <#--<span id="hour_show">0</span>时-->
+        <#--<span id="minute_show">0</span>分-->
+        <#--<span id="second_show">0</span>秒-->
     <#else>
         该活动已结束!
     </#if>
@@ -51,6 +56,9 @@
     </div>
     <div class="msgn">
         <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
+    </div>
+    <div class="msgn">
+        <p><span class="msgbold">活动时间：</span><span>${banquet.author_address}</span></p>
     </div>
     <div class="msgn">
         <p style="width: 100%;">

@@ -65,13 +65,17 @@ public interface PersistentDao {
     @Select("select * from comes_raffle where status<>9 order by id desc limit  #{start},#{size}")
     public List<RaffleModel> getRaffles(@Param("start") int start, @Param("size") int size);
 
-    //@Select("select * from comes_raffle_coupon where rid=#{rid}")
+
     @Select("select crc.*,count(ccr.id) quantity  from comes_raffle_coupon crc left join `comes_conpon_records` ccr " +
             "on crc.cid=ccr.cid " +
             "WHERE crc.rid=#{rid} " +
             "and ccr.`status`<>9 " +
             "group by rid,cid")
+    public List<RaffleCouponModel> getRaffleCouponsByRaffleId(@Param("rid") long rid);
+
+    @Select("select * from comes_raffle_coupon where rid=#{rid}")
     public List<RaffleCouponModel> getRaffleCouponByRaffleId(@Param("rid") long rid);
+
 
     /**
      * 查询优惠券
