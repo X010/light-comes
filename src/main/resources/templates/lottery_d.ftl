@@ -266,6 +266,9 @@
     function rand(num) {
         //中奖宝箱存放位置
         var count = 8;
+        if (num > count){
+            count = num;
+        }
         var rand_num = new Array;//新数组
         var originalArray = new Array;//原数组
         //给原数组originalArray赋值
@@ -314,6 +317,7 @@
                 for (var i = 0; i < lot.length; i++) {
                     lot[i].onclick = function () {
                         if (rcount > 0) {
+                            console.log("this id" + this.id)
                             if (result_num.indexOf(parseInt(this.id)) != -1) {
                                 raffle = raffle_data[Math.floor(Math.random() * raffle_data.length)];
                                 data = post_lo(raffle.id, rid);
