@@ -132,7 +132,7 @@
      * 定义数组
      */
     function GetSide(m, n) {
-        var coupons =${coupons!};
+        //var coupons =${coupons!};
         //初始化数组
         var arr = [];
         for (var i = 0; i < m; i++) {
@@ -140,7 +140,7 @@
             for (var j = 0; j < n; j++) {
                 var index = i * n + j;
                 //奖品放入数组中其他补充0
-                if (index < coupons.length) {
+                /*if (index < coupons.length) {
                     if (i != 1 && j != 1) {
                         index = coupons[index].id;
                     } else {
@@ -148,8 +148,8 @@
                     }
                 } else {
                     index = 0;
-                }
-                console.log(i + '  ' + j + '  ' + index);
+                }*/
+                //console.log(i + '  ' + j + '  ' + index);
                 arr[i][j] = index;
             }
         }
