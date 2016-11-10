@@ -37,19 +37,19 @@
     </div>
     <table id="center">
         <tr>
-            <td id="lot1"><span class="lot"></span></td>
-            <td id="lot2"><span class="lot"></span></td>
-            <td id="lot3"><span class="lot"></span></td>
+            <td id="lot1"><span class="lot" id="1"></span></td>
+            <td id="lot2"><span class="lot" id="2"></span></td>
+            <td id="lot3"><span class="lot" id="3"></span></td>
         </tr>
         <tr>
-            <td id="lot8"><span class="lot"></span></td>
+            <td id="lot8"><span class="lot" id="8"></span></td>
             <td id="click"></td>
-            <td id="lot4"><span class="lot"></span></td>
+            <td id="lot4"><span class="lot" id="4"></span></td>
         </tr>
         <tr>
-            <td id="lot7"><span class="lot"></span></td>
-            <td id="lot6"><span class="lot"></span></td>
-            <td id="lot5"><span class="lot"></span></td>
+            <td id="lot7"><span class="lot" id="7"></span></td>
+            <td id="lot6"><span class="lot" id="6"></span></td>
+            <td id="lot5"><span class="lot" id="5"></span></td>
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
