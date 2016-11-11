@@ -110,7 +110,30 @@ public class BanquetModel extends BaseModel {
      * 是否可以成功举行
      */
     private int hold;
+    /**
+     * 举行时间
+     */
+    private Date banquet_time;
+    /**
+     * 总人数
+     */
+    private int total_number;
 
+    public int getTotal_number() {
+        return total_number;
+    }
+
+    public void setTotal_number(int total_number) {
+        this.total_number = total_number;
+    }
+
+    public Date getBanquet_time() {
+        return banquet_time;
+    }
+
+    public void setBanquet_time(Date banquet_time) {
+        this.banquet_time = banquet_time;
+    }
 
     public int getHold() {
         return hold;

@@ -124,7 +124,7 @@ public class RaffleController extends BaseController {
         data.put("raffle", raffleModel);
         data.put("rCount", rCount);
         data.put("records", couponRecordModels);
-        //data.put("coupons", JsonTools.jsonSer(raffleCouponModels));
+//        data.put("coupons", JsonTools.jsonSer(raffleModel.getRaffleCouponModels()));
         return "lottery_d";
     }
 

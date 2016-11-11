@@ -219,8 +219,15 @@ public class BanquetService {
                 if (oid > 0) {
                     orderModel.setId(oid);
                 }
-
-
+                int outnumber=banquetModel.getOutnumber();//每桌人数
+                int enroll=banquetDao.enrollBanquetTotal(aid);//参与人数
+                int tableNum=enroll>outnumber?enroll/outnumber:1;
+                int seatNum=1;
+                if(enroll%outnumber==0){
+                    tableNum+=1;
+                }else{
+                    seatNum+=enroll%outnumber;
+                }
                 //写入记录
                 BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
                 if (banquetRecordModel == null) {
@@ -232,6 +239,8 @@ public class BanquetService {
                     banquetRecordModel.setAmount(banquetModel.getAmount());
                     banquetRecordModel.setOrderNo(orderModel.getOrderNo());
                     banquetRecordModel.setCreatetime(new Date());
+                    banquetRecordModel.setTable_num(tableNum);//桌号
+                    banquetRecordModel.setSeat_num(seatNum);//座位号
                 } else {
                     //更新当前记录的支付号
                     banquetRecordModel.setOrderNo(orderModel.getOrderNo());

@@ -7,7 +7,9 @@
     <title>${banquet.title}</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
     <link href="/css/auction.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
     <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
@@ -58,7 +60,7 @@
         <p><span class="msgbold">活动地址：</span><span>${banquet.author_address}</span></p>
     </div>
     <div class="msgn">
-        <p><span class="msgbold">活动时间：</span><span>${banquet.create_time?string('yyyy-MM-dd HH:mm')}</span></p>
+        <p><span class="msgbold">活动时间：</span><span>${banquet.banquet_time?string('yyyy-MM-dd HH:mm')}</span></p>
     </div>
     <div class="msgn">
         <p style="width: 100%;">
@@ -95,9 +97,7 @@
             url: "/banquet/dopaybanquet.action?aid=" + aid,
             dataType: "json",
             success: function (data, textStatus) {
-
                 console.log(data);
-
                 if (data != null) {
                     $.alert("您已成功预约该饭局");
                     $("#deposit").html("您已预约");
