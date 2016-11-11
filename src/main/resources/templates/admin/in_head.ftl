@@ -27,16 +27,19 @@
     <link href="/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet"/>
     <!-- Bootstrap time Picker -->
     <link href="/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
+    <link href="/plugins/datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet"/>
     <script src="/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
     <script src="/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
     <script src="/plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
     <!-- date-range-picker -->
     <script src="/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
     <script src="/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <script src="/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- bootstrap color picker -->
     <script src="/plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
     <!-- bootstrap time picker -->
     <script src="/plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="/plugins/datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
     <script src="/plugins/validate/jquery.validate.js" type="text/javascript"></script>
     <script src="/plugins/validate/jquery.validator.ext.js" type="text/javascript"></script>
 </head>
