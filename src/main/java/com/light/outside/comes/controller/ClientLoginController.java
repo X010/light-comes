@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +43,12 @@ public class ClientLoginController extends BaseController{
         if(isSuccess) {
             data.put("code",1);
             data.put("msg","登录成功");
+            Cookie usernameCookie = new Cookie("username", URLEncoder.encode(phone));
+            Cookie passwordCookie = new Cookie("password", URLEncoder.encode(password));
+            usernameCookie.setMaxAge(864000);
+            passwordCookie.setMaxAge(864000);//设置最大生存期限为10天
+            response.addCookie(usernameCookie);
+            response.addCookie(passwordCookie);
             return JsonTools.jsonSer(data);
         }else{
             data.put("code",0);
@@ -57,6 +67,28 @@ public class ClientLoginController extends BaseController{
      */
     @RequestMapping(value = "to_login.action",method = {RequestMethod.POST, RequestMethod.GET})
     public String toLogin(Map<String, Object> data,HttpServletRequest request, HttpServletResponse response){
+        String username="";
+        String password="";
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null&&cookies.length>0)
+        {
+            try {
+                for (Cookie c : cookies) {
+                    if (c.getName().equals("username")) {
+                        username = URLDecoder.decode(c.getValue(), "utf-8");
+                    }
+                    if (c.getName().equals("password")) {
+                        password = URLDecoder.decode(c.getValue(), "utf-8");
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        boolean isSuccess=loginService.clientLogin(username, password, request);
+        if(isSuccess){
+            return "redirect:/raffle/lottery.action";
+        }
         return "login";
     }
 

@@ -34,8 +34,18 @@ public interface PersistentDao {
     @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
+    @Insert("insert into comes_coupon_records_used(coupon_record_id,cardno,uid,used_time,source_uid) " +
+            " values (#{coupon_record_id},#{cardno},#{uid},now(),#{source_uid})")
+    public int addCouponUsedRecord(CouponUsedRecord couponUsedRecord);
+
     @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone}, updatetime=now() where id=#{id}")
     public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status, @Param("uid") long uid, @Param("phone") String phone);
+
+    @Update("update comes_conpon_records set status=#{status} where cardno=#{cardno}")
+    public void editCouponRecordStatusByCardno(@Param("cardno") String cardno, @Param("status") int status);
+
+    @Select("select * from comes_conpon_records where id=#{id}")
+    public CouponRecordModel getCouponRecordById(@Param("id") long id);
 
     @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status}  order  by id desc limit #{star},#{size}")
     public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);

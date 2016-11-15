@@ -104,4 +104,16 @@ public class MineController extends BaseController {
         data.put("status", status);
         return "mine_banquet";
     }
+
+    @RequestMapping("sign_in.action")
+    public String sign_in(Map<String, Object> data, HttpServletRequest request){
+        //增加XX毫升酒
+        return "sign_in";
+    }
+
+    @RequestMapping("share_sign_in.action")
+    public String share_sign_in(Map<String, Object> data, HttpServletRequest request){
+        //帮朋友增加xx毫升酒
+        return "share_sign_in";
+    }
 }
