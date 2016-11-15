@@ -95,8 +95,8 @@ public class BanquetController extends BaseController {
             long seconds = DateUtils.endSeconds(banquetModel.getEnd_time());
             banquetModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
-
-            data.put("gapNum",banquetModel.getOutnumber()-banquetModel.getEnroll_num());
+            //剩余坐席
+            data.put("gapNum",banquetModel.getTotal_number()-banquetModel.getEnroll_num());
 
             //判断是否已经预约了饭局
             boolean isJoin = this.banquetService.isJoinBanquet(userModel, aid);

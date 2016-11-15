@@ -8,7 +8,8 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_banquet.action" enctype="multipart/form-data"  id="banquet_form" name="banquet_form" method="post">
+    <form action="/admin/save_banquet.action" enctype="multipart/form-data" id="banquet_form" name="banquet_form"
+          method="post">
     <#if banquet??>
         <input id="editid" name="editid" value="${banquet.id}" type="hidden"/>
     </#if>
@@ -29,6 +30,21 @@
                                 </#if>
 
                                        name="title" id="title" placeholder="如：东来顺商务餐">
+                            </div>
+                            <div class="form-group">
+                                <label for="banquet_time">饭局时间</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right"
+                                    <#if banquet??>
+                                           value="${banquet.banquet_time?string('
+                                           yyyy/MM/dd HH:mm:ss')}"
+                                    </#if>
+
+                                           name="banquet_time" id="banquet_time">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="title">活动说明</label>
@@ -62,6 +78,17 @@
                             </div>
                             <div class="form-group">
                                 <label>饭局人数（人）</label>
+
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="total_number"
+                                    <#if banquet??>
+                                           value="${banquet.total_number}"
+                                    </#if>
+                                           id="total_number" placeholder="如：10">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>每桌人数（人）</label>
 
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="outnumber"
@@ -111,12 +138,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="title">酒水礼品说明</label>
-                                <textarea id="info" name="info" class="form-control" style="height: 300px"><#if banquet??>${banquet.info}</#if></textarea>
+                                <textarea id="info" name="info" class="form-control"
+                                          style="height: 300px"><#if banquet??>${banquet.info}</#if></textarea>
                             </div>
                         </div>
                         <div class="box-footer">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送
+                                </button>
                             </div>
                             <button type="reset" class="btn btn-default"><i class="fa fa-times"></i>取消</button>
                         </div>
@@ -133,6 +162,7 @@
         setNav("约饭", "创建饭局");
         $("#info").wysihtml5();
         $('#rang_time').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD HH:mm:ss'});
+        $('#banquet_time').datetimepicker({format: 'yyyy/mm/dd hh:ii:ss'});
 
         //JS验证
         $("#banquet_form").validate({
@@ -147,7 +177,13 @@
                     minlength: 5,
                     maxlength: 48
                 },
+                total_number: {
+                    required: true
+                },
                 rang_time: {
+                    required: true
+                },
+                banquet_time: {
                     required: true
                 },
                 number: {
@@ -180,8 +216,14 @@
                 rang_time: {
                     required: "请选择时间范围"
                 },
+                banquet_time: {
+                    required: "请选择时间范围"
+                },
                 number: {
                     required: "请输入每桌人数"
+                },
+                total_number: {
+                    required: "请输入饭局总人数"
                 },
                 amount: {
                     required: "请输入每个需要交的钱"

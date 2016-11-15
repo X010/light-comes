@@ -63,7 +63,30 @@ public class BanquetRecordModel extends BaseModel {
      * 创建时间
      */
     private Date createtime;
+    /**
+     * 桌号
+     */
+    private int table_num;
+    /**
+     * 座位号
+     */
+    private int seat_num;
 
+    public int getTable_num() {
+        return table_num;
+    }
+
+    public void setTable_num(int table_num) {
+        this.table_num = table_num;
+    }
+
+    public int getSeat_num() {
+        return seat_num;
+    }
+
+    public void setSeat_num(int seat_num) {
+        this.seat_num = seat_num;
+    }
 
     public int getStatus() {
         return status;

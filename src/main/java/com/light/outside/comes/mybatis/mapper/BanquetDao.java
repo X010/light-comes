@@ -59,8 +59,8 @@ public interface BanquetDao {
     public void updateBanquetRecordModel(BanquetRecordModel banquetRecordModel);
 
 
-    @Insert("insert into comes_banquet_records(status,title,amount,phone,uid,aid,orderNo,createtime)" +
-            "values(#{status},#{title},#{amount},#{phone},#{uid},#{aid},#{orderNo},#{createtime})")
+    @Insert("insert into comes_banquet_records(status,title,amount,phone,uid,aid,orderNo,createtime,table_num,seat_num)" +
+            "values(#{status},#{title},#{amount},#{phone},#{uid},#{aid},#{orderNo},#{createtime},#{table_num},#{seat_num})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public void addBanquetRecordModel(BanquetRecordModel banquetRecordModel);
 
