@@ -31,7 +31,11 @@
                                {{d[i].ctype}}
                            </span>
                        </div>
-                       <div class="item-total"></div>
+                       <div class="item-total" style="width: 25px; margin-right: 10px;">
+                           <a href="qrcode.html">
+                               <img style="width: 100%;" src="/images/qrcode.png">
+                           </a>
+                       </div>
                    </div>
                </div>
            </div>
