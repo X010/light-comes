@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class CouponUsedRecord {
     private long id;
-    private long coupon_coupon_record_id;
+    private long coupon_record_id;
     private String cardno;
     private long uid;
     private Date used_time;
@@ -29,12 +29,12 @@ public class CouponUsedRecord {
         this.id = id;
     }
 
-    public long getCoupon_coupon_record_id() {
-        return coupon_coupon_record_id;
+    public long getCoupon_record_id() {
+        return coupon_record_id;
     }
 
-    public void setCoupon_coupon_record_id(long coupon_coupon_record_id) {
-        this.coupon_coupon_record_id = coupon_coupon_record_id;
+    public void setCoupon_record_id(long coupon_record_id) {
+        this.coupon_record_id = coupon_record_id;
     }
 
     public String getCardno() {

@@ -535,7 +535,7 @@ public class RaffleService {
      * @return
      */
     public List<CouponRecordModel> queryCouponRecords(long cid) {
-        List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.RAFFLE_STATUS_BIND, 0, 10);
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.COUPON_STATUS_NOTUSED, 0, 10);
         return couponRecordModels;
     }
 

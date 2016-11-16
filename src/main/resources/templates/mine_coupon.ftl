@@ -61,9 +61,9 @@
         <div class="mui-order-cate">
             <div class="segmented-control" id="orderStatusList">
                 <a class="control-item <#if status==0>active</#if>" id="order_status_0" href="mine_coupon.action?status=0">全部</a>
-                <a class="control-item <#if status==1>active</#if>" id="order_status_1" href="mine_coupon.action?status=1">未使用</a>
-                <a class="control-item <#if status==2>active</#if>" id="order_status_2" href="mine_coupon.action?status=2">已使用</a>
-                <a class="control-item <#if status==3>active</#if>" id="order_status_3" href="mine_coupon.action?status=3">过期</a>
+                <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_coupon.action?status=2">未使用</a>
+                <a class="control-item <#if status==3>active</#if>" id="order_status_2" href="mine_coupon.action?status=3">已使用</a>
+                <a class="control-item <#if status==4>active</#if>" id="order_status_3" href="mine_coupon.action?status=4">过期</a>
             </div>
         </div>
         <div class="mui-order-list" id="containerList">

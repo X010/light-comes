@@ -90,14 +90,6 @@ public class CouponRecordModel extends BaseModel {
      */
     private Date updatetime;
 
-    public Date getUpdatetime() {
-        return updatetime;
-    }
-
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -192,5 +184,13 @@ public class CouponRecordModel extends BaseModel {
 
     public void setCid(long cid) {
         this.cid = cid;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 }

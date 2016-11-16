@@ -1,12 +1,17 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.CouponRecordModel;
 import com.light.outside.comes.model.CouponUsedRecord;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.CouponService;
+import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -19,6 +24,18 @@ import java.util.Map;
 public class CouponController extends BaseController {
     @Autowired
     private CouponService couponService;
+    @Autowired
+    private RaffleService raffleService;
+
+    @RequestMapping("qrcode_detail.action")
+    public String getQRCode(Map<String, Object> data, HttpServletRequest request){
+        long id=RequestTools.RequestLong(request,"id",0);
+        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
+        if(couponRecordModel!=null) {
+            data.put("coupon", couponRecordModel);
+        }
+        return "scan";
+    }
 
     @RequestMapping("code.action")
     public String transfer(Map<String, Object> data, HttpServletRequest request) {
@@ -34,9 +51,23 @@ public class CouponController extends BaseController {
     }
 
     @RequestMapping("transferCoupon.action")
+    @ResponseBody
     public String transferCoupon(Map<String, Object> data, HttpServletRequest request){
-
-        return "";
+        UserModel userModel = getAppUserInfo();
+        long id=RequestTools.RequestLong(request, "id", 0);
+        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
+        int code=couponService.transferCoupon(couponRecordModel.getCardno(), userModel.getId(), id);
+        String msg="转让成功！";
+        if(code<0){
+            if(code==-2){
+                msg="兑换失败，无法查询到该优惠券!";
+            }else if(code==-1){
+                msg="兑换失败，该优惠券状态非未使用!";
+            }
+        }
+        data.put("code",code);
+        data.put("msg",msg);
+        return JsonTools.jsonSer(data);
     }
 
 

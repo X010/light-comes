@@ -163,10 +163,11 @@ public interface PersistentDao {
     @Insert("insert into comes_raffle_user(uid,rid,count,raffle_date) values(#{uid},#{rid},#{count},current_date()) ON DUPLICATE KEY UPDATE count=count+1")
     public int updateRaffleUserByRaffleId(@Param("uid") long uid, @Param("rid") long rid, @Param("count") int count);
 
-    @Select("select ccr.id,ccr.title,concat(left(ccr.phone,3),'****',right(phone,4)) phone,ccr.uid,ccr.cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
+    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
             "where ccr.cid=crc.cid " +
             "and crc.rid=#{rid} " +
             "and ccr.`status`=#{status} " +
+            "and ccr.uid>0 " +
             "order by ccr.createtime desc " +
             "limit #{start},#{size}")
     public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid, @Param("status") int status, @Param("start") int start, @Param("size") int size);

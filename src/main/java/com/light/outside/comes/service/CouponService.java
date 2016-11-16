@@ -29,9 +29,8 @@ public class CouponService {
         CouponRecordModel couponRecordModel = persistentDao.getCouponRecordById(couponRecordId);
         if (couponRecordModel != null) {
             if (couponRecordModel.getStatus() == CONST.COUPON_STATUS_NOTUSED) {
-                //修改为已使用状态
-                persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
                 CouponUsedRecord couponUsedRecord = new CouponUsedRecord();
+                couponUsedRecord.setCoupon_record_id(couponRecordModel.getId());
                 couponUsedRecord.setUid(uid);
                 couponUsedRecord.setCardno(cardno);
                 couponUsedRecord.setUsed_time(new Date());
@@ -39,6 +38,8 @@ public class CouponService {
                 int count = persistentDao.addCouponUsedRecord(couponUsedRecord);
                 if (count > 0) {
                     status = 1;
+                    //修改为已使用状态
+                    persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
                 }
             } else {
                 status = -1;
