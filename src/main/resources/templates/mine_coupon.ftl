@@ -32,7 +32,7 @@
                            </span>
                        </div>
                        <div class="item-total" style="width: 25px; margin-right: 10px;">
-                           <a href="qrcode.html">
+                           <a href="qrcode.action?id={{d[i].id}}">
                                <img style="width: 100%;" src="/images/qrcode.png">
                            </a>
                        </div>
@@ -43,7 +43,7 @@
        <div class="item-order-ext clearfix">
            <div class="pull-left item-price-total">金额：<strong>{{d[i].price}}元</strong></div>
            <div class="pull-right">
-               使用期限:{{d[i].use_end_time}}~{{d[i].use_end_time}}
+               使用期限:{{d[i].use_start_time}}~{{d[i].use_end_time}}
         </div>
     </div>
 </div>
@@ -193,6 +193,7 @@
                        json[i].ctype = "商品类";
                    }
                    json[i].use_end_time = getLocalTime(json[i].use_end_time);
+                        json[i].use_start_time = getLocalTime(json[i].use_start_time);
                }
                var gettpl = document.getElementById('post_list').innerHTML;
                laytpl(gettpl).render(json, function(html){

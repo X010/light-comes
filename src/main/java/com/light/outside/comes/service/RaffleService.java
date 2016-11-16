@@ -245,6 +245,14 @@ public class RaffleService {
     }
 
     /**
+     * 根据id查询优惠券
+     * @param id
+     * @return
+     */
+    public CouponRecordModel getCouponRecordById(long id){
+        return this.persistentDao.getCouponRecordById(id);
+    }
+    /**
      * 分页获取抽奖活动
      *
      * @param pageModel

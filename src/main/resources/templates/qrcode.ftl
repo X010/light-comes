@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>优惠券</title>
-    <link rel="stylesheet" href="css/ratchet.css" type="text/css">
-    <link rel="stylesheet" href="css/weui.css" type="text/css">
-    <link rel="stylesheet" href="css/app.css" type="text/css">
+    <link rel="stylesheet" href="/ratchet/css/ratchet.css" type="text/css">
+    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
+    <link rel="stylesheet" href="/ratchet/app.css" type="text/css">
     <script type="text/javascript" src="/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/jquery.qrcode.min.js"></script>
@@ -29,11 +29,11 @@
     <div class="panel">
         <div class="top clearfix">
             <div class="pull-left top-left">
-                <img src="images/qr-coupon.png"/>
+                <img src="/images/qr-coupon.png"/>
             </div>
             <div class="pull-right top-right">
-                <p>注册送3次抽奖活动4</p>
-                <p>到期日:2016-10-20</p>
+                <p>${coupon.title}</p>
+                <p>到期日:${coupon.use_end_time?string('yyyy-MM-dd')}</p>
             </div>
         </div>
         <div class="qrcode">
@@ -46,7 +46,7 @@
         render: "table", //table方式
         width: 200, //宽度
         height:200, //高度
-        text: "http://www.baidu.com" //任意内容
+        text: "http://qulk.dssmp.com/coupon/code.action?id=${coupon.id}" //任意内容
     });
 </script>
 </body>

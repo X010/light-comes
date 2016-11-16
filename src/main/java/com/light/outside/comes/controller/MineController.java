@@ -3,12 +3,10 @@ package com.light.outside.comes.controller;
 import com.light.outside.comes.controller.admin.LoginController;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.UserModel;
-import com.light.outside.comes.service.AuctionService;
-import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.service.*;
+import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
-import com.light.outside.comes.service.BanquetService;
-import com.light.outside.comes.service.OverchargedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,8 +103,20 @@ public class MineController extends BaseController {
         return "mine_banquet";
     }
 
+    @RequestMapping("qrcode.action")
+    public String getQRCode(Map<String, Object> data, HttpServletRequest request){
+        long id=RequestTools.RequestLong(request,"id",0);
+        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
+        if(couponRecordModel!=null) {
+            data.put("coupon", couponRecordModel);
+            data.put("qrcode_url", CONST.SITE_URL + "coupon/code.action?id=" + couponRecordModel.getId());
+        }
+        return "qrcode";
+    }
+
     @RequestMapping("sign_in.action")
     public String sign_in(Map<String, Object> data, HttpServletRequest request){
+        UserModel userModel=getAppUserInfo();
         //增加XX毫升酒
         return "sign_in";
     }

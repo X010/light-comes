@@ -21,13 +21,24 @@ public class CouponController extends BaseController {
     private CouponService couponService;
 
     @RequestMapping("code.action")
-    public String banquet(Map<String, Object> data, HttpServletRequest request) {
+    public String transfer(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = getAppUserInfo();
-        String cardno = RequestTools.RequestString(request, "cardno", "");
-        long couponRecordId = RequestTools.RequestLong(request, "id", 0);
-        couponService.transferCoupon(cardno, userModel.getId(), couponRecordId);
+        if(userModel!=null) {
+            String cardno = RequestTools.RequestString(request, "cardno", "");
+            long couponRecordId = RequestTools.RequestLong(request, "id", 0);
+            couponService.transferCoupon(cardno, userModel.getId(), couponRecordId);
+            return "";
+        }else{
+            return "login";
+        }
+    }
+
+    @RequestMapping("transferCoupon.action")
+    public String transferCoupon(Map<String, Object> data, HttpServletRequest request){
+
         return "";
     }
+
 
 
 }
