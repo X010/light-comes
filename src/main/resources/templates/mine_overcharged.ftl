@@ -108,7 +108,7 @@
             }
         });
                     $(window).scroll(function(){
-                        if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+                        if ($(document).height() - $(this).scrollTop() - $(this).height()<10){
                             sentIt = false;
                             if (isload){
                                 loadMore();
