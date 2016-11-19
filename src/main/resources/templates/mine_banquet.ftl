@@ -85,7 +85,7 @@
             </div>
             <div class="item-title">该状态下没有订单~</div>
         </div>
-        <div style="height:10px;bottom:0;"></div>
+        <div style="height:30px;bottom:0;"></div>
         <div id="firstDiv"></div>
     </div>
 
@@ -123,7 +123,7 @@
                         }
                 });
                     $(window).scroll(function(){
-                        if ($(document).height() - $(this).scrollTop() - $(this).height()<200){
+                        if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
                             console.log("已请求");
                             sentIt = false;
                             if (isload){

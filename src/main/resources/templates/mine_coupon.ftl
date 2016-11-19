@@ -95,7 +95,7 @@
                 </#if>
             </div>
         </div>
-        <div style="height:10px;bottom:0;"></div>
+        <div style="height:30px;bottom:0;"></div>
         <div id="firstDiv"></div>
     </div>
     <script type="text/javascript">
@@ -145,7 +145,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

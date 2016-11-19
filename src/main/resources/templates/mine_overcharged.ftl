@@ -74,7 +74,7 @@
             </div>
             <div class="item-title">该状态下没有订单~</div>
         </div>
-        <div style="height:10px;bottom:0;"></div>
+        <div style="height:30px;bottom:0;"></div>
         <div id="firstDiv"></div>
     </div>
     <script type="text/javascript">
