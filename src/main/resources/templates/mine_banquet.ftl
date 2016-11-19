@@ -16,8 +16,11 @@
         <script type="text/javascript" src="/js/laytpl.js"></script>
         <script type="text/javascript" src="/js/spin.min.js"></script>
         <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script id="post_list" type="text/html">
-         {{# for(var i = 0, len = d.length; i < len; i++){ }}
+        <style>
+                body{position:relative;}
+        </style> 
+	<script id="post_list" type="text/html">
+	{{# for(var i = 0, len = d.length; i < len; i++){ }}
          <div class="mui-panel">
              <div class="item-order-info">
                  <div><span class="item-code">{{d[i].title}}</span></div>
@@ -113,14 +116,13 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
-                    //var status=${status};
+                    var status=${status};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
                         }
                 });
                     $(window).scroll(function(){
-                        console.log($(document).height() - $(this).scrollTop() - $(this).height());
                         if ($(document).height() - $(this).scrollTop() - $(this).height()<200){
                             console.log("已请求");
                             sentIt = false;

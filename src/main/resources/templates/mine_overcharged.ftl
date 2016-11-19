@@ -16,6 +16,9 @@
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <style>
+	body{position:relative;}
+    </style>
     <script id="post_list" type="text/html">
      {{# for(var i = 0, len = d.length; i < len; i++){ }}
      <div class="mui-panel">
