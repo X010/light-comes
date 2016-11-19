@@ -20,8 +20,13 @@
      {{# for(var i = 0, len = d.length; i < len; i++){ }}
      <div class="mui-panel">
          <div class="item-order-info">
-         <div id="item-group"><span class="item-code"></span>{{d[i].title}}</div>
+             <div>
+                 <div style="float:left; margin-left: 10px;">
+                     <img style=" width:20px; height:20px;" src="/images/ticket1.png"/>
+                 </div>
+                 <span class="item-code" style="margin-left:36px;">{{d[i].title}}</span>
              </div>
+         </div>
         <div class="item-order-info">
            <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
        </div>
@@ -51,7 +56,7 @@
     </div>
 </div>
 {{# } }}
-</script
+</script>
 </head>
 <body>
 
@@ -88,6 +93,8 @@
             </div>
         </div>
     </div>
+    <div style="height:10px;bottom:0;"></div>
+    <div id="firstDiv"></div>
     <script type="text/javascript">
         var opts = {
                         lines: 10 // The number of lines to draw

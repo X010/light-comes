@@ -20,7 +20,7 @@
          {{# for(var i = 0, len = d.length; i < len; i++){ }}
          <div class="mui-panel">
              <div class="item-order-info">
-                 <div id="item-group"><span class="item-code">{{d[i].title}}</span></div>
+                 <div><span class="item-code">{{d[i].title}}</span></div>
              </div>
             <div class="item-order-info">
                <div id="item-group"><span class="item-code">发起人:{{d[i].author_nickname}}</span></div>
@@ -83,6 +83,8 @@
             <div class="item-title">该状态下没有订单~</div>
         </div>
     </div>
+    <div style="height:10px;bottom:0;"></div>
+    <div id="firstDiv"></div>
     <script type="text/javascript">
         var opts = {
                         lines: 10 // The number of lines to draw
