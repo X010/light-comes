@@ -134,7 +134,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/banquet/mine_banquest_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/banquet/mine_banquest_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

@@ -121,7 +121,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
