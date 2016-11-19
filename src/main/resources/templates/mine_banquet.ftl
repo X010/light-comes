@@ -117,8 +117,8 @@
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
-            }
-        });
+                        }
+                });
                     $(window).scroll(function(){
                         if ($(document).height() - $(this).scrollTop() - $(this).height()<200){
                             console.log("已请求");

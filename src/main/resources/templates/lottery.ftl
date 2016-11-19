@@ -102,8 +102,9 @@
                 loadMore(); //加载所有瀑布流的数据
             }
         });
+        console.log($(document).height() - $(this).scrollTop() - $(this).height());
         $(window).scroll(function(){
-            if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+            if ($(document).height() - $(this).scrollTop() - $(this).height() < 50){
                 sentIt = false;
                 if (isload){
                     loadMore();
