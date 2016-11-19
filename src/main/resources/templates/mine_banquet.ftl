@@ -120,7 +120,7 @@
             }
         });
                     $(window).scroll(function(){
-                        if ($(document).height() - $(this).scrollTop() - $(this).height()<10){
+                        if ($(document).height() - $(this).scrollTop() - $(this).height()<200){
                             console.log("已请求");
                             sentIt = false;
                             if (isload){
