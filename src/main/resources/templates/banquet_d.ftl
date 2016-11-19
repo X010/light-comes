@@ -35,15 +35,16 @@
     <div class="msg-time">
         <img src="/images/clock.png"/>
     <#if seconds gt 0>
+        剩余时间<span id="day_show">0</span>天
+        <span id="hour_show">0</span>时
+        <span id="minute_show">0</span>分
+        <span id="second_show">0</span>秒
+    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <#if gapNum gt 0>
             剩余坐席:${gapNum}位
         <#else>
             该活动已满员！
         </#if>
-        <#--剩余时间<span id="day_show">0</span>天-->
-        <#--<span id="hour_show">0</span>时-->
-        <#--<span id="minute_show">0</span>分-->
-        <#--<span id="second_show">0</span>秒-->
     <#else>
         该活动已结束!
     </#if>
@@ -62,6 +63,11 @@
     <div class="msgn">
         <p><span class="msgbold">活动时间：</span><span>${banquet.banquet_time?string('yyyy-MM-dd HH:mm')}</span></p>
     </div>
+<#if isjoin>
+    <div class="msgn">
+        <p><span class="msgbold">您的座位号：</span><span>${}</span></p>
+    </div>
+</#if>
     <div class="msgn">
         <p style="width: 100%;">
         <span class="msgbold">酒水礼品说明：<span>

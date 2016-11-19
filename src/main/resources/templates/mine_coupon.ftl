@@ -19,6 +19,9 @@
     <script id="post_list" type="text/html">
      {{# for(var i = 0, len = d.length; i < len; i++){ }}
      <div class="mui-panel">
+         <div class="item-order-info">
+         <div id="item-group"><span class="item-code"></span>{{d[i].title}}</div>
+             </div>
         <div class="item-order-info">
            <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
        </div>

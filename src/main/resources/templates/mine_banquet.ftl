@@ -19,6 +19,9 @@
         <script id="post_list" type="text/html">
          {{# for(var i = 0, len = d.length; i < len; i++){ }}
          <div class="mui-panel">
+             <div class="item-order-info">
+                 <div id="item-group"><span class="item-code">{{d[i].title}}</span></div>
+             </div>
             <div class="item-order-info">
                <div id="item-group"><span class="item-code">发起人:{{d[i].author_nickname}}</span></div>
            </div>
@@ -46,6 +49,11 @@
           <div class="pull-right">
           </div>
       </div>
+             <div class="item-order-ext clearfix">
+                 <div class="pull-left">座位号:{{d[i].table_num}}桌{{d[i].seat_num}}号</div>
+                 <div class="pull-right">
+                 </div>
+             </div>
   </div>
   {{# } }}
 </script>

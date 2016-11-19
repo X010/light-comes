@@ -12,6 +12,24 @@ public class CouponUsedRecord {
     private long uid;
     private Date used_time;
     private long source_uid;
+    private String source_phone;
+    private String to_phone;
+
+    public String getSource_phone() {
+        return source_phone;
+    }
+
+    public void setSource_phone(String source_phone) {
+        this.source_phone = source_phone;
+    }
+
+    public String getTo_phone() {
+        return to_phone;
+    }
+
+    public void setTo_phone(String to_phone) {
+        this.to_phone = to_phone;
+    }
 
     public long getSource_uid() {
         return source_uid;

@@ -29,26 +29,31 @@ public class CouponController extends BaseController {
 
     @RequestMapping("qrcode_detail.action")
     public String getQRCode(Map<String, Object> data, HttpServletRequest request){
-        long id=RequestTools.RequestLong(request,"id",0);
-        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
-        if(couponRecordModel!=null) {
-            data.put("coupon", couponRecordModel);
-        }
-        return "scan";
-    }
-
-    @RequestMapping("code.action")
-    public String transfer(Map<String, Object> data, HttpServletRequest request) {
+        long id=RequestTools.RequestLong(request, "id", 0);
         UserModel userModel = getAppUserInfo();
         if(userModel!=null) {
-            String cardno = RequestTools.RequestString(request, "cardno", "");
-            long couponRecordId = RequestTools.RequestLong(request, "id", 0);
-            couponService.transferCoupon(cardno, userModel.getId(), couponRecordId);
-            return "";
+            CouponRecordModel couponRecordModel = raffleService.getCouponRecordById(id);
+            if (couponRecordModel != null) {
+                data.put("coupon", couponRecordModel);
+            }
+            return "scan";
         }else{
             return "login";
         }
     }
+
+//    @RequestMapping("code.action")
+//    public String transfer(Map<String, Object> data, HttpServletRequest request) {
+//        UserModel userModel = getAppUserInfo();
+//        if(userModel!=null) {
+//            String cardno = RequestTools.RequestString(request, "cardno", "");
+//            long couponRecordId = RequestTools.RequestLong(request, "id", 0);
+////            couponService.transferCoupon(cardno, userModel.getId(), couponRecordId);
+//            return "";
+//        }else{
+//            return "login";
+//        }
+//    }
 
     @RequestMapping("transferCoupon.action")
     @ResponseBody
@@ -56,13 +61,13 @@ public class CouponController extends BaseController {
         UserModel userModel = getAppUserInfo();
         long id=RequestTools.RequestLong(request, "id", 0);
         CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
-        int code=couponService.transferCoupon(couponRecordModel.getCardno(), userModel.getId(), id);
+        int code=couponService.transferCoupon(couponRecordModel.getCardno(), userModel, id);
         String msg="转让成功！";
         if(code<0){
             if(code==-2){
                 msg="兑换失败，无法查询到该优惠券!";
             }else if(code==-1){
-                msg="兑换失败，该优惠券状态非未使用!";
+                msg="兑换失败，该优惠券状态已过期或已使用!";
             }
         }
         data.put("code",code);

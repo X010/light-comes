@@ -178,6 +178,23 @@ public class BanquetService {
         return res;
     }
 
+    /**
+     * 获取已经预约的饭局
+     * @param userModel
+     * @param aid
+     * @return
+     */
+    public BanquetRecordModel getJoinBanquet(UserModel userModel, long aid) {
+        Preconditions.checkNotNull(userModel);
+        Preconditions.checkArgument(aid > 0);
+        BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
+        if (banquetRecordModel != null && banquetRecordModel.getStatus() == CONST.ORDER_PAY) {
+            return banquetRecordModel;
+        }else{
+            return null;
+        }
+    }
+
     public void deleteBanquet(long id) {
         Preconditions.checkArgument(id > 0);
         BanquetModel banquetModel = this.getBanquetById(id);

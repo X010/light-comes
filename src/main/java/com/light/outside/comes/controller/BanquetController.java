@@ -99,8 +99,14 @@ public class BanquetController extends BaseController {
             data.put("gapNum",banquetModel.getTotal_number()-banquetModel.getEnroll_num());
 
             //判断是否已经预约了饭局
-            boolean isJoin = this.banquetService.isJoinBanquet(userModel, aid);
+            //boolean isJoin = this.banquetService.isJoinBanquet(userModel, aid);
+             BanquetRecordModel banquetRecordModel=this.banquetService.getJoinBanquet(userModel,aid);
+            boolean isJoin=false;
+            if(banquetRecordModel!=null){
+                isJoin=true;
+            }
             data.put("isjoin", isJoin);
+            data.put("record",banquetRecordModel);
             return "banquet_d";
         } else {
             return "redirect:/banquet/banquet.action";

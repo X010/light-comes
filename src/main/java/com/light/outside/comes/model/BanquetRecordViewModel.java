@@ -6,11 +6,44 @@ import java.util.Date;
  * Created by b3st9u on 16/11/5.
  */
 public class BanquetRecordViewModel extends BanquetRecordModel {
+    private String title;
     private String author_nickname;
     private String author_telephone;
     private String author_address;
     private Date start_time;
     private Date end_time;
+    private int table_num;
+    private int seat_num;
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @Override
+    public int getTable_num() {
+        return table_num;
+    }
+
+    @Override
+    public void setTable_num(int table_num) {
+        this.table_num = table_num;
+    }
+
+    @Override
+    public int getSeat_num() {
+        return seat_num;
+    }
+
+    @Override
+    public void setSeat_num(int seat_num) {
+        this.seat_num = seat_num;
+    }
 
     public Date getEnd_time() {
         return end_time;
