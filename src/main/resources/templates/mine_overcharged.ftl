@@ -135,9 +135,10 @@
                 },
                 success : function(re_json){
                     console.log('----'+pages);
-                    console.log("re"+re_json);
+                    console.log("re"+re_json.length);
                     if(re_json != " "){
                         if( re_json.length > 0){
+                            console.log("长度大于1");
                             pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
                             spinner.stop(target);
