@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone = no"/>
     <title>个人资料</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
@@ -12,7 +13,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            top:0;
+            top: 0;
             left: 0;
             background: #f3f3f3;
         }
@@ -124,7 +125,7 @@
         </li>
 
     </ul>
-    <div class="quit">
+    <div class="quit" id="logout">
         退出登录
     </div>
 </div>
@@ -134,10 +135,10 @@
 
         <p>抽奖券</p>
     </a>
-    <a href="/auction/auction.action" >
+    <a href="/auction/auction.action">
         <img class="" src="/images/auction.png"/>
 
-        <p >拍卖</p>
+        <p>拍卖</p>
     </a>
     <a href="/banquet/banquet.action">
         <img class="" src="/images/date.png"/>
@@ -156,4 +157,13 @@
     </a>
 </footer>
 </body>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript">
+    var logout = document.getElementById("logout");
+    logout.onclick = function () {
+        if(confirm("确定要退出登录吗？")){
+            window.location.href="/qblk/logout.action";
+        }
+    }
+</script>
 </html>

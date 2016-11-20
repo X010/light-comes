@@ -57,7 +57,17 @@ public class ClientLoginController extends BaseController{
             return JsonTools.jsonSer(data);
         }
     }
-
+    @RequestMapping(value = "logout.action",method = {RequestMethod.POST, RequestMethod.GET})
+    public String logout(Map<String, Object> data,HttpServletRequest request, HttpServletResponse response){
+        request.getSession().invalidate();
+        Cookie usernameCookie = new Cookie("username", null);
+        Cookie passwordCookie = new Cookie("password", null);
+        usernameCookie.setMaxAge(0);
+        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
+        response.addCookie(usernameCookie);
+        response.addCookie(passwordCookie);
+        return "login";
+    }
     /**
      * 跳转登录页面
      * @param data

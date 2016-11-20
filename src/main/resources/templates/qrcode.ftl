@@ -34,7 +34,7 @@
             <div class="pull-right top-right">
                 <p>${coupon.title}</p>
                 <p>到期日:${coupon.use_end_time?string('yyyy-MM-dd')}</p>
-                <p>金额:${coupon.price}</p>
+                <p>金额:${coupon.price}元</p>
                 <p>类目:
                 <#if coupon.ctype==1>
                     全品类
