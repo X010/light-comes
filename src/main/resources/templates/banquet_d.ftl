@@ -39,11 +39,11 @@
         <span id="hour_show">0</span>时
         <span id="minute_show">0</span>分
         <span id="second_show">0</span>秒
-    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
         <#if gapNum gt 0>
-            剩余坐席:${gapNum}位
+           <p style="margin-left:45px;"> 剩余坐席:${gapNum}位</p>
         <#else>
-            该活动已满员！
+           <p style="margin-left:45px;">该活动已满员！</p>
         </#if>
     <#else>
         该活动已结束!
