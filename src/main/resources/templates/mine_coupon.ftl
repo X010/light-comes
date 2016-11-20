@@ -159,10 +159,12 @@
                     }
                 },
                 success : function(re_json){
-                    console.log('----'+pages)
+                    console.log('----'+pages);
+		    console.log(re_json.length);
                     if(re_json != " "){
-                        if( re_json.length > 0){
-                            pages = parseInt(pages) + parseInt(1);
+                       console.log(re_json.length);
+			 if( re_json.length > 0){
+			    pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
                             spinner.stop(target);
                             isload = true;
