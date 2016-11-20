@@ -30,6 +30,7 @@
                             <tr>
                                 <th>是否结算</th>
                                 <th>序号</th>
+                                <th>优惠名称</th>
                                 <th>优惠序号</th>
                                 <th>使用者手机号</th>
                                 <th>优惠金额</th>
@@ -64,6 +65,7 @@
      * 对选中的优惠劵进行兼容
      */
     function coupon_balance() {
+        var phone = $("#phone").val();
         var ids = "";
         $("input[type='checkbox']:checked").each(function () {
             ids += $(this).attr('value') + ',';
@@ -71,6 +73,13 @@
 
         //发给服务端进行数据校验并生成结算单
         if (ids != "" && ids != null && ids != 'undefined') {
+            $.ajax({
+                url: "coupon_balance_submit.action?phone=" + phone + "&ids=" + ids,
+                dataType: "json",
+                success: function (data, textStatus) {
+                    console.log(data);
+                }
+            });
 
         }
     }
@@ -95,6 +104,7 @@
                         var content = "<tr>";
                         content += "<td><input type='checkbox' name='isbalance' value='" + val.id + "' /></td>";
                         content += "<td>" + val.id + "</td>";
+                        content += "<td>" + val.coupon_title + "</td>";
                         content += "<td>" + val.cardno + "</td>";
                         content += "<td>" + val.source_phone + "</td>";
                         content += "<td>" + val.price + "</td>";
@@ -102,6 +112,8 @@
                         content += "</tr>";
                         $("#coupon_list tbody").append(content);
                     });
+                } else {
+                    alert("暂无可结算优惠劵");
                 }
             }
         });

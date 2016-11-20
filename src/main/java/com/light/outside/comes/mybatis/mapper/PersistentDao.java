@@ -324,4 +324,19 @@ public interface PersistentDao {
     @Insert("insert into comes_coupon_balance_bill(total_price,create_time,phone)values(#{total_price},#{create_time},#{phone})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addCouponBill(CouponBill couponBill);
+
+
+    @Update("update comes_coupon_records_used set status=#{status},bill_id=#{bill_id} where id=#{id}")
+    public void updateCouponeUsedRecord(CouponUsedRecord couponUsedRecord);
+
+
+    @Select("select * from comes_coupon_records_used where bill_id=#{bill_id} order by id desc")
+    public List<CouponUsedRecord> getCouponUsedByBillid(@Param("bill_id")long bill_id);
+
+    @Select("select count(1) from comes_coupon_balance_bill")
+    public int couponBillTotal();
+
+
+    @Select("select * from comes_coupon_balance_bill limit #{start},#{size}")
+    public List<CouponBill> getCouponBill(@Param("start") int start, @Param("size") int size);
 }
