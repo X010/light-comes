@@ -16,11 +16,14 @@
         <script type="text/javascript" src="/js/laytpl.js"></script>
         <script type="text/javascript" src="/js/spin.min.js"></script>
         <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script id="post_list" type="text/html">
-         {{# for(var i = 0, len = d.length; i < len; i++){ }}
+        <style>
+                body{position:relative;}
+        </style> 
+	<script id="post_list" type="text/html">
+	{{# for(var i = 0, len = d.length; i < len; i++){ }}
          <div class="mui-panel">
              <div class="item-order-info">
-                 <div id="item-group"><span class="item-code">{{d[i].title}}</span></div>
+                 <div><span class="item-code">{{d[i].title}}</span></div>
              </div>
             <div class="item-order-info">
                <div id="item-group"><span class="item-code">发起人:{{d[i].author_nickname}}</span></div>
@@ -82,7 +85,10 @@
             </div>
             <div class="item-title">该状态下没有订单~</div>
         </div>
+        <div style="height:30px;bottom:0;"></div>
+        <div id="firstDiv"></div>
     </div>
+
     <script type="text/javascript">
         var opts = {
                         lines: 10 // The number of lines to draw
@@ -114,10 +120,11 @@
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
-            }
-        });
+                        }
+                });
                     $(window).scroll(function(){
                         if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+                            console.log("已请求");
                             sentIt = false;
                             if (isload){
                                 loadMore();
@@ -130,7 +137,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/banquet/mine_banquest_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/banquet/mine_banquest_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

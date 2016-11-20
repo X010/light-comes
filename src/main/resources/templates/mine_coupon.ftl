@@ -16,12 +16,20 @@
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <style>
+            body{position:relative;}
+    </style> 
     <script id="post_list" type="text/html">
      {{# for(var i = 0, len = d.length; i < len; i++){ }}
      <div class="mui-panel">
          <div class="item-order-info">
-         <div id="item-group"><span class="item-code"></span>{{d[i].title}}</div>
+             <div>
+                 <div style="float:left; margin-left: 10px;">
+                     <img style=" width:20px; height:20px;" src="/images/ticket1.png"/>
+                 </div>
+                 <span class="item-code" style="margin-left:36px;">{{d[i].title}}</span>
              </div>
+         </div>
         <div class="item-order-info">
            <div id="item-group"><span class="item-code">优惠劵号:</span>{{d[i].cardno}}</div>
        </div>
@@ -51,7 +59,7 @@
     </div>
 </div>
 {{# } }}
-</script
+</script>
 </head>
 <body>
 
@@ -87,6 +95,8 @@
                 </#if>
             </div>
         </div>
+        <div style="height:30px;bottom:0;"></div>
+        <div id="firstDiv"></div>
     </div>
     <script type="text/javascript">
         var opts = {
@@ -135,7 +145,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

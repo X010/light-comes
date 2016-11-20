@@ -16,6 +16,9 @@
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <style>
+          body{position:relative;}
+    </style> 
     <script id="post_list" type="text/html">
         {{# for(var i = 0, len = d.length; i < len; i++){ }}
         <div class="mui-panel">
@@ -80,7 +83,10 @@
         </#if>
         </div>
     </div>
+    <div style="height:30px;bottom:0;"></div>
+    <div id="firstDiv"></div>
 </div>
+
 <script type="text/javascript">
     var opts = {
         lines: 10 // The number of lines to draw
@@ -130,7 +136,7 @@
         console.log('+++' + pages);
         $.ajax({
             type: 'GET',
-            url: '/auction/mine_auction_list.action?status=' + status + '&page=' + pages + '&size=3',
+            url: '/auction/mine_auction_list.action?status=' + status + '&page=' + pages + '&size=5',
             timeout: 10000, //超时时间设置，单位毫秒
             data: "ac=index_data",
             dataType: 'json',
