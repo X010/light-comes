@@ -1,5 +1,7 @@
 package com.light.outside.comes.model;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -64,6 +66,19 @@ public class PastModel extends BaseModel {
      * 类型
      */
     private int past_type;
+
+    /**
+     * 开始时间
+     */
+    private Date create_time;
+
+    public Date getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(Date create_time) {
+        this.create_time = create_time;
+    }
 
     public int getInterval_day() {
         return interval_day;

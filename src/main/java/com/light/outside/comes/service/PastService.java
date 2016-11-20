@@ -1,12 +1,13 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
-import com.light.outside.comes.model.CouponModel;
 import com.light.outside.comes.model.PastModel;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -52,6 +53,7 @@ public class PastService {
             this.persistentDao.updatePast(pastModel);
         } else {
             //添加
+            pastModel.setCreate_time(new Date());
             this.persistentDao.addPast(pastModel);
         }
         return pastModel;
