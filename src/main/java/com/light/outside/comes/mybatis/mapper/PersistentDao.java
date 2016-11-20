@@ -34,8 +34,8 @@ public interface PersistentDao {
     @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
-    @Insert("insert into comes_coupon_records_used(coupon_record_id,cardno,uid,used_time,source_uid) " +
-            " values (#{coupon_record_id},#{cardno},#{uid},now(),#{source_uid})")
+    @Insert("insert into comes_coupon_records_used(coupon_record_id,cardno,uid,used_time,source_uid,source_phone,to_phone,`status`,coupon_title,price) " +
+            " values (#{coupon_record_id},#{cardno},#{uid},now(),#{source_uid},#{source_phone},#{to_phone},#{status},#{coupon_title},#{price})")
     public int addCouponUsedRecord(CouponUsedRecord couponUsedRecord);
 
     @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone}, updatetime=now() where id=#{id}")
@@ -121,6 +121,18 @@ public interface PersistentDao {
     public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
     /**
+     * 查询收到的优惠券
+     * @param uid
+     * @param start
+     * @param size
+     * @return
+     */
+    //@Select("select * from commes_coupon_records_useds where uid=#{uid}  limit #{start},#{size}")
+    @Select("select r.* from comes_coupon_records_used ru,comes_conpon_records r " +
+            " where r.id=ru.coupon_record_id and ru.uid=#{uid} limit #{start},#{size}")
+    public List<CouponRecordViewModel> getUsedRaffleCouponPageByUser(@Param("uid")long uid, @Param("start") int start, @Param("size") int size);
+
+    /**
      * 查询所有优惠券
      *
      * @param uid
@@ -171,6 +183,14 @@ public interface PersistentDao {
             "order by ccr.createtime desc " +
             "limit #{start},#{size}")
     public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
+
+    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
+            "where ccr.cid=crc.cid " +
+            "and crc.rid=#{rid} " +
+            "and ccr.uid>0 " +
+            "order by ccr.createtime desc " +
+            "limit #{start},#{size}")
+    public List<CouponRecordModel> getRaffleCouponRecordByRaffleId(@Param("rid") long rid,@Param("start") int start, @Param("size") int size);
 
     @Delete("delete from comes_raffle_coupon where rid=#{rid}")
     public void deleteRaffleCouponByRaffleId(@Param("rid") long rid);

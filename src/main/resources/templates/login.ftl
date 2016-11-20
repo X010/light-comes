@@ -49,7 +49,7 @@
                 return;
             }
             $.ajax({
-                url: "login.action?username=" + userName + "&password=" + userPwd,
+                url: "/qblk/login.action?username=" + userName + "&password=" + userPwd,
                 type: "POST",
                 success: function (result) {
                     var r = jQuery.parseJSON(result);

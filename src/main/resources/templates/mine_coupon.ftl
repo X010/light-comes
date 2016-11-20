@@ -42,11 +42,13 @@
                                {{d[i].limit}}
                            </span>
                        </div>
+                       <#if status==2>
                        <div class="item-total" style="width: 25px; margin-right: 10px;">
                            <a href="qrcode.action?id={{d[i].id}}">
                                <img style="width: 100%;" src="/images/qrcode.png">
                            </a>
                        </div>
+                       </#if>
                    </div>
                </div>
            </div>
@@ -75,24 +77,25 @@
                 <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_coupon.action?status=2">未使用</a>
                 <a class="control-item <#if status==3>active</#if>" id="order_status_2" href="mine_coupon.action?status=3">已使用</a>
                 <a class="control-item <#if status==4>active</#if>" id="order_status_3" href="mine_coupon.action?status=4">过期</a>
+                <a class="control-item <#if status==10>active</#if>" id="order_status_10" href="mine_coupon.action?status=10">已收到</a>
             </div>
         </div>
         <div class="mui-order-list" id="containerList">
             <div class="items">
-                <#if records??>
-                <#list records as record>
+                <#--<#if records??>-->
+                <#--<#list records as record>-->
                 <div class="item-order" id="msglist">
 
                 </div>
-                </#list>
-                <#else>
-                <div class="mui-empty">
-                    <div class="item-icon">
-                        <span class="icon micon-empty"></span>
-                    </div>
-                    <div class="item-title">该状态下没有订单~</div>
-                </div>
-                </#if>
+                <#--</#list>-->
+                <#--<#else>-->
+                <#--<div class="mui-empty">-->
+                    <#--<div class="item-icon">-->
+                        <#--<span class="icon micon-empty"></span>-->
+                    <#--</div>-->
+                    <#--<div class="item-title">该状态下没有订单~</div>-->
+                <#--</div>-->
+                <#--</#if>-->
             </div>
         </div>
         <div style="height:30px;bottom:0;"></div>
@@ -158,10 +161,12 @@
                     }
                 },
                 success : function(re_json){
-                    console.log('----'+pages)
+                    console.log('----'+pages);
+		    console.log(re_json.length);
                     if(re_json != " "){
-                        if( re_json.length > 0){
-                            pages = parseInt(pages) + parseInt(1);
+                       console.log(re_json.length);
+			 if( re_json.length > 0){
+			    pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
                             spinner.stop(target);
                             isload = true;
