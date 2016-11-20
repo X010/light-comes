@@ -310,9 +310,12 @@ public class RaffleService {
         PageResult<CouponRecordViewModel> pageResult = new PageResult<CouponRecordViewModel>();
         List<CouponRecordViewModel> couponRecordModels = Lists.newArrayList();
         if (status > 0) {
-            couponRecordModels = this.persistentDao.getRaffleCouponPageByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
-        } else if (status == 10) {
-            couponRecordModels = this.persistentDao.getUsedRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+            if (status == 10) {
+             //   couponRecordModels = this.persistentDao.getUsedRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+                couponRecordModels = this.persistentDao.getRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+            } else {
+                couponRecordModels = this.persistentDao.getRaffleCouponPageByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+            }
         } else {
             couponRecordModels = this.persistentDao.getRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
         }

@@ -45,6 +45,7 @@ public class CouponService {
                 couponUsedRecord.setTo_phone(userModel.getPhone());
                 couponUsedRecord.setCoupon_title(couponRecordModel.getTitle());
                 couponUsedRecord.setStatus(1);
+                couponUsedRecord.setPrice(couponRecordModel.getPrice());
                 int count = persistentDao.addCouponUsedRecord(couponUsedRecord);
                 if (count > 0) {
                     status = 1;
