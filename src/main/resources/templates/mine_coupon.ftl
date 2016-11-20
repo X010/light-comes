@@ -80,20 +80,20 @@
         </div>
         <div class="mui-order-list" id="containerList">
             <div class="items">
-                <#if records??>
-                <#list records as record>
+                <#--<#if records??>-->
+                <#--<#list records as record>-->
                 <div class="item-order" id="msglist">
 
                 </div>
-                </#list>
-                <#else>
-                <div class="mui-empty">
-                    <div class="item-icon">
-                        <span class="icon micon-empty"></span>
-                    </div>
-                    <div class="item-title">该状态下没有订单~</div>
-                </div>
-                </#if>
+                <#--</#list>-->
+                <#--<#else>-->
+                <#--<div class="mui-empty">-->
+                    <#--<div class="item-icon">-->
+                        <#--<span class="icon micon-empty"></span>-->
+                    <#--</div>-->
+                    <#--<div class="item-title">该状态下没有订单~</div>-->
+                <#--</div>-->
+                <#--</#if>-->
             </div>
         </div>
         <div style="height:30px;bottom:0;"></div>
