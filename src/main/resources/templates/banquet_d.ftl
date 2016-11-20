@@ -63,11 +63,6 @@
     <div class="msgn">
         <p><span class="msgbold">活动时间：</span><span>${banquet.banquet_time?string('yyyy-MM-dd HH:mm')}</span></p>
     </div>
-<#if isjoin>
-    <div class="msgn">
-        <p><span class="msgbold">您的座位号：</span><span>${}</span></p>
-    </div>
-</#if>
     <div class="msgn">
         <p style="width: 100%;">
         <span class="msgbold">酒水礼品说明：<span>
@@ -80,6 +75,11 @@
         </span>
         </p>
     </div>
+<#if isjoin>
+    <div class="msgn">
+        <p><span class="msgbold">您的座位号：</span><span>${record.table_num}桌${record.seat_num}号</span></p>
+    </div>
+</#if>
 
 </div>
 
