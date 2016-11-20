@@ -2,9 +2,7 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.light.outside.comes.model.CouponBill;
-import com.light.outside.comes.model.CouponRecordModel;
-import com.light.outside.comes.model.CouponUsedRecord;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
@@ -89,7 +87,7 @@ public class CouponService {
         for (long id : ids) {
             CouponUsedRecord couponUsedRecord = this.persistentDao.getCouponUsedRecordById(id);
 
-            if (couponUsedRecord != null) {
+            if (couponUsedRecord != null && couponUsedRecord.getStatus() == CONST.COUPON_B_INIT) {
                 //对CouponUsedRecord的状态进行更新
                 couponUsedRecord.setStatus(CONST.COUPON_B_OVER);
                 totalPrice += couponUsedRecord.getPrice();
@@ -104,8 +102,37 @@ public class CouponService {
             couponBill.setTotal_price(totalPrice);
             couponBill.setPhone(phone);
 
+            long bill_id = this.persistentDao.addCouponBill(couponBill);
+
+            if (bill_id > 0) {
+                for (CouponUsedRecord couponUsedRecord : couponUsedRecords) {
+                    couponUsedRecord.setBill_id(bill_id);
+                    this.persistentDao.updateCouponeUsedRecord(couponUsedRecord);
+                }
+            }
         }
 
         return couponUsedRecords;
     }
+
+
+    public List<CouponUsedRecord> getCouponBalanceDetailByBillid(long id) {
+        return this.persistentDao.getCouponUsedByBillid(id);
+    }
+
+    public PageResult<CouponBill> getCouponBill(PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+
+        int total = this.persistentDao.couponBillTotal();
+
+        PageResult<CouponBill> couponBillPageResult = new PageResult<CouponBill>();
+        List<CouponBill> couponBills = this.persistentDao.getCouponBill(pageModel.getStart(), pageModel.getSize());
+
+        couponBillPageResult.setData(couponBills);
+        couponBillPageResult.setPageModel(pageModel);
+        couponBillPageResult.setTotal(total);
+        return couponBillPageResult;
+    }
+
+
 }

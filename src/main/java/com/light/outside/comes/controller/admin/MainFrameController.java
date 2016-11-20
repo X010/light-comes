@@ -694,6 +694,40 @@ public class MainFrameController {
     }
 
     /**
+     * 结算单列表
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("coupon_balance_list.action")
+    public String coupon_balance_list(Map<String, Object> data, PageModel pageModel) {
+        PageResult<CouponBill> billPageResult = this.couponService.getCouponBill(pageModel);
+
+        if (billPageResult != null) {
+            data.put("brs", billPageResult);
+        }
+
+        return "admin/coupon_balance_list";
+    }
+
+    /**
+     * 结算详单
+     *
+     * @param data
+     * @return
+     */
+    @RequestMapping("coupon_balance_list_detail.action")
+    public String coupon_balance_list_detail(Map<String, Object> data, @RequestParam("bill_id") long id) {
+        if (id > 0) {
+            List<CouponUsedRecord> couponUsedRecords = this.couponService.getCouponBalanceDetailByBillid(id);
+            if (couponUsedRecords != null) {
+                data.put("curs", couponUsedRecords);
+            }
+        }
+        return "admin/coupon_balance_list_detail";
+    }
+
+    /**
      * 对优惠劵进行结算
      *
      * @param ids
