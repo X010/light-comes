@@ -188,10 +188,16 @@
         for (var i = 0, len = json_obj.length; i < len; i++) {
             json_obj[i].createtime = getLocalTime(json_obj[i].create_time);
             if (json_obj[i].status == 1) {
+                json_obj[i].status = "出价中";
+            }
+            else if (json_obj[i].status == 2) {
+                json_obj[i].status = "已拍得";
+            }
+            else if (json_obj[i].status == 3) {
                 json_obj[i].status = "未拍得";
             }
             else {
-                json_obj[i].status = "已拍得"
+                json_obj[i].status = "已过期"
             }
         }
         var gettpl = document.getElementById('post_list').innerHTML;
