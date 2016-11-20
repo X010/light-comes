@@ -26,7 +26,7 @@ public class CouponService {
      * 转让优惠券
      *
      * @param cardno
-     * @param uid
+     * @param userModel
      * @param couponRecordId
      * @return
      */
@@ -43,6 +43,7 @@ public class CouponService {
                 couponUsedRecord.setSource_uid(couponRecordModel.getUid());
                 couponUsedRecord.setSource_phone(couponRecordModel.getPhone());
                 couponUsedRecord.setTo_phone(userModel.getPhone());
+                couponUsedRecord.setCoupon_title(couponRecordModel.getTitle());
                 int count = persistentDao.addCouponUsedRecord(couponUsedRecord);
                 if (count > 0) {
                     status = 1;

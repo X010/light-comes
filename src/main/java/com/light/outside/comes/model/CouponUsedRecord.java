@@ -19,6 +19,7 @@ public class CouponUsedRecord {
     private float price;
     private long bill_id;
 
+
     public long getBill_id() {
         return bill_id;
     }

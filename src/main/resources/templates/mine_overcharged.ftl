@@ -16,6 +16,9 @@
     <script type="text/javascript" src="/js/laytpl.js"></script>
     <script type="text/javascript" src="/js/spin.min.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <style>
+	body{position:relative;}
+    </style>
     <script id="post_list" type="text/html">
      {{# for(var i = 0, len = d.length; i < len; i++){ }}
      <div class="mui-panel">
@@ -71,6 +74,8 @@
             </div>
             <div class="item-title">该状态下没有订单~</div>
         </div>
+        <div style="height:30px;bottom:0;"></div>
+        <div id="firstDiv"></div>
     </div>
     <script type="text/javascript">
         var opts = {
@@ -99,7 +104,7 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
-                    var status=${status?c};
+                    //var status=${status?c};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据
@@ -119,7 +124,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=3',
+                            url:'/oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',
@@ -132,9 +137,11 @@
                     }
                 },
                 success : function(re_json){
-                    console.log('----'+pages)
+                    console.log('----'+pages);
+                    console.log("re"+re_json.length);
                     if(re_json != " "){
                         if( re_json.length > 0){
+                            console.log("长度大于1");
                             pages = parseInt(pages) + parseInt(1);
                             appendHtml(re_json);
                             spinner.stop(target);

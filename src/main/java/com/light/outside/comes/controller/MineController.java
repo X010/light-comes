@@ -70,7 +70,8 @@ public class MineController extends BaseController {
     public String mine_coupon(Map<String, Object> data, HttpServletRequest request) {
         int status = RequestTools.RequestInt(request, "status", 0);
         UserModel userModel = getAppUserInfo();
-        List<CouponRecordModel> couponRecordModels = raffleService.getRaffleCouponByUser(userModel.getId(), status);
+        List<CouponRecordViewModel> couponRecordModels = raffleService.getRaffleCouponByUser(userModel.getId(), status);
+        raffleService.transfCouponForView(couponRecordModels);
         data.put("records", couponRecordModels);
         data.put("status", status);
         return "mine_coupon";

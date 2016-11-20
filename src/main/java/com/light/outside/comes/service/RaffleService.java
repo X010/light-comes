@@ -28,9 +28,9 @@ import java.util.Map;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -246,12 +246,14 @@ public class RaffleService {
 
     /**
      * 根据id查询优惠券
+     *
      * @param id
      * @return
      */
-    public CouponRecordModel getCouponRecordById(long id){
+    public CouponRecordModel getCouponRecordById(long id) {
         return this.persistentDao.getCouponRecordById(id);
     }
+
     /**
      * 分页获取抽奖活动
      *
@@ -289,7 +291,7 @@ public class RaffleService {
         return raffleModel;
     }
 
-    public List<CouponRecordModel> getRaffleCouponByUser(long uid, int status) {
+    public List<CouponRecordViewModel> getRaffleCouponByUser(long uid, int status) {
         if (status > 0)
             return this.persistentDao.getRaffleCouponByUserStatus(uid, status);
         else
@@ -322,18 +324,21 @@ public class RaffleService {
      *
      * @param recordModels
      */
-    private void transfCouponForView(List<CouponRecordViewModel> recordModels) {
+    public void transfCouponForView(List<CouponRecordViewModel> recordModels) {
         for (CouponRecordViewModel recordModel : recordModels) {
-            if (recordModel.getCtype() == 2) {
-                CommodityCategory commodityCategory = categoryModelMap.get(recordModel.getMid());
-                if (commodityCategory != null) {
-                    recordModel.setLimit(commodityCategory.getCategory1() + "-" + commodityCategory.getCategory2());
+            long mid = recordModel.getMid();
+            if (mid > 0) {
+                if (recordModel.getCtype() == 2) {
+                    CommodityCategory commodityCategory = categoryModelMap.get(mid);
+                    if (commodityCategory != null) {
+                        recordModel.setLimit(commodityCategory.getCategory1() + "-" + commodityCategory.getCategory2());
+                    }
+                } else if (recordModel.getCtype() == 3) {
+                    String name = commodityMap.get(mid);
+                    recordModel.setLimit(name);
+                } else {
+                    recordModel.setLimit("全品类");
                 }
-            } else if (recordModel.getCtype() == 3) {
-                String name = commodityMap.get(recordModel.getMid());
-                recordModel.setLimit(name);
-            } else {
-                recordModel.setLimit("全品类");
             }
         }
     }
