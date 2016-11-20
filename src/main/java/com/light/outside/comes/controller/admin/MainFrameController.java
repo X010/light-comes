@@ -1,6 +1,7 @@
 package com.light.outside.comes.controller.admin;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.qbkl.model.Commodity;
@@ -22,10 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -71,6 +69,9 @@ public class MainFrameController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private CouponService couponService;
 
     /**
      * 登陆
@@ -676,6 +677,67 @@ public class MainFrameController {
             data.put("coupons", couponModelPageResult);
         }
         return "admin/coupon_list";
+    }
+
+    /**
+     * 优惠劵结算
+     *
+     * @param data
+     * @param request
+     * @param response
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("coupon_balance.action")
+    public String coupon_balance(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel) {
+        return "admin/coupon_balance";
+    }
+
+    /**
+     * 对优惠劵进行结算
+     *
+     * @param ids
+     * @return
+     */
+    @RequestMapping("coupon_balance_submit.action")
+    public String coupon_balance_submit(@RequestParam(value = "ids", required = false) String ids, @RequestParam("phone") String phone) {
+        List<Long> idList = null;
+        if (!Strings.isNullOrEmpty(ids)) {
+            String[] idStr = ids.split(",");
+
+            if (idStr.length > 0) {
+                idList = Lists.newArrayList();
+                for (String id : idStr) {
+                    if (!Strings.isNullOrEmpty(id)) {
+                        try {
+                            idList.add(Long.valueOf(id));
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+            }
+            this.couponService.balanceCoupon(idList, phone);
+        }
+
+        return "admin/coupon_balance_list";
+    }
+
+    /**
+     * @param data
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("coupon_balance_search.action")
+    public String coupon_balance_search(Map<String, Objects> data, @RequestParam(value = "phone", required = false) String phone) {
+        String res = "";
+        if (!Strings.isNullOrEmpty(phone)) {
+            List<CouponUsedRecord> couponUsedRecords = this.couponService.getCouponUsedRecordByPhone(phone, CONST.COUPON_B_INIT);
+            if (couponUsedRecords != null) {
+                res = JsonParser.simpleJson(couponUsedRecords);
+            }
+        }
+        return res;
     }
 
 

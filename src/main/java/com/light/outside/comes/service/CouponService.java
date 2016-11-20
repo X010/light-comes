@@ -1,5 +1,8 @@
 package com.light.outside.comes.service;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import com.light.outside.comes.model.CouponBill;
 import com.light.outside.comes.model.CouponRecordModel;
 import com.light.outside.comes.model.CouponUsedRecord;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by b3st9u on 16/11/15.
@@ -20,6 +24,7 @@ public class CouponService {
 
     /**
      * 转让优惠券
+     *
      * @param cardno
      * @param uid
      * @param couponRecordId
@@ -53,5 +58,51 @@ public class CouponService {
         return status;
     }
 
+    /**
+     * 根据手机号码获取转让过来信息
+     *
+     * @param phone
+     * @return
+     */
+    public List<CouponUsedRecord> getCouponUsedRecordByPhone(String phone, int status) {
+        Preconditions.checkNotNull(phone);
+        Preconditions.checkNotNull(status > 0);
 
+        return this.persistentDao.getCouponeUsedRecordByPhone(phone, status);
+    }
+
+    /**
+     * 对该优惠劵进行结算
+     *
+     * @param ids
+     * @return
+     */
+    public List<CouponUsedRecord> balanceCoupon(List<Long> ids, String phone) {
+        Preconditions.checkNotNull(ids);
+
+        List<CouponUsedRecord> couponUsedRecords = Lists.newArrayList();
+
+        float totalPrice = 0;
+        for (long id : ids) {
+            CouponUsedRecord couponUsedRecord = this.persistentDao.getCouponUsedRecordById(id);
+
+            if (couponUsedRecord != null) {
+                //对CouponUsedRecord的状态进行更新
+                couponUsedRecord.setStatus(CONST.COUPON_B_OVER);
+                totalPrice += couponUsedRecord.getPrice();
+                couponUsedRecords.add(couponUsedRecord);
+            }
+        }
+
+
+        if (totalPrice > 0) {
+            CouponBill couponBill = new CouponBill();
+            couponBill.setCreate_time(new Date());
+            couponBill.setTotal_price(totalPrice);
+            couponBill.setPhone(phone);
+
+        }
+
+        return couponUsedRecords;
+    }
 }

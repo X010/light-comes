@@ -293,9 +293,35 @@ public interface PersistentDao {
 
     /**
      * 使用过优惠劵
+     *
      * @param id
      * @return
      */
     @Select("select count(1) from comes_conpon_records where cid=#{cid} and status=#{status} and  phone  is not null")
-    public int getCouponUseNum(@Param("cid") long id,@Param("status") int status);
+    public int getCouponUseNum(@Param("cid") long id, @Param("status") int status);
+
+
+    /**
+     * 根据手机号与状态获取消费过的优惠劵
+     *
+     * @param phone
+     * @param status
+     * @return
+     */
+    @Select("select * from comes_coupon_records_used where to_phone=#{phone} and status=#{status} order by used_time desc")
+    public List<CouponUsedRecord> getCouponeUsedRecordByPhone(@Param("phone") String phone, @Param("status") int status);
+
+    /**
+     * 根据ID获取记录
+     *
+     * @param id
+     * @return
+     */
+    @Select("select * from comes_coupon_records_used where id=#{id}")
+    public CouponUsedRecord getCouponUsedRecordById(@Param("id") long id);
+
+
+    @Insert("insert into comes_coupon_balance_bill(total_price,create_time,phone)values(#{total_price},#{create_time},#{phone})")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addCouponBill(CouponBill couponBill);
 }

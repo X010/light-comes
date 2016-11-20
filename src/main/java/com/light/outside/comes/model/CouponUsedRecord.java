@@ -14,6 +14,42 @@ public class CouponUsedRecord {
     private long source_uid;
     private String source_phone;
     private String to_phone;
+    private int status;
+    private String coupon_title;
+    private float price;
+    private long bill_id;
+
+    public long getBill_id() {
+        return bill_id;
+    }
+
+    public void setBill_id(long bill_id) {
+        this.bill_id = bill_id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getCoupon_title() {
+        return coupon_title;
+    }
+
+    public void setCoupon_title(String coupon_title) {
+        this.coupon_title = coupon_title;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
     public String getSource_phone() {
         return source_phone;

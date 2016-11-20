@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>饭局人数（人）</label>
+                                <label>总人数（人）</label>
 
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="total_number"
