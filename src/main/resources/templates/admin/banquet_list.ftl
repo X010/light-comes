@@ -25,12 +25,12 @@
                                 <th>报名人数</th>
                                 <th>是否可举办</th>
                                 <th>状态</th>
-                                <th>创建时间</th>
                                 <th>开始时间</th>
                                 <th>结束时间</th>
                                 <th>承办人</th>
                                 <th>承办人电话</th>
                                 <th>每桌人数</th>
+                                <th>活动人数</th>
                                 <th>单价</th>
                                 <th>操作</th>
                             </tr>
@@ -67,9 +67,6 @@
                                             </#if>
                                         </td>
                                         <td>
-                                        ${banquet.create_time?string("MM月dd日 HH:mm:ss")}
-                                        </td>
-                                        <td>
                                         ${banquet.start_time?string("MM月dd日 HH:mm:ss")}
                                         </td>
                                         <td>
@@ -78,6 +75,11 @@
                                         <td>${banquet.author_nickname}</td>
                                         <td>${banquet.author_telephone}</td>
                                         <td>${banquet.outnumber}</td>
+                                        <td>
+                                        <#if banquet.total_number??>
+                                            ${banquet.total_number}
+                                        </#if>
+                                        </td>
                                         <td>${banquet.amount}</td>
                                         <td>
                                             <a class="badge  bg-green" href="/admin/create_banquet.action?action=edit&id=${banquet.id}">编缉</a>

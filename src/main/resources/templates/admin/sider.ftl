@@ -26,6 +26,8 @@
                     <li><a href="/admin/create_coupon.action"> <i class="fa   fa-credit-card"></i> <span>创建优惠劵</span></a></li>
                     <li><a href="/admin/raffle_list.action"><i class="fa   fa-bars"></i> <span>抽奖活动列表</span></a></li>
                     <li><a href="/admin/coupon_list.action"> <i class="fa  fa-briefcase"></i> <span>优惠劵列表</span></a></li>
+                    <li><a href="/admin/coupon_balance.action"> <i class="fa   fa-external-link-square"></i> <span>优惠劵结算</span></a></li>
+                    <li><a href="/admin/coupon_balance_list.action"> <i class="fa   fa-barcode"></i> <span>优惠劵结算表</span></a></li>
                 </ul>
             </li>
             <li id="estate" class="treeview">
