@@ -211,6 +211,7 @@
                }
                var gettpl = document.getElementById('post_list').innerHTML;
                laytpl(gettpl).render(json, function(html){
+                   alert(html);
                 $("#msglist").append(html);
             });
            }
