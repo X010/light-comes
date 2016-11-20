@@ -18,6 +18,13 @@
                     <li><a href="/admin/focus_manage.action"> <i class="fa  fa-newspaper-o"></i> <span>焦点图管理</span></a></li>
                 </ul>
             </li>
+            <li id="check" class="treeview">
+                <a href="#"><i class="fa   fa-check-circle"></i> <span>签到</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/admin/past_setting.action"> <i class="fa   fa-gift"></i> <span>会员签到设置</span></a></li>
+                    <li><a href="/admin/past_detail.action"> <i class="fa  fa-calendar"></i> <span>会员签到详情</span></a></li>
+                </ul>
+            </li>
             <li id="minizone" class="treeview">
                 <a href="#"><i class="fa  fa-indent"></i> <span>抽奖</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
