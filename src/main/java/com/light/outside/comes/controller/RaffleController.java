@@ -215,7 +215,7 @@ public class RaffleController extends BaseController {
         pageModel.setPage(page);
         pageModel.setSize(size);
         UserModel userModel = getAppUserInfo();
-        PageResult<CouponRecordViewModel> list = raffleService.getRaffleCouponPageByUser(userModel.getId(), status, pageModel);
+        PageResult<CouponRecordViewModel> list =raffleService.getRaffleCouponPageByUser(userModel.getId(), status, pageModel);
         List<CouponRecordViewModel> couponRecordModels = list.getData();
         if (couponRecordModels != null && couponRecordModels.size() > 0) {
             return JsonTools.jsonSer(couponRecordModels);

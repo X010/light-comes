@@ -311,6 +311,8 @@ public class RaffleService {
         List<CouponRecordViewModel> couponRecordModels = Lists.newArrayList();
         if (status > 0) {
             couponRecordModels = this.persistentDao.getRaffleCouponPageByUserStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+        } else if (status == 10) {
+            couponRecordModels = this.persistentDao.getUsedRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
         } else {
             couponRecordModels = this.persistentDao.getRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
         }
@@ -318,6 +320,23 @@ public class RaffleService {
         pageResult.setData(couponRecordModels);
         return pageResult;
     }
+
+    /**
+     * @param uid
+     * @param pageModel
+     * @return
+     */
+//    public PageResult<CouponRecordViewModel> getUsedRaffleCouponPageByUser(long uid, PageModel pageModel) {
+//        PageResult<CouponRecordViewModel> pageResult = new PageResult<CouponRecordViewModel>();
+//        List<CouponRecordViewModel> couponRecordModels = Lists.newArrayList();
+//        List<CouponUsedRecord> list = this.persistentDao.getUsedRaffleCouponPageByUser(uid, pageModel.getStart(), pageModel.getSize());
+//        if (list != null && list.size() > 0) {
+//            for (CouponUsedRecord record : list) {
+//                CouponRecordViewModel couponRecordViewModel = new CouponRecordViewModel();
+//
+//            }
+//        }
+//    }
 
     /**
      * 转换品类
@@ -539,8 +558,9 @@ public class RaffleService {
      * @param cid
      * @return
      */
-    public List<CouponRecordModel> queryCouponRecords(long cid) {
-        List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.COUPON_STATUS_NOTUSED, 0, 10);
+    public List<CouponRecordModel> queryCouponRecords(long rid) {
+        //List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponByRaffleIdAndStatus(cid, CONST.COUPON_STATUS_NOTUSED, 0, 10);
+        List<CouponRecordModel> couponRecordModels = this.persistentDao.getRaffleCouponRecordByRaffleId(rid, 0, 10);
         return couponRecordModels;
     }
 

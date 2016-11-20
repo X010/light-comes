@@ -56,7 +56,7 @@
         render: "table", //table方式
         width: 200, //宽度
         height:200, //高度
-        text: "http://qulk.dssmp.com/coupon/code.action?id=${coupon.id}" //任意内容
+        text: "${qrcode_url!}" //任意内容
     });
 </script>
 </body>
