@@ -31,7 +31,7 @@
                    <div class="item-goods">
                        <div class="item-gname">
                            <span class="item-flag">
-                               {{d[i].ctype}}
+                               {{d[i].limit}}
                            </span>
                        </div>
                        <div class="item-total" style="width: 25px; margin-right: 10px;">

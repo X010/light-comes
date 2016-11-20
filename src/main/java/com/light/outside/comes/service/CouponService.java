@@ -21,7 +21,7 @@ public class CouponService {
     /**
      * 转让优惠券
      * @param cardno
-     * @param uid
+     * @param userModel
      * @param couponRecordId
      * @return
      */

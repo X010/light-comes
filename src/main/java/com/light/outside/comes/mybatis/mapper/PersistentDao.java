@@ -95,7 +95,7 @@ public interface PersistentDao {
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status}")
-    public List<CouponRecordModel> getRaffleCouponByUserStatus(@Param("uid") long uid, @Param("status") int status);
+    public List<CouponRecordViewModel> getRaffleCouponByUserStatus(@Param("uid") long uid, @Param("status") int status);
 
     /**
      * 分页我的查询优惠券
@@ -127,7 +127,7 @@ public interface PersistentDao {
      * @return
      */
     @Select("select * from comes_conpon_records where uid=#{uid}")
-    public List<CouponRecordModel> getRaffleCouponByUser(@Param("uid") long uid);
+    public List<CouponRecordViewModel> getRaffleCouponByUser(@Param("uid") long uid);
 
     /**
      * 根据优惠劵ID获取
