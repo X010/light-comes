@@ -122,13 +122,9 @@
     });
     $(window).scroll(function () {
         if ($(document).height() - $(this).scrollTop() - $(this).height() < 50) {
-            sentIt = false;
             if (isload) {
                 loadMore();
             }
-            setTimeout(function () {
-                sentIt = true;
-            }, 1000);
         }
     });
     function loadMore() {
@@ -140,7 +136,8 @@
             timeout: 10000, //超时时间设置，单位毫秒
             data: "ac=index_data",
             dataType: 'json',
-            beforeSend: function () {
+            async: false,
+	    beforeSend: function () {
                 if (spinner == null) {
                     spinner = new Spinner(opts).spin(target);
                 }
