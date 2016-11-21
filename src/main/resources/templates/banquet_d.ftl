@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>${banquet.title}</title>
     <link href="/css/header.css" type="text/css" rel="stylesheet">
@@ -35,15 +36,18 @@
     <div class="msg-time">
         <img src="/images/clock.png"/>
     <#if seconds gt 0>
-        剩余时间<span id="day_show">0</span>天
+        剩余时间:<span id="day_show">0</span>天
         <span id="hour_show">0</span>时
         <span id="minute_show">0</span>分
         <span id="second_show">0</span>秒
-    
+
+        <#if isjoin>
+            <p class="seat">您的座位号:<span>${record.table_num}</span>桌<span>${record.seat_num}</span>号</p>
+        </#if>
         <#if gapNum gt 0>
-           <p style="margin-left:45px;"> 剩余坐席:${gapNum}位</p>
+            <p class="seat"> 剩余坐席:<span>${gapNum}</span>位</p>
         <#else>
-           <p style="margin-left:45px;">该活动已满员！</p>
+            <p style="margin-left:45px;">该活动已满员！</p>
         </#if>
     <#else>
         该活动已结束!
@@ -75,11 +79,11 @@
         </span>
         </p>
     </div>
-<#if isjoin>
-    <div class="msgn">
-        <p><span class="msgbold">您的座位号：</span><span>${record.table_num}桌${record.seat_num}号</span></p>
-    </div>
-</#if>
+<#--<#if isjoin>-->
+<#--<div class="msgn">-->
+<#--<p><span class="msgbold">您的座位号：</span><span>${record.table_num}桌${record.seat_num}号</span></p>-->
+<#--</div>-->
+<#--</#if>-->
 
 </div>
 
@@ -89,7 +93,8 @@
     <#if isjoin>
         <div id="deposit">您已预约该饭局</div>
     <#else>
-        <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+        <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)
+        </div>
     </#if>
 </div>
 </#if>
@@ -140,7 +145,7 @@
 
     $(function () {
         var seconds =${seconds?c};
-        //var intDiff = parseInt(${seconds});//倒计时总秒数量
+        //倒计时总秒数量
         timer(seconds);
     });
 </script>
