@@ -56,4 +56,5 @@ public class CONST {
     public static int AUCTION_STATUS_SUCCESSED = 2;//已拍得
     public static int AUCTION_STATUS_FAIL = 3;//未拍得
 
+    public static int PAST_ID = 9999; //签到活动ID
 }

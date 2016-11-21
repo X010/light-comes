@@ -351,7 +351,7 @@ public interface PersistentDao {
 
 
     @Select("select * from comes_coupon_records_used where bill_id=#{bill_id} order by id desc")
-    public List<CouponUsedRecord> getCouponUsedByBillid(@Param("bill_id")long bill_id);
+    public List<CouponUsedRecord> getCouponUsedByBillid(@Param("bill_id") long bill_id);
 
     @Select("select count(1) from comes_coupon_balance_bill")
     public int couponBillTotal();
@@ -359,4 +359,18 @@ public interface PersistentDao {
 
     @Select("select * from comes_coupon_balance_bill limit #{start},#{size}")
     public List<CouponBill> getCouponBill(@Param("start") int start, @Param("size") int size);
+
+
+    @Select("select * from comes_past where id=#{id} limit 1")
+    public PastModel getPastById(@Param("id") long id);
+
+
+    @Insert("insert into comes_past(id,interval_day,min_drunk,max_drunk,total_drunk,past_times,coupon_id,prizes_name,past_type,fix_drunk)values(#{id}," +
+            "#{interval_day},#{min_drunk},#{max_drunk},#{total_drunk},#{past_times},#{coupon_id},#{prizes_name},#{past_type},#{fix_drunk})")
+    public void addPast(PastModel pastModel);
+
+
+    @Update("update comes_past set interval_day=#{interval_day},min_drunk=#{min_drunk},max_drunk=#{max_drunk},total_drunk=#{total_drunk},past_times=#{past_times}," +
+            "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk}  where id=#{id}")
+    public void updatePast(PastModel pastModel);
 }

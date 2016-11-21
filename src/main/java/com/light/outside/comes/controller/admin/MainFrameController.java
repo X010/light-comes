@@ -73,6 +73,9 @@ public class MainFrameController {
     @Autowired
     private CouponService couponService;
 
+    @Autowired
+    private PastService pastService;
+
     /**
      * 登陆
      *
@@ -939,6 +942,42 @@ public class MainFrameController {
             }
         }
         return result;
+    }
+
+
+    /**
+     * 签到设置
+     *
+     * @return
+     */
+    @RequestMapping(value = "past_setting.action")
+    public String past_setting(Map<String, Object> data, PastModel pastModel, HttpServletRequest httpServletRequest) {
+
+        if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
+            if (pastModel != null && pastModel.getTotal_drunk() > 0) {
+                pastModel = this.pastService.svePastModel(pastModel);
+                return "redirect:/admin/past_setting.action";
+            }
+        }
+
+        if (pastModel == null || pastModel.getTotal_drunk() <= 0) {
+            pastModel = this.pastService.getPastModelById();
+        }
+
+        if (pastModel != null) {
+            data.put("pr", pastModel);
+        }
+        return "/admin/past_setting";
+    }
+
+    /**
+     * 签到详情
+     *
+     * @return
+     */
+    @RequestMapping("past_detail.action")
+    public String past_detail() {
+        return "admin/past_detail";
     }
 
 
