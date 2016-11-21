@@ -77,7 +77,7 @@
                 url: "coupon_balance_submit.action?phone=" + phone + "&ids=" + ids,
                 dataType: "json",
                 success: function (data, textStatus) {
-                    console.log(data);
+                    window.location.href="/admin/coupon_balance_list.action";
                 }
             });
 
