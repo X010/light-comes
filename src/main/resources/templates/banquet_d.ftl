@@ -41,7 +41,7 @@
         <span id="second_show">0</span>秒
     
         <#if gapNum gt 0>
-	   <p class="seat">您的座位号：${record.table_num}桌${record.seat_num}号</p>
+	   <p class="seat">您的座位号：<span>${record.table_num}</span>桌<span>${record.seat_num}</span>号</p>
            <p class="seat"> 剩余坐席:<span>${gapNum}</span>位</p>
         <#else>
            <p style="margin-left:45px;">该活动已满员！</p>
