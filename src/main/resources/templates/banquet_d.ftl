@@ -36,13 +36,13 @@
     <div class="msg-time">
         <img src="/images/clock.png"/>
     <#if seconds gt 0>
-        剩余时间<span id="day_show">0</span>天
+        剩余时间:<span id="day_show">0</span>天
         <span id="hour_show">0</span>时
         <span id="minute_show">0</span>分
         <span id="second_show">0</span>秒
 
         <#if isjoin>
-            <p class="seat">您的座位号：<span>${record.table_num}</span>桌<span>${record.seat_num}</span>号</p>
+            <p class="seat">您的座位号:<span>${record.table_num}</span>桌<span>${record.seat_num}</span>号</p>
         </#if>
         <#if gapNum gt 0>
             <p class="seat"> 剩余坐席:<span>${gapNum}</span>位</p>
@@ -145,8 +145,7 @@
 
     $(function () {
         var seconds =${seconds?c};
-        //var intDiff = parseInt(${seconds}
-        );//倒计时总秒数量
+        //倒计时总秒数量
         timer(seconds);
     });
 </script>
