@@ -7,6 +7,7 @@ import com.light.outside.comes.service.*;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by b3st9u on 16/10/30.
@@ -33,6 +35,9 @@ public class MineController extends BaseController {
 
     @Autowired
     private RaffleService raffleService;
+
+    @Autowired
+    private SigninService signinService;
 
     @RequestMapping("mine.action")
     public String mine(Map<String, Object> data, HttpServletRequest request) {
@@ -106,7 +111,7 @@ public class MineController extends BaseController {
 
     @RequestMapping("qrcode.action")
     public String getQRCode(Map<String, Object> data, HttpServletRequest request){
-        long id=RequestTools.RequestLong(request,"id",0);
+        long id=RequestTools.RequestLong(request, "id", 0);
         CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
         if(couponRecordModel!=null) {
             data.put("coupon", couponRecordModel);
@@ -115,13 +120,34 @@ public class MineController extends BaseController {
         return "qrcode";
     }
 
+    @RequestMapping("signin_d.action")
+    public String signin_d(Map<String,Object> data,HttpServletRequest request){
+        UserModel userModel=getAppUserInfo();
+        PastTotal pastTotalModel=this.signinService.getPastTotalByUid(userModel.getId());
+        data.put("pastTotal",pastTotalModel);
+        return "signin_d";
+    }
+    /**
+     * 签到干杯
+     * @param data
+     * @param request
+     * @return
+     */
     @RequestMapping("sign_in.action")
     public String sign_in(Map<String, Object> data, HttpServletRequest request){
         UserModel userModel=getAppUserInfo();
+
         //增加XX毫升酒
+
         return "sign_in";
     }
 
+    /**
+     * 邀请朋友干杯
+     * @param data
+     * @param request
+     * @return
+     */
     @RequestMapping("share_sign_in.action")
     public String share_sign_in(Map<String, Object> data, HttpServletRequest request){
         //帮朋友增加xx毫升酒

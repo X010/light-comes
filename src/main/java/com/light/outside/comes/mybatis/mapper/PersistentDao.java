@@ -373,4 +373,32 @@ public interface PersistentDao {
     @Update("update comes_past set interval_day=#{interval_day},min_drunk=#{min_drunk},max_drunk=#{max_drunk},total_drunk=#{total_drunk},past_times=#{past_times}," +
             "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk}  where id=#{id}")
     public void updatePast(PastModel pastModel);
+
+    /**
+     * 查询用户干杯数量
+     * @param uid
+     * @return
+     */
+    @Select("select * from comes_past_total where uid=#{uid}")
+    public PastTotal getPastTotalByUser(@Param("uid") long uid);
+
+    /**
+     * 修改总数
+     * @param pastTotal
+     * @return
+     */
+    @Update("update comes_past_total set today_times=#{today_times},today_drunk=#{today_drunk},cycle_times=#{cycle_times},cycle_drunk=#{cycle_drunk}" +
+            ",today_other_times=#{today_other_times},today_other_drunk=#{today_other_drunk},update_time=now()" +
+            " where uid=#{uid}")
+    public int updatePastTotal(PastTotal pastTotal);
+
+    /**
+     * 详情
+     * @param pastDetail
+     * @return
+     */
+    @Insert("insert into comes_past_detail(create_time,uid,phone,friend_uid,friend_phone,drunk_type,drunk_num) " +
+            "values(now(),#{uid},#{friend_uid},#{friend_phone},#{drunk_type},#{drunk_num})")
+    public int addPastDetail(PastDetail pastDetail);
+
 }
