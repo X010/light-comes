@@ -28,7 +28,7 @@ import java.util.Map;
  * limitations under the License.
  */
 @Controller
-@RequestMapping("pay")
+@RequestMapping("yeshizuileweixin/Cart")
 public class PayController {
 
     @Autowired
