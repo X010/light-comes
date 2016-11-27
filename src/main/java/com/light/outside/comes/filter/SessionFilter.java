@@ -44,7 +44,7 @@ public class SessionFilter implements javax.servlet.Filter {
         else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             chain.doFilter(request, response);
-        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/")||url.contains("/my/")) {
+        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/")||url.contains("/my/")||url.contains("/pt/")) {
             if (session.getAttribute(LoginController.SESSION_KEY_APP_USERINFO) == null) {
                 session.invalidate();
                 clientLoginOut(request, response);
