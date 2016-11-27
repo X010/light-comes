@@ -21,7 +21,8 @@ input[type='button']{cursor: pointer;}
 .drink{ font-size: 12px; color: #4A2E1C;}
 .ml{ color:#ED1E37; font-size: 18px;font-weight: 600; }
 .bottle{ width: 54px; margin: 10px auto;}
-.bottle img{ margin:10px auto; width: 100%;}
+.liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+svg{ z-index: 99; position: absolute; margin:0 auto;}
 
 .bottom{ position: absolute; top:62%; width: 100%; background: url("../images/loud.png") no-repeat; height: 20%; background-size: 100%;}
 .bottom-d{ float: left; margin-left: 10px;}
