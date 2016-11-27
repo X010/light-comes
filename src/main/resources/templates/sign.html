@@ -6,6 +6,8 @@
     <meta name="format-detection" content="telephone=no">
     <title>签到</title>
     <link href="css/sign.css" type="text/css" rel="stylesheet">
+    <script src="js/d3.v3.min.js" language="JavaScript"></script>
+    <script src="js/liquidFillGauge.js" language="JavaScript"></script>
 </head>
 <body>
     <div class="container">
@@ -21,7 +23,7 @@
                 </div>
             </div>
             <div class="bottle">
-                <img src="images/bottle.png"/>
+                <svg id="fillgauge6" width="22%" height="120" onclick="gauge6.update(NewValue());"></svg>
             </div>
         </div>
         <div class="bottom">
@@ -38,5 +40,28 @@
         </div>
         <input type="button" value="我也要干杯" class="chess">
     </div>
+    <script language="JavaScript">
+        var config5 = liquidFillGaugeDefaultSettings();
+        config5.circleThickness = 0.1;
+        config5.circleColor = "#ED1E37";
+        config5.textColor = "#ED1E37";
+        config5.waveTextColor = "#FD8F94";
+        config5.waveColor = "#FFDDDD";
+        config5.textVertPosition = 0.52;
+        config5.waveAnimateTime = 2000;
+        config5.waveHeight = 0.1;
+        config5.waveAnimate = true;
+        config5.waveCount = 2;
+        config5.waveOffset = 0.5;
+        config5.textSize = 1;
+        config5.minValue = 0;
+        config5.maxValue = 150;//总容量
+        config5.displayPercent = false;
+        var gauge6 = loadLiquidFillGauge("fillgauge6", 120, config5);
+
+        function NewValue(){//喝完以后给出剩余值
+            return 104.02;
+        }
+    </script>
 </body>
 </html>
