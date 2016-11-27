@@ -92,6 +92,12 @@
         <p>${um.phone!}</p>
     </div>
     <ul class="mainlist">
+        <li onclick="window.location.href='/pt/past.action'">
+            <img src="/images/ticket-b.png"/>
+
+            <p>我要干杯</p>
+            <a>&gt;</a>
+        </li>
 
         <li onclick="window.location.href='/my/mine_coupon.action'">
             <img src="/images/ticket-b.png"/>

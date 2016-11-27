@@ -127,6 +127,7 @@ public class MineController extends BaseController {
         data.put("pastTotal",pastTotalModel);
         return "signin_d";
     }
+
     /**
      * 签到干杯
      * @param data

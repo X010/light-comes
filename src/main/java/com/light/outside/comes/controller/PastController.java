@@ -1,9 +1,16 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.model.JsonResponse;
+import com.light.outside.comes.model.PastTotal;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.PastService;
+import com.light.outside.comes.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -24,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("pt")
-public class PastController {
+public class PastController extends BaseController {
 
     @Autowired
     private PastService pastService;
@@ -37,5 +44,47 @@ public class PastController {
     @RequestMapping("past.action")
     public String past() {
         return "past";
+    }
+
+    /**
+     * 获取自己签到的情况
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("info.action")
+    public String getMyPastInfo(HttpServletRequest request) {
+        JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
+        try {
+            UserModel user = getAppUserInfo();
+            if (user != null) {
+                PastTotal pastTotal = this.pastService.getPastTotalByPhone(user);
+                data.setData(pastTotal);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setStatus(300);
+        }
+        return JsonParser.simpleJson(data);
+    }
+
+    /**
+     * 自已给自己干怀
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("self_past.action")
+    public String selfPast() {
+        JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
+        try {
+            UserModel user = getAppUserInfo();
+            PastTotal pastTotal = this.pastService.pastSelf(user);
+            data.setData(pastTotal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setStatus(300);
+        }
+        return JsonParser.simpleJson(data);
     }
 }

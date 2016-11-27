@@ -35,6 +35,11 @@ public class PastTotal extends BaseModel {
     private int today_times;
 
     /**
+     * 今天还有多少次
+     */
+    private int today_have_times;
+
+    /**
      * 今天喝的量
      */
     private int today_drunk;
@@ -55,9 +60,30 @@ public class PastTotal extends BaseModel {
     private int cycle_times;
 
     /**
+     * 瓶子总量
+     */
+    private int total_drunk;
+
+    /**
      * 总期量
      */
     private int cycle_drunk;
+
+    public int getTotal_drunk() {
+        return total_drunk;
+    }
+
+    public void setTotal_drunk(int total_drunk) {
+        this.total_drunk = total_drunk;
+    }
+
+    public int getToday_have_times() {
+        return today_have_times;
+    }
+
+    public void setToday_have_times(int today_have_times) {
+        this.today_have_times = today_have_times;
+    }
 
     public long getUid() {
         return uid;

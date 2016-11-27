@@ -122,6 +122,7 @@ public interface PersistentDao {
 
     /**
      * 查询收到的优惠券
+     *
      * @param uid
      * @param start
      * @param size
@@ -130,7 +131,7 @@ public interface PersistentDao {
     //@Select("select * from commes_coupon_records_useds where uid=#{uid}  limit #{start},#{size}")
     @Select("select r.* from comes_coupon_records_used ru,comes_conpon_records r " +
             " where r.id=ru.coupon_record_id and ru.uid=#{uid} limit #{start},#{size}")
-    public List<CouponRecordViewModel> getUsedRaffleCouponPageByUser(@Param("uid")long uid, @Param("start") int start, @Param("size") int size);
+    public List<CouponRecordViewModel> getUsedRaffleCouponPageByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
     /**
      * 查询所有优惠券
@@ -190,7 +191,7 @@ public interface PersistentDao {
             "and ccr.uid>0 " +
             "order by ccr.createtime desc " +
             "limit #{start},#{size}")
-    public List<CouponRecordModel> getRaffleCouponRecordByRaffleId(@Param("rid") long rid,@Param("start") int start, @Param("size") int size);
+    public List<CouponRecordModel> getRaffleCouponRecordByRaffleId(@Param("rid") long rid, @Param("start") int start, @Param("size") int size);
 
     @Delete("delete from comes_raffle_coupon where rid=#{rid}")
     public void deleteRaffleCouponByRaffleId(@Param("rid") long rid);
@@ -376,6 +377,7 @@ public interface PersistentDao {
 
     /**
      * 查询用户干杯数量
+     *
      * @param uid
      * @return
      */
@@ -383,7 +385,17 @@ public interface PersistentDao {
     public PastTotal getPastTotalByUser(@Param("uid") long uid);
 
     /**
+     * 根据用户手机号获取用户的干杯信息
+     *
+     * @param phone
+     * @return
+     */
+    @Select("select * from comes_past_total where phone=#{phone}")
+    public PastTotal getPastTotalByPhone(@Param("phone") String phone);
+
+    /**
      * 修改总数
+     *
      * @param pastTotal
      * @return
      */
@@ -393,12 +405,34 @@ public interface PersistentDao {
     public int updatePastTotal(PastTotal pastTotal);
 
     /**
+     * 添加PastTotal信息
+     *
+     * @param pastTotal
+     * @return
+     */
+    @Insert("insert into comes_past_total(uid,phone,today_times,today_drunk,cycle_times,cycle_drunk,today_other_times,today_other_drunk,update_time)values" +
+            "(#{uid},#{phone},#{today_times},#{today_drunk},#{cycle_times},#{cycle_drunk},#{today_other_times},#{today_other_drunk},now())")
+    @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    public long addPastTotal(PastTotal pastTotal);
+
+    /**
      * 详情
+     *
      * @param pastDetail
      * @return
      */
-    @Insert("insert into comes_past_detail(create_time,uid,phone,friend_uid,friend_phone,drunk_type,drunk_num) " +
-            "values(now(),#{uid},#{friend_uid},#{friend_phone},#{drunk_type},#{drunk_num})")
+    @Insert("insert into comes_past_detail(create_time,uid,phone,friend_uid,friend_phone,drunk_type,drunk_num)" +
+            "values(now(),#{uid},#{phone},#{friend_uid},#{friend_phone},#{drunk_type},#{drunk_num})")
     public int addPastDetail(PastDetail pastDetail);
 
+    /**
+     * 统计当前签到次数
+     *
+     * @param phone
+     * @param start_time
+     * @param end_time
+     * @return
+     */
+    @Select("select count(1) from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and create_time<=#{end_time}")
+    public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
 }

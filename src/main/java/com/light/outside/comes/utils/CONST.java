@@ -57,4 +57,6 @@ public class CONST {
     public static int AUCTION_STATUS_FAIL = 3;//未拍得
 
     public static int PAST_ID = 9999; //签到活动ID
+    public static int DRUNK_SELF = 1; //自己独杯
+    public static int DRUNK_OTHER = 2;//与家人干杯
 }
