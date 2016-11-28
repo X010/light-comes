@@ -97,6 +97,7 @@
     </div>
     <div id="deposit">报名交保证金</div>
 </div>
+<script type="text/javascript" charset="UTF-8" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
     var auct = document.getElementById("auction");
     var floatbg = document.getElementById("bg-auct");
@@ -155,7 +156,8 @@
         floatbg.style.display = "none";
     }
     deposit.onclick = function () {
-        window.location.href = "auction_margin.action?amount=${auction.amount!}&aid=${auction.id!}";
+        //window.location.href = "auction_margin.action?amount=${auction.amount!}&aid=${auction.id!}";
+        window.location.href="auction_margin_pay.action?amount=${auction.amount!}&aid=${auction.id!}&title=${auction.title!}&price=${auction.deposit!}";
     }
     if (isPay == true && seconds2 > 0) {
         deposit.style.display = "none";
@@ -166,6 +168,9 @@
     }else{
         footer.style.display = "none";
     }
+
+
+
 
 </script>
 </body>

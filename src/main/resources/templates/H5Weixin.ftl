@@ -1,15 +1,17 @@
 <html>
 <body>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script language="JavaScript">
     function onBridgeReady() {
         WeixinJSBridge.invoke(
                 'getBrandWCPayRequest', {
-                    "appId" ： "wx2421b1c4370ec43b",     //公众号名称，由商户传入
-                "timeStamp"：" 1395712654",         //时间戳，自1970年以来的秒数
-                "nonceStr" ： "e61463f8efa94090b1f366cccfbbb444", //随机串
-                "package" ： "prepay_id=u802345jgfjsdfgsdg888",
+                    "appId" ： "${appId}",     //公众号名称，由商户传入
+                "timeStamp"：" ${timeStamp}",         //时间戳，自1970年以来的秒数
+                "nonceStr" ： "${nonceStr}", //随机串
+                "package" ： "${package}",
                 "signType" ： "MD5",         //微信签名方式：
-                "paySign" ： "70EA570631E4BB79628FBCA90534C63FF7FADD89" //微信签名
+                "paySign" ： "${paySign}" //微信签名
     },
         function (res) {
             if (res.err_msg == "get_brand_wcpay_request：ok") {

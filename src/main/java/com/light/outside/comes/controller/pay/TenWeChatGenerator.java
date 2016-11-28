@@ -2,7 +2,6 @@ package com.light.outside.comes.controller.pay;
 
 import com.light.outside.comes.controller.pay.client.TenpayHttpClient;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
-import com.light.outside.comes.controller.pay.util.PropertiesUtil;
 import com.light.outside.comes.controller.pay.util.Sha1Util;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
 import org.dom4j.Document;
@@ -25,6 +24,7 @@ import java.util.*;
 
 /**
  * 微信支付生成订单
+ * 参考http://www.cnblogs.com/javatochen/p/5553403.html
  */
 public class TenWeChatGenerator {
 
