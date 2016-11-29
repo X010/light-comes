@@ -1,5 +1,8 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.controller.pay.TenWeChatGenerator;
+import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
+import com.light.outside.comes.controller.pay.util.PubUtils;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -229,6 +234,31 @@ public class AuctionController extends BaseController {
         //暂时先跳过支付保证金
         data.put("isPay", isPay);
         return auctionDetail(data, request, response);
+    }
+
+    @RequestMapping("auction_margin_pay.action")
+    public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
+        UserModel userModel = getAppUserInfo();
+        String title = RequestTools.RequestString(request, "title", "未知商品");
+        String ip = getRemortIP(request);
+        String payPrice = RequestTools.RequestString(request, "price", "0");
+        String tradeNo = PubUtils.getUniqueSn() + "";
+        String openid = userModel.getPhone();
+        try {
+            //生成预支付订单
+            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(title, tradeNo, payPrice, openid, ip);
+            data.putAll(payMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "H5Weixin";
+    }
+
+    public String getRemortIP(HttpServletRequest request) {
+        if (request.getHeader("x-forwarded-for") == null) {
+            return request.getRemoteAddr();
+        }
+        return request.getHeader("x-forwarded-for");
     }
 
     /**

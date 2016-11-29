@@ -1,6 +1,10 @@
 package com.light.outside.comes.controller;
 
+import com.light.outside.comes.controller.pay.TenWeChatGenerator;
+import com.light.outside.comes.controller.pay.util.PubUtils;
+import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.WeiXinPayService;
+import com.light.outside.comes.utils.RequestTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +33,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("yeshizuileweixin/Cart")
-public class PayController {
+public class PayController extends BaseController {
 
     @Autowired
     private WeiXinPayService weiXinPayService;
@@ -45,7 +49,19 @@ public class PayController {
      */
     @RequestMapping("h5weixin.action")
     public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
-
+        UserModel userModel = getAppUserInfo();
+        String title = RequestTools.RequestString(request, "title", "未知商品");
+        String ip = request.getRemoteHost();
+        String payPrice = RequestTools.RequestString(request, "price", "0");
+        String tradeNo = PubUtils.getUniqueSn() + "";
+        String openid = userModel.getPhone();
+        try {
+            //生成预支付订单
+            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(title, tradeNo, payPrice, openid, ip);
+            data.putAll(payMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "H5Weixin";
     }
 

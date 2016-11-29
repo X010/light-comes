@@ -25,7 +25,7 @@ public class TenWeChatConfig {
     /**
      * 支付完成后的回调处理页面
      */
-    public static final String notify_url ="";
+    public static final String notify_url ="notify_url";
     /**
      * 预支付接口
      */
