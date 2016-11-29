@@ -192,15 +192,15 @@ public class Sha1Util {
     	
     	String tradeNo= PubUtils.getUniqueSn()+"";
     	try {
-			TenWeChatGenerator.genPayOrder("大柠檬运动-套餐",tradeNo,"100","oo2zXvwclBl3VDvCgulXP8UVAEy","123.12.12.123");
+			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"20","12345678901","123.12.12.123");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	
-    	String string = "appid=wx65db45e85c1be9c4&body=大柠檬运动-套餐&mch_id=1369211002&nonce_str=a49e9411d64ff53eccfdd09ad10a15b3&notify_url=http://716b507d.ngrok.natapp.cn/api/apiPay/weChatPayCallback&openid=oo2zXvwclBl3VDvCgulXP8UVAEyM&out_trade_no=1609012004187390002&spbill_create_ip=123.12.12.123&total_fee=100&trade_type=JSAPI&key=3816ac8f220a3e9150fbab7321064d45";
-    	StringBuilder sb = new StringBuilder("appid=wx65db45e85c1be9c4&body=大柠檬运动-套餐&mch_id=1369211002&nonce_str=a49e9411d64ff53eccfdd09ad10a15b3&notify_url=http://716b507d.ngrok.natapp.cn/api/apiPay/weChatPayCallback&openid=oo2zXvwclBl3VDvCgulXP8UVAEyM&out_trade_no=1609012004187390002&spbill_create_ip=123.12.12.123&total_fee=100&trade_type=JSAPI&key=3816ac8f220a3e9150fbab7321064d45");
-    	System.out.println(MD5.getMessageDigest(string.getBytes()).toUpperCase());
-    	System.out.println(MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase());
+    	//String string = "appid=wx1e57e69d90a3d054&body=test&mch_id=1337492301&nonce_str=e3844e186e6eb8736e9f53c0c5889527&notify_url=notify_url&openid=12345678901&out_trade_no=1611291540365106001&spbill_create_ip=0:0:0:0:0:0:0:1&total_fee=2000&trade_type=JSAPI&key=feer345522qacgfwesddgfgghhuu8899";
+    	//StringBuilder sb = new StringBuilder("appid=wx1e57e69d90a3d054&body=test&mch_id=1337492301&nonce_str=e3844e186e6eb8736e9f53c0c5889527&notify_url=notify_url&openid=12345678901&out_trade_no=1611291540365106001&spbill_create_ip=0:0:0:0:0:0:0:1&total_fee=2000&trade_type=JSAPI&key=feer345522qacgfwesddgfgghhuu8899");
+    	//System.out.println(MD5.getMessageDigest(string.getBytes()).toUpperCase());
+    	//System.out.println(MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase());
 	}
 
 

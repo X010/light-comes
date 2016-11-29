@@ -25,6 +25,8 @@ import java.util.*;
 /**
  * 微信支付生成订单
  * 参考http://www.cnblogs.com/javatochen/p/5553403.html
+ * http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+ * http://www.cnblogs.com/txw1958/category/624506.html
  */
 public class TenWeChatGenerator {
 
@@ -116,7 +118,7 @@ public class TenWeChatGenerator {
         TenpayHttpClient httpClient = new TenpayHttpClient();
         if (httpClient.callHttpPost(TenWeChatConfig.orderPayUrl, xmlParams)) {
             String resContent = httpClient.getResContent();
-            System.out.println(resContent);
+            System.out.println("response:"+resContent);
             try {
                 Map result = XMLUtil.doXMLParse(resContent);
                 String msg = (String) result.get("return_msg");

@@ -20,12 +20,13 @@ public class TenWeChatConfig {
     public static final String mch_id ="1337492301";
     /**
      * 密钥
+     * e47b5d1fa1c6277d215aec26647a66cf
      */
-    public static final String partner_id ="e47b5d1fa1c6277d215aec26647a66cf";
+    public static final String partner_id ="feer345522qacgfwesddgfgghhuu8899";
     /**
      * 支付完成后的回调处理页面
      */
-    public static final String notify_url ="notify_url";
+    public static final String notify_url ="http://www.baidu.com";
     /**
      * 预支付接口
      */
