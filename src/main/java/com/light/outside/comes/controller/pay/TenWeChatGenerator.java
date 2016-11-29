@@ -95,7 +95,13 @@ public class TenWeChatGenerator {
         packageParams.put("spbill_create_ip", spbillCreateIp);        //订单生成的机器IP
         packageParams.put("notify_url", TenWeChatConfig.notify_url);
         packageParams.put("trade_type", "JSAPI");
-        packageParams.put("openid", openid);
+//        packageParams.put("openid", openid);
+
+        String sign = Sha1Util.genWXPackageSign(packageParams);
+        System.out.println(sign);
+        System.out.println();
+        Element signElement = DocumentHelper.createElement("sign");
+        signElement.setText(sign);
 
         Document curDocument = DocumentHelper.createDocument();
         Element rootElement = DocumentHelper.createElement("xml");
@@ -104,11 +110,6 @@ public class TenWeChatGenerator {
             curElement.setText(packageParams.get(key));
             rootElement.add(curElement);
         }
-        String sign = Sha1Util.genWXPackageSign(packageParams);
-        System.out.println(sign);
-        System.out.println();
-        Element signElement = DocumentHelper.createElement("sign");
-        signElement.setText(sign);
         rootElement.add(signElement);
         curDocument.setRootElement(rootElement);
         String xmlParams = curDocument.getRootElement().asXML(); //XMLUtil.toXml(packageParams,sign);
