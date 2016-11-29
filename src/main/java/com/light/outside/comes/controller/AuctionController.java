@@ -246,7 +246,7 @@ public class AuctionController extends BaseController {
         String openid = userModel.getPhone();
         try {
             //生成预支付订单
-            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(title, tradeNo, payPrice, openid, ip);
+            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder("曲不离口-"+title, tradeNo, payPrice, openid, ip);
             data.putAll(payMap);
         } catch (Exception e) {
             e.printStackTrace();
