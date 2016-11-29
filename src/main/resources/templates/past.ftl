@@ -8,19 +8,16 @@
     <link href="/css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script src="/js/d3.v3.min.js" language="JavaScript"></script>
-    <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
-    <script id="post_list" type="text/html">
-        {{# for(var i = 0, len = d.length; i < len; i++){ }}
+    <script id="post" type="text/html">
             <div class="mid">
                 <div class="mid-top">
                     <div class="mid-left">
                         <p class="drink">今天喝掉</p>
-                        <p class="ml">{{d[i].today_drunk}}ml</p>
+                        <p class="ml">{{d.today_drunk}}ml</p>
                     </div>
                     <div class="mid-right">
                         <p class="drink">当前喝掉</p>
-                        <p class="ml">{{d[i].cycle_drunk}}ml</p>
+                        <p class="ml">{{d.cycle_drunk}}ml</p>
                     </div>
                 </div>
                 <div class="bottle">
@@ -31,23 +28,28 @@
             <div class="bottom-box">
                 <div class="bottom-d">
                     <p class="drink">今日您已喝掉</p>
-                    <p class="mll">{{d[i].today_drunk}}ml</p>
+                    <p class="mll">{{d.today_drunk}}ml</p>
                 </div>
                 <div class="bottom-d">
                     <p class="drink">朋友已帮你喝掉</p>
-                    <p class="mll">{{d[i].today_other_drunk}}ml</p>
+                    <p class="mll">{{d.today_other_drunk}}ml</p>
                 </div>
             </div>
         </div>
         <input type="button" value="我也要干杯" class="chess">
-        {{# } }}
     </script>
 </head>
 <body>
-<div class="container" id="msglist">
+<div class="container" id="cont">
 
 </div>
-<script language="JavaScript">
+<script src="/js/d3.v3.min.js" language="JavaScript"></script>
+<script src="/js/liquidFillGauge.js" language="JavaScript"></script>
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+	loadAjax();
+    });
+
     var config5 = liquidFillGaugeDefaultSettings();
     config5.circleThickness = 0.1;
     config5.circleColor = "#ED1E37";
@@ -69,34 +71,16 @@
     function NewValue(){//喝完以后给出剩余值
         return 104.02;
     }
-    var isload = true;
-    $(document).ready(function(){
-        if(isload){
-            loadMore(); //加载所有瀑布流的数据
-        }
-    });
-    function loadMore(){
-        var target = $('#firstDiv').get(0);
+    function loadAjax(){
         $.ajax({
             type:'GET',
             url:'/pt/info.action',
             timeout : 10000, //超时时间设置，单位毫秒
             data:"ac=index_data",
             dataType:'json',
-            async: false,
             success : function(re_json){
-                if(re_json != " "){
-                    if( re_json.length > 0){
-                        appendHtml(re_json);
-                    }
-                    else {
-                        isload = false;
-                    }
-                }
-                else {
-                    isload = false;
-                }
-            },
+                appendHtml(re_json.data);
+                },
             complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();
@@ -110,9 +94,10 @@
         });
     }
     function appendHtml(json){
-        var gettpl = document.getElementById('post_list').innerHTML;
-        laytpl(gettpl).render(json, function(html){
-            $("#msglist").append(html);
+    	var jsondata  = eval(json);
+	var gettpl = document.getElementById('post').innerHTML;
+	laytpl(gettpl).render(jsondata, function(html){
+	$("#cont").append(html);
         });
     }
 </script>
