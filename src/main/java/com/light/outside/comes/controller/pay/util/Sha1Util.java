@@ -192,7 +192,7 @@ public class Sha1Util {
     	
     	String tradeNo= PubUtils.getUniqueSn()+"";
     	try {
-			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"20","12345678901","123.12.12.123");
+			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"20","oUpF8uMuAJO_M2pxb1Q9zNjWeS6o","123.12.12.123");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

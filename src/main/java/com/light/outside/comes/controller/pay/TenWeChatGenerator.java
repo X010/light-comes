@@ -98,6 +98,7 @@ public class TenWeChatGenerator {
         packageParams.put("notify_url", TenWeChatConfig.notify_url);
         packageParams.put("trade_type", "JSAPI");
         packageParams.put("openid", openid);
+//        packageParams.put("device_info","WEB");
 
         Document curDocument = DocumentHelper.createDocument();
         Element rootElement = DocumentHelper.createElement("xml");

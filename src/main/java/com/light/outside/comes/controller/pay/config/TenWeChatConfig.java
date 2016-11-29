@@ -26,7 +26,7 @@ public class TenWeChatConfig {
     /**
      * 支付完成后的回调处理页面
      */
-    public static final String notify_url ="http://www.baidu.com";
+    public static final String notify_url ="http://www.weixin.qq.com/wxpay/pay.php";
     /**
      * 预支付接口
      */
