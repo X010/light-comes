@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="bottle">
-                    <svg id="fillgauge" width="22%" height="120" onclick="gauge.update(NewValue());"></svg>
+                    <svg id="fillgauge" width="22%" height="120"></svg>
                 </div>
             </div>
         <div class="bottom">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <input type="button" value="我也要干杯" class="chess">
+        <input type="button" value="我也要干杯" class="chess" onclick="gauge.update(NewValue());" />
     </script>
 </head>
 <body>
@@ -68,8 +68,10 @@
         function NewValue(){//喝完以后给出剩余值
             return 104.02;
         }
-	    loadAjax();
     });
+    window.onload=function(){
+	loadAjax();
+    };
     function loadAjax(){
         $.ajax({
             type:'GET',
