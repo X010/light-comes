@@ -4,6 +4,7 @@ import com.light.outside.comes.controller.pay.client.TenpayHttpClient;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.controller.pay.util.Sha1Util;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
+import com.light.outside.comes.utils.JsonClient;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -119,7 +120,7 @@ public class TenWeChatGenerator {
         TenpayHttpClient httpClient = new TenpayHttpClient();
         if (httpClient.callHttpPost(TenWeChatConfig.orderPayUrl, xmlParams)) {
             String resContent = httpClient.getResContent();
-            System.out.println("response:"+resContent);
+            System.out.println("response:" + resContent);
             try {
                 Map result = XMLUtil.doXMLParse(resContent);
                 String msg = (String) result.get("return_msg");
@@ -294,6 +295,26 @@ public class TenWeChatGenerator {
             return (String) map.get("access_token");
         }
         return "";
+    }
+
+
+    /**
+     * 第二步 获取openID  和reflashToken
+     *
+     * @return
+     */
+    public com.alibaba.fastjson.JSONObject getOpenIdStepOne(String code) {
+        Map<String, String> map = new HashMap<String, String>();
+        //todo: 放到配置文件中
+        map.put("appid", TenWeChatConfig.app_id);
+        map.put("secret", TenWeChatConfig.app_secret);
+        map.put("code", code);
+        map.put("grant_type", "authorization_code");
+        com.alibaba.fastjson.JSONObject json = JsonClient.post(TenWeChatConfig.tokenUrl, map);
+        if (json.containsKey("errcode")) {
+            throw new RuntimeException("根据code获取用户OpenId失败 errcode:" + json.getString("errcode"));
+        }
+        return json;
     }
 
     /**
