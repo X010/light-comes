@@ -30,7 +30,7 @@
         <div class="bottom-box">
             <div class="bottom-d">
                 <p class="drink">今日您已喝掉</p>
-                <p class="mll" ><span id="tdu_drunk"><span></span>ml</p>
+                <p class="mll" ><span id="tdu_drunk"></span>ml</p>
             </div>
             <div class="bottom-d">
                 <p class="drink">朋友已帮你喝掉</p>
@@ -38,13 +38,15 @@
             </div>
         </div>
     </div>
-    <input type="button" value="我也要干杯" class="chess" onclick="gauge.update(NewValue());" />
+    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();" />
 </div>
 <script src="/js/d3.v3.min.js" language="JavaScript"></script>
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
-        var config = liquidFillGaugeDefaultSettings();
+	  loadAjax();
+    });
+	var config = liquidFillGaugeDefaultSettings();
         config.circleThickness = 0.1;
         config.circleColor = "#ED1E37";
         config.textColor = "#ED1E37";
@@ -60,16 +62,42 @@
         config.minValue = 0;
         config.maxValue = 150;//总容量
         config.displayPercent = false;
+        console.log(config.maxValue);
         var gauge = loadLiquidFillGauge("fillgauge", 120, config);
 
-        function NewValue(){//喝完以后给出剩余值
+    function NewValue(){//喝完以后给出剩余值
             return 104.02;
         }
-    });
-    window.onload=function(){
-	loadAjax();
-    };
+    function changeNum(){
+		$.ajax({
+		    type:'GET',
+		    url:'/pt/self_past.action',
+		    timeout:10000,
+		    dataType:'json',
+		    success:function(re_json){
+			data = re_json.data;
+			$("#td_drunk").text(data.today_drunk);
+    			$("#cy_drunk").text(data.cycle_drunk);
+   		        $("#tdu_drunk").text(data.today_drunk);
+   		        $("#tdo_drunk").text(data.today_other_drunk);
+   		        var drunk = data.total_drunk-data.cycle_drunk;
+   		        gauge.update(drunk);
+		    },
+		    complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                if(status=='timeout'){//超时,status还有success,error等值的情况
+                    //ajaxTimeoutTest.abort();
+                    alert("超时");
+                }
+                if(status=="parsererror"){
+                    isload = false;
+                    console.log("pasererror");
+                }
+            }
+		});
+	}
+
     function loadAjax(){
+    	var re_json,result;
         $.ajax({
             type:'GET',
             url:'/pt/info.action',
@@ -77,11 +105,14 @@
             data:"ac=index_data",
             dataType:'json',
             success : function(re_json){
-                $("#td_drunk").text(re_json.today_drunk);
-                $("#cy_drunk").text(re_json.cycle_drunk);
-                $("#tdu_drunk").text(re_json.today_drunk);
-                $("#tdo_drunk").text(re_json.today_other_drunk);
-                },
+            		data = re_json.data;
+   	 $("#td_drunk").text(data.today_drunk);
+    $("#cy_drunk").text(data.cycle_drunk);
+    $("#tdu_drunk").text(data.today_drunk);
+    $("#tdo_drunk").text(data.today_other_drunk);
+    var drunk = data.total_drunk-data.cycle_drunk;
+    gauge.update(drunk);
+	    },
             complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();
@@ -92,13 +123,6 @@
                     console.log("pasererror");
                 }
             }
-        });
-    }
-    function appendHtml(json){
-    	var jsondata  = eval(json);
-	var gettpl = document.getElementById('post').innerHTML;
-	laytpl(gettpl).render(jsondata, function(html){
-	$("#cont").append(html);
         });
     }
 </script>
