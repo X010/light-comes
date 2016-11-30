@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="bottle">
-                    <svg id="fillgauge6" width="22%" height="120" onclick="gauge6.update(NewValue());"></svg>
+                    <svg id="fillgauge" width="22%" height="120" onclick="gauge.update(NewValue());"></svg>
                 </div>
             </div>
         <div class="bottom">
@@ -47,30 +47,29 @@
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
-	loadAjax();
+        var config = liquidFillGaugeDefaultSettings();
+        config.circleThickness = 0.1;
+        config.circleColor = "#ED1E37";
+        config.textColor = "#ED1E37";
+        config.waveTextColor = "#FD8F94";
+        config.waveColor = "#FFDDDD";
+        config.textVertPosition = 0.52;
+        config.waveAnimateTime = 2000;
+        config.waveHeight = 0.1;
+        config.waveAnimate = true;
+        config.waveCount = 2;
+        config.waveOffset = 0.5;
+        config.textSize = 1;
+        config.minValue = 0;
+        config.maxValue = 150;//总容量
+        config.displayPercent = false;
+        var gauge = loadLiquidFillGauge("fillgauge", 120, config);
+
+        function NewValue(){//喝完以后给出剩余值
+            return 104.02;
+        }
+	    loadAjax();
     });
-
-    var config5 = liquidFillGaugeDefaultSettings();
-    config5.circleThickness = 0.1;
-    config5.circleColor = "#ED1E37";
-    config5.textColor = "#ED1E37";
-    config5.waveTextColor = "#FD8F94";
-    config5.waveColor = "#FFDDDD";
-    config5.textVertPosition = 0.52;
-    config5.waveAnimateTime = 2000;
-    config5.waveHeight = 0.1;
-    config5.waveAnimate = true;
-    config5.waveCount = 2;
-    config5.waveOffset = 0.5;
-    config5.textSize = 1;
-    config5.minValue = 0;
-    config5.maxValue = 150;//总容量
-    config5.displayPercent = false;
-    var gauge6 = loadLiquidFillGauge("fillgauge6", 120, config5);
-
-    function NewValue(){//喝完以后给出剩余值
-        return 104.02;
-    }
     function loadAjax(){
         $.ajax({
             type:'GET',
