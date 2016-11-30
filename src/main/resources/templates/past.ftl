@@ -8,40 +8,37 @@
     <link href="/css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script id="post" type="text/html">
-            <div class="mid">
-                <div class="mid-top">
-                    <div class="mid-left">
-                        <p class="drink">今天喝掉</p>
-                        <p class="ml">{{d.today_drunk}}ml</p>
-                    </div>
-                    <div class="mid-right">
-                        <p class="drink">当前喝掉</p>
-                        <p class="ml">{{d.cycle_drunk}}ml</p>
-                    </div>
-                </div>
-                <div class="bottle">
-                    <svg id="fillgauge" width="22%" height="120"></svg>
-                </div>
-            </div>
-        <div class="bottom">
-            <div class="bottom-box">
-                <div class="bottom-d">
-                    <p class="drink">今日您已喝掉</p>
-                    <p class="mll">{{d.today_drunk}}ml</p>
-                </div>
-                <div class="bottom-d">
-                    <p class="drink">朋友已帮你喝掉</p>
-                    <p class="mll">{{d.today_other_drunk}}ml</p>
-                </div>
-            </div>
-        </div>
-        <input type="button" value="我也要干杯" class="chess" onclick="gauge.update(NewValue());" />
-    </script>
 </head>
 <body>
 <div class="container" id="cont">
-
+    <div class="mid">
+        <div class="mid-top">
+            <div class="mid-left">
+                <p class="drink">今天喝掉</p>
+                <p class="ml"><span id="td_drunk"></span>ml</p>
+            </div>
+            <div class="mid-right">
+                <p class="drink">当前喝掉</p>
+                <p class="ml"><span id="cy_drunk"></span>ml</p>
+            </div>
+        </div>
+        <div class="bottle">
+            <svg id="fillgauge" width="22%" height="120"></svg>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom-box">
+            <div class="bottom-d">
+                <p class="drink">今日您已喝掉</p>
+                <p class="mll" ><span id="tdu_drunk"><span></span>ml</p>
+            </div>
+            <div class="bottom-d">
+                <p class="drink">朋友已帮你喝掉</p>
+                <p class="mll"><span id="tdo_drunk"></span>ml</p>
+            </div>
+        </div>
+    </div>
+    <input type="button" value="我也要干杯" class="chess" onclick="gauge.update(NewValue());" />
 </div>
 <script src="/js/d3.v3.min.js" language="JavaScript"></script>
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
@@ -80,7 +77,10 @@
             data:"ac=index_data",
             dataType:'json',
             success : function(re_json){
-                appendHtml(re_json.data);
+                $("#td_drunk").text(re_json.today_drunk);
+                $("#cy_drunk").text(re_json.cycle_drunk);
+                $("#tdu_drunk").text(re_json.today_drunk);
+                $("#tdo_drunk").text(re_json.today_other_drunk);
                 },
             complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
