@@ -105,7 +105,6 @@ public class TenWeChatGenerator {
         signElement.setText(sign);
 //        packageParams.put("openid", openid);
 //        packageParams.put("device_info","WEB");
-
         Document curDocument = DocumentHelper.createDocument();
         Element rootElement = DocumentHelper.createElement("xml");
         for (String key : packageParams.keySet()) {

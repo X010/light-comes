@@ -14,13 +14,18 @@ public class TenWeChatConfig {
      * 公众号id
      */
     public static final String app_id ="wx1e57e69d90a3d054";
+
+    /**
+     * 公众号秘钥
+     */
+    public static final String app_secret="e47b5d1fa1c6277d215aec26647a66cf";
     /**
      * 商户号(mch_id)
      */
     public static final String mch_id ="1337492301";
     /**
      * 密钥
-     * e47b5d1fa1c6277d215aec26647a66cf
+     *
      */
     public static final String partner_id ="feer345522qacgfwesddgfgghhuu8899";
     /**
