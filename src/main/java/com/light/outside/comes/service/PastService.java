@@ -94,7 +94,7 @@ public class PastService {
             int times = this.getTodayDrunkTimes(userModel.getPhone());
             pastTotal.setToday_times(times);
             pastTotal.setToday_have_times(pastModel.getPast_times() - times);
-            pastTotal.setToday_drunk(pastModel.getTotal_drunk());
+            pastTotal.setTotal_drunk(pastModel.getTotal_drunk());
         }
 
         return pastTotal;
