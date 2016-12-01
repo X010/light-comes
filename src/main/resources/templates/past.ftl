@@ -44,7 +44,8 @@
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
-	  loadAjax();
+    	  var maxValue;
+	  maxValue=loadAjax();
     });
 	var config = liquidFillGaugeDefaultSettings();
         config.circleThickness = 0.1;
@@ -60,14 +61,8 @@
         config.waveOffset = 0.5;
         config.textSize = 1;
         config.minValue = 0;
-        config.maxValue = 150;//总容量
         config.displayPercent = false;
-        console.log(config.maxValue);
-        var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-
-    function NewValue(){//喝完以后给出剩余值
-            return 104.02;
-        }
+        var gauge; 
     function changeNum(){
 		$.ajax({
 		    type:'GET',
@@ -81,7 +76,8 @@
    		        $("#tdu_drunk").text(data.today_drunk);
    		        $("#tdo_drunk").text(data.today_other_drunk);
    		        var drunk = data.total_drunk-data.cycle_drunk;
-   		        gauge.update(drunk);
+   		        var gauge = loadLiquidFillGauge("fillgauge", 120, config);
+		        gauge.update(drunk);
 		    },
 		    complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
@@ -97,13 +93,13 @@
 	}
 
     function loadAjax(){
-    	var re_json,result;
         $.ajax({
             type:'GET',
             url:'/pt/info.action',
             timeout : 10000, //超时时间设置，单位毫秒
             data:"ac=index_data",
             dataType:'json',
+            async:false,
             success : function(re_json){
             		data = re_json.data;
    	 $("#td_drunk").text(data.today_drunk);
@@ -111,8 +107,12 @@
     $("#tdu_drunk").text(data.today_drunk);
     $("#tdo_drunk").text(data.today_other_drunk);
     var drunk = data.total_drunk-data.cycle_drunk;
+    maxValue = data.total_drunk;
+    console.log(maxValue);
+    config.maxValue = maxValue;//总容量
+    var gauge = loadLiquidFillGauge("fillgauge", 120, config);
     gauge.update(drunk);
-	    },
+    	    },
             complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();
@@ -124,6 +124,7 @@
                 }
             }
         });
+     return maxValue;
     }
 </script>
 </body>
