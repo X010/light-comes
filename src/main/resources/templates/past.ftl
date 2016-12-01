@@ -8,70 +8,96 @@
     <link href="/css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js" ></script>
     <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script id="post" type="text/html">
-            <div class="mid">
-                <div class="mid-top">
-                    <div class="mid-left">
-                        <p class="drink">今天喝掉</p>
-                        <p class="ml">{{d.today_drunk}}ml</p>
-                    </div>
-                    <div class="mid-right">
-                        <p class="drink">当前喝掉</p>
-                        <p class="ml">{{d.cycle_drunk}}ml</p>
-                    </div>
-                </div>
-                <div class="bottle">
-                    <svg id="fillgauge6" width="22%" height="120" onclick="gauge6.update(NewValue());"></svg>
-                </div>
-            </div>
-        <div class="bottom">
-            <div class="bottom-box">
-                <div class="bottom-d">
-                    <p class="drink">今日您已喝掉</p>
-                    <p class="mll">{{d.today_drunk}}ml</p>
-                </div>
-                <div class="bottom-d">
-                    <p class="drink">朋友已帮你喝掉</p>
-                    <p class="mll">{{d.today_other_drunk}}ml</p>
-                </div>
-            </div>
-        </div>
-        <input type="button" value="我也要干杯" class="chess">
-    </script>
 </head>
 <body>
 <div class="container" id="cont">
-
+    <div class="mid">
+        <div class="mid-top">
+            <div class="mid-left">
+                <p class="drink">今天喝掉</p>
+                <p class="ml"><span id="td_drunk"></span>ml</p>
+            </div>
+            <div class="mid-right">
+                <p class="drink">当前喝掉</p>
+                <p class="ml"><span id="cy_drunk"></span>ml</p>
+            </div>
+        </div>
+        <div class="bottle">
+            <svg id="fillgauge" width="22%" height="120"></svg>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="bottom-box">
+            <div class="bottom-d">
+                <p class="drink">今日您已喝掉</p>
+                <p class="mll" ><span id="tdu_drunk"></span>ml</p>
+            </div>
+            <div class="bottom-d">
+                <p class="drink">朋友已帮你喝掉</p>
+                <p class="mll"><span id="tdo_drunk"></span>ml</p>
+            </div>
+        </div>
+    </div>
+    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();" />
 </div>
 <script src="/js/d3.v3.min.js" language="JavaScript"></script>
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
-	loadAjax();
+	  loadAjax();
     });
-
-    var config5 = liquidFillGaugeDefaultSettings();
-    config5.circleThickness = 0.1;
-    config5.circleColor = "#ED1E37";
-    config5.textColor = "#ED1E37";
-    config5.waveTextColor = "#FD8F94";
-    config5.waveColor = "#FFDDDD";
-    config5.textVertPosition = 0.52;
-    config5.waveAnimateTime = 2000;
-    config5.waveHeight = 0.1;
-    config5.waveAnimate = true;
-    config5.waveCount = 2;
-    config5.waveOffset = 0.5;
-    config5.textSize = 1;
-    config5.minValue = 0;
-    config5.maxValue = 150;//总容量
-    config5.displayPercent = false;
-    var gauge6 = loadLiquidFillGauge("fillgauge6", 120, config5);
+	var config = liquidFillGaugeDefaultSettings();
+        config.circleThickness = 0.1;
+        config.circleColor = "#ED1E37";
+        config.textColor = "#ED1E37";
+        config.waveTextColor = "#FD8F94";
+        config.waveColor = "#FFDDDD";
+        config.textVertPosition = 0.52;
+        config.waveAnimateTime = 2000;
+        config.waveHeight = 0.1;
+        config.waveAnimate = true;
+        config.waveCount = 2;
+        config.waveOffset = 0.5;
+        config.textSize = 1;
+        config.minValue = 0;
+        config.maxValue = 150;//总容量
+        config.displayPercent = false;
+        console.log(config.maxValue);
+        var gauge = loadLiquidFillGauge("fillgauge", 120, config);
 
     function NewValue(){//喝完以后给出剩余值
-        return 104.02;
-    }
+            return 104.02;
+        }
+    function changeNum(){
+		$.ajax({
+		    type:'GET',
+		    url:'/pt/self_past.action',
+		    timeout:10000,
+		    dataType:'json',
+		    success:function(re_json){
+			data = re_json.data;
+			$("#td_drunk").text(data.today_drunk);
+    			$("#cy_drunk").text(data.cycle_drunk);
+   		        $("#tdu_drunk").text(data.today_drunk);
+   		        $("#tdo_drunk").text(data.today_other_drunk);
+   		        var drunk = data.total_drunk-data.cycle_drunk;
+   		        gauge.update(drunk);
+		    },
+		    complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+                if(status=='timeout'){//超时,status还有success,error等值的情况
+                    //ajaxTimeoutTest.abort();
+                    alert("超时");
+                }
+                if(status=="parsererror"){
+                    isload = false;
+                    console.log("pasererror");
+                }
+            }
+		});
+	}
+
     function loadAjax(){
+    	var re_json,result;
         $.ajax({
             type:'GET',
             url:'/pt/info.action',
@@ -79,8 +105,14 @@
             data:"ac=index_data",
             dataType:'json',
             success : function(re_json){
-                appendHtml(re_json.data);
-                },
+            		data = re_json.data;
+   	 $("#td_drunk").text(data.today_drunk);
+    $("#cy_drunk").text(data.cycle_drunk);
+    $("#tdu_drunk").text(data.today_drunk);
+    $("#tdo_drunk").text(data.today_other_drunk);
+    var drunk = data.total_drunk-data.cycle_drunk;
+    gauge.update(drunk);
+	    },
             complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
                 if(status=='timeout'){//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();
@@ -91,13 +123,6 @@
                     console.log("pasererror");
                 }
             }
-        });
-    }
-    function appendHtml(json){
-    	var jsondata  = eval(json);
-	var gettpl = document.getElementById('post').innerHTML;
-	laytpl(gettpl).render(jsondata, function(html){
-	$("#cont").append(html);
         });
     }
 </script>
