@@ -462,7 +462,7 @@ public interface PersistentDao {
      * @param start_time
      * @param end_time
      */
-    @Delete("delete from comes_past_total where phone=#{phone} and create_time>=#{start_time} and  create_time<=#{end_time}")
+    @Delete("delete from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and  create_time<=#{end_time}")
     public void deletePastDetailForPhoneandTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
 
     /**
