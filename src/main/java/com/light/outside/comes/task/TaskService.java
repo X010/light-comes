@@ -1,9 +1,6 @@
 package com.light.outside.comes.task;
 
-import com.light.outside.comes.service.AuctionService;
-import com.light.outside.comes.service.BanquetService;
-import com.light.outside.comes.service.OverchargedService;
-import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -40,6 +37,9 @@ public class TaskService {
     @Autowired
     private BanquetService banquetService;
 
+    @Autowired
+    private PastService pastService;
+
 
     /**
      * 拍卖定时任务
@@ -71,5 +71,13 @@ public class TaskService {
     @Scheduled(cron = "0 */1 *  * * * ")
     public void banquetScheuled() {
         this.banquetService.clearBanquet();
+    }
+
+    /**
+     * 清空签则信息
+     */
+    @Scheduled(cron = "0 15 1 ? * * ")
+    public void clearEveryDayPastInfo() {
+        this.pastService.clearEveryDayPastInfo();
     }
 }

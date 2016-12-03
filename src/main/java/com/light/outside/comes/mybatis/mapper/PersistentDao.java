@@ -435,4 +435,13 @@ public interface PersistentDao {
      */
     @Select("select count(1) from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
+    @Update("update comes_past_total set today_other_times=0,today_other_drunk=0,today_drunk=0,today_times=0")
+    public void clearPastTotal();
+
+    /**
+     * 清空周期签到数据
+     */
+    @Update("update comes_past_total set cycle_times=0,cycle_drunk=0")
+    public void clearCyclePastTotal();
 }

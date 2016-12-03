@@ -10,7 +10,9 @@ import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -146,11 +148,58 @@ public class PastService {
         return this.getPastTotalByPhone(userModel);
     }
 
+    /**
+     * 清空每天的签到信息
+     */
+    public void clearEveryDayPastInfo() {
+        //清空周期，判断是否已经在周期界点的了，如果是测周期清空
+        PastModel pastModel = this.getPastModelById();
+        if (pastModel != null) {
+            int dayTotal = 0;
+            if (pastModel.getCreate_time() != null) {
+                try {
+                    dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (dayTotal % pastModel.getInterval_day() == 0) {
+                //清空周期天数
+                this.persistentDao.clearCyclePastTotal();
+            }
+        }
+
+        //清空每在的数据情况
+        this.persistentDao.clearPastTotal();
+    }
 
     public int getTodayDrunkTimes(String phone) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String time = simpleDateFormat.format(new Date());
 
         return this.persistentDao.countPastDetailByPhoneAndTime(phone, time + " 00:00:01", time + " 23:59:59");
+    }
+
+    /**
+     * 计算两个日期之间相差的天数
+     *
+     * @param smdate 较小的时间
+     * @param bdate  较大的时间
+     * @return 相差天数
+     * @throws ParseException
+     */
+    public static int daysBetween(Date smdate, Date bdate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        smdate = sdf.parse(sdf.format(smdate));
+        bdate = sdf.parse(sdf.format(bdate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(bdate);
+        long time2 = cal.getTimeInMillis();
+        long between_days = (time2 - time1) / (1000 * 3600 * 24);
+
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }
