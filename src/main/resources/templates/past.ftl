@@ -86,8 +86,13 @@
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
                 gauge.update(drunk);
                 if (data.today_have_times <= 0) {
-                    $.alert("今日干杯次数已用完");
-                }
+                	$.confirm({
+  				title: '今天干杯次数已用完',text: '点击确定邀请朋友帮忙干杯',onOK: function () {
+  					  //点击确认
+  					},onCancel: function () {
+ 					 }
+					});
+				}
             },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
