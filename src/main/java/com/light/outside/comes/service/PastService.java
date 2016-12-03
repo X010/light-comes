@@ -1,17 +1,19 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
-import com.light.outside.comes.model.PastDetail;
-import com.light.outside.comes.model.PastModel;
-import com.light.outside.comes.model.PastTotal;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -37,6 +39,8 @@ public class PastService {
     @Autowired
     private PersistentDao persistentDao;
 
+    @Autowired
+    private QblkService qblkService;
 
     public PastModel getPastModelById() {
         return this.persistentDao.getPastById(CONST.PAST_ID);
@@ -146,11 +150,202 @@ public class PastService {
         return this.getPastTotalByPhone(userModel);
     }
 
+    /**
+     * 与朋友相互干怀
+     *
+     * @param userModel
+     * @param phone
+     * @return
+     */
+    public PastTotal otherPast(UserModel userModel, String phone) {
+        Preconditions.checkNotNull(userModel);
+        Preconditions.checkNotNull(phone);
+
+        int total = this.getTodayOtherDrunkTimes(phone, userModel.getPhone());
+
+        if (total <= 0) {
+            PastModel pastModel = getPastModelById();
+
+            PastDetail pastDetail = new PastDetail();
+            pastDetail.setCreate_time(new Date());
+            pastDetail.setDrunk_type(CONST.DRUNK_OTHER);
+            pastDetail.setPhone(phone);
+            pastDetail.setUid(0);
+            pastDetail.setFriend_phone(userModel.getPhone());
+            pastDetail.setFriend_uid(userModel.getUserid());
+
+            if (pastModel.getPast_type() == 1) {
+                //固定值
+                pastDetail.setDrunk_num(pastModel.getFix_drunk());
+            } else {
+                //随机值
+                Random random = new Random();
+                pastDetail.setDrunk_num(random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk());
+            }
+            this.persistentDao.addPastDetail(pastDetail);
+
+            PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(phone);
+
+            if (pastTotal != null) {
+                pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setToday_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
+                pastTotal.setToday_times(pastTotal.getToday_times() + 1);
+
+                this.persistentDao.updatePastTotal(pastTotal);
+            }
+        }
+
+        UserModel mainUser = this.qblkService.getUserByPhone(phone);
+        return getPastTotalByPhone(mainUser);
+    }
+
+    /**
+     * 分页读取签到信息
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<PastTotal> getPastTotalByPage(PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.totalPastTotal();
+
+        List<PastTotal> pastTotals = this.persistentDao.getPastTotalByPage(pageModel.getStart(), pageModel.getSize());
+        PageResult<PastTotal> pastTotalPageResult = new PageResult<PastTotal>();
+        pastTotalPageResult.setData(pastTotals);
+        pastTotalPageResult.setPageModel(pageModel);
+        pastTotalPageResult.setTotal(total);
+        return pastTotalPageResult;
+    }
+
+    /**
+     * 清空每天的签到信息
+     */
+    public void clearEveryDayPastInfo() {
+        //清空周期，判断是否已经在周期界点的了，如果是测周期清空
+        PastModel pastModel = this.getPastModelById();
+        if (pastModel != null) {
+            int dayTotal = 0;
+            if (pastModel.getCreate_time() != null) {
+                try {
+                    dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (dayTotal % pastModel.getInterval_day() == 0) {
+                //清空周期天数
+                this.persistentDao.clearCyclePastTotal();
+            }
+        }
+
+        //清空每在的数据情况
+        this.persistentDao.clearPastTotal();
+    }
+
+
+    /**
+     * 清除签到信息
+     *
+     * @param phone
+     * @param status
+     */
+    public void clearPastInfo(String phone, int status) {
+        Preconditions.checkNotNull(phone);
+        Preconditions.checkNotNull(status > 0);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = null;
+        switch (status) {
+            case 1:
+                //删除今天签到信息
+                this.persistentDao.clearPastTotalForPhone(phone);
+                //删除详情信息
+
+                time = simpleDateFormat.format(new Date());
+                this.persistentDao.deletePastDetailForPhoneandTime(phone, time + " 00:00:01", time + " 23:59:59");
+                break;
+
+            case 2:
+
+                PastModel pastModel = this.getPastModelById();
+
+                if (pastModel != null) {
+                    int dayTotal = 0;
+                    if (pastModel.getCreate_time() != null) {
+                        try {
+                            dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    int days = dayTotal % pastModel.getInterval_day();
+
+                    if (days > 0) {
+                        //删除周期签到信息
+                        this.persistentDao.clearPastTotalForPhone(phone);
+                        this.persistentDao.clearCyclePastTotalForPhone(phone);
+                        //删除详情信息
+                        Calendar calendar = Calendar.getInstance();
+
+                        calendar.setTime(new Date());
+                        calendar.add(Calendar.DAY_OF_YEAR, -1 * days);
+                        String start_time = simpleDateFormat.format(calendar.getTime());
+                        String end_time = simpleDateFormat.format(new Date());
+
+                        this.persistentDao.deletePastDetailForPhoneandTime(phone, start_time + " 00:00:01", end_time + " 23:59:59");
+                    }
+
+
+                }
+
+                break;
+
+        }
+    }
 
     public int getTodayDrunkTimes(String phone) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String time = simpleDateFormat.format(new Date());
 
         return this.persistentDao.countPastDetailByPhoneAndTime(phone, time + " 00:00:01", time + " 23:59:59");
+    }
+
+    /**
+     * 获取两人互相干杯资数
+     *
+     * @param phone
+     * @param otherPhone
+     * @return
+     */
+    public int getTodayOtherDrunkTimes(String phone, String otherPhone) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = simpleDateFormat.format(new Date());
+
+        return this.persistentDao.countPastDetailByPhoneAndOtherPhoneAndTime(phone, otherPhone, time + " 00:00:01", time + " 23:59:59");
+    }
+
+    /**
+     * 计算两个日期之间相差的天数
+     *
+     * @param smdate 较小的时间
+     * @param bdate  较大的时间
+     * @return 相差天数
+     * @throws ParseException
+     */
+    public static int daysBetween(Date smdate, Date bdate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        smdate = sdf.parse(sdf.format(smdate));
+        bdate = sdf.parse(sdf.format(bdate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(bdate);
+        long time2 = cal.getTimeInMillis();
+        long between_days = (time2 - time1) / (1000 * 3600 * 24);
+
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }

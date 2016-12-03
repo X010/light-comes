@@ -435,4 +435,56 @@ public interface PersistentDao {
      */
     @Select("select count(1) from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
+
+    @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone=#{other}  and create_time>=#{start_time} and create_time<=#{end_time}")
+    public int countPastDetailByPhoneAndOtherPhoneAndTime(@Param("phone") String phone,@Param("other") String other, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
+    @Update("update comes_past_total set today_other_times=0,today_other_drunk=0,today_drunk=0,today_times=0")
+    public void clearPastTotal();
+
+    /**
+     * 清空周期签到数据
+     */
+    @Update("update comes_past_total set cycle_times=0,cycle_drunk=0")
+    public void clearCyclePastTotal();
+
+
+    @Update("update comes_past_total set today_other_times=0,today_other_drunk=0,today_drunk=0,today_times=0 where phone=#{phone}")
+    public void clearPastTotalForPhone(@Param("phone") String phone);
+
+    /**
+     * 清空周期签到数据
+     */
+    @Update("update comes_past_total set cycle_times=0,cycle_drunk=0 where phone=#{phone}")
+    public void clearCyclePastTotalForPhone(@Param("phone") String phone);
+
+    /**
+     * 根据号码与时间范围内的数据
+     *
+     * @param phone
+     * @param start_time
+     * @param end_time
+     */
+    @Delete("delete from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and  create_time<=#{end_time}")
+    public void deletePastDetailForPhoneandTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
+    /**
+     * 统计签到信息总数
+     *
+     * @return
+     */
+    @Select("select count(1) from comes_past_total")
+    public int totalPastTotal();
+
+
+    /**
+     * 分页获取PastTotal信息
+     *
+     * @param start
+     * @param size
+     * @return
+     */
+    @Select("select * from comes_past_total order by today_times desc limit #{start},#{size}")
+    public List<PastTotal> getPastTotalByPage(@Param("start") int start, @Param("size") int size);
 }

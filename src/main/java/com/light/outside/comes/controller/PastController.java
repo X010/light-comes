@@ -3,11 +3,13 @@ package com.light.outside.comes.controller;
 import com.light.outside.comes.model.JsonResponse;
 import com.light.outside.comes.model.PastTotal;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.service.PastService;
 import com.light.outside.comes.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +37,9 @@ public class PastController extends BaseController {
 
     @Autowired
     private PastService pastService;
+
+    @Autowired
+    private QblkService qblkService;
 
     /**
      * 签到页面
@@ -80,6 +85,38 @@ public class PastController extends BaseController {
         try {
             UserModel user = getAppUserInfo();
             PastTotal pastTotal = this.pastService.pastSelf(user);
+            data.setData(pastTotal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setStatus(300);
+        }
+        return JsonParser.simpleJson(data);
+    }
+
+    @ResponseBody
+    @RequestMapping("other_info.action")
+    public String otherInfo(@RequestParam("phone") String phone) {
+        JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
+        try {
+            UserModel user = this.qblkService.getUserByPhone(phone);
+            if (user != null) {
+                PastTotal pastTotal = this.pastService.getPastTotalByPhone(user);
+                data.setData(pastTotal);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.setStatus(300);
+        }
+        return JsonParser.simpleJson(data);
+    }
+
+    @ResponseBody
+    @RequestMapping("other_past.action")
+    public String otherPast(@RequestParam("phone") String phone) {
+        JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
+        try {
+            UserModel user = getAppUserInfo();
+            PastTotal pastTotal = this.pastService.otherPast(user, phone);
             data.setData(pastTotal);
         } catch (Exception e) {
             e.printStackTrace();
