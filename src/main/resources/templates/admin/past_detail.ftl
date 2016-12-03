@@ -20,26 +20,46 @@
                         <table class="table table-bordered">
                             <tr>
                                 <th>编号</th>
-                                <th>名称</th>
-                                <th>状态</th>
-                                <th>现价</th>
-                                <th>剩余时间</th>
-                                <th>初始价(元)</th>
-                                <th>底价(元)</th>
-                                <th>砍价幅度(元)</th>
-                                <th>开始时间</th>
-                                <th>结束时间</th>
-                                <th>创建时间</th>
-                                <th>商品名称</th>
+                                <th>会员手机号码</th>
+                                <th>今天喝掉次数</th>
+                                <th>今天喝掉(ml)</th>
+                                <th>本周期喝掉次数</th>
+                                <th>本周期喝掉(ml)</th>
+                                <th>最后更新时间</th>
                                 <th>操作</th>
                             </tr>
+                        <#if prs??>
+                            <#if prs.data??>
+                                <#list prs.data as rs>
+                                    <tr>
+                                        <td>${rs.id}</td>
+                                        <td>${rs.phone}</td>
+                                        <td>${rs.today_times}</td>
+                                        <td>${rs.today_drunk}</td>
+                                        <td>${rs.cycle_times}</td>
+                                        <td>${rs.cycle_drunk}</td>
+                                        <td>${rs.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                        <td>
+                                            <a class="badge  bg-red" href="/admin/clear_user_past.action?status=2&phone=${rs.phone}">清空本期签到</a>
+                                            <a class="badge  bg-blue" href="/admin/clear_user_past.action?status=1&phone=${rs.phone}">清空今天签到</a>
+                                        </td>
+                                    </tr>
+                                </#list>
+                            </#if>
+                        </#if>
                         </table>
                     </div>
                 </div>
             </div>
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-right">
-
+                <#if prs??>
+                    <#if (prs.pages>0) >
+                        <#list 1..prs.pages as i>
+                            <li><a href="/admin/past_detail.action?page=${i}">${i}</a></li>
+                        </#list>
+                    </#if>
+                </#if>
                 </ul>
             </div>
         </div>

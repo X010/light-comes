@@ -1,5 +1,7 @@
 package com.light.outside.comes.model;
 
+import java.util.Date;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -68,6 +70,19 @@ public class PastTotal extends BaseModel {
      * 总期量
      */
     private int cycle_drunk;
+
+    /**
+     * 更新时间
+     */
+    private Date update_time;
+
+    public Date getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
+    }
 
     public int getTotal_drunk() {
         return total_drunk;

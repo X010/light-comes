@@ -1,9 +1,7 @@
 package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
-import com.light.outside.comes.model.PastDetail;
-import com.light.outside.comes.model.PastModel;
-import com.light.outside.comes.model.PastTotal;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.utils.CONST;
@@ -14,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -149,6 +148,24 @@ public class PastService {
     }
 
     /**
+     * 分页读取签到信息
+     *
+     * @param pageModel
+     * @return
+     */
+    public PageResult<PastTotal> getPastTotalByPage(PageModel pageModel) {
+        Preconditions.checkNotNull(pageModel);
+        int total = this.persistentDao.totalPastTotal();
+
+        List<PastTotal> pastTotals = this.persistentDao.getPastTotalByPage(pageModel.getStart(), pageModel.getSize());
+        PageResult<PastTotal> pastTotalPageResult = new PageResult<PastTotal>();
+        pastTotalPageResult.setData(pastTotals);
+        pastTotalPageResult.setPageModel(pageModel);
+        pastTotalPageResult.setTotal(total);
+        return pastTotalPageResult;
+    }
+
+    /**
      * 清空每天的签到信息
      */
     public void clearEveryDayPastInfo() {
@@ -172,6 +189,68 @@ public class PastService {
 
         //清空每在的数据情况
         this.persistentDao.clearPastTotal();
+    }
+
+
+    /**
+     * 清除签到信息
+     *
+     * @param phone
+     * @param status
+     */
+    public void clearPastInfo(String phone, int status) {
+        Preconditions.checkNotNull(phone);
+        Preconditions.checkNotNull(status > 0);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = null;
+        switch (status) {
+            case 1:
+                //删除今天签到信息
+                this.persistentDao.clearPastTotalForPhone(phone);
+                //删除详情信息
+
+                time = simpleDateFormat.format(new Date());
+                this.persistentDao.deletePastDetailForPhoneandTime(phone, time + " 00:00:01", time + " 23:59:59");
+                break;
+
+            case 2:
+
+                PastModel pastModel = this.getPastModelById();
+
+                if (pastModel != null) {
+                    int dayTotal = 0;
+                    if (pastModel.getCreate_time() != null) {
+                        try {
+                            dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    int days = dayTotal % pastModel.getInterval_day();
+
+                    if (days > 0) {
+                        //删除周期签到信息
+                        this.persistentDao.clearPastTotalForPhone(phone);
+                        this.persistentDao.clearCyclePastTotalForPhone(phone);
+                        //删除详情信息
+                        Calendar calendar = Calendar.getInstance();
+
+                        calendar.setTime(new Date());
+                        calendar.add(Calendar.DAY_OF_YEAR, -1 * days);
+                        String start_time = simpleDateFormat.format(calendar.getTime());
+                        String end_time = simpleDateFormat.format(new Date());
+
+                        this.persistentDao.deletePastDetailForPhoneandTime(phone, start_time + " 00:00:01", end_time + " 23:59:59");
+                    }
+
+
+                }
+
+                break;
+
+        }
     }
 
     public int getTodayDrunkTimes(String phone) {

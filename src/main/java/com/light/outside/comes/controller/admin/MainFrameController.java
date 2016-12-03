@@ -976,8 +976,28 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("past_detail.action")
-    public String past_detail() {
+    public String past_detail(Map<String, Object> data, PageModel pageModel) {
+        PageResult<PastTotal> pastTotalPageResult = this.pastService.getPastTotalByPage(pageModel);
+        if (pastTotalPageResult != null) {
+            data.put("prs", pastTotalPageResult);
+        }
         return "admin/past_detail";
+    }
+
+
+    /**
+     * 清除用户的签到信息
+     *
+     * @param phone
+     * @param status
+     * @return
+     */
+    @RequestMapping("clear_user_past.action")
+    public String clearUserPast(@RequestParam(value = "phone", required = false) String phone, @RequestParam(value = "status", required = false) int status) {
+        if (!Strings.isNullOrEmpty(phone) && status > 0) {
+            this.pastService.clearPastInfo(phone, status);
+        }
+        return "redirect:/admin/past_detail.action";
     }
 
 
