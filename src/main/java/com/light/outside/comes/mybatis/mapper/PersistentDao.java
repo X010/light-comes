@@ -436,6 +436,10 @@ public interface PersistentDao {
     @Select("select count(1) from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
 
+
+    @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone=#{other}  and create_time>=#{start_time} and create_time<=#{end_time}")
+    public int countPastDetailByPhoneAndOtherPhoneAndTime(@Param("phone") String phone,@Param("other") String other, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
     @Update("update comes_past_total set today_other_times=0,today_other_drunk=0,today_drunk=0,today_times=0")
     public void clearPastTotal();
 

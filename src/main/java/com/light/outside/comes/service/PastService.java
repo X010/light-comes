@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.qbkl.service.QblkService;
 import com.light.outside.comes.utils.CONST;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class PastService {
     @Autowired
     private PersistentDao persistentDao;
 
+    @Autowired
+    private QblkService qblkService;
 
     public PastModel getPastModelById() {
         return this.persistentDao.getPastById(CONST.PAST_ID);
@@ -145,6 +148,56 @@ public class PastService {
             }
         }
         return this.getPastTotalByPhone(userModel);
+    }
+
+    /**
+     * 与朋友相互干怀
+     *
+     * @param userModel
+     * @param phone
+     * @return
+     */
+    public PastTotal otherPast(UserModel userModel, String phone) {
+        Preconditions.checkNotNull(userModel);
+        Preconditions.checkNotNull(phone);
+
+        int total = this.getTodayOtherDrunkTimes(phone, userModel.getPhone());
+
+        if (total <= 0) {
+            PastModel pastModel = getPastModelById();
+
+            PastDetail pastDetail = new PastDetail();
+            pastDetail.setCreate_time(new Date());
+            pastDetail.setDrunk_type(CONST.DRUNK_OTHER);
+            pastDetail.setPhone(phone);
+            pastDetail.setUid(0);
+            pastDetail.setFriend_phone(userModel.getPhone());
+            pastDetail.setFriend_uid(userModel.getUserid());
+
+            if (pastModel.getPast_type() == 1) {
+                //固定值
+                pastDetail.setDrunk_num(pastModel.getFix_drunk());
+            } else {
+                //随机值
+                Random random = new Random();
+                pastDetail.setDrunk_num(random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk());
+            }
+            this.persistentDao.addPastDetail(pastDetail);
+
+            PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(phone);
+
+            if (pastTotal != null) {
+                pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setToday_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
+                pastTotal.setToday_times(pastTotal.getToday_times() + 1);
+
+                this.persistentDao.updatePastTotal(pastTotal);
+            }
+        }
+
+        UserModel mainUser = this.qblkService.getUserByPhone(phone);
+        return getPastTotalByPhone(mainUser);
     }
 
     /**
@@ -258,6 +311,20 @@ public class PastService {
         String time = simpleDateFormat.format(new Date());
 
         return this.persistentDao.countPastDetailByPhoneAndTime(phone, time + " 00:00:01", time + " 23:59:59");
+    }
+
+    /**
+     * 获取两人互相干杯资数
+     *
+     * @param phone
+     * @param otherPhone
+     * @return
+     */
+    public int getTodayOtherDrunkTimes(String phone, String otherPhone) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = simpleDateFormat.format(new Date());
+
+        return this.persistentDao.countPastDetailByPhoneAndOtherPhoneAndTime(phone, otherPhone, time + " 00:00:01", time + " 23:59:59");
     }
 
     /**
