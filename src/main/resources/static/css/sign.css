@@ -30,3 +30,6 @@ svg{ position: absolute; margin:0 auto;}
 .mll{ color:#422513; font-size: 18px; font-weight: 600;text-align:center;}
 
 .chess{ width:90%; height: 7%; background: #ffb03a; position: absolute; top:84%; left: 5%; font-size:14px; color:#fff; border-radius: 5px;}
+
+#shareit {-webkit-user-select: none;display: none;position: fixed;width: 100%;height: 100%;text-align: center;top: 0;left: 0; z-index:999;}
+#shareit img {width: 100%; height:100%;}

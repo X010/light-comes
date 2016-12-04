@@ -46,6 +46,10 @@
     </div>
     <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
 </div>
+		<div id="shareit" onclick="close_sharewx()">
+			<img class="arrow" src='/images/share.jpg'/>
+			<a href="#" id="follow"><p id="share-text"></p></a>
+		</div>
 <script src="/js/d3.v3.min.js" language="JavaScript"></script>
 <script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
@@ -85,15 +89,16 @@
                 var drunk = data.total_drunk - data.cycle_drunk;
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
                 gauge.update(drunk);
-                if (data.today_have_times <= 0) {
-                	$.confirm({
-  				title: '今天干杯次数已用完',text: '点击确定邀请朋友帮忙干杯',onOK: function () {
-  					  //点击确认
-  					},onCancel: function () {
- 					 }
-					});
-				}
-            },
+                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
+                if (data.today_have_times < 1) {
+           		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
+           		  //点击确认后的回调函数
+           		  sharewx();
+           		    }, function() {
+           		      //点击取消后的回调函数
+           		        });
+           		       }
+		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();
@@ -141,6 +146,13 @@
         });
         return maxValue;
     }
+    var share = document.getElementById("shareit");
+       function sharewx(){
+      	share.style.display = 'block';
+       };
+       function close_sharewx(){
+       	share.style.display = 'none';
+       };
 </script>
 </body>
 </html>
