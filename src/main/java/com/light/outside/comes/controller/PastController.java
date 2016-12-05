@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,6 +50,17 @@ public class PastController extends BaseController {
     @RequestMapping("past.action")
     public String past() {
         return "past";
+    }
+
+    /**
+     * 分享页面
+     *
+     * @return
+     */
+    @RequestMapping("share.action")
+    public String share(@RequestParam("phone") String phone,Map<String,Object> data) {
+
+        return "share";
     }
 
     /**

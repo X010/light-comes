@@ -7,77 +7,50 @@
     <title>签到</title>
     <link href="/css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/laytpl.js"></script>
     <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
     <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
 <body>
-<div class="container" id="cont">
-    <div class="mid">
+<div class="cont" id="cont">
+    <div class="md">
         <div class="mid-top">
             <div class="mid-left">
-                <p class="drink">今天喝掉</p>
+                <p class="drink">水桶总量</p>
 
-                <p class="ml"><span id="td_drunk"></span>ml</p>
+                <p class="ml"><span id="tt_drunk">2000</span>ml</p>
             </div>
             <div class="mid-right">
-                <p class="drink">当前喝掉</p>
-
-                <p class="ml"><span id="cy_drunk"></span>ml</p>
+                <p class="drink">今日好友灌水</p>
+                <p class="ml"><span id="oy_drunk">147.09</span>ml</p>
             </div>
         </div>
-        <div class="bottle">
-            <svg id="fillgauge" width="22%" height="120"></svg>
+        <div class="other">
+            <p>你给与别人干杯</p>
+            <p style="font-weight: bold;">147.09ml</p>
         </div>
-    </div>
-    <div class="bottom">
-        <div class="bottom-box">
-            <div class="bottom-d">
-                <p class="drink">今日您已喝掉</p>
-
-                <p class="mll"><span id="tdu_drunk"></span>ml</p>
-            </div>
-            <div class="bottom-d">
-                <p class="drink">朋友已帮你喝掉</p>
-
-                <p class="mll"><span id="tdo_drunk"></span>ml</p>
-            </div>
+        <div class="help">
+            <input type="button" value="我来帮忙灌水" class="otherchess" style="background-color: #FFB046;" onclick=""/>
+            <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick=""/>
         </div>
     </div>
-    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
 </div>
-		<div id="shareit" onclick="close_sharewx()">
-			<img class="arrow" src='/images/share.jpg'/>
-			<a href="#" id="follow"><p id="share-text"></p></a>
-		</div>
-<script src="/js/d3.v3.min.js" language="JavaScript"></script>
-<script src="/js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function () {
-        var maxValue;
-        maxValue = loadAjax();
+        loadAjax();
     });
-    var config = liquidFillGaugeDefaultSettings();
-    config.circleThickness = 0.1;
-    config.circleColor = "#ED1E37";
-    config.textColor = "#ED1E37";
-    config.waveTextColor = "#FD8F94";
-    config.waveColor = "#FFDDDD";
-    config.textVertPosition = 0.52;
-    config.waveAnimateTime = 2000;
-    config.waveHeight = 0.1;
-    config.waveAnimate = true;
-    config.waveCount = 2;
-    config.waveOffset = 0.5;
-    config.textSize = 1;
-    config.minValue = 0;
-    config.displayPercent = false;
-    var gauge;
+    function getUrlParam(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+                var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+                if (r != null) {
+                return unescape(r[2]);
+                return null;
+                } //返回参数值
+            }
+    var phone=getUrlParam("phone");
     function changeNum() {
-    	console.log(data.today_have_times);
             $.ajax({
             type: 'GET',
-            url: '/pt/self_past.action',
+            url: '/pt/other_past.action?phone='+phone,
             timeout: 10000,
             dataType: 'json',
             success: function (re_json) {

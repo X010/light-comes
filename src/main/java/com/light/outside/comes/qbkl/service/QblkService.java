@@ -41,7 +41,7 @@ public class QblkService {
      * @return
      */
     public UserModel getUserByPhone(String phone) {
-        return null;
+        return this.readDao.getUserByPhone(phone);
     }
 
 
