@@ -17,7 +17,7 @@
             <div class="mid-left">
                 <p class="drink">水桶总量</p>
 
-                <p class="ml"><span id="tt_drunk">2000</span>ml</p>
+                <p class="ml"><span id="tt_drunk"></span>ml</p>
             </div>
             <div class="mid-right">
                 <p class="drink">今日好友灌水</p>
@@ -26,7 +26,7 @@
         </div>
         <div class="other">
             <p>你给与别人干杯</p>
-            <p style="font-weight: bold;">147.09ml</p>
+            <p style="font-weight: bold;"><span id="toy_drunk"></span>ml</p>
         </div>
         <div class="help">
             <input type="button" value="我来帮忙灌水" class="otherchess" style="background-color: #FFB046;" onclick=""/>
@@ -46,31 +46,23 @@
                 return null;
                 } //返回参数值
             }
-    var phone=getUrlParam("phone");
+    var phoneNum=getUrlParam("phone");
+    console.log(phoneNum);
     function changeNum() {
             $.ajax({
             type: 'GET',
-            url: '/pt/other_past.action?phone='+phone,
+            url: '/pt/other_past.action?phone='+phoneNum,
             timeout: 10000,
             dataType: 'json',
             success: function (re_json) {
                 data = re_json.data;
-                if (data.today_have_times < 1) {
-           		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
-           		  //点击确认后的回调函数
-           		  sharewx();
-           		    }, function() {
-           		      //点击取消后的回调函数
-           		        });
+                if (data.today_other_times < 1) {
+           		$.alert("今天干杯次数已用完");
            		       }
            	else{
-                $("#td_drunk").text(data.today_drunk);
-                $("#cy_drunk").text(data.cycle_drunk);
-                $("#tdu_drunk").text(data.today_drunk);
-                $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;
-                var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-                gauge.update(drunk);
+                $("#tt_drunk").text(data.total_drunk);
+                $("#oy_drunk").text(data.today_other_drunk);
+                $("#toy_drunk").text(data.today_other_drunk);
                 $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
                 }
 		 },
@@ -90,23 +82,15 @@
     function loadAjax() {
         $.ajax({
             type: 'GET',
-            url: '/pt/info.action',
+            url: '/pt/other_info.action?phone='+phoneNum,
             timeout: 10000, //超时时间设置，单位毫秒
             data: "ac=index_data",
             dataType: 'json',
-            async: false,
             success: function (re_json) {
                 data = re_json.data;
-                $("#td_drunk").text(data.today_drunk);
-                $("#cy_drunk").text(data.cycle_drunk);
-                $("#tdu_drunk").text(data.today_drunk);
-                $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;
-                maxValue = data.total_drunk;
-                console.log(maxValue);
-                config.maxValue = maxValue;//总容量
-                var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-                gauge.update(drunk);
+                $("#tt_drunk").text(data.total_drunk);
+                $("#oy_drunk").text(data.today_other_drunk);
+                $("#toy_drunk").text(data.today_other_drunk);
             },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
@@ -119,7 +103,6 @@
                 }
             }
         });
-        return maxValue;
     }
     var share = document.getElementById("shareit");
        function sharewx(){
