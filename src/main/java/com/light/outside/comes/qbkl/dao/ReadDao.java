@@ -33,6 +33,7 @@ public interface ReadDao {
      * @param phone
      * @return
      */
+    @Select("select * from t_user where phone=#{phone}")
     UserModel getUserByPhone(@Param("phone") String phone);
 
     /**
