@@ -74,22 +74,14 @@
     config.displayPercent = false;
     var gauge;
     function changeNum() {
-        $.ajax({
+    	console.log(data.today_have_times);
+            $.ajax({
             type: 'GET',
             url: '/pt/self_past.action',
             timeout: 10000,
             dataType: 'json',
             success: function (re_json) {
                 data = re_json.data;
-
-                $("#td_drunk").text(data.today_drunk);
-                $("#cy_drunk").text(data.cycle_drunk);
-                $("#tdu_drunk").text(data.today_drunk);
-                $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;
-                var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-                gauge.update(drunk);
-                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
                 if (data.today_have_times < 1) {
            		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
            		  //点击确认后的回调函数
@@ -98,6 +90,16 @@
            		      //点击取消后的回调函数
            		        });
            		       }
+           	else{
+                $("#td_drunk").text(data.today_drunk);
+                $("#cy_drunk").text(data.cycle_drunk);
+                $("#tdu_drunk").text(data.today_drunk);
+                $("#tdo_drunk").text(data.today_other_drunk);
+                var drunk = data.total_drunk - data.cycle_drunk;
+                var gauge = loadLiquidFillGauge("fillgauge", 120, config);
+                gauge.update(drunk);
+                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
+                }
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
