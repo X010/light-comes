@@ -17,6 +17,7 @@
 
     <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
+            <input id="redirect" type="hidden" value="${redirect!}">
             <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱" style="border-bottom: 1px solid #ccc;">
             <input id="password" type="password" name="password" class="pw" placeholder="请输入密码">
         </div>
@@ -38,6 +39,7 @@
         $("#loginBtn").click(function () {
             var userName = Trim($("#username").val(), 'g');
             var userPwd = Trim($("#password").val(), 'g');
+            var redirect = $("#redirect").val();
             if (userName == '') {
                 $.alert("手机/邮箱不能为空!");
                 $("#username").focus();
@@ -49,7 +51,7 @@
                 return;
             }
             $.ajax({
-                url: "/qblk/login.action?username=" + userName + "&password=" + userPwd,
+                url: "/qblk/login.action?username=" + userName + "&password=" + userPwd+"&redirect="+redirect,
                 type: "POST",
                 success: function (result) {
                     var r = jQuery.parseJSON(result);
@@ -57,7 +59,8 @@
                         $.alert(r.msg);
                         $("#username").focus();
                     } else {
-                        window.self.location = "/raffle/lottery.action";
+                        //window.self.location = "/raffle/lottery.action";
+                        window.self.location = "${redirect!}";
                     }
                 }
             });

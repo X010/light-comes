@@ -1,6 +1,7 @@
 package com.light.outside.comes.filter;
 
 import com.light.outside.comes.controller.admin.LoginController;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
 
@@ -90,10 +92,23 @@ public class SessionFilter implements javax.servlet.Filter {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out;
         try {
-            out = response.getWriter();
-            out.println("<script language='javascript' type='text/javascript'>");
-            out.println("window.top.location.href='" + request.getContextPath() + "/qblk/to_login.action'");
-            out.println("</script>");
+            String servletPath = request.getServletPath();
+            String contextPath = request.getContextPath();
+            String forwardUrl = contextPath + "/qblk/to_login.action";
+            if (StringUtils.isNotBlank(servletPath)) {
+                String redirect = "";
+                if (StringUtils.isNotBlank(request.getQueryString())) {
+                    redirect = servletPath + "?" + StringUtils.defaultString(request.getQueryString());
+                } else {
+                    redirect = servletPath;
+                }
+                response.sendRedirect(contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
+                        + "?redirect=" + URLEncoder.encode(redirect, "UTF-8"));
+            }
+//            out = response.getWriter();
+//            out.println("<script language='javascript' type='text/javascript'>");
+//            out.println("window.top.location.href='" + request.getContextPath() + "/qblk/to_login.action'");
+//            out.println("</script>");
         } catch (IOException e) {
             e.printStackTrace();
         }
