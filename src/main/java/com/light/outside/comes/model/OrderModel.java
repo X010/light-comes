@@ -77,6 +77,18 @@ public class OrderModel extends BaseModel {
      */
     private long aid;
 
+    /**
+     * 微信支付订单ID
+     */
+    private String tradeno;
+
+    public String getTradeno() {
+        return tradeno;
+    }
+
+    public void setTradeno(String tradeno) {
+        this.tradeno = tradeno;
+    }
 
     public long getAid() {
         return aid;

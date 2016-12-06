@@ -53,4 +53,11 @@ public interface PayService {
      * @return
      */
     public OrderModel updateOrder(long id, int status);
+
+    /**
+     * 根据订单号修改订单状态
+     * @param orderNo
+     * @return
+     */
+    public OrderModel updateOrderByOrderno(String orderNo,String transaction_id);
 }

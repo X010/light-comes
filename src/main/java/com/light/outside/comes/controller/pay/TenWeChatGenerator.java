@@ -99,8 +99,12 @@ public class TenWeChatGenerator {
         packageParams.put("notify_url", TenWeChatConfig.notify_url);
         packageParams.put("trade_type", "JSAPI");
         packageParams.put("openid", openid);
+        String sign = Sha1Util.genWXPackageSign(packageParams);
+        System.out.println(sign);
+        System.out.println();
+        Element signElement = DocumentHelper.createElement("sign");
+        signElement.setText(sign);
 //        packageParams.put("device_info","WEB");
-
         Document curDocument = DocumentHelper.createDocument();
         Element rootElement = DocumentHelper.createElement("xml");
         for (String key : packageParams.keySet()) {
@@ -108,11 +112,6 @@ public class TenWeChatGenerator {
             curElement.setText(packageParams.get(key));
             rootElement.add(curElement);
         }
-        String sign = Sha1Util.genWXPackageSign(packageParams);
-        System.out.println(sign);
-        System.out.println();
-        Element signElement = DocumentHelper.createElement("sign");
-        signElement.setText(sign);
         rootElement.add(signElement);
         curDocument.setRootElement(rootElement);
         String xmlParams = curDocument.getRootElement().asXML(); //XMLUtil.toXml(packageParams,sign);
@@ -303,9 +302,8 @@ public class TenWeChatGenerator {
      *
      * @return
      */
-    public com.alibaba.fastjson.JSONObject getOpenIdStepOne(String code) {
+    public static com.alibaba.fastjson.JSONObject getOpenIdStepOne(String code) {
         Map<String, String> map = new HashMap<String, String>();
-        //todo: 放到配置文件中
         map.put("appid", TenWeChatConfig.app_id);
         map.put("secret", TenWeChatConfig.app_secret);
         map.put("code", code);

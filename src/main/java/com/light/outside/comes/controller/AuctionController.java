@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.controller.pay.util.PubUtils;
@@ -27,6 +28,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -236,29 +238,79 @@ public class AuctionController extends BaseController {
         return auctionDetail(data, request, response);
     }
 
+    @RequestMapping("wechart_redirect.action")
+    public String pay(Map<String, Object> data, HttpServletRequest request) {
+        String title = RequestTools.RequestString(request, "title", "未知商品");
+        String ip = getRemoteHost(request);
+        String payPrice = RequestTools.RequestString(request, "price", "0");
+        long aid = RequestTools.RequestLong(request, "aid", 0);
+        String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fauction%2Fauction_margin_pay.action%3Ftitle%3D" + title + "%26price%3D" + payPrice + "%26aid%3D" + aid +
+                "%26response_type%3Dcode%26scope%3Dsnsapi_base%26state%3D321%23wechat_redirect";
+//        String tourl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+TenWeChatConfig.app_id+"&redirect_uri=" +
+//                "http%3A%2F%2Fwww.qubulikou.com%2Findex.php%3Fr%3Dpromotion%252Flist%26shopid%3D1%26promotionid%3D3" +
+//                "&response_type=code&scope=snsapi_base&state=321#wechat_redirect";
+        return "redirect:" + tourl;
+    }
+
     @RequestMapping("auction_margin_pay.action")
     public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = getAppUserInfo();
         String title = RequestTools.RequestString(request, "title", "未知商品");
-        String ip = getRemortIP(request);
+        String ip = getRemoteHost(request);
         String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
-        String openid = userModel.getPhone();
-        try {
-            //生成预支付订单
-            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder("曲不离口-"+title, tradeNo, payPrice, openid, ip);
-            data.putAll(payMap);
-        } catch (Exception e) {
-            e.printStackTrace();
+        String code = RequestTools.RequestString(request, "code", "");
+        long aid = RequestTools.RequestLong(request, "aid", 0);
+        AuctionModel auctionModel = auctionService.getAuctionById(aid);
+        if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
+            JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
+            System.out.println(jsonObject);
+            String openid = jsonObject.getString("openid");
+            try {
+                //生成预支付订单
+                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder("曲不离口-保证金-" + title, tradeNo, payPrice, openid, ip);
+                int status = CONST.ORDER_PAY;
+                OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+                //查询拍卖详情
+                //AuctionModel auctionModel = auctionService.queryAuctionById(aid);
+                if (orderModel == null) {
+                    orderModel = new OrderModel();
+                    float deposit = auctionModel.getDeposit();
+                    orderModel.setAmount(deposit);
+                    orderModel.setAtype(CONST.FOCUS_AUCTION);
+                    orderModel.setAid(aid);
+                    orderModel.setUid(userModel.getId());
+                    orderModel.setPhone(userModel.getPhone());
+                    orderModel.setAname("曲不离口-保证金-"+auctionModel.getTitle());
+                    orderModel.setStatus(CONST.ORDER_PAY);
+                    orderModel.setCreatetime(new Date());
+                    orderModel.setOrderNo(tradeNo);
+                    payService.createOrder(orderModel);//创建订单
+                } else {
+                    payService.updateOrder(orderModel.getId(), status);
+                }
+
+                data.putAll(payMap);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return "H5Weixin";
     }
 
-    public String getRemortIP(HttpServletRequest request) {
-        if (request.getHeader("x-forwarded-for") == null) {
-            return request.getRemoteAddr();
+    public String getRemoteHost(javax.servlet.http.HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
         }
-        return request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
 
     /**

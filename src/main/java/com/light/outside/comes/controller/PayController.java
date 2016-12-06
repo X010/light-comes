@@ -2,7 +2,9 @@ package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.util.PubUtils;
+import com.light.outside.comes.controller.pay.util.XMLUtil;
 import com.light.outside.comes.qbkl.model.UserModel;
+import com.light.outside.comes.service.PayService;
 import com.light.outside.comes.service.WeiXinPayService;
 import com.light.outside.comes.utils.RequestTools;
 import org.slf4j.Logger;
@@ -12,7 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,6 +45,8 @@ public class PayController extends BaseController {
     @Autowired
     private WeiXinPayService weiXinPayService;
 
+    @Autowired
+    private PayService payService;
 
     private static final Logger LOG = LoggerFactory.getLogger(PayController.class);
 
@@ -65,5 +74,37 @@ public class PayController extends BaseController {
         return "H5Weixin";
     }
 
+    /**
+     * 支付成功回调函数
+     * @param data
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping("weChatPayCallback.action")
+    public void weChatPayCallback(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response) throws Exception{
+        request.setCharacterEncoding("UTF-8");
+        BufferedReader buff = null;
+        StringBuffer str = null;
+        str = new StringBuffer();
+        String s = null;
+        buff = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
+        while ((s = buff.readLine()) != null) {
+            str.append(s);
+        }
+        String xmlBody = str.toString();
+        Map map = XMLUtil.doXMLParse(xmlBody);
+        SortedMap<String, String> retMap = new TreeMap<String, String>();
+        if ("SUCCESS".equals(map.get("return_code"))) {
+            String out_trade_no = (String) map.get("out_trade_no");
+            String transaction_id = (String) map.get("transaction_id");
+            //weChatPayService.updatePayOrder(out_trade_no, transaction_id);
+            payService.updateOrderByOrderno(out_trade_no, transaction_id);
+            retMap.put("return_code", "SUCCESS");
+        } else {
+            retMap.put("return_code", "FAIL");
+        }
+        response.getWriter().write(XMLUtil.toXml(retMap));
+    }
 
 }

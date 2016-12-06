@@ -288,8 +288,8 @@ public interface PersistentDao {
     @Select("select count(1) from comes_blacklist where status<>9")
     public int totalBackList();
 
-    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime,aid)" +
-            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime},#{aid})")
+    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime,aid,orderno)" +
+            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime},#{aid},#{orderno})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOrder(OrderModel orderModel);
 
@@ -298,6 +298,9 @@ public interface PersistentDao {
 
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
+
+    @Update("update comes_order set status=#{status},paytime=#{paytime},tradeno=${tradeno} where orderno=#{orderno}")
+    public void updateOrderByOrderno(OrderModel orderModel);
 
     /**
      * 根据用户ID和拍卖ID查询
@@ -308,6 +311,14 @@ public interface PersistentDao {
      */
     @Select("select * from comes_order where uid=#{uid} and aid=#{aid}")
     public OrderModel getOrderByUidAndAid(@Param("uid") long uid, @Param("aid") long aid);
+
+    /**
+     * 根据订单ID查询
+     * @param orderno
+     * @return
+     */
+    @Select("select * from comes_order where orderno=#{orderno}")
+    public OrderModel getOrderByOrderNo(@Param("orderno") String orderno);
 
     @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
     public int getCouponSendNum(@Param("cid") long id);
