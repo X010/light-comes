@@ -29,8 +29,8 @@
             <p style="font-weight: bold;"><span id="toy_drunk"></span>ml</p>
         </div>
         <div class="help">
-            <input type="button" value="我来帮忙灌水" class="otherchess" style="background-color: #FFB046;" onclick=""/>
-            <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick=""/>
+            <input type="button" value="我来帮忙灌水" class="otherchess" style="background-color: #FFB046;" onclick="changeNum();"/>
+            <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick="javascript:window.location.href='/pt/past.action';"/>
         </div>
     </div>
 </div>
@@ -63,7 +63,7 @@
                 $("#tt_drunk").text(data.total_drunk);
                 $("#oy_drunk").text(data.today_other_drunk);
                 $("#toy_drunk").text(data.today_other_drunk);
-                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
+                $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
                 }
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
@@ -104,13 +104,6 @@
             }
         });
     }
-    var share = document.getElementById("shareit");
-       function sharewx(){
-      	share.style.display = 'block';
-       };
-       function close_sharewx(){
-       	share.style.display = 'none';
-       };
 </script>
 </body>
 </html>
