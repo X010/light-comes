@@ -1,6 +1,7 @@
 package com.light.outside.comes.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.utils.JsonClient;
@@ -105,10 +106,12 @@ public class ClientLoginController extends BaseController {
         }
         boolean isSuccess = loginService.clientLogin(username, password, request);
         if (isSuccess) {
-            //return "redirect:/raffle/lottery.action";
-            return "redirect:" + redirect;
+            if (Strings.isNullOrEmpty(redirect))
+                return "redirect:/raffle/lottery.action";
+            else
+                return "redirect:" + redirect;
         }
-        data.put("redirect",redirect);
+        data.put("redirect", redirect);
         return "login";
     }
 

@@ -4,10 +4,13 @@ import com.google.common.base.Strings;
 import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * B3ST9U
@@ -29,6 +32,13 @@ public class BaseController {
         return session.getAttribute(key);
     }
 
+//    private static final String CONTEXT_PATH = "baseUrl";
+//    @Override
+//    protected void exposeHelpers(Map<String, Object> model,
+//                                 HttpServletRequest request) throws Exception {
+//        model.put(CONTEXT_PATH, "qbkl");
+//        super.exposeHelpers(model, request);
+//    }
 
     /**
      * 后端用户
