@@ -20,7 +20,7 @@ input[type='button']{cursor: pointer;}
 .mid-right{float: right; margin-top:10px; margin-right: 20px;}
 .drink{ font-size: 12px; color: #4A2E1C; text-align: center;}
 .ml{ color:#ED1E37; font-size: 18px;font-weight: 600; }
-.bottle{ width: 54px; margin: 10px auto;}
+.bottle{ width: 54px; margin: 10px auto;background: url("../images/bottle.png") no-repeat;}
 .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
 svg{ position: absolute; margin:0 auto;}
 

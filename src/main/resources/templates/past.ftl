@@ -74,6 +74,20 @@
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
+    wx.config({
+        debug: false,
+        appId: 'wxf8b4f85f3a794e77',
+        timestamp: 1481092210,
+        nonceStr: 'wJEkiq870VPmKvqM',
+        signature: 'd06ea10d0844e803afebefcf7a46e9dcbb0aa07c',
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone'
+        ]
+    });
     wx.onMenuShareTimeline({
         title: '帮朋友干杯', // 分享标题
         link: 'http://qulk.dssmp.com/pt/share.action', // 分享链接
