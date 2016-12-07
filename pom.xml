@@ -351,8 +351,5 @@
                 </excludes>
             </testResource>
         </testResources>
-        <filters>
-            <filter>src/main/resources/${resource.filter}</filter>
-        </filters>
     </build>
 </project>
