@@ -27,7 +27,9 @@
             </div>
         </div>
         <div class="bottle">
-            <svg id="fillgauge" width="22%" height="120"></svg>
+            <img src="images/bottle.png" class="bot" alt=""/>
+            <img src="images/cover.png" class="cover" alt=""/>
+            <svg id="fillgauge6" width="50%" height="130" onclick="gauge6.update(NewValue());"></svg>
         </div>
     </div>
     <div class="bottom">
@@ -58,7 +60,7 @@
         maxValue = loadAjax();
     });
     var config = liquidFillGaugeDefaultSettings();
-    config.circleThickness = 0.1;
+    config.circleThickness = 0;
     config.circleColor = "#ED1E37";
     config.textColor = "#ED1E37";
     config.waveTextColor = "#FD8F94";
@@ -69,7 +71,7 @@
     config.waveAnimate = true;
     config.waveCount = 2;
     config.waveOffset = 0.5;
-    config.textSize = 1;
+    config.textSize = .7;
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
