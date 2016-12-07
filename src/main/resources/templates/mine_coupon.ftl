@@ -10,12 +10,12 @@
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
 <title></title>
-<link rel="stylesheet" href="/ratchet/css/ratchet.css" type="text/css">
-<link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-<link rel="stylesheet" href="/ratchet/app.css" type="text/css">
-<script type="text/javascript" src="/js/laytpl.js"></script>
-<script type="text/javascript" src="/js/spin.min.js"></script>
-<script type="text/javascript" src="/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${baseUrl}ratchet/css/ratchet.css" type="text/css">
+<link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+<link rel="stylesheet" href="${baseUrl}ratchet/app.css" type="text/css">
+<script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
+<script type="text/javascript" src="${baseUrl}js/spin.min.js"></script>
+<script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
 <style>
         body{position:relative;}
 </style> 
@@ -25,7 +25,7 @@
      <div class="item-order-info">
          <div>
              <div style="float:left; margin-left: 10px;">
-                 <img style=" width:20px; height:20px;" src="/images/ticket1.png"/>
+                 <img style=" width:20px; height:20px;" src="${baseUrl}images/ticket1.png"/>
              </div>
              <span class="item-code" style="margin-left:36px;">{{d[i].title}}</span>
          </div>
@@ -45,7 +45,7 @@
                    <#if status==2>
                    <div class="item-total" style="width: 25px; margin-right: 10px;">
                        <a href="qrcode.action?id={{d[i].id}}">
-                           <img style="width: 100%;" src="/images/qrcode.png">
+                           <img style="width: 100%;" src="${baseUrl}images/qrcode.png">
                        </a>
                    </div>
                    </#if>
@@ -66,7 +66,7 @@
 <body>
 
 <header class="bar bar-nav">
-    <a class="icon icon-left-nav pull-left" onclick="location.href='/my/mine.action'" id="navBackBtn"></a>
+    <a class="icon icon-left-nav pull-left" onclick="location.href='${baseUrl}my/mine.action'" id="navBackBtn"></a>
 
     <h1 class="title">我的优惠劵</h1>
 </header>
@@ -146,7 +146,7 @@
         console.log('+++'+pages);
         $.ajax({
             type:'GET',
-            url:'/raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=5',
+            url:'${baseUrl}raffle/mine_coupon_list.action?status='+status+'&page='+pages+'&size=5',
             timeout : 10000, //超时时间设置，单位毫秒
             data:"ac=index_data",
             dataType:'json',

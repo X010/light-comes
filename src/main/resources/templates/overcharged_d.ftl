@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>约饭</title>
-    <link href="/css/header.css" type="text/css" rel="stylesheet">
-    <link href="/css/auction.css" type="text/css" rel="stylesheet">
-    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+    <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
+    <link href="${baseUrl}css/auction.css" type="text/css" rel="stylesheet">
+    <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
     <a class="left" onclick="window.history.back();">
-        <img src="/images/back.png"/>
+        <img src="${baseUrl}images/back.png"/>
     </a>
 
     <p>${oc.title}</p>
@@ -25,7 +25,7 @@
 
 <div class="auction">
     <div class="msg-auct">
-        <img src="/images/auction_on.png"/>
+        <img src="${baseUrl}images/auction_on.png"/>
 
         <div class="title">
             <h3>${oc.title!}</h3>
@@ -36,7 +36,7 @@
 
     </div>
     <div class="msg-time">
-        <img src="/images/clock.png"/>
+        <img src="${baseUrl}images/clock.png"/>
     <#if seconds gt 0>
         剩余时间<span id="day_show">0</span>天
         <span id="hour_show">0</span>时
@@ -84,7 +84,7 @@
 <script language="JavaScript">
     function send_overcharged(aid) {
         $.ajax({
-            url: "/oc/send_overcharged.action?aid=" + aid,
+            url: "send_overcharged.action?aid=" + aid,
             dataType: "json",
             success: function (data, textStatus) {
                 if (data != null) {

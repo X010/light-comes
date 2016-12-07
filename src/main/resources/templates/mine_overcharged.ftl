@@ -10,12 +10,12 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <title></title>
-    <link rel="stylesheet" href="/ratchet/css/ratchet.css" type="text/css">
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <link rel="stylesheet" href="/ratchet/app.css" type="text/css">
-    <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script type="text/javascript" src="/js/spin.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="${baseUrl}ratchet/css/ratchet.css" type="text/css">
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <link rel="stylesheet" href="${baseUrl}ratchet/app.css" type="text/css">
+    <script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
+    <script type="text/javascript" src="${baseUrl}js/spin.min.js"></script>
+    <script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
     <style>
 	body{position:relative;}
     </style>
@@ -53,7 +53,7 @@
 <body>
 
     <header class="bar bar-nav">
-        <a class="icon icon-left-nav pull-left"  onclick="location.href='/my/mine.action'" id="navBackBtn"></a>
+        <a class="icon icon-left-nav pull-left"  onclick="location.href='${baseUrl}my/mine.action'" id="navBackBtn"></a>
         <h1 class="title">我的砍价</h1>
     </header>
     <div class="content">
@@ -122,7 +122,7 @@
                         console.log('+++'+pages)
                         $.ajax({
                             type:'GET',
-                            url:'/oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=5',
+                            url:'${baseUrl}oc/mine_overcharged_list.action?status='+status+'&page='+pages+'&size=5',
                 timeout : 10000, //超时时间设置，单位毫秒
                 data:"ac=index_data",
                 dataType:'json',

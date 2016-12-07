@@ -7,6 +7,7 @@ import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.utils.JsonClient;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -30,6 +30,8 @@ import java.util.Map;
 public class ClientLoginController extends BaseController {
     @Resource
     private LoginService loginService;
+    @Value("${baseUrl}")
+    private String baseUrl;
 
     /**
      * 前端登录
@@ -107,9 +109,9 @@ public class ClientLoginController extends BaseController {
         boolean isSuccess = loginService.clientLogin(username, password, request);
         if (isSuccess) {
             if (Strings.isNullOrEmpty(redirect))
-                return "redirect:/raffle/lottery.action";
+                return "redirect:"+baseUrl+"raffle/lottery.action";
             else
-                return "redirect:" + redirect;
+                return "redirect:" +redirect;
         }
         data.put("redirect", redirect);
         return "login";

@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>签到</title>
-    <link href="/css/sign.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+    <link href="${baseUrl}css/sign.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
+    <script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body>
 <div class="container" id="cont">
@@ -28,7 +27,9 @@
             </div>
         </div>
         <div class="bottle">
-            <svg id="fillgauge" width="22%" height="120"></svg>
+            <img src="images/bottle.png" class="bot" alt=""/>
+            <img src="images/cover.png" class="cover" alt=""/>
+            <svg id="fillgauge6" width="50%" height="130" onclick="gauge6.update(NewValue());"></svg>
         </div>
     </div>
     <div class="bottom">
@@ -48,18 +49,18 @@
     <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
 </div>
 		<div id="shareit" onclick="close_sharewx()">
-			<img class="arrow" src='/images/share.jpg'/>
+			<img class="arrow" src='${baseUrl}images/share.jpg'/>
 			<a href="#" id="follow"><p id="share-text"></p></a>
 		</div>
-<script src="/js/d3.v3.min.js" language="JavaScript"></script>
-<script src="/js/liquidFillGauge.js" language="JavaScript"></script>
+<script src="${baseUrl}js/d3.v3.min.js" language="JavaScript"></script>
+<script src="${baseUrl}js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function () {
         var maxValue;
         maxValue = loadAjax();
     });
     var config = liquidFillGaugeDefaultSettings();
-    config.circleThickness = 0.1;
+    config.circleThickness = 0;
     config.circleColor = "#ED1E37";
     config.textColor = "#ED1E37";
     config.waveTextColor = "#FD8F94";
@@ -70,7 +71,7 @@
     config.waveAnimate = true;
     config.waveCount = 2;
     config.waveOffset = 0.5;
-    config.textSize = 1;
+    config.textSize = .7;
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
@@ -90,8 +91,8 @@
     });
     wx.onMenuShareTimeline({
         title: '帮朋友干杯', // 分享标题
-        link: 'http://qulk.dssmp.com/pt/share.action', // 分享链接
-        imgUrl: 'http://qulk.dssmp.com/images/caro2.png', // 分享图标
+        link: 'http://qulk.dssmp.com${baseUrl}pt/share.action', // 分享链接
+        imgUrl: 'http://qulk.dssmp.com${baseUrl}images/caro2.png', // 分享图标
         success: function () { 
                 // 用户确认分享后执行的回调函数
                  },
@@ -111,7 +112,7 @@
 	    else{
 	    $.ajax({
             type: 'GET',
-            url: '/pt/self_past.action',
+            url: 'self_past.action',
             timeout: 10000,
             dataType: 'json',
             success: function (re_json) {
@@ -142,7 +143,7 @@
     function loadAjax() {
         $.ajax({
             type: 'GET',
-            url: '/pt/info.action',
+            url: 'info.action',
             timeout: 10000, //超时时间设置，单位毫秒
             data: "ac=index_data",
             dataType: 'json',

@@ -6,9 +6,9 @@
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>${raffle.title!}</title>
-    <link href="/css/header.css" type="text/css" rel="stylesheet">
-    <link href="/css/lottery.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
+    <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
+    <link href="${baseUrl}css/lottery.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
     <style>
         #nothit {
             position: absolute;
@@ -24,13 +24,13 @@
 <body>
 <header>
     <a class="left" onclick="window.history.back();">
-        <img src="/images/back.png"/>
+        <img src="${baseUrl}images/back.png"/>
     </a>
 
     <p>${raffle.title!}</p>
 </header>
 <div id="container">
-    <img src="/images/bg.png"/>
+    <img src="${baseUrl}images/bg.png"/>
 
     <div class="top">
         <p>剩余抽奖次数:<span id="count" class="count">${rCount!}</span><span>次</span></p>
@@ -53,7 +53,7 @@
         </tr>
     </table>
     <div id="floatimg" onclick="closeFloat()">
-        <img src="/images/float.png"/>
+        <img src="${baseUrl}images/float.png"/>
     </div>
     <div id="down">
         <p>获奖人名单</p>
@@ -97,7 +97,7 @@
     </div>
 </div>
 
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript">
     var result_num;
     var raffle_data;
@@ -238,7 +238,7 @@
             clearInterval(Time);
             //click.setAttribute("value","请抽奖");
         }
-        center.rows[arr[index][0]].cells[arr[index][1]].style.background = "url(/images/lq.png)";
+        center.rows[arr[index][0]].cells[arr[index][1]].style.background = "url(${baseUrl}images/lq.png)";
         center.rows[arr[index][0]].cells[arr[index][1]].style.backgroundSize = "100% 100%";
         //alert(center.rows[arr[index][0]].cells[arr[index][1]].innerHTML);
         if (index > 0)
@@ -353,6 +353,6 @@
     }
 
 </script>
-<script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+<script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </body>
 </html>

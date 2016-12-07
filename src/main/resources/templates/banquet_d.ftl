@@ -6,16 +6,16 @@
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>${banquet.title}</title>
-    <link href="/css/header.css" type="text/css" rel="stylesheet">
-    <link href="/css/auction.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+    <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
+    <link href="${baseUrl}css/auction.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
     <a class="left" onclick="window.history.back();">
-        <img src="/images/back.png"/>
+        <img src="${baseUrl}images/back.png"/>
     </a>
 
     <p>${banquet.title}</p>
@@ -25,7 +25,7 @@
 </div>
 <div class="auction">
     <div class="msg-auct">
-        <img src="/images/auction_on.png"/>
+        <img src="${baseUrl}images/auction_on.png"/>
 
         <div class="title">
             <h3>${banquet.title!}</h3>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="msg-time">
-        <img src="/images/clock.png"/>
+        <img src="${baseUrl}images/clock.png"/>
     <#if seconds gt 0>
         剩余时间:<span id="day_show">0</span>天
         <span id="hour_show">0</span>时
@@ -105,7 +105,7 @@
      */
     function send_submit_order(aid) {
         $.ajax({
-            url: "/banquet/dopaybanquet.action?aid=" + aid,
+            url: "dopaybanquet.action?aid=" + aid,
             dataType: "json",
             success: function (data, textStatus) {
                 console.log(data);

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>拍卖</title>
-    <link type="text/css" rel="stylesheet" href="/css/header.css" />
-    <link type="text/css" rel="stylesheet" href="/css/lottery.css" />
-    <link rel="stylesheet" href="/css/swiper.min.css">
-    <script type="text/javascript" src="/js/jquery.min.js" ></script>
-    <script type="text/javascript" src="/js/laytpl.js"></script>
-    <script type="text/javascript" src="/js/spin.min.js"></script>
-    <script src="/js/swiper-3.3.1.jquery.min.js"></script>
+    <#--<#include "header.ftl"/>-->
+    <link type="text/css" rel="stylesheet" href="${baseUrl}css/header.css" />
+    <link type="text/css" rel="stylesheet" href="${baseUrl}css/lottery.css" />
+    <link rel="stylesheet" href="${baseUrl}css/swiper.min.css">
+    <script type="text/javascript" src="${baseUrl}js/jquery.min.js" ></script>
+    <script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
+    <script type="text/javascript" src="${baseUrl}js/spin.min.js"></script>
+    <script src="${baseUrl}js/swiper-3.3.1.jquery.min.js"></script>
     <script id="post_list" type="text/html">
         {{# for(var i = 0, len = d.length; i < len; i++){ }}
         <li class="msg" onclick="location.href='auction_d.action?aid={{d[i].id}}'">
@@ -45,28 +46,28 @@
 <div id="firstDiv"></div>
 
 <footer>
-    <a href="/raffle/lottery.action">
-        <img  src="/images/ticket.png"/>
+    <a href="${baseUrl}raffle/lottery.action">
+        <img  src="${baseUrl}images/ticket.png"/>
         <p>抽奖券</p>
     </a>
-    <a href="/auction/auction.action" class="on">
-        <img class="" src="/images/auction_on.png"/>
+    <a href="${baseUrl}auction/auction.action" class="on">
+        <img class="" src="${baseUrl}images/auction_on.png"/>
         <p class="on">拍卖</p>
     </a>
-    <a href="/banquet/banquet.action">
-        <img class="" src="/images/date.png"/>
+    <a href="${baseUrl}banquet/banquet.action">
+        <img class="" src="${baseUrl}images/date.png"/>
         <p>约饭</p>
     </a>
-    <a href="/oc/overcharged.action">
-        <img class="" src="/images/discount.png"/>
+    <a href="${baseUrl}oc/overcharged.action">
+        <img class="" src="${baseUrl}images/discount.png"/>
         <p>砍价</p>
     </a>
-    <a href="/my/mine.action">
-        <img class="" src="/images/mine.png"/>
+    <a href="${baseUrl}my/mine.action">
+        <img class="" src="${baseUrl}images/mine.png"/>
         <p>我的</p>
     </a>
 </footer>
-<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="${baseUrl}js/common.js"></script>
 <script type="text/javascript">
         var opts = {
             lines: 10 // The number of lines to draw
