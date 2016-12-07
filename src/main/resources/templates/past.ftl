@@ -9,6 +9,7 @@
     <script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
     <script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
     <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body>
@@ -27,9 +28,8 @@
             </div>
         </div>
         <div class="bottle">
-            <img src="images/bottle.png" class="bot" alt=""/>
-            <img src="images/cover.png" class="cover" alt=""/>
-            <svg id="fillgauge6" width="50%" height="130" onclick="gauge6.update(NewValue());"></svg>
+            <img src="${baseUrl}images/cover.png" class="cover" alt=""/>
+            <svg id="fillgauge" width="50%" height="120" onclick="gauge.update(NewValue());"></svg>
         </div>
     </div>
     <div class="bottom">
