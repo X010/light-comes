@@ -73,6 +73,31 @@
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
+    wx.config({
+        debug: false,
+        appId: 'wxf8b4f85f3a794e77',
+        timestamp: 1481092210,
+        nonceStr: 'wJEkiq870VPmKvqM',
+        signature: 'd06ea10d0844e803afebefcf7a46e9dcbb0aa07c',
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone'
+        ]
+    });
+    wx.onMenuShareTimeline({
+        title: '帮朋友干杯', // 分享标题
+        link: 'http://qulk.dssmp.com${baseUrl}pt/share.action', // 分享链接
+        imgUrl: 'http://qulk.dssmp.com${baseUrl}images/caro2.png', // 分享图标
+        success: function () { 
+                // 用户确认分享后执行的回调函数
+                 },
+        cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                 }
+              });
     function changeNum() {
              if (data.today_have_times < 1) {
            		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
