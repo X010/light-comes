@@ -7,16 +7,19 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.utils.JsonClient;
+import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -27,7 +30,7 @@ import com.alibaba.fastjson.JSONObject;
  * 
  * @author jixiangyun 2016年10月25日 下午6:07:06
  */
-@RequestMapping(value = "/redirect")
+@RequestMapping(value = "/wechat")
 @Controller
 public class WeChatController extends BaseController{
 	
@@ -53,8 +56,8 @@ public class WeChatController extends BaseController{
 	 @Autowired
 	 private LoginService loginService;
 	 
-	@RequestMapping(value = "/weiXinJump")
-	public ModelAndView toCourseTeamAdd(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/weChatJump")
+	public ModelAndView weChatJump(HttpServletRequest request, HttpServletResponse response) {
 		
 		Map<String, String> map = RequestTools.requestParamToMap(request);
 		String code = map.get("code");
@@ -82,8 +85,19 @@ public class WeChatController extends BaseController{
 		}
 		return new ModelAndView("redirect:" + getUrlWithMap(map));
 	}
-	
-	
+
+
+	@RequestMapping(value = "/wxconfig")
+	@ResponseBody
+	public String getWxConfig(Map<String,String> data,HttpServletRequest request){
+		//url在JavaScript中是location.href.split('#')[0]获取。
+		String url=RequestTools.RequestString(request,"url","");
+		String accessToken= TenWeChatGenerator.getAccessToken2();
+		String jsapi_ticket=TenWeChatGenerator.getJsapiTicket("",accessToken);
+		data=TenWeChatGenerator.sign(jsapi_ticket,url);
+		data.put("app_id",TenWeChatConfig.app_id);
+		return JsonTools.jsonSer(data);
+	}
 
     /**
      * 第二步 获取openID  和reflashToken

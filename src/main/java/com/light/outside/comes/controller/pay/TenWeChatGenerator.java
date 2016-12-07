@@ -2,6 +2,7 @@ package com.light.outside.comes.controller.pay;
 
 import com.light.outside.comes.controller.pay.client.TenpayHttpClient;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
+import com.light.outside.comes.controller.pay.util.HttpClientUtil;
 import com.light.outside.comes.controller.pay.util.Sha1Util;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
 import com.light.outside.comes.utils.JsonClient;
@@ -179,7 +180,7 @@ public class TenWeChatGenerator {
      *
      * @return
      */
-    public String getJsapiTicket(String url, String token) {
+    public static String getJsapiTicket(String url, String token) {
         Map<String, Object> map = new HashMap<String, Object>();
         String url1 = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + token + "&type=jsapi";
         // String url1= String.valueOf(PropertiesUtil.get("tenwechat_jsapiticket_url")).replace("{token}", token).trim();
@@ -279,7 +280,7 @@ public class TenWeChatGenerator {
      * @return
      */
     public String refreshToken() {
-        String url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN";
+        String url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+TenWeChatConfig.app_id+"&grant_type=refresh_token&refresh_token=REFRESH_TOKEN";
         //String url = String.valueOf(PropertiesUtil.get("tenwechat_refreshtoken_url")).trim();
         String ass = loadJSON(url);
         Map<String, Object> map = new HashMap<String, Object>();
@@ -297,6 +298,35 @@ public class TenWeChatGenerator {
     }
 
 
+
+    /**
+     * 获取access token
+     * @return
+     * @throws Exception
+     */
+    public static String getAccessToken() throws Exception {
+        Map<String,String> map=new HashMap<String,String>();
+        map.put("grant_type", "client_credential");
+        map.put("appid", TenWeChatConfig.app_id);
+        map.put("secret", TenWeChatConfig.app_secret);
+        com.alibaba.fastjson.JSONObject json = JsonClient.post("https://api.weixin.qq.com/cgi-bin/token", map);
+        if(json.containsKey("errcode")){
+            throw new Exception("get token fail"+json);
+        }
+        String accessToken = json.getString("access_token");
+        return accessToken;
+    }
+
+    public static String getAccessToken2(){
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+        String appid = TenWeChatConfig.app_id;//第三方用户唯一凭证
+        String secret = TenWeChatConfig.app_secret;//    第三方用户唯一凭证密钥，即appsecret
+        requestUrl=requestUrl.replace("APPID", appid);
+        requestUrl=requestUrl.replace("APPSECRET", secret);
+        com.alibaba.fastjson.JSONObject jsonObject= JsonClient.get(requestUrl);
+        String access_token = jsonObject.getString("access_token");
+        return access_token;
+    }
     /**
      * 第二步 获取openID  和reflashToken
      *
@@ -349,8 +379,11 @@ public class TenWeChatGenerator {
 //		}
 //		return null;
 //	}
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         TenWeChatGenerator tt = new TenWeChatGenerator();
+        String accessToken=TenWeChatGenerator.getAccessToken2();
+        System.out.println(accessToken);
+        tt.getJsapiTicket("",accessToken);
         //	Map ss = tt.orderQuery("4006652001201610288016305969");
     }
 

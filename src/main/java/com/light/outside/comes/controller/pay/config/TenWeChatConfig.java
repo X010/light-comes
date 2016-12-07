@@ -14,7 +14,8 @@ import com.light.outside.comes.controller.pay.util.PropertiesUtil;
  wechat_refreshtoken_url=https://api.weixin.qq.com/sns/oauth2/refresh_token
  */
 public class TenWeChatConfig {
-	
+
+    public static final String access_token="lNQV78x_YiZ8UVPFX_n1ZdlUQad919ld4xVEIqVUbfMVF3UgWcmxQVJxwnp5HKc1FZSD-FN3CEWrg9DUaubiopLVZd3Cptz3PGRdCii1fGF3cuR5pI7lJ5RtB3ylMCUZCZBfAAAHEG";
     /**
      * 公众号id
      */

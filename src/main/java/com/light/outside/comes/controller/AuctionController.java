@@ -245,7 +245,7 @@ public class AuctionController extends BaseController {
         String payPrice = RequestTools.RequestString(request, "price", "0");
         long aid = RequestTools.RequestLong(request, "aid", 0);
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
-                "http%3A%2F%2Fwww.qubulikou.com%2Fauction%2Fauction_margin_pay.action%3Ftitle%3D" + title + "%26price%3D" + payPrice + "%26aid%3D" + aid +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fauction%2Fauction_margin_pay.action%3Ftitle%3D" + title + "%26price%3D" + payPrice + "%26aid%3D" + aid +
                 "%26response_type%3Dcode%26scope%3Dsnsapi_base%26state%3D321%23wechat_redirect";
 //        String tourl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+TenWeChatConfig.app_id+"&redirect_uri=" +
 //                "http%3A%2F%2Fwww.qubulikou.com%2Findex.php%3Fr%3Dpromotion%252Flist%26shopid%3D1%26promotionid%3D3" +

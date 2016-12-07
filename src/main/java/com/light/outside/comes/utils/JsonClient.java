@@ -1,16 +1,19 @@
 package com.light.outside.comes.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,31 @@ public class JsonClient {
         String resp = doPost(url, paramsMap);
         JSONObject obj = JSONObject.parseObject(resp);
         return obj;
+    }
+
+    /**
+     *
+     * @param url
+     * @return
+     */
+    public static JSONObject get(String url){
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet httpGet=new HttpGet(url);
+        CloseableHttpResponse response = null;
+        String responseText="";
+        try {
+             response = client.execute(httpGet);
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                responseText = EntityUtils.toString(entity, Charset.forName("utf-8"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(!Strings.isNullOrEmpty(responseText)){
+            return JSONObject.parseObject(responseText);
+        }
+        return null;
     }
 
     /**
