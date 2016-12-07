@@ -2,14 +2,15 @@ package com.light.outside.comes.utils;
 
 
 import com.google.common.base.Strings;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by b3st9u on 16/8/20.
@@ -42,6 +43,19 @@ public class RequestTools {
     public static String RequestString(HttpServletRequest request, String parameter, String defau) {
         String defaultValue = request.getParameter(parameter);
         if (Strings.isNullOrEmpty(defaultValue)) return defau;
+        return defaultValue;
+    }
+
+    /**
+     * 请求参数获取String类型
+     *
+     * @param request
+     * @param parameter
+     * @return
+     */
+    public static String RequestString(HttpServletRequest request, String parameter) {
+        String defaultValue = request.getParameter(parameter);
+        if (Strings.isNullOrEmpty(defaultValue)) return null;
         return defaultValue;
     }
 
@@ -83,65 +97,81 @@ public class RequestTools {
         return time;
     }
 
-//    public static <T> T getParamBean(HttpServletRequest request, Class<T> clazz) {
-//        try {
-//            T bean = clazz.newInstance();
-//            Map<?, ?> map = request.getParameterMap();
-//            ConvertUtils.register(new Converter() {
-//                public Object convert(@SuppressWarnings("rawtypes")
-//                                      Class type, Object value) {
-//                    if (value == null) {
-//                        return null;
-//                    }
-//                    String str = ((String) value).trim();
-//                    if (("").equals(str.trim())) {
-//                        return null;
-//                    }
-//                    Date d = null;
-//                    SimpleDateFormat format = null;
-//
-//                    if (str.length() > 10) {
-//                        if (str.indexOf("-") > 0) {
-//                            format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                        } else {
-//                            format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//                        }
-//                    } else if (str.length() == 10) {
-//                        if (str.indexOf("-") > 0) {
-//                            format = new SimpleDateFormat("yyyy-MM-dd");
-//                        } else {
-//                            format = new SimpleDateFormat("yyyy/MM/dd");
-//                        }
-//                    } else if (str.length() == 5) {
-//                        if (str.indexOf(":") > 0) {
-//                            format = new SimpleDateFormat("HH:mm");
-//                        }
-//                    }
-//                    try {
-//                        d = format.parse(str);
-//                    } catch (ParseException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                    return d;
-//                }
-//            }, Date.class);
-//            Iterator<?> entries = map.entrySet().iterator();
-//            while (entries.hasNext()) {
-//                Map.Entry<?, ?> entry = (Map.Entry<?, ?>) entries.next();
-//                String name = (String) entry.getKey();
-//                if (name == null) {
-//                    continue;
-//                }
-//                Object object = entry.getValue();
-//                if (object.getClass().isArray()) {
-//                    object = StringUtils.join((Object[]) object, ",");
-//                }
-//                BeanUtils.setProperty(bean, name, object);
-//            }
-//            return bean;
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//
-//        }
-//    }
+    /**
+     * 获取请求参数转换成map数据
+     *
+     * @param req
+     * @return Map<String, String>
+     */
+    public static Map<String, String> requestParamToMap(HttpServletRequest req) {
+        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String[]> mapReq = req.getParameterMap();
+        Set<String> keySet = mapReq.keySet();
+        for (String key : keySet) {
+            map.put(key, mapReq.get(key)[0]);
+        }
+        return map;
+    }
+
+    public static <T> T getParamBean(HttpServletRequest request, Class<T> clazz) {
+        try {
+            T bean = clazz.newInstance();
+            Map<?, ?> map = request.getParameterMap();
+            ConvertUtils.register(new Converter() {
+                public Object convert(@SuppressWarnings("rawtypes")
+                                              Class type, Object value) {
+                    if (value == null) {
+                        return null;
+                    }
+                    String str = ((String) value).trim();
+                    if (("").equals(str.trim())) {
+                        return null;
+                    }
+                    Date d = null;
+                    SimpleDateFormat format = null;
+
+                    if (str.length() > 10) {
+                        if (str.indexOf("-") > 0) {
+                            format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        } else {
+                            format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        }
+                    } else if (str.length() == 10) {
+                        if (str.indexOf("-") > 0) {
+                            format = new SimpleDateFormat("yyyy-MM-dd");
+                        } else {
+                            format = new SimpleDateFormat("yyyy/MM/dd");
+                        }
+                    } else if (str.length() == 5) {
+                        if (str.indexOf(":") > 0) {
+                            format = new SimpleDateFormat("HH:mm");
+                        }
+                    }
+                    try {
+                        d = format.parse(str);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return d;
+                }
+            }, Date.class);
+            Iterator<?> entries = map.entrySet().iterator();
+            while (entries.hasNext()) {
+                Map.Entry<?, ?> entry = (Map.Entry<?, ?>) entries.next();
+                String name = (String) entry.getKey();
+                if (name == null) {
+                    continue;
+                }
+                Object object = entry.getValue();
+                if (object.getClass().isArray()) {
+                    object = StringUtils.join((Object[]) object, ",");
+                }
+                BeanUtils.setProperty(bean, name, object);
+            }
+            return bean;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+
+        }
+    }
 }
