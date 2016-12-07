@@ -2,6 +2,7 @@ package com.light.outside.comes.filter;
 
 import com.light.outside.comes.controller.admin.LoginController;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
+    @Value("${baseUrl}")
+    private String baseUrl;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -94,7 +97,7 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             String servletPath = request.getServletPath();
             String contextPath = request.getContextPath();
-            String forwardUrl = contextPath + "/qblk/to_login.action";
+            String forwardUrl = contextPath + baseUrl+"qblk/to_login.action";
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
@@ -103,7 +106,7 @@ public class SessionFilter implements javax.servlet.Filter {
                     redirect = servletPath;
                 }
                 response.sendRedirect(contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
-                        + "?redirect=" + URLEncoder.encode(redirect, "UTF-8"));
+                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
             }
 //            out = response.getWriter();
 //            out.println("<script language='javascript' type='text/javascript'>");

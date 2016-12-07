@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>签到</title>
-    <link href="/css/sign.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+    <link href="${baseUrl}css/sign.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body>
 <div class="cont" id="cont">
@@ -51,7 +51,7 @@
     function changeNum() {
             $.ajax({
             type: 'GET',
-            url: '/pt/other_past.action?phone='+phoneNum,
+            url: 'other_past.action?phone='+phoneNum,
             timeout: 10000,
             dataType: 'json',
             success: function (re_json) {
@@ -82,7 +82,7 @@
     function loadAjax() {
         $.ajax({
             type: 'GET',
-            url: '/pt/other_info.action?phone='+phoneNum,
+            url: 'other_info.action?phone='+phoneNum,
             timeout: 10000, //超时时间设置，单位毫秒
             data: "ac=index_data",
             dataType: 'json',

@@ -6,17 +6,17 @@
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>登陆</title>
-    <link href="/css/header.css" type="text/css" rel="stylesheet">
-    <link href="/css/lottery.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
-    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
+    <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
+    <link href="${baseUrl}css/lottery.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
+    <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <div class="container">
-    <img src="/images/loginbg.png"/>
+    <img src="${baseUrl}images/loginbg.png"/>
 
-    <form action="/qblk/login.action" method="post" id="loginForm" name="loginForm">
+    <form action="${baseUrl}qblk/login.action" method="post" id="loginForm" name="loginForm">
         <div class="loginbox">
             <input id="redirect" type="hidden" value="${redirect!}">
             <input id="username" type="text" name="username" class="username" placeholder="请输入手机号/邮箱"
@@ -33,9 +33,9 @@
 </div>
 </body>
 <!-- Bootstrap 3.3.5 -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="${baseUrl}bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="/plugins/iCheck/icheck.min.js"></script>
+<script src="${baseUrl}plugins/iCheck/icheck.min.js"></script>
 <script>
     $(function () {
         $("#loginBtn").click(function () {
@@ -53,7 +53,7 @@
                 return;
             }
             $.ajax({
-                url: "/qblk/login.action?username=" + userName + "&password=" + userPwd + "&redirect=" + redirect,
+                url: "${baseUrl}qblk/login.action?username=" + userName + "&password=" + userPwd + "&redirect=" + redirect,
                 type: "POST",
                 success: function (result) {
                     var r = jQuery.parseJSON(result);
@@ -62,7 +62,7 @@
                         $("#username").focus();
                     } else {
                         if (redirect == null || redirect == 'undefined' || redirect == '') {
-                            window.self.location = "/raffle/lottery.action";
+                            window.self.location = "${baseUrl}raffle/lottery.action";
                         } else {
                             window.self.location = redirect;
                         }
