@@ -8,6 +8,7 @@
     <link href="/css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/laytpl.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <link rel="stylesheet" href="/ratchet/weui.css" type="text/css">
     <script type="text/javascript" src="/ratchet/jquery-weui.js"></script>
 </head>
@@ -73,6 +74,17 @@
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
+    wx.onMenuShareTimeline({
+        title: '帮朋友干杯', // 分享标题
+        link: 'http://qulk.dssmp.com/pt/share.action', // 分享链接
+        imgUrl: 'http://qulk.dssmp.com/images/caro2.png', // 分享图标
+        success: function () { 
+                // 用户确认分享后执行的回调函数
+                 },
+        cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                 }
+              });
     function changeNum() {
              if (data.today_have_times < 1) {
            		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
