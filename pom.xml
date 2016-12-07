@@ -15,7 +15,26 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.2.3.RELEASE</version>
     </parent>
-
+    <profiles>
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <resource.filter>application.properties</resource.filter>
+            </properties>
+        </profile>
+        <profile>
+            <id>online</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <resource.filter>application-online.properties</resource.filter>
+            </properties>
+        </profile>
+    </profiles>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <postgresql.version>9.4-1204-jdbc41</postgresql.version>
@@ -332,5 +351,8 @@
                 </excludes>
             </testResource>
         </testResources>
+        <filters>
+            <filter>src/main/resources/${resource.filter}</filter>
+        </filters>
     </build>
 </project>
