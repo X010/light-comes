@@ -33,10 +33,10 @@ and (-webkit-min-device-pixel-ratio: 2) {
     svg{position: absolute; margin:0 auto; top:30%; left: 23%;}
 }
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (orientation : portrait) {
-    svg{position: absolute; margin:0 auto; top:36%; left: 27%;}
+    svg{position: absolute; margin:0 auto; top:36%; left: 23%;}
 }
 @media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (orientation : portrait) {
-    svg{position: absolute; margin:0 auto; top:39%; left: 29%;}
+    svg{position: absolute; margin:0 auto; top:39%; left: 23%;}
 }
 
 .bottom{ position: absolute; top:62%; width: 100%; background: url("../images/loud.png") no-repeat; height: 20%; background-size: 100%;}
