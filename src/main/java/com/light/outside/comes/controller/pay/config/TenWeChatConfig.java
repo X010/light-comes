@@ -15,7 +15,8 @@ import com.light.outside.comes.controller.pay.util.PropertiesUtil;
  */
 public class TenWeChatConfig {
 
-    public static final String access_token="lNQV78x_YiZ8UVPFX_n1ZdlUQad919ld4xVEIqVUbfMVF3UgWcmxQVJxwnp5HKc1FZSD-FN3CEWrg9DUaubiopLVZd3Cptz3PGRdCii1fGF3cuR5pI7lJ5RtB3ylMCUZCZBfAAAHEG";
+    public static String access_token="";
+    public static String jsapi_ticket="";
     /**
      * 公众号id
      */

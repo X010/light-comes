@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -91,10 +92,12 @@ public class WeChatController extends BaseController{
 	@ResponseBody
 	public String getWxConfig(Map<String,String> data,HttpServletRequest request){
 		//url在JavaScript中是location.href.split('#')[0]获取。
-		String url=RequestTools.RequestString(request,"url","");
-		String accessToken= TenWeChatGenerator.getAccessToken2();
-		String jsapi_ticket=TenWeChatGenerator.getJsapiTicket("",accessToken);
-		data=TenWeChatGenerator.sign(jsapi_ticket,url);
+		String url=RequestTools.RequestString(request, "url", "");
+		if(Strings.isNullOrEmpty(TenWeChatConfig.access_token)) {
+			TenWeChatConfig.access_token = TenWeChatGenerator.getAccessToken2();
+			TenWeChatConfig.jsapi_ticket=TenWeChatGenerator.getJsapiTicket("", TenWeChatConfig.access_token);
+		}
+		data=TenWeChatGenerator.sign(TenWeChatConfig.jsapi_ticket,url);
 		data.put("app_id",TenWeChatConfig.app_id);
 		return JsonTools.jsonSer(data);
 	}
