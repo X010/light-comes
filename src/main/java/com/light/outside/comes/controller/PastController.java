@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller;
 
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.model.JsonResponse;
 import com.light.outside.comes.model.PastTotal;
@@ -51,8 +52,11 @@ public class PastController extends BaseController {
     @RequestMapping("past.action")
     public String past(Map<String,Object> data,HttpServletRequest request) {
         String url="http://www.qubulikou.com/qblk/pt/past.action";
+        String queryString=request.getQueryString();
+        if(!Strings.isNullOrEmpty(url)){
+            url=url+"?"+queryString;
+        }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
-        System.out.println(data.size() +" "+data.get("timestamp"));
         return "past";
     }
 
