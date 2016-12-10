@@ -258,7 +258,9 @@ public class AuctionController extends BaseController {
         UserModel userModel = getAppUserInfo();
         String title = RequestTools.RequestString(request, "title", "未知商品");
         String ip = getRemoteHost(request);
-        String payPrice = RequestTools.RequestString(request, "price", "0");
+        //TODO
+        String payPrice="0.01";
+        //String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
         String code = RequestTools.RequestString(request, "code", "");
         System.out.println("code:"+code +" ip:"+ip);
@@ -266,7 +268,6 @@ public class AuctionController extends BaseController {
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
         if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
             JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
-            System.out.println("openidjson: "+jsonObject);
             String openid = jsonObject.getString("openid");
             try {
                 //生成预支付订单

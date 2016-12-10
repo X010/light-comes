@@ -54,7 +54,7 @@ public class PastController extends BaseController {
         UserModel userModel=getAppUserInfo();
         String url="http://www.qubulikou.com/qblk/pt/past.action";
         String queryString=request.getQueryString();
-        if(!Strings.isNullOrEmpty(url)){
+        if(!Strings.isNullOrEmpty(queryString)){
             url=url+"?"+queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
@@ -68,8 +68,12 @@ public class PastController extends BaseController {
      * @return
      */
     @RequestMapping("share.action")
-    public String share(@RequestParam("phone") String phone,Map<String,Object> data) {
-        String url="http://www.qubulikou.com/qblk/pt/share.action?phone="+phone;
+    public String share(@RequestParam("phone") String phone,Map<String,Object> data,HttpServletRequest request) {
+        String url="http://www.qubulikou.com/qblk/pt/share.action";
+        String queryString=request.getQueryString();
+        if(!Strings.isNullOrEmpty(queryString)){
+            url=url+"?"+queryString;
+        }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
         return "share";
     }

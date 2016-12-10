@@ -92,10 +92,12 @@
             $.ajax({
                 url: "${baseUrl}admin/login.action?userName=" + userName + "&password=" + userPwd,
                 type: "POST",
+                dataType: 'json',
+                timeout: 10000,
                 success: function (result) {
-                    var r = jQuery.parseJSON(result);
-                    if (r.code == 0) {
-                        alert(r.msg);
+                    //var r = jQuery.parseJSON(result);
+                    if (result.code == 0) {
+                        alert(result.msg);
                         $("#userName").focus();
                     } else {
                         window.self.location = "to_index.action";
