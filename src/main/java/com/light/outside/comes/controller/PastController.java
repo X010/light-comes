@@ -51,12 +51,14 @@ public class PastController extends BaseController {
      */
     @RequestMapping("past.action")
     public String past(Map<String,Object> data,HttpServletRequest request) {
+        UserModel userModel=getAppUserInfo();
         String url="http://www.qubulikou.com/qblk/pt/past.action";
         String queryString=request.getQueryString();
         if(!Strings.isNullOrEmpty(url)){
             url=url+"?"+queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
+        data.put("phone",userModel.getPhone());
         return "past";
     }
 
