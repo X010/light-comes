@@ -15,15 +15,15 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${baseUrl}bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${baseUrl}dist/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="/dist/css//ionicons.min.css">
+    <link rel="stylesheet" href="${baseUrl}dist/css//ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="${baseUrl}dist/css/AdminLTE.min.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="${baseUrl}plugins/iCheck/square/blue.css">
 
 </head>
 <body class="hold-transition login-page">
@@ -68,11 +68,11 @@
 <!-- /.login-box -->
 
 <!-- jQuery 2.1.4 -->
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="${baseUrl}bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="/plugins/iCheck/icheck.min.js"></script>
+<script src="${baseUrl}plugins/iCheck/icheck.min.js"></script>
 <script>
 
     $(function () {
@@ -90,7 +90,7 @@
                 return;
             }
             $.ajax({
-                url: "login.action?userName=" + userName + "&password=" + userPwd,
+                url: "${baseUrl}admin/login.action?userName=" + userName + "&password=" + userPwd,
                 type: "POST",
                 success: function (result) {
                     var r = jQuery.parseJSON(result);

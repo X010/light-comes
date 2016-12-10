@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="pull-right">
-                            <a href="/admin/create_user.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i>新建管理员</a>
+                            <a href="${baseUrl}admin/create_user.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i>新建管理员</a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -33,8 +33,8 @@
                                             <td>${user.real_name}</td>
                                             <td>${user.user_name}</td>
                                             <td>
-                                                <a class="badge  bg-green" href="/admin/create_user.action?action=edit&id=${user.id}">修改密码</a>
-                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定删除该用户')){window.location.href='/admin/delete_user.action?id=${user.id}';}">停用</a>
+                                                <a class="badge  bg-green" href="${baseUrl}admin/create_user.action?action=edit&id=${user.id}">修改密码</a>
+                                                <a class="badge  bg-red" href="javascript:if(confirm('您是否确定删除该用户')){window.location.href='${baseUrl}admin/delete_user.action?id=${user.id}';}">停用</a>
                                             </td>
                                         </tr>
                                     </#list>
@@ -49,7 +49,7 @@
                 <#if users??>
                     <#if (users.pages>0) >
                         <#list 1..users.pages as i>
-                            <li><a href="/admin/user_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/user_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

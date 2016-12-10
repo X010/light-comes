@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="pull-right">
-                            <a href="/admin/create_coupon.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建优惠劵</a>
+                            <a href="${baseUrl}admin/create_coupon.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建优惠劵</a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -71,14 +71,14 @@
                                         <td>
                                             <#if coupon.status==1>
                                                 <a class="badge  bg-green"
-                                                   href="javascript:if(confirm('确认是否生成该类优惠劵')){window.location.href='/admin/produce_coupon.action?id=${coupon.id}';}">生成</a>
+                                                   href="javascript:if(confirm('确认是否生成该类优惠劵')){window.location.href='${baseUrl}admin/produce_coupon.action?id=${coupon.id}';}">生成</a>
                                                 &nbsp;&nbsp;
                                             </#if>
                                             <a class="badge  bg-red"
-                                               href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='/admin/delete_coupon.action?id=${coupon.id}';}">
+                                               href="javascript:if(confirm('您是否确认停用该类优惠劵')){window.location.href='${baseUrl}admin/delete_coupon.action?id=${coupon.id}';}">
                                                 停用</a>
                                                 &nbsp;&nbsp;
-                                            <a class="badge  bg-blue" href="/admin/coupon_list_detail.action?id=${coupon.id}">优惠劵信息</a>
+                                            <a class="badge  bg-blue" href="${baseUrl}admin/coupon_list_detail.action?id=${coupon.id}">优惠劵信息</a>
                                         </td>
                                     </tr>
                                 </#list>
@@ -93,7 +93,7 @@
                 <#if coupons??>
                     <#if (coupons.pages>0) >
                         <#list 1..coupons.pages as i>
-                            <li><a href="/admin/coupon_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/coupon_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

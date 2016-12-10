@@ -25,7 +25,7 @@
                 <#if raffles??>
                     <#if (raffles.pages>0) >
                         <#list 1..raffles.pages as i>
-                            <li><a href="/admin/raffle_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/raffle_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

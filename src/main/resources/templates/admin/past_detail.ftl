@@ -40,8 +40,8 @@
                                         <td>${rs.cycle_drunk}</td>
                                         <td>${rs.update_time?string("yyyy-MM-dd HH:mm:ss")}</td>
                                         <td>
-                                            <a class="badge  bg-red" href="/admin/clear_user_past.action?status=2&phone=${rs.phone}">清空本期签到</a>
-                                            <a class="badge  bg-blue" href="/admin/clear_user_past.action?status=1&phone=${rs.phone}">清空今天签到</a>
+                                            <a class="badge  bg-red" href="${baseUrl}admin/clear_user_past.action?status=2&phone=${rs.phone}">清空本期签到</a>
+                                            <a class="badge  bg-blue" href="${baseUrl}admin/clear_user_past.action?status=1&phone=${rs.phone}">清空今天签到</a>
                                         </td>
                                     </tr>
                                 </#list>
@@ -56,7 +56,7 @@
                 <#if prs??>
                     <#if (prs.pages>0) >
                         <#list 1..prs.pages as i>
-                            <li><a href="/admin/past_detail.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/past_detail.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

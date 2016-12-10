@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="pull-right">
-                            <a href="/admin/create_raffle.action?action=new&id=0" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建抽奖活动</a>
+                            <a href="${baseUrl}admin/create_raffle.action?action=new&id=0" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建抽奖活动</a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -58,14 +58,14 @@
                                     ${raffle.end_time?string("yyyy-MM-dd HH:mm:ss")}
                                     </td>
                                     <td>
-                                        <a class="badge  bg-green" href="/admin/create_raffle.action?action=edit&id=#{raffle.id}">编缉</a>
+                                        <a class="badge  bg-green" href="${baseUrl}admin/create_raffle.action?action=edit&id=#{raffle.id}">编缉</a>
                                         &nbsp;&nbsp;
                                         <a class="badge  bg-red"
-                                           href="javascript:if(confirm('您是否确定停用该抽奖活动')){window.location.href='/admin/delete_raffle.action?id=#{raffle.id}';}">停用
+                                           href="javascript:if(confirm('您是否确定停用该抽奖活动')){window.location.href='${baseUrl}admin/delete_raffle.action?id=#{raffle.id}';}">停用
                                         </a>
                                         <!--
                                         &nbsp;&nbsp;
-                                        <a class="badge  bg-blue" href="/admin/raffle_list_detail.action?id=#{raffle.id}">参与者信息</a>
+                                        <a class="badge  bg-blue" href="${baseUrl}admin/raffle_list_detail.action?id=#{raffle.id}">参与者信息</a>
                                         -->
                                     </td>
                                 </tr>
@@ -80,7 +80,7 @@
                 <#if raffles??>
                     <#if (raffles.pages>0) >
                         <#list 1..raffles.pages as i>
-                            <li><a href="/admin/raffle_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/raffle_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_coupon.action" id="coupon_form" name="coupon_form" method="post">
+    <form action="${baseUrl}admin/save_coupon.action" id="coupon_form" name="coupon_form" method="post">
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -199,7 +199,7 @@
         var parentName = $("#cate1").val();
 
         $.ajax({
-            url: "/admin/search_commodity_category.action?category=" + parentName,
+            url: "${baseUrl}admin/search_commodity_category.action?category=" + parentName,
             dataType: "json",
             success: function (data, textStatus) {
                 $("#cate2").empty();
@@ -220,7 +220,7 @@
         var searchKeyword = $("#searchKeyword").val();
 
         $.ajax({
-            url: "/admin/search_commodity.action?keyword=" + searchKeyword,
+            url: "${baseUrl}admin/search_commodity.action?keyword=" + searchKeyword,
             dataType: "json",
             success: function (data, textStatus) {
                 $("#goods_list tbody").empty();

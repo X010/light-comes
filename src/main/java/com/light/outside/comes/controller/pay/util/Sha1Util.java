@@ -189,13 +189,13 @@ public class Sha1Util {
         return hexString.toString();
     }
     public static void main(String[] args) {
-        com.alibaba.fastjson.JSONObject json=TenWeChatGenerator.getOpenIdStepOne("code");
-        String accessToken = json.getString("access_token");
-        String openid = json.getString("openid");
-        System.out.println(openid);
+//        com.alibaba.fastjson.JSONObject json=TenWeChatGenerator.getOpenIdStepOne("code");
+//        String accessToken = json.getString("access_token");
+//        String openid = json.getString("openid");
+//        System.out.println(openid);
         String tradeNo= PubUtils.getUniqueSn()+"";
     	try {
-			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"0.01","oUpF8uMuAJO_M2pxb1Q9zNjWeS6o","123.12.12.123");
+			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"0.01","oVuI4s4QclYLZ4BWiP4_fc2mBFvM","123.12.12.123");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

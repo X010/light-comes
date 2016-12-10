@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_user.action" id="create_user" method="post">
+    <form action="${baseUrl}admin/save_user.action" id="create_user" method="post">
     <#if users??>
         <input type="hidden" id="editid" name="editid" value="${users.id}"/>
     </#if>

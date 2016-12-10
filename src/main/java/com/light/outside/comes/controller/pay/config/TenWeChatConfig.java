@@ -53,13 +53,14 @@ public class TenWeChatConfig {
     /**
      * OAUT2
      */
-    public static final String oaut2Url="https://api.weixin.qq.com/sns/oauth2/access_token";
+    public static final String accessToken="https://api.weixin.qq.com/sns/oauth2/access_token";
 
-    public static final String refreshtokenUrl="https://api.weixin.qq.com/sns/oauth2/access_token";
+    public static final String refreshtokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token";
 
     public static final String tokenUrl="https://api.weixin.qq.com/cgi-bin/token";
 
     public static final String userinfoUrl="https://api.weixin.qq.com/sns/userinfo";
+
 
 
 

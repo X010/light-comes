@@ -9,7 +9,7 @@
 
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_auction.action" id="auction_form" name="auction_form" method="post">
+    <form action="${baseUrl}admin/save_auction.action" id="auction_form" name="auction_form" method="post">
     <#if auction??>
         <input type="hidden" id="editid" name="editid" value="${auction.id}"/>
     </#if>
@@ -253,7 +253,7 @@
         var searchKeyword = $("#searchKeyword").val();
 
         $.ajax({
-            url: "/admin/search_commodity.action?keyword=" + searchKeyword,
+            url: "${baseUrl}admin/search_commodity.action?keyword=" + searchKeyword,
             dataType: "json",
             success: function (data, textStatus) {
                 $("#goods_list tbody").empty();

@@ -1,6 +1,6 @@
 <html>
 <body>
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script type="text/javascript" charset="UTF-8" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script language="JavaScript">
     function onBridgeReady() {
@@ -33,7 +33,7 @@
         onBridgeReady();
     }
 </script>
-<body onload="pay()">
+<#--<body onload="onBridgeReady()">-->
 
-</body>
+<#--</body>-->
 </html>

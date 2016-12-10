@@ -157,7 +157,7 @@
     }
     deposit.onclick = function () {
         //window.location.href = "auction_margin.action?amount=${auction.amount!}&aid=${auction.id!}";
-        window.location.href="auction_margin_pay.action?amount=${auction.amount!}&aid=${auction.id!}&title=${auction.title!}&price=${auction.deposit!}";
+        window.location.href="wechart_redirect.action?amount=${auction.amount!}&aid=${auction.id!}&title=${auction.title!}&price=${auction.deposit!}";
     }
     if (isPay == true && seconds2 > 0) {
         deposit.style.display = "none";

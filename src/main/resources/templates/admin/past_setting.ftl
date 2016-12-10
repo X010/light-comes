@@ -9,7 +9,7 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <section class="content">
-        <form action="/admin/past_setting.action" id="past_setting" name="past_setting" method="post">
+        <form action="${baseUrl}admin/past_setting.action" id="past_setting" name="past_setting" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">

@@ -14,7 +14,7 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="pull-right">
-                            <a href="/admin/create_overcharge.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建砍价活动</a>
+                            <a href="${baseUrl}admin/create_overcharge.action" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 新建砍价活动</a>
                         </div>
                     </div>
                     <div class="box-body">
@@ -67,12 +67,12 @@
                                         <td>${overcharged.create_time?string("MM月dd日 HH:mm:ss")}</td>
                                         <td>${overcharged.good_name}</td>
                                         <td>
-                                            <a class="badge  bg-green" href="/admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
+                                            <a class="badge  bg-green" href="${baseUrl}admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
                                             &nbsp;&nbsp;
                                             <a class="badge  bg-red"
-                                               href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='/admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
+                                               href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='${baseUrl}admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
                                             </a>&nbsp;&nbsp;
-                                            <a class="badge  bg-blue" href="/admin/overcharged_list_detail.action?id=#{overcharged.id}">参与者信息</a>
+                                            <a class="badge  bg-blue" href="${baseUrl}admin/overcharged_list_detail.action?id=#{overcharged.id}">参与者信息</a>
                                         </td>
                                     </tr>
                                 </#list>
@@ -87,7 +87,7 @@
                 <#if overchargeds??>
                     <#if (overchargeds.pages>0) >
                         <#list 1..overchargeds.pages as i>
-                            <li><a href="/admin/overcharge_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/overcharge_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

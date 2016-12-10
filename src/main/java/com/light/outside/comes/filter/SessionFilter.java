@@ -78,7 +78,7 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             out = response.getWriter();
             out.println("<script language='javascript' type='text/javascript'>");
-            out.println("alert('由于长时间没有操作,导致Session失效,请重新登录!');window.top.location.href='" + request.getContextPath() + "/admin/to_login.action'");
+            out.println("alert('由于长时间没有操作,导致Session失效,请重新登录!');window.top.location.href='" + request.getContextPath() + baseUrl+"admin/to_login.action'");
             out.println("</script>");
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +98,7 @@ public class SessionFilter implements javax.servlet.Filter {
             String servletPath = request.getServletPath();
             String contextPath = request.getContextPath();
             String forwardUrl = contextPath + baseUrl+"qblk/to_login.action";
+            System.out.println("forwardUrl:"+forwardUrl);
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
@@ -105,8 +106,14 @@ public class SessionFilter implements javax.servlet.Filter {
                 } else {
                     redirect = servletPath;
                 }
-                response.sendRedirect(contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
-                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
+//                System.out.println("redirect:"+contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
+//                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
+//                response.sendRedirect(contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
+//                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
+            out = response.getWriter();
+            out.println("<script language='javascript' type='text/javascript'>");
+            out.println("window.top.location.href='" + request.getContextPath() + baseUrl+"qblk/to_login.action?redirect="+URLEncoder.encode(redirect, "UTF-8")+"'");
+            out.println("</script>");
             }
 //            out = response.getWriter();
 //            out.println("<script language='javascript' type='text/javascript'>");

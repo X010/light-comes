@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_banquet.action" enctype="multipart/form-data" id="banquet_form" name="banquet_form"
+    <form action="${baseUrl}admin/save_banquet.action" enctype="multipart/form-data" id="banquet_form" name="banquet_form"
           method="post">
     <#if banquet??>
         <input id="editid" name="editid" value="${banquet.id}" type="hidden"/>

@@ -29,7 +29,7 @@
                                             <td>${br.total_price}</td>
                                             <td>${br.phone}</td>
                                             <td>${br.create_time?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                            <td> <a class="badge  bg-blue" href="/admin/coupon_balance_list_detail.action?bill_id=${br.id}">查看详单</a></td>
+                                            <td> <a class="badge  bg-blue" href="${baseUrl}admin/coupon_balance_list_detail.action?bill_id=${br.id}">查看详单</a></td>
                                         </tr>
                                     </#list>
                                 </#if>
@@ -44,7 +44,7 @@
                 <#if brs??>
                     <#if (brs.pages>0) >
                         <#list 1..brs.pages as i>
-                            <li><a href="/admin/coupon_balance_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/coupon_balance_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

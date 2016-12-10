@@ -14,6 +14,7 @@ import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.FileUtil;
 import com.light.outside.comes.utils.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,8 @@ import java.util.*;
 @Controller
 @RequestMapping("admin/")
 public class MainFrameController {
+    @Value("${baseUrl}")
+    private String baseUrl;
 
     @Autowired
     private MainFrameService mainFrameService;
@@ -253,7 +256,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.deleteRaffle(id);
         }
-        return "redirect:/admin/raffle_list.action";
+        return "redirect:"+baseUrl+"admin/raffle_list.action";
     }
 
     /**
@@ -281,7 +284,7 @@ public class MainFrameController {
             raffleModel.setCreatetime(new Date());
             this.raffleService.save_raffle(raffleModel, raffleCouponModels);
         }
-        return "redirect:/admin/raffle_list.action";
+        return "redirect:"+baseUrl+"admin/raffle_list.action";
     }
 
     /**
@@ -359,7 +362,7 @@ public class MainFrameController {
                 this.overchargedService.addOverChage(overchargedModel);
             }
         }
-        return "redirect:/admin/overcharge_list.action";
+        return "redirect:"+baseUrl+"admin/overcharge_list.action";
     }
 
 
@@ -378,7 +381,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/overcharge_list.action";
+        return "redirect:"+baseUrl+"admin/overcharge_list.action";
     }
 
 
@@ -444,7 +447,7 @@ public class MainFrameController {
                 this.auctionService.addAuction(auctionModel);
             }
         }
-        return "redirect:/admin/auction_list.action";
+        return "redirect:"+baseUrl+"admin/auction_list.action";
     }
 
     /**
@@ -460,7 +463,7 @@ public class MainFrameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/admin/auction_list.action";
+        return "redirect:"+baseUrl+"admin/auction_list.action";
     }
 
     /**
@@ -533,7 +536,7 @@ public class MainFrameController {
                 this.banquetService.addBanquet(banquetModel);
             }
         }
-        return "redirect:/admin/banquet_list.action";
+        return "redirect:"+baseUrl+"admin/banquet_list.action";
     }
 
     /**
@@ -570,7 +573,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/banquet_list.action";
+        return "redirect:"+baseUrl+"admin/banquet_list.action";
     }
 
 
@@ -608,7 +611,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.generateCoupon(id);
         }
-        return "redirect:/admin/coupon_list.action";
+        return "redirect:"+baseUrl+"admin/coupon_list.action";
     }
 
     /**
@@ -645,7 +648,7 @@ public class MainFrameController {
 
             this.raffleService.addCoupon(couponModel);
         }
-        return "redirect:/admin/coupon_list.action";
+        return "redirect:"+baseUrl+"admin/coupon_list.action";
     }
 
     /**
@@ -661,7 +664,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.deleteCoupon(id);
         }
-        return "redirect:/admin/coupon_list.action";
+        return "redirect:"+baseUrl+"admin/coupon_list.action";
     }
 
     /**
@@ -816,7 +819,7 @@ public class MainFrameController {
                 this.loginService.addUsers(userModel);
             }
         }
-        return "redirect:/admin/user_list.action";
+        return "redirect:"+baseUrl+"admin/user_list.action";
     }
 
     /**
@@ -850,7 +853,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/user_list.action";
+        return "redirect:"+baseUrl+"admin/user_list.action";
     }
 
     /**
@@ -881,7 +884,7 @@ public class MainFrameController {
             backList.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             this.backListService.addBackList(backList);
         }
-        return "redirect:/admin/backlist_list.action";
+        return "redirect:"+baseUrl+"admin/backlist_list.action";
     }
 
 
@@ -900,7 +903,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:/admin/backlist_list.action";
+        return "redirect:"+baseUrl+"admin/backlist_list.action";
     }
 
 
@@ -956,7 +959,7 @@ public class MainFrameController {
         if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
             if (pastModel != null && pastModel.getTotal_drunk() > 0) {
                 pastModel = this.pastService.svePastModel(pastModel);
-                return "redirect:/admin/past_setting.action";
+                return "redirect:"+baseUrl+"admin/past_setting.action";
             }
         }
 
@@ -997,7 +1000,7 @@ public class MainFrameController {
         if (!Strings.isNullOrEmpty(phone) && status > 0) {
             this.pastService.clearPastInfo(phone, status);
         }
-        return "redirect:/admin/past_detail.action";
+        return "redirect:"+baseUrl+"admin/past_detail.action";
     }
 
 

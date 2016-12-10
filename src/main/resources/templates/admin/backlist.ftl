@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
-                    <form action="/admin/save_backlist.action" id="backlist_form" name="backlist_form" method="post">
+                    <form action="${baseUrl}admin/save_backlist.action" id="backlist_form" name="backlist_form" method="post">
                         <div class="box-header with-border">
                             <div class="col-md-12">
                                 <div class="col-md-4">
@@ -64,7 +64,7 @@
                                         <td>${backList.createtime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                         <td>${backList.phone}</td>
                                         <td>
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否恢复该用户')){window.location.href='/admin/delete_backlist.action?id=${backList.id}';}">停用
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否恢复该用户')){window.location.href='${baseUrl}admin/delete_backlist.action?id=${backList.id}';}">停用
                                             </a>
                                         </td>
                                     </tr>
@@ -80,7 +80,7 @@
                 <#if backLists??>
                     <#if (backLists.pages>0) >
                         <#list 1..backLists.pages as i>
-                            <li><a href="/admin/backlist_list.action?page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/backlist_list.action?page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

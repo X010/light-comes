@@ -63,7 +63,7 @@
                 <#if crs??>
                     <#if (crs.pages>0) >
                         <#list 1..crs.pages as i>
-                            <li><a href="/admin/coupon_list_detail.action?id=${aid}&page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/coupon_list_detail.action?id=${aid}&page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

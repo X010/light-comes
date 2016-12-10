@@ -49,7 +49,7 @@
                 <#if brs??>
                     <#if (brs.pages>0) >
                         <#list 1..brs.pages as i>
-                            <li><a href="/admin/banquet_list_detail.action?id=${aid}&page=${i}">${i}</a></li>
+                            <li><a href="${baseUrl}admin/banquet_list_detail.action?id=${aid}&page=${i}">${i}</a></li>
                         </#list>
                     </#if>
                 </#if>

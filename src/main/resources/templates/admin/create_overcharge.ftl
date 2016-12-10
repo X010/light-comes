@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form id="create_overcharge_form" name="create_overcharge_form" action="/admin/save_overcharge.action" method="post">
+    <form id="create_overcharge_form" name="create_overcharge_form" action="${baseUrl}admin/save_overcharge.action" method="post">
 
     <#if overcharged??>
         <input type="hidden" id="editid" name="editid" value="${overcharged.id}"/>
@@ -191,7 +191,7 @@
         var searchKeyword = $("#searchKeyword").val();
 
         $.ajax({
-            url: "/admin/search_commodity.action?keyword=" + searchKeyword,
+            url: "${baseUrl}admin/search_commodity.action?keyword=" + searchKeyword,
             dataType: "json",
             success: function (data, textStatus) {
                 $("#goods_list tbody").empty();

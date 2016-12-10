@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="/admin/save_raffle.action" id="raffle_form" name="raffle_form" enctype="multipart/form-data" method="post">
+    <form action="${baseUrl}admin/save_raffle.action" id="raffle_form" name="raffle_form" enctype="multipart/form-data" method="post">
     <#if editid??>
         <input type="hidden" name="editid" id="editid" value="${editid}"/>
     </#if>
