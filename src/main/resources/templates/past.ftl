@@ -55,6 +55,7 @@
 <script src="${baseUrl}js/d3.v3.min.js" language="JavaScript"></script>
 <script src="${baseUrl}js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
+    alert(location.href.split('#')[0]);
     $(document).ready(function () {
         var maxValue;
         maxValue = loadAjax();
@@ -77,10 +78,10 @@
     var gauge;
     wx.config({
         debug: false,
-        appId: 'wxf8b4f85f3a794e77',
-        timestamp: 1481092210,
-        nonceStr: 'wJEkiq870VPmKvqM',
-        signature: 'd06ea10d0844e803afebefcf7a46e9dcbb0aa07c',
+        appId: '${app_id}',
+        timestamp: ${timestamp!},
+        nonceStr: '${nonceStr!}',
+        signature: '${signature!}',
         jsApiList: [
             'onMenuShareTimeline',
             'onMenuShareAppMessage',

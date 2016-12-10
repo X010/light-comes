@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller.pay;
 
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.client.TenpayHttpClient;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.controller.pay.token.AccessToken;
@@ -8,6 +9,7 @@ import com.light.outside.comes.controller.pay.util.HttpClientUtil;
 import com.light.outside.comes.controller.pay.util.Sha1Util;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
 import com.light.outside.comes.utils.JsonClient;
+import com.light.outside.comes.utils.RequestTools;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -76,6 +78,26 @@ public class TenWeChatGenerator {
         return resultMap;
     }
 
+    /**
+     * 获取wx.config
+     * @param url
+     * @return
+     */
+    public static Map<String,Object> getWxConfig(String url){
+//        String url = RequestTools.RequestString(request, "url", "");
+        if (Strings.isNullOrEmpty(TenWeChatConfig.access_token)) {
+            if(TokenThread.accessToken!=null) {
+                TenWeChatConfig.access_token = TokenThread.accessToken.getToken();
+            }else{
+                //重新生成
+                TenWeChatConfig.access_token= TenWeChatGenerator.getAccessTokenModel().getToken();
+            }
+            TenWeChatConfig.jsapi_ticket = TenWeChatGenerator.getJsapiTicket("", TenWeChatConfig.access_token);
+        }
+        Map<String,Object> data = TenWeChatGenerator.sign(TenWeChatConfig.jsapi_ticket, url);
+        data.put("app_id", TenWeChatConfig.app_id);
+        return data;
+    }
 
     /**
      * 统一下单 get prepay_id
@@ -147,9 +169,9 @@ public class TenWeChatGenerator {
      * @param url
      * @return
      */
-    public Map<String, String> getNewSing(String url, String access_token) {
+    public Map<String, Object> getNewSing(String url, String access_token) {
         String jsapi_ticket = getJsapiTicket("", access_token);
-        Map<String, String> map = sign(jsapi_ticket, url);
+        Map<String, Object> map = sign(jsapi_ticket, url);
         return map;
     }
 
@@ -207,8 +229,8 @@ public class TenWeChatGenerator {
      * @param url
      * @return
      */
-    public static Map<String, String> sign(String jsapi_ticket, String url) {
-        Map<String, String> ret = new HashMap<String, String>();
+    public static Map<String, Object> sign(String jsapi_ticket, String url) {
+        Map<String, Object> ret = new HashMap<String, Object>();
         String nonce_str = create_nonce_str();
         String timestamp = create_timestamp();
         String string1;
@@ -341,7 +363,7 @@ public class TenWeChatGenerator {
         String access_token = jsonObject.getString("access_token");
         //设置accessToken
         accessToken.setToken(access_token);
-        accessToken.setExpiresIn(jsonObject.getInteger("expiresIn"));
+        accessToken.setExpiresIn(jsonObject.getInteger("expires_in"));
         TokenThread.accessToken = accessToken;
 
         return accessToken;
@@ -402,6 +424,7 @@ public class TenWeChatGenerator {
     public static void main(String[] args) throws Exception {
         TenWeChatGenerator tt = new TenWeChatGenerator();
         String accessToken = TenWeChatGenerator.getAccessToken2();
+        TenWeChatGenerator.getAccessTokenModel();
         System.out.println(accessToken);
         tt.getJsapiTicket("", accessToken);
         //	Map ss = tt.orderQuery("4006652001201610288016305969");
