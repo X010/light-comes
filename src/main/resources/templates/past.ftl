@@ -55,7 +55,6 @@
 <script src="${baseUrl}js/d3.v3.min.js" language="JavaScript"></script>
 <script src="${baseUrl}js/liquidFillGauge.js" language="JavaScript"></script>
 <script language="JavaScript" type="text/javascript">
-    alert(location.href.split('#')[0]);
     $(document).ready(function () {
         var maxValue;
         maxValue = loadAjax();
@@ -90,17 +89,38 @@
             'onMenuShareQZone'
         ]
     });
+    wx.ready(function () {
     wx.onMenuShareTimeline({
         title: '帮朋友干杯', // 分享标题
-        link: 'http://qulk.dssmp.com${baseUrl}pt/share.action', // 分享链接
-        imgUrl: 'http://qulk.dssmp.com${baseUrl}images/caro2.png', // 分享图标
-        success: function () { 
-                // 用户确认分享后执行的回调函数
-                 },
-        cancel: function () { 
-                // 用户取消分享后执行的回调函数
-                 }
-              });
+        link: 'http://www.qubulikou.com/qblk/pt/share.action', // 分享链接
+        imgUrl: 'http://www.qubulikou.com/qblk/images/caro2.png' // 分享图标
+        });
+    wx.onMenuShareAppMessage({
+	title:'大侠，帮我来干杯！',
+	desc:'帮朋友干杯',
+	link:'http://www.qubulikou.com/qblk/pt/share.action',
+	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	});
+    wx.onMenuShareQQ({
+	title:'大侠，帮我来干杯！',
+	desc:'帮朋友干杯',
+	link:'http://www.qubulikou.com/qblk/pt/share.action',
+	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+    	});
+    wx.onMenuShareWeibo({
+	title:'大侠，帮我来干杯！',
+	desc:'帮朋友干杯',
+	link:'http://www.qubulikou.com/qblk/pt/share.action',
+	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	});
+    wx.onMenuShareQZone({
+    	title:'大侠，帮我来干杯！',
+    	desc:'帮朋友干杯',
+    	link:'http://www.qubulikou.com/qblk/pt/share.action',
+    	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	});
+    });
+
     function changeNum() {
              if (data.today_have_times < 1) {
            		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
