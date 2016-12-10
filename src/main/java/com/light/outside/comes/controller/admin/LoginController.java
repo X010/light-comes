@@ -56,8 +56,8 @@ public class LoginController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "login.action", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
+    @RequestMapping(value = "login.action", method = {RequestMethod.POST, RequestMethod.GET})
     public String login(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
         String userName = RequestTools.RequestString(request, "userName", "");
         String password = RequestTools.RequestString(request, "password", "");

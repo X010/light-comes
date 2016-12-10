@@ -2,6 +2,8 @@ package com.light.outside.comes.filter;
 
 import com.light.outside.comes.controller.admin.LoginController;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.*;
@@ -14,6 +16,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
+
+    private final static Logger LOG = LoggerFactory.getLogger(SessionFilter.class);
+
     @Value("${baseUrl}")
     private String baseUrl;
 
@@ -33,6 +38,7 @@ public class SessionFilter implements javax.servlet.Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
         String url = request.getServletPath();
+        LOG.info("req :" + url);
         boolean isLogin = false;
         if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
@@ -49,7 +55,7 @@ public class SessionFilter implements javax.servlet.Filter {
         else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             chain.doFilter(request, response);
-        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/")||url.contains("/my/")||url.contains("/pt/")) {
+        } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/") || url.contains("/my/") || url.contains("/pt/")) {
             if (session.getAttribute(LoginController.SESSION_KEY_APP_USERINFO) == null) {
                 session.invalidate();
                 clientLoginOut(request, response);
@@ -78,7 +84,7 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             out = response.getWriter();
             out.println("<script language='javascript' type='text/javascript'>");
-            out.println("alert('由于长时间没有操作,导致Session失效,请重新登录!');window.top.location.href='" + request.getContextPath() + baseUrl+"admin/to_login.action'");
+            out.println("alert('由于长时间没有操作,导致Session失效,请重新登录!');window.top.location.href='" + request.getContextPath() + baseUrl + "admin/to_login.action'");
             out.println("</script>");
         } catch (IOException e) {
             e.printStackTrace();
