@@ -91,7 +91,7 @@ public class WeChatController extends BaseController {
 
     @RequestMapping(value = "/wxconfig")
     @ResponseBody
-    public String getWxConfig(Map<String, String> data, HttpServletRequest request) {
+    public String getWxConfig(Map<String, Object> data, HttpServletRequest request) {
         //url在JavaScript中是location.href.split('#')[0]获取。
         String url = RequestTools.RequestString(request, "url", "");
         if (Strings.isNullOrEmpty(TenWeChatConfig.access_token)) {
