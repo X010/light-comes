@@ -30,7 +30,7 @@
         </div>
         <div class="help">
             <input type="button" value="我来帮忙灌水" class="otherchess" style="background-color: #FFB046;" onclick="changeNum();"/>
-            <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick="javascript:window.location.href='/pt/past.action';"/>
+            <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick="javascript:window.location.href='${baseUrl}pt/past.action';"/>
         </div>
     </div>
 </div>
