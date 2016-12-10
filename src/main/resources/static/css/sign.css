@@ -22,7 +22,7 @@ input[type='button']{cursor: pointer;}
 .ml{ color:#ED1E37; font-size: 18px;font-weight: 600; }
 .bottle{ width: 90px; height: 140px; padding-left:5px;  margin: 10px auto; }
 .bot{width: 90px; height: 140px; position: absolute; z-index: 999;}
-.cover{ width: 40%; height: 48%; position: absolute; top:28%; left:28%;z-index: 999; }
+.cover{ width: 40%; height: 48%; position: absolute; top:28%; left:28%;z-index: 1; }
 .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
 svg{position: absolute; margin:0 auto; top:30%; left: 25%;}
 
