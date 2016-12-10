@@ -412,7 +412,7 @@ public interface PersistentDao {
      */
     @Update("update comes_past_total set today_times=#{today_times},today_drunk=#{today_drunk},cycle_times=#{cycle_times},cycle_drunk=#{cycle_drunk}" +
             ",today_other_times=#{today_other_times},today_other_drunk=#{today_other_drunk},update_time=now()" +
-            " where uid=#{uid}")
+            " where phone=#{phone}")
     public int updatePastTotal(PastTotal pastTotal);
 
     /**

@@ -188,9 +188,9 @@ public class PastService {
 
             if (pastTotal != null) {
                 pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
-                pastTotal.setToday_other_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk()+ pastDetail.getDrunk_num());
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
-                pastTotal.setToday_other_times(pastTotal.getToday_times() + 1);
+                pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
 
                 this.persistentDao.updatePastTotal(pastTotal);
             }
