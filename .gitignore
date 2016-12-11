@@ -5,6 +5,7 @@ target
 *.iws
 */*.iml
 */logs
+logs
 *.classpath
 *.project
 */*.classpath
