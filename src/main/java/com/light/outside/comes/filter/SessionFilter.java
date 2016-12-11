@@ -40,8 +40,9 @@ public class SessionFilter implements javax.servlet.Filter {
         String url = request.getServletPath();
         LOG.info("req :" + url);
         boolean isLogin = false;
-        if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
+        if (url.contains("admin/to_login.action") || url.contains("admin/login.action")||url.contains("login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
+            LOG.info("req no filter:" + url);
             chain.doFilter(request, response);
         } else if (url.contains("admin/")) {
             if (session.getAttribute(LoginController.SESSION_KEY_USERINFO) == null) {
@@ -101,10 +102,10 @@ public class SessionFilter implements javax.servlet.Filter {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out;
         try {
-            String servletPath = request.getServletPath().replace("//","");
+            String servletPath = request.getServletPath().replace("//", "");
             String contextPath = request.getContextPath();
-            String forwardUrl = contextPath + baseUrl+"qblk/to_login.action";
-            System.out.println("forwardUrl:"+forwardUrl +"  servletPath:"+servletPath);
+            String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
+            System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
@@ -116,11 +117,11 @@ public class SessionFilter implements javax.servlet.Filter {
 //                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
 //                response.sendRedirect(contextPath + StringUtils.defaultIfEmpty(forwardUrl, "/")
 //                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
-            out = response.getWriter();
-            out.println("<script language='javascript' type='text/javascript'>");
-            System.out.println( StringUtils.defaultIfEmpty(forwardUrl, "/")+"?redirect="+URLEncoder.encode(baseUrl+redirect, "UTF-8")+"'");
-            out.println("window.top.location.href='"+StringUtils.defaultIfEmpty(forwardUrl, "/")+"?redirect="+URLEncoder.encode(baseUrl+redirect, "UTF-8")+"'");
-            out.println("</script>");
+                out = response.getWriter();
+                out.println("<script language='javascript' type='text/javascript'>");
+                System.out.println(StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
+                out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
+                out.println("</script>");
             }
 //            out = response.getWriter();
 //            out.println("<script language='javascript' type='text/javascript'>");
