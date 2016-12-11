@@ -2,11 +2,12 @@ package com.light.outside.comes.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
-import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.admin.LoginService;
 import com.light.outside.comes.utils.JsonClient;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("qblk")
 public class ClientLoginController extends BaseController {
+
+    private final static Logger LOG = LoggerFactory.getLogger(ClientLoginController.class);
+
     @Resource
     private LoginService loginService;
     @Value("${baseUrl}")
@@ -108,10 +112,11 @@ public class ClientLoginController extends BaseController {
         }
         boolean isSuccess = loginService.clientLogin(username, password, request);
         if (isSuccess) {
+            LOG.info("login and redirect url:" + redirect);
             if (Strings.isNullOrEmpty(redirect))
-                return "redirect:"+baseUrl+"raffle/lottery.action";
+                return "redirect:" + baseUrl + "raffle/lottery.action";
             else
-                return "redirect:" +redirect;
+                return "redirect:" + redirect;
         }
         data.put("redirect", redirect);
         return "login";

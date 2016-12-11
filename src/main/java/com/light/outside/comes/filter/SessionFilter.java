@@ -40,11 +40,12 @@ public class SessionFilter implements javax.servlet.Filter {
         String url = request.getServletPath();
         LOG.info("req :" + url);
         boolean isLogin = false;
-        if (url.contains("admin/to_login.action") || url.contains("admin/login.action")||url.contains("login.action")
+        if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             LOG.info("req no filter:" + url);
             chain.doFilter(request, response);
         } else if (url.contains("admin/")) {
+            LOG.info("check session status");
             if (session.getAttribute(LoginController.SESSION_KEY_USERINFO) == null) {
                 session.invalidate();
                 loginOut(request, response);
