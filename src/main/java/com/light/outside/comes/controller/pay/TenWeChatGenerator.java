@@ -49,7 +49,7 @@ public class TenWeChatGenerator {
      * @return
      * @throws Exception
      */
-    public static Map<String, Object> genPayOrder(String body, String tradeNo, String payMoney, String openid, String spbillCreateIp) throws Exception {
+    public static Map<String, Object> genPayOrder(String url,String body, String tradeNo, String payMoney, String openid, String spbillCreateIp) throws Exception {
         String prepay_id = unifiedOrder(body, tradeNo, payMoney, openid, spbillCreateIp);
         logger.info("genPayOrder(): prepay id: " + prepay_id);
         long timeStamp = System.currentTimeMillis() / 1000;
@@ -58,7 +58,7 @@ public class TenWeChatGenerator {
         beanMap.put("appId", TenWeChatConfig.app_id);
         beanMap.put("timeStamp", timeStamp + "");
         beanMap.put("nonceStr", noncestr2);
-        beanMap.put("package", "prepay_id=" + prepay_id);
+        beanMap.put("package", "prepay_id="+prepay_id);
         beanMap.put("signType", "MD5");
         Element rootElement = DocumentHelper.createElement("xml");
         for (String key : beanMap.keySet()) {
@@ -68,6 +68,7 @@ public class TenWeChatGenerator {
         }
         String paySign = Sha1Util.genWXPackageSign(beanMap);
         beanMap.put("paySign", paySign);
+
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("appId", TenWeChatConfig.app_id);
         resultMap.put("timeStamp", timeStamp + "");
@@ -75,6 +76,8 @@ public class TenWeChatGenerator {
         resultMap.put("package", "prepay_id=" + prepay_id);
         resultMap.put("signType", "MD5");
         resultMap.put("paySign", paySign);
+        String signature=sign(TenWeChatConfig.access_token,url,noncestr2,timeStamp+"");
+        resultMap.put("signature",signature);
         return resultMap;
     }
 
@@ -125,7 +128,7 @@ public class TenWeChatGenerator {
         packageParams.put("trade_type", "JSAPI");
         packageParams.put("openid", openid);
         String sign = Sha1Util.genWXPackageSign(packageParams);
-        System.out.println(sign);
+        System.out.println("sign:"+sign);
         System.out.println();
         Element signElement = DocumentHelper.createElement("sign");
         signElement.setText(sign);
@@ -242,7 +245,36 @@ public class TenWeChatGenerator {
                 "&timestamp=" + timestamp +
                 "&url=" + url;
         System.out.println(string1);
+        signature=sign(jsapi_ticket,url,nonce_str,timestamp);
+//        try {
+//            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+//            crypt.reset();
+//            crypt.update(string1.getBytes("UTF-8"));
+//            signature = byteToHex(crypt.digest());
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
 
+        ret.put("url", url);
+        ret.put("jsapi_ticket", jsapi_ticket);
+        ret.put("nonceStr", nonce_str);
+        ret.put("timestamp", timestamp);
+        ret.put("signature", signature);
+        return ret;
+    }
+
+    public static String sign(String jsapi_ticket, String url,String nonce_str,String timestamp ) {
+        Map<String, Object> ret = new HashMap<String, Object>();
+        String string1;
+        String signature = "";
+
+        //注意这里参数名必须全部小写，且必须有序
+        string1 = "jsapi_ticket=" + jsapi_ticket +
+                "&noncestr=" + nonce_str +
+                "&timestamp=" + timestamp +
+                "&url=" + url;
         try {
             MessageDigest crypt = MessageDigest.getInstance("SHA-1");
             crypt.reset();
@@ -253,14 +285,8 @@ public class TenWeChatGenerator {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        ret.put("url", url);
-        ret.put("jsapi_ticket", jsapi_ticket);
-        ret.put("nonceStr", nonce_str);
-        ret.put("timestamp", timestamp);
-        ret.put("signature", signature);
-
-        return ret;
+        System.out.println(string1+"  singature:"+signature);
+        return signature;
     }
 
     /**
@@ -341,6 +367,10 @@ public class TenWeChatGenerator {
         return accessToken;
     }
 
+    /**
+     *get方式 获取token
+     * @return
+     */
     public static String getAccessToken2() {
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
         String appid = TenWeChatConfig.app_id;//第三方用户唯一凭证
@@ -392,35 +422,36 @@ public class TenWeChatGenerator {
      *
      * @return
      */
-//	public Map orderQuery(String trade_no) {
-//		String nonce_str = Sha1Util.getNonceStr();
-//		SortedMap<String, String> beanMap = new TreeMap();
-//		beanMap.put("appid", PropertiesUtil.getString("wechat_app_id"));
-//		beanMap.put("mch_id", PropertiesUtil.getString("wechat_mch_id"));
-//		beanMap.put("nonce_str", nonce_str);
-//		beanMap.put("transaction_id",trade_no);
-//		String sign = Sha1Util.genWXPackageSign(beanMap);
-//		String xml = "<xml>" +
-//					 "<appid>"+PropertiesUtil.getString("wechat_app_id")+"</appid>" +
-//					 "<mch_id>"+PropertiesUtil.getString("wechat_mch_id")+"</mch_id>" +
-//					 "<nonce_str>" + nonce_str + "</nonce_str>" +
-//					 "<transaction_id>" + trade_no + "</transaction_id>" +
-//					 "<sign>" + sign + "</sign>" +
-//					 "</xml>";
-//		TenpayHttpClient httpClient = new TenpayHttpClient();
-//		if (httpClient.callHttpPost(PropertiesUtil.getString("wechat_orderquery"), xml)) {
-//			String resContent = httpClient.getResContent();
-//			System.out.println(resContent);
-//			try {
-//				Map result = XMLUtil.doXMLParse(resContent);
-//				System.out.println(result.get("result_code")+"  >> "+result.get("trade_state"));
-//				return result;
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return null;
-//	}
+	public static Map orderQuery(String trade_no) {
+		String nonce_str = Sha1Util.getNonceStr();
+		SortedMap<String, String> beanMap = new TreeMap();
+		beanMap.put("appid", TenWeChatConfig.app_id);
+		beanMap.put("mch_id", TenWeChatConfig.mch_id);
+		beanMap.put("nonce_str", nonce_str);
+		beanMap.put("transaction_id",trade_no);
+		String sign = Sha1Util.genWXPackageSign(beanMap);
+		String xml = "<xml>" +
+					 "<appid>"+TenWeChatConfig.app_id+"</appid>" +
+					 "<mch_id>"+TenWeChatConfig.mch_id+"</mch_id>" +
+					 "<nonce_str>" + nonce_str + "</nonce_str>" +
+					 "<transaction_id>" + trade_no + "</transaction_id>" +
+					 "<sign>" + sign + "</sign>" +
+					 "</xml>";
+		TenpayHttpClient httpClient = new TenpayHttpClient();
+		if (httpClient.callHttpPost(TenWeChatConfig.orderQueryUrl, xml)) {
+			String resContent = httpClient.getResContent();
+			System.out.println(resContent);
+			try {
+				Map result = XMLUtil.doXMLParse(resContent);
+				System.out.println(result.get("result_code")+"  >> "+result.get("trade_state"));
+				return result;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
     public static void main(String[] args) throws Exception {
         TenWeChatGenerator tt = new TenWeChatGenerator();
         String accessToken = TenWeChatGenerator.getAccessToken2();

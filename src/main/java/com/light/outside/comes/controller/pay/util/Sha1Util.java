@@ -1,9 +1,9 @@
 package com.light.outside.comes.controller.pay.util;
 
-
-
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,11 +16,10 @@ import java.util.*;
 	'getSha1()Sha1签名
 	'============================================================================ 
  * <P>File name : Sha1Util.java </P>
- * <P>Author : fangxiaowen </P> 
- * <P>Date : 2016年8月24日 </P>
  */
 public class Sha1Util {
 
+    protected static final Logger LOG = LoggerFactory.getLogger(Sha1Util.class);
     public static String getNonceStr() {
         Random random = new Random();
         return MD5Util.MD5Encode(String.valueOf(random.nextInt(10000)), "UTF-8");
@@ -43,7 +42,7 @@ public class Sha1Util {
             //要采用URLENCODER的原始值！
         }
         String params = sb.substring(0, sb.lastIndexOf("&"));
-        System.out.println("sha1 sb:" + params);
+        LOG.info("sha1 sb:" + params);
         return getSha1(params);
     }
 
@@ -61,8 +60,6 @@ public class Sha1Util {
         }
         sb.append("key=");
         sb.append(TenWeChatConfig.partner_id);
-
-        //System.out.println("package sign params: " + sb.toString());
 
         return MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
     }
@@ -84,7 +81,7 @@ public class Sha1Util {
         sb.append("key=");
         sb.append(TenWeChatConfig.partner_id);
 
-        System.out.println("package sign params: " + sb.toString());
+        LOG.info("package sign params: " + sb.toString() + "paysign:" + MD5.getMessageDigest(sb.toString().trim().getBytes()).toUpperCase());
         return MD5.getMessageDigest(sb.toString().trim().getBytes()).toUpperCase();
     }
 
@@ -195,7 +192,7 @@ public class Sha1Util {
 //        System.out.println(openid);
         String tradeNo= PubUtils.getUniqueSn()+"";
     	try {
-			TenWeChatGenerator.genPayOrder("曲不离口-拍卖定金",tradeNo,"0.01","oVuI4s4QclYLZ4BWiP4_fc2mBFvM","123.12.12.123");
+			TenWeChatGenerator.genPayOrder("","曲不离口-拍卖定金",tradeNo,"0.01","oVuI4s4QclYLZ4BWiP4_fc2mBFvM","123.12.12.123");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

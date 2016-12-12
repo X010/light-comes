@@ -45,7 +45,7 @@ public class TenWeChatConfig {
     /**
      * 支付完成后的回调处理页面
      */
-    public static final String notify_url ="http://www.weixin.qq.com/wxpay/pay.php";
+    public static final String notify_url ="http://qubulikou.com/qblk/yeshizuileweixin/Cart/weChatPayCallback.action";
     /**
      * 预支付接口
      */
@@ -54,12 +54,24 @@ public class TenWeChatConfig {
      * OAUT2
      */
     public static final String accessToken="https://api.weixin.qq.com/sns/oauth2/access_token";
-
+    /**
+     * TOKEN_URL
+     */
+    //public static final String tokenUrl="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET"
+    /**
+     * 刷新token
+     */
     public static final String refreshtokenUrl="https://api.weixin.qq.com/sns/oauth2/refresh_token";
 
     public static final String tokenUrl="https://api.weixin.qq.com/cgi-bin/token";
 
     public static final String userinfoUrl="https://api.weixin.qq.com/sns/userinfo";
+    /**
+     * 查询订单
+     */
+    public static final String orderQueryUrl="https://api.mch.weixin.qq.com/pay/orderquery";
+
+
 
 
 

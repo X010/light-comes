@@ -1,6 +1,7 @@
 package com.light.outside.comes.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.controller.pay.util.PubUtils;
@@ -247,14 +248,17 @@ public class AuctionController extends BaseController {
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
                 "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fauction%2Fauction_margin_pay.action%3Ftitle%3D" + title + "%26price%3D" + payPrice + "%26aid%3D" + aid +
                 "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
-//        String tourl="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+TenWeChatConfig.app_id+"&redirect_uri=" +
-//                "http%3A%2F%2Fwww.qubulikou.com%2Findex.php%3Fr%3Dpromotion%252Flist%26shopid%3D1%26promotionid%3D3" +
-//                "&response_type=code&scope=snsapi_base&state=321#wechat_redirect";
         return "redirect:" + tourl;
     }
 
     @RequestMapping("auction_margin_pay.action")
     public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
+        String url="http://www.qubulikou.com/qblk/auction/auction_margin_pay.action";
+        String queryString=request.getQueryString();
+        if(!Strings.isNullOrEmpty(queryString)){
+            url=url+"?"+queryString;
+        }
+
         UserModel userModel = getAppUserInfo();
         String title = RequestTools.RequestString(request, "title", "未知商品");
         String ip = getRemoteHost(request);
@@ -265,17 +269,16 @@ public class AuctionController extends BaseController {
         String code = RequestTools.RequestString(request, "code", "");
         System.out.println("code:"+code +" ip:"+ip);
         long aid = RequestTools.RequestLong(request, "aid", 0);
+        //查询拍卖详情
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
-        if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
+        //TODO 测试完后放开
+        //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
             JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
             String openid = jsonObject.getString("openid");
             try {
                 //生成预支付订单
-                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder("曲不离口-保证金-" + title, tradeNo, payPrice, openid, ip);
-                int status = CONST.ORDER_PAY;
+                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url,"曲不离口-保证金-" + title, tradeNo, payPrice, openid, ip);
                 OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
-                //查询拍卖详情
-                //AuctionModel auctionModel = auctionService.queryAuctionById(aid);
                 if (orderModel == null) {
                     orderModel = new OrderModel();
                     float deposit = auctionModel.getDeposit();
@@ -284,20 +287,17 @@ public class AuctionController extends BaseController {
                     orderModel.setAid(aid);
                     orderModel.setUid(userModel.getId());
                     orderModel.setPhone(userModel.getPhone());
-                    orderModel.setAname("曲不离口-保证金-"+auctionModel.getTitle());
-                    orderModel.setStatus(CONST.ORDER_PAY);
+                    orderModel.setAname("曲不离口-"+auctionModel.getTitle()+"-保证金");
+                    orderModel.setStatus(CONST.ORDER_CREATE);
                     orderModel.setCreatetime(new Date());
                     orderModel.setOrderNo(tradeNo);
                     payService.createOrder(orderModel);//创建订单
-                } else {
-                    payService.updateOrder(orderModel.getId(), status);
                 }
-
                 data.putAll(payMap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        //}
         return "H5Weixin";
     }
 

@@ -3,6 +3,7 @@ package com.light.outside.comes.service;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.light.outside.comes.controller.pay.token.TokenThread;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.jvm.hotspot.debugger.ThreadAccess;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -71,6 +73,10 @@ public class RaffleService {
             commodityMap.put(commodity.getId(), commodity.getName());
         }
         System.out.println(" init category and commodity");
+        //启动刷新token线程
+        TokenThread tokenThread=new TokenThread();
+        Thread thread=new Thread(tokenThread);
+        thread.start();
     }
 
     /**

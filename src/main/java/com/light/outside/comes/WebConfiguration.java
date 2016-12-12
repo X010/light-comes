@@ -1,6 +1,7 @@
 package com.light.outside.comes;
 
 import com.light.outside.comes.filter.SessionFilter;
+import com.light.outside.comes.filter.XSSCheckFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Configuration
-public class WebConfiguration extends FreeMarkerAutoConfiguration.FreeMarkerWebConfiguration{
+public class WebConfiguration extends FreeMarkerAutoConfiguration.FreeMarkerWebConfiguration {
 
     @Value("${baseUrl}")
     private String baseUrl;
@@ -20,7 +21,7 @@ public class WebConfiguration extends FreeMarkerAutoConfiguration.FreeMarkerWebC
     @Override
     public FreeMarkerConfigurer freeMarkerConfigurer() {
         FreeMarkerConfigurer configurer = super.freeMarkerConfigurer();
-        Map<String, Object> sharedVariables = new HashMap<String,Object>();
+        Map<String, Object> sharedVariables = new HashMap<String, Object>();
         sharedVariables.put("baseUrl", baseUrl);
         configurer.setFreemarkerVariables(sharedVariables);
 
@@ -30,6 +31,11 @@ public class WebConfiguration extends FreeMarkerAutoConfiguration.FreeMarkerWebC
     @Bean
     public SessionFilter sessionFilter() {
         return new SessionFilter();
+    }
+
+    @Bean
+    public XSSCheckFilter xssCheckFilter() {
+        return new XSSCheckFilter();
     }
 
 }

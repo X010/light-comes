@@ -58,6 +58,7 @@ public class PayController extends BaseController {
      */
     @RequestMapping("h5weixin.action")
     public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
+
         UserModel userModel = getAppUserInfo();
         String title = RequestTools.RequestString(request, "title", "未知商品");
         String ip = request.getRemoteHost();
@@ -66,8 +67,8 @@ public class PayController extends BaseController {
         String openid = userModel.getPhone();
         try {
             //生成预支付订单
-            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(title, tradeNo, payPrice, openid, ip);
-            data.putAll(payMap);
+//            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(title, tradeNo, payPrice, openid, ip);
+//            data.putAll(payMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,6 +99,9 @@ public class PayController extends BaseController {
         if ("SUCCESS".equals(map.get("return_code"))) {
             String out_trade_no = (String) map.get("out_trade_no");
             String transaction_id = (String) map.get("transaction_id");
+            //查询订单状态
+            Map<String,String> resuletMap=TenWeChatGenerator.orderQuery(out_trade_no);
+
             //weChatPayService.updatePayOrder(out_trade_no, transaction_id);
             payService.updateOrderByOrderno(out_trade_no, transaction_id);
             retMap.put("return_code", "SUCCESS");
