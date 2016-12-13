@@ -320,6 +320,10 @@ public interface PersistentDao {
     @Select("select * from comes_order where orderno=#{orderno}")
     public OrderModel getOrderByOrderNo(@Param("orderno") String orderno);
 
+
+    @Select("select * from comes_order where tradeno=#{tradeno}")
+    public OrderModel getOrderByTradeno(@Param("tradeno") String tradeno);
+
     @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
     public int getCouponSendNum(@Param("cid") long id);
 

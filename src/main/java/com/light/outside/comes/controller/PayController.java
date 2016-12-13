@@ -114,11 +114,11 @@ public class PayController extends BaseController {
             String transaction_id = (String) map.get("transaction_id");
             //查询订单状态
             Map<String, String> resuletMap = TenWeChatGenerator.orderQuery(out_trade_no);
-            OrderModel orderModel = payService.getOrderByOrderno(out_trade_no);
+            OrderModel orderModel = payService.getOrderByTradeno(out_trade_no);
             if (orderModel != null) {
                 //更新支付状态
                 if (orderModel.getStatus() != CONST.ORDER_PAY) {
-                    payService.updateOrderByOrderno(out_trade_no, transaction_id);
+                    payService.updateOrderByOrderno(orderModel.getOrderNo(),out_trade_no, transaction_id);
                     LOG.info("update order status to payed by order number:" + out_trade_no);
                 }
             }
@@ -176,7 +176,7 @@ public class PayController extends BaseController {
                 orderModel.setAname(wechatTitle);
                 orderModel.setStatus(CONST.ORDER_CREATE);
                 orderModel.setCreatetime(new Date());
-                orderModel.setOrderNo(tradeNo);
+                orderModel.setOrderNo(OrderUtil.getOrderNo());
                 orderModel.setTradeno(tradeNo);
                 payService.createOrder(orderModel);//创建订单
             }
@@ -236,7 +236,7 @@ public class PayController extends BaseController {
                 orderModel.setUid(userModel.getId());
                 orderModel.setStatus(CONST.ORDER_PAY);
                 orderModel.setPtype(CONST.PAY_WEIXIN);
-                orderModel.setOrderNo(tradeNo);
+                orderModel.setOrderNo(OrderUtil.getOrderNo());
                 orderModel.setTradeno(tradeNo);
                 orderModel.setPaytime(new Date());
                 orderModel.setAid(aid);

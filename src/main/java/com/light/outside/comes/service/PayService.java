@@ -59,12 +59,20 @@ public interface PayService {
      * @param orderNo
      * @return
      */
-    public OrderModel updateOrderByOrderno(String orderNo,String transaction_id);
+    public OrderModel updateOrderByOrderno(String orderNo,String tradeno,String transaction_id);
 
     /**
-     * 根据订单号获取订单
+     * 根据商户订单号获取订单
+     * @param tradeno
+     * @return
+     */
+    public OrderModel getOrderByTradeno(String tradeno);
+
+    /**
+     * 根据订单号查询
      * @param orderNo
      * @return
      */
-    public OrderModel getOrderByOrderno(String orderNo);
+    public OrderModel getOrderByOrderNo(String orderNo);
 }
+
