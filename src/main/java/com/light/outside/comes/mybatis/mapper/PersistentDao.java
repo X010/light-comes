@@ -299,7 +299,7 @@ public interface PersistentDao {
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
 
-    @Update("update comes_order set status=#{status},paytime=#{paytime},tradeno=${tradeno} where orderno=#{orderno}")
+    @Update("update comes_order set status=#{status},paytime=#{paytime},tradeno=${tradeno},transactionId=${transactionId} where orderno=#{orderno}")
     public void updateOrderByOrderno(OrderModel orderModel);
 
     /**

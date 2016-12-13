@@ -82,6 +82,19 @@ public class OrderModel extends BaseModel {
      */
     private String tradeno;
 
+    /**
+     * 商户订单号
+     */
+    private String  transactionId;
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     public String getTradeno() {
         return tradeno;
     }

@@ -11,10 +11,8 @@ public class TokenThread implements Runnable{
 	public static AccessToken accessToken = null;
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while (true) {
 			try {
-				/*accessToken = WeixinUtil.getAccessToken(appid, appsecret);*/
 				accessToken= TenWeChatGenerator.getAccessTokenModel();
 				if (null != accessToken) {
 					// 休眠7000秒
@@ -22,7 +20,6 @@ public class TokenThread implements Runnable{
 				} else {
 					// 如果access_token为null，60秒后再获取
 					Thread.sleep(60 * 1000);
-					
 				}
 			} catch (InterruptedException e) {
 				try {

@@ -68,15 +68,21 @@ public class WeiXinPayService implements PayService {
     }
 
     @Override
-    public OrderModel updateOrderByOrderno(String orderNo, String transaction_id) {
-        OrderModel updateModel = this.persistentDao.getOrderByOrderNo(orderNo);
+    public OrderModel updateOrderByOrderno(String tradeno, String transaction_id) {
+        OrderModel updateModel = this.persistentDao.getOrderByOrderNo(tradeno);
         if (updateModel != null) {
             updateModel.setStatus(CONST.ORDER_PAY);
             updateModel.setPaytime(new Date());
-            updateModel.setTradeno(transaction_id);
-            updateModel.setOrderNo(orderNo);
+            updateModel.setTradeno(tradeno);//微信订单号
+            updateModel.setOrderNo(tradeno);
+            updateModel.setTransactionId(transaction_id);//商户订单号
             this.persistentDao.updateOrderByOrderno(updateModel);
         }
         return updateModel;
+    }
+
+    @Override
+    public OrderModel getOrderByOrderno(String orderNo) {
+        return this.persistentDao.getOrderByOrderNo(orderNo);
     }
 }
