@@ -143,8 +143,6 @@ public class BanquetController extends BaseController {
 
     @RequestMapping("wechart_redirect.action")
     public String pay(Map<String, Object> data, HttpServletRequest request) {
-        String title = RequestTools.RequestString(request, "title", "未知商品");
-        String ip = getRemoteHost(request);
         String payPrice = RequestTools.RequestString(request, "price", "0");
         long aid = RequestTools.RequestLong(request, "aid", 0);
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +

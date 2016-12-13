@@ -134,7 +134,6 @@ public class PayController extends BaseController {
             retMap.put("return_code", "SUCCESS");
         } else {
             retMap.put("return_code", "FAIL");
-
         }
         response.getWriter().write(XMLUtil.toXml(retMap));
     }
@@ -216,6 +215,7 @@ public class PayController extends BaseController {
      * @return
      * @throws Exception
      */
+    //TODO 为什么会又来一次呢？
     @RequestMapping("banquet_pay.action")
     public String weChatPayBanquet(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String url = "http://www.qubulikou.com/yeshizuileweixin/pay/banquet_pay.action";

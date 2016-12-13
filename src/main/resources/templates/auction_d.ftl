@@ -169,9 +169,6 @@
         footer.style.display = "none";
     }
 
-
-
-
 </script>
 </body>
 </html>
