@@ -1192,3 +1192,459 @@ FTL stack trace ("~" means nesting-related):
 2016-12-14 02:22:19,467  INFO ServerConnector:306 - Stopped ServerConnector@80bfa9d{HTTP/1.1}{0.0.0.0:8087}
 2016-12-14 02:22:19,470  INFO /:2052 - Destroying Spring FrameworkServlet 'dispatcherServlet'
 2016-12-14 02:22:19,471  INFO ContextHandler:865 - Stopped o.s.b.c.e.j.JettyEmbeddedWebAppContext@39651a82{/,null,UNAVAILABLE}
+2016-12-14 02:28:06,396  INFO App:47 - Starting App on b3st9udeMBP.local with PID 2779 (/Users/qujia/www/work/light-comes/target/classes started by b3st9u in /Users/qujia/www/work/light-comes)
+2016-12-14 02:28:06,474  INFO AnnotationConfigEmbeddedWebApplicationContext:510 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2641e737: startup date [Wed Dec 14 02:28:06 HKT 2016]; root of context hierarchy
+2016-12-14 02:28:08,524  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
+2016-12-14 02:28:08,689  INFO DefaultListableBeanFactory:822 - Overriding bean definition for bean 'raffleService': replacing [Generic bean: class [com.light.outside.comes.service.RaffleService]; scope=singleton; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=null; destroyMethodName=null; defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/service/RaffleService.class]] with [Generic bean: class [com.light.outside.comes.service.RaffleService]; scope=; abstract=false; lazyInit=false; autowireMode=0; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=null; factoryMethodName=null; initMethodName=initCategory; destroyMethodName=null; defined in class path resource [applicationContext.xml]]
+2016-12-14 02:28:08,910  INFO DefaultListableBeanFactory:822 - Overriding bean definition for bean 'beanNameViewResolver': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/ErrorMvcAutoConfiguration$WhitelabelErrorViewConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter; factoryMethodName=beanNameViewResolver; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/web/WebMvcAutoConfiguration$WebMvcAutoConfigurationAdapter.class]]
+2016-12-14 02:28:08,986  INFO DefaultListableBeanFactory:822 - Overriding bean definition for bean 'freeMarkerConfiguration': replacing [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=webConfiguration; factoryMethodName=freeMarkerConfiguration; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [com/light/outside/comes/WebConfiguration.class]] with [Root bean: class [null]; scope=; abstract=false; lazyInit=false; autowireMode=3; dependencyCheck=0; autowireCandidate=true; primary=false; factoryBeanName=org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration$FreeMarkerWebConfiguration; factoryMethodName=freeMarkerConfiguration; initMethodName=null; destroyMethodName=(inferred); defined in class path resource [org/springframework/boot/autoconfigure/freemarker/FreeMarkerAutoConfiguration$FreeMarkerWebConfiguration.class]]
+2016-12-14 02:28:09,369  INFO AutowiredAnnotationBeanPostProcessor:153 - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+2016-12-14 02:28:09,426  INFO Version:27 - HV000001: Hibernate Validator 5.1.3.Final
+2016-12-14 02:28:09,533  INFO ThreadPoolTaskExecutor:165 - Initializing ExecutorService 
+2016-12-14 02:28:09,536  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'executor' of type [class org.springframework.scheduling.config.TaskExecutorFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:09,536  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'executor' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:09,562  INFO ThreadPoolTaskScheduler:165 - Initializing ExecutorService  'scheduler'
+2016-12-14 02:28:09,563  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'scheduler' of type [class org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:09,597  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'banquetDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/BanquetDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,598  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'focusImageDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/FocusImageDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,601  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'overchargedDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/OverchargedDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,606  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'persistentDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/PersistentDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,607  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/UserDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,624  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'banquetDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/BanquetDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,625  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'focusImageDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/FocusImageDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,626  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'overchargedDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/OverchargedDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,627  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'persistentDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/PersistentDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,628  WARN DefaultListableBeanFactory:1427 - Bean creation exception on FactoryBean type check: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userDao' defined in file [/Users/qujia/www/work/light-comes/target/classes/com/light/outside/comes/mybatis/mapper/UserDao.class]: Cannot resolve reference to bean 'comes' while setting bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.BeanCurrentlyInCreationException: Error creating bean with name 'comes': Requested bean is currently in creation: Is there an unresolvable circular reference?
+2016-12-14 02:28:09,648  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'qblkDataBaseConfiguration' of type [class com.light.outside.comes.qbkl.QblkDataBaseConfiguration$$EnhancerBySpringCGLIB$$d8dcc7da] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:09,754  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'qblkDataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:09,759  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'qblkMybatisConfiguration' of type [class com.light.outside.comes.qbkl.QblkMybatisConfiguration$$EnhancerBySpringCGLIB$$6cc65340] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,060  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'qblk' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,115  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'readDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,136  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'dataBaseConfiguration' of type [class com.light.outside.comes.mybatis.DataBaseConfiguration$$EnhancerBySpringCGLIB$$6dab26b1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,225  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'dataSource' of type [class com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,227  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'mybatisConfiguration' of type [class com.light.outside.comes.mybatis.MybatisConfiguration$$EnhancerBySpringCGLIB$$79d53d89] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,395  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'comes' of type [class org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,409  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'auctionDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,425  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'banquetDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,431  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'focusImageDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,437  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'overchargedDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,484  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'persistentDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,490  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'userDao' of type [class org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,544  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [class org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$31deed59] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,578  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'transactionAttributeSource' of type [class org.springframework.transaction.annotation.AnnotationTransactionAttributeSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,592  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'transactionInterceptor' of type [class org.springframework.transaction.interceptor.TransactionInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:10,606  INFO PostProcessorRegistrationDelegate$BeanPostProcessorChecker:309 - Bean 'org.springframework.transaction.config.internalTransactionAdvisor' of type [class org.springframework.transaction.interceptor.BeanFactoryTransactionAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2016-12-14 02:28:11,138  INFO JettyEmbeddedServletContainerFactory:124 - Server initialized with port: 8087
+2016-12-14 02:28:11,145  INFO Server:327 - jetty-9.2.9.v20150224
+2016-12-14 02:28:11,305  INFO /:2052 - Initializing Spring embedded WebApplicationContext
+2016-12-14 02:28:11,306  INFO ContextLoader:268 - Root WebApplicationContext: initialization completed in 4835 ms
+2016-12-14 02:28:12,394  INFO ServletRegistrationBean:188 - Mapping servlet: 'dispatcherServlet' to [/]
+2016-12-14 02:28:12,403  INFO FilterRegistrationBean:286 - Mapping filter: 'characterEncodingFilter' to: [/*]
+2016-12-14 02:28:12,404  INFO FilterRegistrationBean:286 - Mapping filter: 'sessionFilter' to: [/*]
+2016-12-14 02:28:12,405  INFO FilterRegistrationBean:286 - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2016-12-14 02:28:12,700  INFO ContextHandler:744 - Started o.s.b.c.e.j.JettyEmbeddedWebAppContext@39651a82{/,null,AVAILABLE}
+2016-12-14 02:28:12,700  INFO Server:379 - Started @8356ms
+2016-12-14 02:28:13,945  INFO DruidDataSource:669 - {dataSource-1} inited
+2016-12-14 02:28:14,962  INFO FreeMarkerConfigurer:127 - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2016-12-14 02:28:15,278  INFO RequestMappingHandlerAdapter:517 - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2641e737: startup date [Wed Dec 14 02:28:06 HKT 2016]; root of context hierarchy
+2016-12-14 02:28:15,361  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/focus_manage.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.FocusImageController.focus_manage(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,362  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/create_focus_image_save.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.FocusImageController.create_focus_save(com.light.outside.comes.model.admin.FocusImageModel,org.springframework.web.multipart.MultipartFile,org.springframework.web.multipart.MultipartFile,org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,363  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/update_focus_image_save.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.FocusImageController.update_focus_save(org.springframework.web.multipart.MultipartFile,org.springframework.web.multipart.MultipartFile,org.springframework.web.multipart.MultipartFile,com.light.outside.comes.model.admin.FocusImageModel,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,363  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/query_focus_image.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.FocusImageController.query_focus_image(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,365  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/to_index.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.LoginController.to_index(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,365  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/to_login.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.LoginController.to_login(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,367  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/login.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.LoginController.login(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,368  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin/logout.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void com.light.outside.comes.controller.admin.LoginController.logout(javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,378  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//t.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.test(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,378  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//focus_manage.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.focus_manage(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,379  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//login.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.login(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,379  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//mainframe.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.mainframe(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,380  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_list_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel,java.lang.Long)
+2016-12-14 02:28:15,380  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//auction_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.auction_list_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel,java.lang.Long)
+2016-12-14 02:28:15,381  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//raffle_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.raffle_list_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel,java.lang.Long)
+2016-12-14 02:28:15,381  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//banquet_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.banquet_list_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel,java.lang.Long)
+2016-12-14 02:28:15,382  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//overcharged_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.overcharged_list_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel,java.lang.Long)
+2016-12-14 02:28:15,383  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_raffle.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_raffle(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String,long)
+2016-12-14 02:28:15,383  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_raffle.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_raffle(long)
+2016-12-14 02:28:15,384  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_raffle.action],methods=[POST],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_raffle(com.light.outside.comes.model.RaffleModel,javax.servlet.http.HttpServletRequest,org.springframework.web.multipart.MultipartFile)
+2016-12-14 02:28:15,384  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//raffle_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.raffle_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,385  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//raffle_report.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.reffle_report(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,386  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_overcharge.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_overcharge(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,387  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_overcharge.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_overchage(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.OverchargedModel)
+2016-12-14 02:28:15,387  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_overcharged.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_overcharged(long)
+2016-12-14 02:28:15,388  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//overcharge_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.overcharge_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,388  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_auction.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_auction(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,388  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_auction.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_auction(com.light.outside.comes.model.AuctionModel,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,389  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_auction.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_auction(long)
+2016-12-14 02:28:15,390  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//auction_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.auction_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,390  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_banquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_banquet(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,391  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_banquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_banquet(com.light.outside.comes.model.BanquetModel,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,org.springframework.web.multipart.MultipartFile)
+2016-12-14 02:28:15,391  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//banquet_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.banquet_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,391  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_banquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_banquet(long)
+2016-12-14 02:28:15,392  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_coupon(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,393  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//produce_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.produce_coupon(long)
+2016-12-14 02:28:15,393  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_coupon(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.CouponModel,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,394  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_coupon(long,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,396  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,396  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_balance.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_balance(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,397  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_balance_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_balance_list(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,397  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_balance_list_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_balance_list_detail(java.util.Map<java.lang.String, java.lang.Object>,long)
+2016-12-14 02:28:15,397  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_balance_submit.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_balance_submit(java.lang.String,java.lang.String)
+2016-12-14 02:28:15,398  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//coupon_balance_search.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.coupon_balance_search(java.util.Map<java.lang.String, java.util.Objects>,java.lang.String)
+2016-12-14 02:28:15,398  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//create_user.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.create_user(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,398  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_user.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_user(com.light.outside.comes.model.admin.UsersModel,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,398  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//user_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.user_list(com.light.outside.comes.model.PageModel,java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,399  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_user.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_user(long)
+2016-12-14 02:28:15,399  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//backlist_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.backlist(com.light.outside.comes.model.PageModel,java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,402  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//save_backlist.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.save_backlist(com.light.outside.comes.model.BackList)
+2016-12-14 02:28:15,403  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//delete_backlist.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.delete_backlist(long)
+2016-12-14 02:28:15,404  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//search_commodity.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.search_commodity(java.lang.String)
+2016-12-14 02:28:15,405  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//search_commodity_category.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.search_commodity_category(java.lang.String)
+2016-12-14 02:28:15,405  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//past_setting.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.past_setting(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PastModel,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,406  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//past_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.past_detail(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,407  INFO RequestMappingHandlerMapping:217 - Mapped "{[/admin//clear_user_past.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.admin.MainFrameController.clearUserPast(java.lang.String,int)
+2016-12-14 02:28:15,409  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/auction.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.auction(java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,410  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/auction_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.auctionList(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,410  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/bid.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.bid(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,411  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/auction_d.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.auctionDetail(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,411  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/auction_margin.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.margin(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,411  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/wechart_redirect.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.pay(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,412  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/auction_margin_pay.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.h5WeixinPay(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,412  INFO RequestMappingHandlerMapping:217 - Mapped "{[/auction/mine_auction_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.AuctionController.mine_auction_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,413  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/dopaybanquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.doPayBanquet(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,414  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/banquet_d.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.banquet_d(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,long)
+2016-12-14 02:28:15,414  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/mine_banquest_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.mine_banquert_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,414  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/banquet_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.banquet_list(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,415  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/banquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.banquet(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,415  INFO RequestMappingHandlerMapping:217 - Mapped "{[/banquet/wechart_redirect.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.BanquetController.pay(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,428  INFO RequestMappingHandlerMapping:217 - Mapped "{[/qblk/to_login.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.ClientLoginController.toLogin(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,428  INFO RequestMappingHandlerMapping:217 - Mapped "{[/qblk/wechatLogin.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.ClientLoginController.wechatLogin(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,429  INFO RequestMappingHandlerMapping:217 - Mapped "{[/qblk/login.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.ClientLoginController.login(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,429  INFO RequestMappingHandlerMapping:217 - Mapped "{[/qblk/logout.action],methods=[POST || GET],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.ClientLoginController.logout(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,430  INFO RequestMappingHandlerMapping:217 - Mapped "{[/coupon/qrcode_detail.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.CouponController.getQRCode(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,430  INFO RequestMappingHandlerMapping:217 - Mapped "{[/coupon/transferCoupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.CouponController.transferCoupon(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,433  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/qrcode.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.getQRCode(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,433  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/signin_d.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.signin_d(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,433  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/mine.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.mine(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,434  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/mine_auction.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.mine_auction(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,434  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/mine_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.mine_coupon(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,435  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/mine_overcharged.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.mine_overcharged(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,435  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/mine_banquet.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.mine_banquet(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,436  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/sign_in.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.sign_in(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,436  INFO RequestMappingHandlerMapping:217 - Mapped "{[/my/share_sign_in.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.MineController.share_sign_in(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,442  INFO RequestMappingHandlerMapping:217 - Mapped "{[/oc/overcharged_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.OverchargedController.overcharged_list(java.util.Map<java.lang.String, java.lang.Object>,com.light.outside.comes.model.PageModel)
+2016-12-14 02:28:15,442  INFO RequestMappingHandlerMapping:217 - Mapped "{[/oc/overcharged_d.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.OverchargedController.overcharged_d(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,long)
+2016-12-14 02:28:15,442  INFO RequestMappingHandlerMapping:217 - Mapped "{[/oc/send_overcharged.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.OverchargedController.send_overcharged(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,long)
+2016-12-14 02:28:15,443  INFO RequestMappingHandlerMapping:217 - Mapped "{[/oc/mine_overcharged_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.OverchargedController.mine_overcharged_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,443  INFO RequestMappingHandlerMapping:217 - Mapped "{[/oc/overcharged.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.OverchargedController.overcharged(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,444  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/past.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.past(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,445  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/share.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.share(java.lang.String,java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,446  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/info.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.getMyPastInfo(javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,447  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/self_past.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.selfPast()
+2016-12-14 02:28:15,447  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/other_info.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.otherInfo(java.lang.String)
+2016-12-14 02:28:15,447  INFO RequestMappingHandlerMapping:217 - Mapped "{[/pt/other_past.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PastController.otherPast(java.lang.String)
+2016-12-14 02:28:15,448  INFO RequestMappingHandlerMapping:217 - Mapped "{[/yeshizuileweixin/pay/weChatPayCallback.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public void com.light.outside.comes.controller.PayController.weChatPayCallback(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2016-12-14 02:28:15,449  INFO RequestMappingHandlerMapping:217 - Mapped "{[/yeshizuileweixin/pay/auction_margin_pay.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PayController.weChatPayAuction(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2016-12-14 02:28:15,449  INFO RequestMappingHandlerMapping:217 - Mapped "{[/yeshizuileweixin/pay/banquet_pay.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PayController.weChatPayBanquet(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2016-12-14 02:28:15,450  INFO RequestMappingHandlerMapping:217 - Mapped "{[/yeshizuileweixin/pay/h5weixin.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.PayController.h5WeixinPay(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,450  INFO TokenThread:24 - accesstoken:CIaeh00fZ0VCohkDXzLhGaMKUuleoU7QKbSa-m73iv3eTeGLtdgg6heKZBh08ZUjkilywYE1L28Y2baQgM8h7akBe11J8q37AXo8rc4MqyLpTNqGr6qmVrSXwnMfWzD0EJYgAJAOTI date:2016-12-14 02:28:15
+2016-12-14 02:28:15,451  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.lottery(java.util.Map<java.lang.String, java.lang.Object>)
+2016-12-14 02:28:15,451  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.lotterList(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,452  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery_d.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.lottery_d(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,452  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery_raffle.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.lottery_raffle(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,452  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery_raffle_coupon.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.raffle_coupon(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,453  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/lottery_draw.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.lottery_draw(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,453  INFO RequestMappingHandlerMapping:217 - Mapped "{[/raffle/mine_coupon_list.action],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.RaffleController.mine_coupon_list(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,454  INFO RequestMappingHandlerMapping:217 - Mapped "{[/wechat/wxconfig],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public java.lang.String com.light.outside.comes.controller.WeChatController.getWxConfig(java.util.Map<java.lang.String, java.lang.Object>,javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,454  INFO RequestMappingHandlerMapping:217 - Mapped "{[/wechat/weChatJump],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.web.servlet.ModelAndView com.light.outside.comes.controller.WeChatController.weChatJump(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2016-12-14 02:28:15,458  INFO RequestMappingHandlerMapping:217 - Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,458  INFO RequestMappingHandlerMapping:217 - Mapped "{[/error],methods=[],params=[],headers=[],consumes=[],produces=[text/html],custom=[]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest)
+2016-12-14 02:28:15,494  INFO SimpleUrlHandlerMapping:314 - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-14 02:28:15,494  INFO SimpleUrlHandlerMapping:314 - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-14 02:28:15,548  INFO SimpleUrlHandlerMapping:314 - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2016-12-14 02:28:15,819  INFO AnnotationMBeanExporter:431 - Registering beans for JMX exposure on startup
+2016-12-14 02:28:15,824  INFO AnnotationMBeanExporter:912 - Bean with name 'dataSource' has been autodetected for JMX exposure
+2016-12-14 02:28:15,825  INFO AnnotationMBeanExporter:912 - Bean with name 'qblkDataSource' has been autodetected for JMX exposure
+2016-12-14 02:28:15,831  INFO AnnotationMBeanExporter:667 - Located MBean 'qblkDataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=qblkDataSource,type=DruidDataSource]
+2016-12-14 02:28:15,832  INFO AnnotationMBeanExporter:667 - Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2016-12-14 02:28:15,849  INFO /:2052 - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2016-12-14 02:28:15,850  INFO DispatcherServlet:484 - FrameworkServlet 'dispatcherServlet': initialization started
+2016-12-14 02:28:15,867  INFO DispatcherServlet:503 - FrameworkServlet 'dispatcherServlet': initialization completed in 17 ms
+2016-12-14 02:28:15,939  INFO ServerConnector:266 - Started ServerConnector@60d95853{HTTP/1.1}{0.0.0.0:8087}
+2016-12-14 02:28:15,946  INFO JettyEmbeddedServletContainer:116 - Jetty started on port(s) 8087 (http/1.1)
+2016-12-14 02:28:15,951  INFO App:56 - Started App in 10.556 seconds (JVM running for 11.607)
+2016-12-14 02:28:21,991  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:22,097  INFO SessionFilter:41 - req :/qblk/to_login.action
+2016-12-14 02:28:22,270  INFO ClientLoginController:115 - login and redirect url://qblk/banquet/banquet_d.action?aid=21
+2016-12-14 02:28:22,303  INFO SessionFilter:41 - req ://qblk/banquet/banquet_d.action
+2016-12-14 02:28:26,796  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:35,355  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:36,673  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:37,709  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:37,804  INFO SessionFilter:41 - req :/favicon.ico
+2016-12-14 02:28:43,243  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:28:43,327  INFO SessionFilter:41 - req :/favicon.ico
+2016-12-14 02:28:53,075  INFO SessionFilter:41 - req :/qblk/raffle/lottery.action
+2016-12-14 02:28:58,983  INFO SessionFilter:41 - req :/qblk/banquet/banquet_d.action
+2016-12-14 02:29:08,256  INFO SessionFilter:41 - req :/
+2016-12-14 02:29:12,588  INFO SessionFilter:41 - req :/qblk/to_login.action
+2016-12-14 02:29:12,686  INFO ClientLoginController:115 - login and redirect url:
+2016-12-14 02:29:12,694  INFO SessionFilter:41 - req :/raffle/lottery.action
+2016-12-14 02:29:15,771  INFO SessionFilter:41 - req :/qblk/logout.action
+2016-12-14 02:29:15,944  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:29:15,944  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:29:15,945  INFO SessionFilter:41 - req :/css/lottery.css
+2016-12-14 02:29:15,946  INFO SessionFilter:45 - req no filter:/css/lottery.css
+2016-12-14 02:29:15,946  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:15,946  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:15,954  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:29:15,954  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:29:15,971  INFO SessionFilter:41 - req :/images/loginbg.png
+2016-12-14 02:29:15,971  INFO SessionFilter:45 - req no filter:/images/loginbg.png
+2016-12-14 02:29:15,971  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:29:15,976  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:29:15,996  INFO SessionFilter:41 - req :/bootstrap/js/bootstrap.min.js
+2016-12-14 02:29:15,996  INFO SessionFilter:45 - req no filter:/bootstrap/js/bootstrap.min.js
+2016-12-14 02:29:15,996  INFO SessionFilter:41 - req :/plugins/iCheck/icheck.min.js
+2016-12-14 02:29:15,996  INFO SessionFilter:45 - req no filter:/plugins/iCheck/icheck.min.js
+2016-12-14 02:29:21,767  INFO DruidDataSource:669 - {dataSource-2} inited
+2016-12-14 02:29:23,692  INFO SessionFilter:41 - req :/qblk/login.action
+2016-12-14 02:29:23,831  INFO SessionFilter:41 - req :/raffle/lottery.action
+2016-12-14 02:29:24,057  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:29:24,058  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:29:24,058  INFO SessionFilter:41 - req :/css/swiper.min.css
+2016-12-14 02:29:24,058  INFO SessionFilter:45 - req no filter:/css/swiper.min.css
+2016-12-14 02:29:24,062  INFO SessionFilter:41 - req :/css/lottery.css
+2016-12-14 02:29:24,062  INFO SessionFilter:45 - req no filter:/css/lottery.css
+2016-12-14 02:29:24,071  INFO SessionFilter:41 - req :/js/common.js
+2016-12-14 02:29:24,072  INFO SessionFilter:41 - req :/js/jquery.min.js
+2016-12-14 02:29:24,072  INFO SessionFilter:45 - req no filter:/js/jquery.min.js
+2016-12-14 02:29:24,072  INFO SessionFilter:41 - req :/js/laytpl.js
+2016-12-14 02:29:24,073  INFO SessionFilter:45 - req no filter:/js/laytpl.js
+2016-12-14 02:29:24,074  INFO SessionFilter:41 - req :/js/spin.min.js
+2016-12-14 02:29:24,074  INFO SessionFilter:45 - req no filter:/js/spin.min.js
+2016-12-14 02:29:24,075  INFO SessionFilter:41 - req :/js/swiper-3.3.1.jquery.min.js
+2016-12-14 02:29:24,075  INFO SessionFilter:45 - req no filter:/js/swiper-3.3.1.jquery.min.js
+2016-12-14 02:29:24,072  INFO SessionFilter:45 - req no filter:/js/common.js
+2016-12-14 02:29:24,135  INFO SessionFilter:41 - req :/images/ticket_on.png
+2016-12-14 02:29:24,135  INFO SessionFilter:45 - req no filter:/images/ticket_on.png
+2016-12-14 02:29:24,153  INFO SessionFilter:41 - req :/images/auction.png
+2016-12-14 02:29:24,153  INFO SessionFilter:45 - req no filter:/images/auction.png
+2016-12-14 02:29:24,181  INFO SessionFilter:41 - req :/images/discount.png
+2016-12-14 02:29:24,181  INFO SessionFilter:45 - req no filter:/images/discount.png
+2016-12-14 02:29:24,181  INFO SessionFilter:41 - req :/images/date.png
+2016-12-14 02:29:24,181  INFO SessionFilter:45 - req no filter:/images/date.png
+2016-12-14 02:29:24,181  INFO SessionFilter:41 - req :/images/mine.png
+2016-12-14 02:29:24,185  INFO SessionFilter:45 - req no filter:/images/mine.png
+2016-12-14 02:29:24,219  INFO SessionFilter:41 - req :/raffle/lottery_list.action
+2016-12-14 02:29:24,224  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:24,224  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:25,808  INFO SessionFilter:41 - req :/banquet/banquet.action
+2016-12-14 02:29:26,083  INFO SessionFilter:41 - req :/css/lottery.css
+2016-12-14 02:29:26,083  INFO SessionFilter:45 - req no filter:/css/lottery.css
+2016-12-14 02:29:26,083  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:29:26,084  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:29:26,097  INFO SessionFilter:41 - req :/images/ticket.png
+2016-12-14 02:29:26,098  INFO SessionFilter:45 - req no filter:/images/ticket.png
+2016-12-14 02:29:26,101  INFO SessionFilter:41 - req :/images/date_on.png
+2016-12-14 02:29:26,102  INFO SessionFilter:45 - req no filter:/images/date_on.png
+2016-12-14 02:29:26,277  INFO SessionFilter:41 - req :/banquet/banquet_list.action
+2016-12-14 02:29:26,282  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:26,282  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:27,908  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:29:28,199  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:29:28,199  INFO SessionFilter:41 - req :/css/auction.css
+2016-12-14 02:29:28,199  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:29:28,199  INFO SessionFilter:45 - req no filter:/css/auction.css
+2016-12-14 02:29:28,205  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:29:28,206  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:29:28,206  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:28,206  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:28,211  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:29:28,211  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:29:28,239  INFO SessionFilter:41 - req :/images/back.png
+2016-12-14 02:29:28,239  INFO SessionFilter:45 - req no filter:/images/back.png
+2016-12-14 02:29:28,244  INFO SessionFilter:41 - req :/images/auction_on.png
+2016-12-14 02:29:28,245  INFO SessionFilter:45 - req no filter:/images/auction_on.png
+2016-12-14 02:29:28,248  INFO SessionFilter:41 - req :/images/clock.png
+2016-12-14 02:29:28,248  INFO SessionFilter:45 - req no filter:/images/clock.png
+2016-12-14 02:29:37,144  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:37,145  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:29:38,283  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:29:38,517  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:29:38,517  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:29:38,523  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:29:38,524  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:29:38,530  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:38,530  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:29:38,531  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:29:38,532  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:29:49,247  INFO SessionFilter:41 - req :/banquet/wechart_redirect.action
+2016-12-14 02:30:37,363  INFO SessionFilter:41 - req :/raffle/lottery.action
+2016-12-14 02:30:37,595  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:30:37,596  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:30:37,598  INFO SessionFilter:41 - req :/js/laytpl.js
+2016-12-14 02:30:37,598  INFO SessionFilter:45 - req no filter:/js/laytpl.js
+2016-12-14 02:30:37,599  INFO SessionFilter:41 - req :/css/swiper.min.css
+2016-12-14 02:30:37,599  INFO SessionFilter:45 - req no filter:/css/swiper.min.css
+2016-12-14 02:30:37,605  INFO SessionFilter:41 - req :/js/spin.min.js
+2016-12-14 02:30:37,605  INFO SessionFilter:45 - req no filter:/js/spin.min.js
+2016-12-14 02:30:37,607  INFO SessionFilter:41 - req :/js/jquery.min.js
+2016-12-14 02:30:37,607  INFO SessionFilter:45 - req no filter:/js/jquery.min.js
+2016-12-14 02:30:37,610  INFO SessionFilter:41 - req :/js/common.js
+2016-12-14 02:30:37,611  INFO SessionFilter:45 - req no filter:/js/common.js
+2016-12-14 02:30:37,611  INFO SessionFilter:41 - req :/css/lottery.css
+2016-12-14 02:30:37,611  INFO SessionFilter:45 - req no filter:/css/lottery.css
+2016-12-14 02:30:37,617  INFO SessionFilter:41 - req :/js/swiper-3.3.1.jquery.min.js
+2016-12-14 02:30:37,617  INFO SessionFilter:45 - req no filter:/js/swiper-3.3.1.jquery.min.js
+2016-12-14 02:30:37,622  INFO SessionFilter:41 - req :/images/date.png
+2016-12-14 02:30:37,622  INFO SessionFilter:45 - req no filter:/images/date.png
+2016-12-14 02:30:37,637  INFO SessionFilter:41 - req :/images/discount.png
+2016-12-14 02:30:37,637  INFO SessionFilter:45 - req no filter:/images/discount.png
+2016-12-14 02:30:37,640  INFO SessionFilter:41 - req :/images/auction.png
+2016-12-14 02:30:37,640  INFO SessionFilter:45 - req no filter:/images/auction.png
+2016-12-14 02:30:37,640  INFO SessionFilter:41 - req :/images/mine.png
+2016-12-14 02:30:37,640  INFO SessionFilter:45 - req no filter:/images/mine.png
+2016-12-14 02:30:37,644  INFO SessionFilter:41 - req :/images/ticket_on.png
+2016-12-14 02:30:37,644  INFO SessionFilter:45 - req no filter:/images/ticket_on.png
+2016-12-14 02:30:37,699  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:37,699  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:37,747  INFO SessionFilter:41 - req :/raffle/lottery_list.action
+2016-12-14 02:30:39,271  INFO SessionFilter:41 - req :/banquet/banquet.action
+2016-12-14 02:30:39,522  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:30:39,522  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:30:39,525  INFO SessionFilter:41 - req :/css/lottery.css
+2016-12-14 02:30:39,526  INFO SessionFilter:45 - req no filter:/css/lottery.css
+2016-12-14 02:30:39,538  INFO SessionFilter:41 - req :/images/ticket.png
+2016-12-14 02:30:39,538  INFO SessionFilter:45 - req no filter:/images/ticket.png
+2016-12-14 02:30:39,549  INFO SessionFilter:41 - req :/images/date_on.png
+2016-12-14 02:30:39,549  INFO SessionFilter:45 - req no filter:/images/date_on.png
+2016-12-14 02:30:39,652  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:39,652  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:39,742  INFO SessionFilter:41 - req :/banquet/banquet_list.action
+2016-12-14 02:30:40,580  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:30:40,852  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:30:40,853  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:30:40,862  INFO SessionFilter:41 - req :/css/auction.css
+2016-12-14 02:30:40,862  INFO SessionFilter:45 - req no filter:/css/auction.css
+2016-12-14 02:30:40,868  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:30:40,868  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:30:40,872  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:30:40,872  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:30:40,883  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:30:40,884  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:30:40,887  INFO SessionFilter:41 - req :/images/back.png
+2016-12-14 02:30:40,887  INFO SessionFilter:45 - req no filter:/images/back.png
+2016-12-14 02:30:40,896  INFO SessionFilter:41 - req :/images/auction_on.png
+2016-12-14 02:30:40,897  INFO SessionFilter:45 - req no filter:/images/auction_on.png
+2016-12-14 02:30:40,898  INFO SessionFilter:41 - req :/images/clock.png
+2016-12-14 02:30:40,899  INFO SessionFilter:45 - req no filter:/images/clock.png
+2016-12-14 02:30:46,709  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:46,709  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:30:47,700  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:30:47,973  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:30:47,973  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:30:47,979  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:30:47,979  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:30:47,979  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:30:47,980  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:30:47,984  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:30:47,984  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:31:15,067  INFO SessionFilter:41 - req :/banquet/wechart_redirect.action
+2016-12-14 02:31:23,728  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:31:23,729  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:31:23,860  INFO SessionFilter:41 - req :/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:31:23,860  INFO SessionFilter:45 - req no filter:/js/maps/swiper.jquery.min.js.map
+2016-12-14 02:32:06,331  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:32:06,592  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:32:06,592  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:32:06,593  INFO SessionFilter:41 - req :/css/auction.css
+2016-12-14 02:32:06,593  INFO SessionFilter:45 - req no filter:/css/auction.css
+2016-12-14 02:32:06,594  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:32:06,595  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:32:06,594  INFO SessionFilter:41 - req :/images/back.png
+2016-12-14 02:32:06,595  INFO SessionFilter:45 - req no filter:/images/back.png
+2016-12-14 02:32:06,603  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:06,604  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:06,606  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:32:06,606  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:32:06,618  INFO SessionFilter:41 - req :/images/clock.png
+2016-12-14 02:32:06,618  INFO SessionFilter:45 - req no filter:/images/clock.png
+2016-12-14 02:32:06,618  INFO SessionFilter:41 - req :/images/auction_on.png
+2016-12-14 02:32:06,618  INFO SessionFilter:45 - req no filter:/images/auction_on.png
+2016-12-14 02:32:06,736  INFO SessionFilter:41 - req :/favicon.ico
+2016-12-14 02:32:09,363  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:32:09,618  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:32:09,619  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:32:09,622  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:32:09,623  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:32:09,634  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:09,634  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:09,635  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:32:09,635  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:32:19,665  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:32:19,942  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:32:19,942  INFO SessionFilter:41 - req :/css/auction.css
+2016-12-14 02:32:19,942  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:32:19,943  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:19,943  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:19,943  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:32:19,943  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:32:19,943  INFO SessionFilter:45 - req no filter:/css/auction.css
+2016-12-14 02:32:19,946  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:32:19,946  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:32:19,952  INFO SessionFilter:41 - req :/images/back.png
+2016-12-14 02:32:19,953  INFO SessionFilter:45 - req no filter:/images/back.png
+2016-12-14 02:32:19,961  INFO SessionFilter:41 - req :/images/auction_on.png
+2016-12-14 02:32:19,962  INFO SessionFilter:45 - req no filter:/images/auction_on.png
+2016-12-14 02:32:19,963  INFO SessionFilter:41 - req :/images/clock.png
+2016-12-14 02:32:19,963  INFO SessionFilter:45 - req no filter:/images/clock.png
+2016-12-14 02:32:20,219  INFO SessionFilter:41 - req :/favicon.ico
+2016-12-14 02:32:30,535  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:32:30,765  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:32:30,765  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:32:30,768  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:32:30,768  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:32:30,771  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:32:30,772  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:32:30,784  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:30,784  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:43,271  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:32:43,495  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:43,495  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:32:43,498  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:32:43,498  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:32:43,501  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:32:43,501  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:32:43,501  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:32:43,504  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:33:01,591  INFO SessionFilter:41 - req :/banquet/banquet_d.action
+2016-12-14 02:33:01,948  INFO SessionFilter:41 - req :/css/auction.css
+2016-12-14 02:33:01,948  INFO SessionFilter:45 - req no filter:/css/auction.css
+2016-12-14 02:33:01,948  INFO SessionFilter:41 - req :/css/header.css
+2016-12-14 02:33:01,949  INFO SessionFilter:45 - req no filter:/css/header.css
+2016-12-14 02:33:01,954  INFO SessionFilter:41 - req :/ratchet/weui.css
+2016-12-14 02:33:01,954  INFO SessionFilter:45 - req no filter:/ratchet/weui.css
+2016-12-14 02:33:01,954  INFO SessionFilter:41 - req :/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:33:01,954  INFO SessionFilter:45 - req no filter:/plugins/jQuery/jQuery-2.1.4.min.js
+2016-12-14 02:33:01,957  INFO SessionFilter:41 - req :/ratchet/jquery-weui.js
+2016-12-14 02:33:01,957  INFO SessionFilter:45 - req no filter:/ratchet/jquery-weui.js
+2016-12-14 02:33:01,961  INFO SessionFilter:41 - req :/images/back.png
+2016-12-14 02:33:01,961  INFO SessionFilter:45 - req no filter:/images/back.png
+2016-12-14 02:33:01,969  INFO SessionFilter:41 - req :/images/auction_on.png
+2016-12-14 02:33:01,970  INFO SessionFilter:45 - req no filter:/images/auction_on.png
+2016-12-14 02:33:01,970  INFO SessionFilter:41 - req :/images/clock.png
+2016-12-14 02:33:01,970  INFO SessionFilter:45 - req no filter:/images/clock.png
+2016-12-14 02:33:02,327  INFO SessionFilter:41 - req :/favicon.ico
+2016-12-14 02:33:04,411  INFO SessionFilter:41 - req :/banquet/wechart_redirect.action
+2016-12-14 02:33:11,575  INFO AnnotationConfigEmbeddedWebApplicationContext:862 - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2641e737: startup date [Wed Dec 14 02:28:06 HKT 2016]; root of context hierarchy
+2016-12-14 02:33:11,576  INFO AnnotationMBeanExporter:449 - Unregistering JMX-exposed beans on shutdown
+2016-12-14 02:33:11,577  INFO AnnotationMBeanExporter:241 - Unregistering JMX-exposed beans
+2016-12-14 02:33:11,583  WARN DisposableBeanAdapter:360 - Invocation of destroy method 'close' failed on bean with name 'comesSqlSessionTemplate': java.lang.UnsupportedOperationException: Manual close is not allowed over a Spring managed SqlSession
+2016-12-14 02:33:11,589  INFO DruidDataSource:1385 - {dataSource-2} closed
+2016-12-14 02:33:11,592  INFO DruidDataSource:1385 - {dataSource-1} closed
+2016-12-14 02:33:11,593  INFO ThreadPoolTaskScheduler:203 - Shutting down ExecutorService 'scheduler'
+2016-12-14 02:33:11,594  INFO ThreadPoolTaskExecutor:203 - Shutting down ExecutorService
+2016-12-14 02:33:11,609  INFO ServerConnector:306 - Stopped ServerConnector@60d95853{HTTP/1.1}{0.0.0.0:8087}
+2016-12-14 02:33:11,612  INFO /:2052 - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2016-12-14 02:33:11,613  INFO ContextHandler:865 - Stopped o.s.b.c.e.j.JettyEmbeddedWebAppContext@39651a82{/,null,UNAVAILABLE}

@@ -123,9 +123,9 @@
 //    }
 
     var deposit = document.getElementById("deposit");
-    var isjoin = document.getElementById("isjoin")
+    var isjoin = document.getElementById("isjoin").value;
     deposit.onclick = function () {
-        if (isjoin) {
+        if (isjoin=='true') {
             $.alert("您已预约该饭局");
         } else {
             window.location.href = "wechart_redirect.action?amount=${banquet.amount!}&aid=${banquet.id!}&title=${banquet.title!}&price=${banquet.amount!}";
