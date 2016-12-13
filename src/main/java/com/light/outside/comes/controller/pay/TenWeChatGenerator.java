@@ -422,19 +422,19 @@ public class TenWeChatGenerator {
      *
      * @return
      */
-	public static Map orderQuery(String trade_no) {
+	public static Map orderQuery(String transaction_id) {
 		String nonce_str = Sha1Util.getNonceStr();
 		SortedMap<String, String> beanMap = new TreeMap();
 		beanMap.put("appid", TenWeChatConfig.app_id);
 		beanMap.put("mch_id", TenWeChatConfig.mch_id);
 		beanMap.put("nonce_str", nonce_str);
-		beanMap.put("transaction_id",trade_no);
+		beanMap.put("transaction_id",transaction_id);
 		String sign = Sha1Util.genWXPackageSign(beanMap);
 		String xml = "<xml>" +
 					 "<appid>"+TenWeChatConfig.app_id+"</appid>" +
 					 "<mch_id>"+TenWeChatConfig.mch_id+"</mch_id>" +
 					 "<nonce_str>" + nonce_str + "</nonce_str>" +
-					 "<transaction_id>" + trade_no + "</transaction_id>" +
+					 "<transaction_id>" + transaction_id + "</transaction_id>" +
 					 "<sign>" + sign + "</sign>" +
 					 "</xml>";
 		TenpayHttpClient httpClient = new TenpayHttpClient();
@@ -451,6 +451,41 @@ public class TenWeChatGenerator {
 		}
 		return null;
 	}
+
+    /**
+     * 根据商户订单号查询
+     * @param out_trade_no
+     * @return
+     */
+    public static Map orderQueryTradeNo(String out_trade_no) {
+        String nonce_str = Sha1Util.getNonceStr();
+        SortedMap<String, String> beanMap = new TreeMap();
+        beanMap.put("appid", TenWeChatConfig.app_id);
+        beanMap.put("mch_id", TenWeChatConfig.mch_id);
+        beanMap.put("nonce_str", nonce_str);
+        beanMap.put("out_trade_no",out_trade_no);
+        String sign = Sha1Util.genWXPackageSign(beanMap);
+        String xml = "<xml>" +
+                "<appid>"+TenWeChatConfig.app_id+"</appid>" +
+                "<mch_id>"+TenWeChatConfig.mch_id+"</mch_id>" +
+                "<nonce_str>" + nonce_str + "</nonce_str>" +
+                "<out_trade_no>" + out_trade_no + "</out_trade_no>" +
+                "<sign>" + sign + "</sign>" +
+                "</xml>";
+        TenpayHttpClient httpClient = new TenpayHttpClient();
+        if (httpClient.callHttpPost(TenWeChatConfig.orderQueryUrl, xml)) {
+            String resContent = httpClient.getResContent();
+            System.out.println(resContent);
+            try {
+                Map result = XMLUtil.doXMLParse(resContent);
+                System.out.println(result.get("result_code")+"  >> "+result.get("trade_state"));
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 
     public static void main(String[] args) throws Exception {
         TenWeChatGenerator tt = new TenWeChatGenerator();

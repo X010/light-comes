@@ -505,6 +505,10 @@ public class MainFrameController {
         return "admin/create_banquet";
     }
 
+    @RequestMapping("t.action")
+    public String test(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        return "admin/t";
+    }
 
     /**
      * 保存饭局数据

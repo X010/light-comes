@@ -29,6 +29,13 @@ public interface PayService {
     public long createOrder(OrderModel orderModel);
 
     /**
+     * 修改订单
+     * @param orderModel
+     * @return
+     */
+    public long updateOrder(OrderModel orderModel);
+
+    /**
      * 根据ID获取订单
      *
      * @param id
@@ -42,7 +49,7 @@ public interface PayService {
      * @param aid
      * @return
      */
-    public OrderModel getOrderByUidAndAid(long uid,long aid);
+    public OrderModel getOrderByUidAndAid(long uid,long aid,int atype);
 
 
     /**
@@ -59,7 +66,7 @@ public interface PayService {
      * @param orderNo
      * @return
      */
-    public OrderModel updateOrderByOrderno(String orderNo,String tradeno,String transaction_id);
+    public OrderModel updateOrderByOrderno(String orderNo,String tradeno,String transaction_id,int status);
 
     /**
      * 根据商户订单号获取订单

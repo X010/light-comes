@@ -93,7 +93,7 @@
     <#if isjoin>
         <div id="deposit">您已预约该饭局</div>
     <#else>
-        <div id="deposit" onclick="javascript:send_submit_order(${banquet.id});">我要约饭(<strong>${banquet.amount}</strong>元/人)
+        <div id="deposit" >我要约饭(<strong>${banquet.amount}</strong>元/人)
         </div>
     </#if>
 </div>
@@ -102,22 +102,28 @@
 <script language="JavaScript">
     /**
      * 发送交定金请求
+     * onclick="javascript:send_submit_order(${banquet.id});"
      */
-    function send_submit_order(aid) {
-        $.ajax({
-            url: "dopaybanquet.action?aid=" + aid,
-            dataType: "json",
-            success: function (data, textStatus) {
-                console.log(data);
-                if (data != null) {
-                    $.alert("您已成功预约该饭局");
-                    $("#deposit").html("您已预约");
-                    $("#deposit").click(function () {
-                        $.alert("您已参与过该活动");
-                    });
-                }
-            }
-        });
+//    function send_submit_order(aid) {
+//        $.ajax({
+//            url: "dopaybanquet.action?aid=" + aid,
+//            dataType: "json",
+//            success: function (data, textStatus) {
+//                console.log(data);
+//                if (data != null) {
+//                    $.alert("您已成功预约该饭局");
+//                    $("#deposit").html("您已预约");
+//                    $("#deposit").click(function () {
+//                        $.alert("您已参与过该活动");
+//                    });
+//                }
+//            }
+//        });
+//    }
+
+    var deposit = document.getElementById("deposit");
+    deposit.onclick = function () {
+        window.location.href="wechart_redirect.action?amount=${banquet.amount!}&aid=${banquet.id!}&title=${banquet.title!}&price=${banquet.amount!}";
     }
 
 

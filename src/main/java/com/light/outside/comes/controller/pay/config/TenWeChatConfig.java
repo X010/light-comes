@@ -45,7 +45,7 @@ public class TenWeChatConfig {
     /**
      * 支付完成后的回调处理页面
      */
-    public static final String notify_url ="http://qubulikou.com/qblk/yeshizuileweixin/Cart/weChatPayCallback.action";
+    public static final String notify_url ="http://qubulikou.com/qblk/yeshizuileweixin/pay/weChatPayCallback.action";
     /**
      * 预支付接口
      */

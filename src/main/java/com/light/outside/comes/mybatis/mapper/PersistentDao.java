@@ -288,8 +288,8 @@ public interface PersistentDao {
     @Select("select count(1) from comes_blacklist where status<>9")
     public int totalBackList();
 
-    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime,aid,orderno)" +
-            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime},#{aid},#{orderno})")
+    @Insert("insert into comes_order(amount,status,atype,aname,ptype,phone,uid,createtime,paytime,aid,orderno,tradeno)" +
+            "values(#{amount},#{status},#{atype},#{aname},#{ptype},#{phone},#{uid},#{createtime},#{paytime},#{aid},#{orderNo},#{tradeno})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOrder(OrderModel orderModel);
 
@@ -299,7 +299,7 @@ public interface PersistentDao {
     @Update("update comes_order set status=#{status},paytime=#{paytime} where id=#{id}")
     public void updateOrder(OrderModel orderModel);
 
-    @Update("update comes_order set status=#{status},paytime=#{paytime},tradeno=${tradeno},transactionId=${transactionId} where orderno=#{orderno}")
+    @Update("update comes_order set status=#{status},paytime=#{paytime},tradeno=${tradeno},transactionId=${transactionId} where orderno=#{orderNo}")
     public void updateOrderByOrderno(OrderModel orderModel);
 
     /**
@@ -309,8 +309,8 @@ public interface PersistentDao {
      * @param aid
      * @return
      */
-    @Select("select * from comes_order where uid=#{uid} and aid=#{aid}")
-    public OrderModel getOrderByUidAndAid(@Param("uid") long uid, @Param("aid") long aid);
+    @Select("select * from comes_order where uid=#{uid} and aid=#{aid} and atype=#{atype}")
+    public OrderModel getOrderByUidAndAid(@Param("uid") long uid, @Param("aid") long aid,@Param("atype") int atype);
 
     /**
      * 根据订单ID查询

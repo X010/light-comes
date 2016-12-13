@@ -11,10 +11,7 @@ import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
 import com.light.outside.comes.service.PayService;
 import com.light.outside.comes.service.admin.FocusImageService;
-import com.light.outside.comes.utils.CONST;
-import com.light.outside.comes.utils.DateUtils;
-import com.light.outside.comes.utils.JsonTools;
-import com.light.outside.comes.utils.RequestTools;
+import com.light.outside.comes.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +130,7 @@ public class AuctionController extends BaseController {
             msg = "拍卖已截止！";
         } else {
             //TODO 判断保证金是否支付
-            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid,CONST.FOCUS_AUCTION);
             if (orderModel != null && orderModel.getStatus() == CONST.ORDER_PAY) {
                 //查询是否有更高的出价
                 AuctionRecordsModel auctionRecordsModel = auctionService.queryTopRecord(aid);
@@ -187,7 +184,7 @@ public class AuctionController extends BaseController {
             long seconds = DateUtils.endSeconds(auctionModel.getEnd_time());
             auctionModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
-            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), auctionId);
+            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), auctionId,CONST.FOCUS_AUCTION);
             if (orderModel != null && orderModel.getStatus() == CONST.ORDER_PAY) {
                 isPay = true;
             }
@@ -213,7 +210,7 @@ public class AuctionController extends BaseController {
         float amount = Float.parseFloat(request.getParameter("amount"));
         long aid = RequestTools.RequestLong(request, "aid", 0);
         int status = CONST.ORDER_PAY;
-        OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+        OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid,CONST.FOCUS_AUCTION);
         //查询拍卖详情
         AuctionModel auctionModel = auctionService.queryAuctionById(aid);
         if (orderModel == null) {
@@ -246,7 +243,7 @@ public class AuctionController extends BaseController {
         String payPrice = RequestTools.RequestString(request, "price", "0");
         long aid = RequestTools.RequestLong(request, "aid", 0);
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
-                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fauction%2Fauction_margin_pay.action%3Ftitle%3D" + title + "%26price%3D" + payPrice + "%26aid%3D" + aid +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fauction_margin_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
                 "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         return "redirect:" + tourl;
     }
@@ -260,7 +257,7 @@ public class AuctionController extends BaseController {
         }
 
         UserModel userModel = getAppUserInfo();
-        String title = RequestTools.RequestString(request, "title", "未知商品");
+        //String title = RequestTools.RequestString(request, "title", "未知商品");
         String ip = getRemoteHost(request);
         //TODO
         String payPrice="0.01";
@@ -271,15 +268,18 @@ public class AuctionController extends BaseController {
         long aid = RequestTools.RequestLong(request, "aid", 0);
         //查询拍卖详情
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
+        String title="曲不离口-保证金-" +auctionModel.getTitle();
         //TODO 测试完后放开
         //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
             JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
             String openid = jsonObject.getString("openid");
             try {
                 //生成预支付订单
-                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url,"曲不离口-保证金-" + title, tradeNo, payPrice, openid, ip);
-                OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url,title, tradeNo, payPrice, openid, ip);
+                LOG.info("appId:"+payMap.get("appId"));
+                OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid,CONST.FOCUS_AUCTION);
                 if (orderModel == null) {
+                    LOG.info("order is null careate order ");
                     orderModel = new OrderModel();
                     float deposit = auctionModel.getDeposit();
                     orderModel.setAmount(deposit);
@@ -287,13 +287,15 @@ public class AuctionController extends BaseController {
                     orderModel.setAid(aid);
                     orderModel.setUid(userModel.getId());
                     orderModel.setPhone(userModel.getPhone());
-                    orderModel.setAname("曲不离口-"+auctionModel.getTitle()+"-保证金");
+                    orderModel.setAname(title);
                     orderModel.setStatus(CONST.ORDER_CREATE);
                     orderModel.setCreatetime(new Date());
-                    orderModel.setOrderNo(tradeNo);
+                    orderModel.setOrderNo(OrderUtil.getOrderNo());
+                    orderModel.setTradeno(tradeNo);
                     payService.createOrder(orderModel);//创建订单
                 }
                 data.putAll(payMap);
+                data.put("redirectUrl","http://www.qubulikou.com/qblk/auction/auction_d.action?aid="+aid);
             } catch (Exception e) {
                 e.printStackTrace();
             }

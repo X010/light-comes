@@ -1,6 +1,7 @@
 package com.light.outside.comes.controller;
 
 import com.light.outside.comes.controller.admin.LoginController;
+import com.light.outside.comes.controller.pay.config.TenWeChatConfig;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -129,7 +130,7 @@ public class BanquetController extends BaseController {
             if (userModel != null) {
                 long aid = Long.valueOf(request.getParameter("aid"));
 
-                OrderModel orderModel = this.banquetService.payBanquet(aid, userModel);
+                OrderModel orderModel = this.banquetService.payBanquet(aid, userModel,"");
                 if (orderModel != null) {
                     res = JsonParser.simpleJson(orderModel);
                 }
@@ -140,6 +141,17 @@ public class BanquetController extends BaseController {
         return res;
     }
 
+    @RequestMapping("wechart_redirect.action")
+    public String pay(Map<String, Object> data, HttpServletRequest request) {
+        String title = RequestTools.RequestString(request, "title", "未知商品");
+        String ip = getRemoteHost(request);
+        String payPrice = RequestTools.RequestString(request, "price", "0");
+        long aid = RequestTools.RequestLong(request, "aid", 0);
+        String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fbanquet_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
+                "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+        return "redirect:" + tourl;
+    }
     /**
      * 我的约饭数据
      */

@@ -24,9 +24,9 @@ import java.util.List;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -130,9 +130,9 @@ public class BanquetService {
      */
     public BanquetModel getBanquetById(long id) {
         Preconditions.checkArgument(id > 0);
-        int enroll=this.banquetDao.enrollBanquetTotal(id);
-        BanquetModel banquetModel=this.persistentDao.getBanquetById(id);
-        if(banquetModel!=null)
+        int enroll = this.banquetDao.enrollBanquetTotal(id);
+        BanquetModel banquetModel = this.persistentDao.getBanquetById(id);
+        if (banquetModel != null)
             banquetModel.setEnroll_num(enroll);
         return banquetModel;
     }
@@ -180,6 +180,7 @@ public class BanquetService {
 
     /**
      * 获取已经预约的饭局
+     *
      * @param userModel
      * @param aid
      * @return
@@ -190,7 +191,7 @@ public class BanquetService {
         BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
         if (banquetRecordModel != null && banquetRecordModel.getStatus() == CONST.ORDER_PAY) {
             return banquetRecordModel;
-        }else{
+        } else {
             return null;
         }
     }
@@ -212,10 +213,9 @@ public class BanquetService {
      * @param userModel
      * @return
      */
-    public OrderModel payBanquet(long aid, UserModel userModel) {
+    public OrderModel payBanquet(long aid, UserModel userModel, String tradeNo) {
         Preconditions.checkArgument(aid > 0);
         Preconditions.checkNotNull(userModel);
-
         OrderModel orderModel = null;
         try {
             BanquetModel banquetModel = this.getBanquetById(aid);
@@ -227,23 +227,24 @@ public class BanquetService {
                 orderModel.setCreatetime(new Date());
                 orderModel.setPhone(userModel.getPhone());
                 orderModel.setUid(userModel.getId());
-                orderModel.setStatus(CONST.ORDER_PAY);
+                orderModel.setStatus(CONST.ORDER_CREATE);
                 orderModel.setPtype(CONST.PAY_WEIXIN);
                 orderModel.setOrderNo(OrderUtil.getOrderNo());
+                orderModel.setTradeno(tradeNo);
                 orderModel.setPaytime(new Date());
                 orderModel.setAid(aid);
                 long oid = this.payService.createOrder(orderModel);
                 if (oid > 0) {
                     orderModel.setId(oid);
                 }
-                int outnumber=banquetModel.getOutnumber();//每桌人数
-                int enroll=banquetDao.enrollBanquetTotal(aid);//参与人数
-                int tableNum=enroll>outnumber?enroll/outnumber:1;
-                int seatNum=1;
-                if(enroll%outnumber==0){
-                    tableNum+=1;
-                }else{
-                    seatNum+=enroll%outnumber;
+                int outnumber = banquetModel.getOutnumber();//每桌人数
+                int enroll = banquetDao.enrollBanquetTotal(aid);//参与人数
+                int tableNum = enroll > outnumber ? enroll / outnumber : 1;
+                int seatNum = 1;
+                if (enroll % outnumber == 0) {
+                    tableNum += 1;
+                } else {
+                    seatNum += enroll % outnumber;
                 }
                 //写入记录
                 BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
@@ -262,7 +263,6 @@ public class BanquetService {
                     //更新当前记录的支付号
                     banquetRecordModel.setOrderNo(orderModel.getOrderNo());
                 }
-
                 if (orderModel.getStatus() == CONST.ORDER_PAY) {
                     banquetRecordModel.setStatus(CONST.ORDER_PAY);
                 } else {
@@ -282,6 +282,23 @@ public class BanquetService {
         }
 
         return orderModel;
+    }
+
+    /**
+     * 更新约饭记录状态
+     * @param orderModel
+     */
+    public void upateBanquetRecordStatusByOrder(OrderModel orderModel) {
+        BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(orderModel.getAid(), orderModel.getPhone());
+        if (banquetRecordModel != null) {
+            banquetRecordModel.setOrderNo(orderModel.getOrderNo());
+            if (orderModel.getStatus() == CONST.ORDER_PAY) {
+                banquetRecordModel.setStatus(CONST.ORDER_PAY);
+            } else {
+                banquetRecordModel.setStatus(CONST.ORDER_CREATE);
+            }
+            this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+        }
     }
 
     /**

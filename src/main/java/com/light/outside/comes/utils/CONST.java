@@ -43,6 +43,7 @@ public class CONST {
     public static int ORDER_OVER = 9;//订单过期
     public static int ORDER_PAY = 2;//订单支付
     public static int ORDER_WAITING = 3;//待支付
+    public static int ORDER_PAY_FAILED = 4;//支付失败
 
     public static int WIN = 5;//获得者
 

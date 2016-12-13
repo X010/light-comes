@@ -7,6 +7,7 @@ import com.light.outside.comes.controller.pay.util.PubUtils;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
 import com.light.outside.comes.model.AuctionModel;
 import com.light.outside.comes.model.BanquetModel;
+import com.light.outside.comes.model.BanquetRecordModel;
 import com.light.outside.comes.model.OrderModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.AuctionService;
@@ -14,6 +15,7 @@ import com.light.outside.comes.service.BanquetService;
 import com.light.outside.comes.service.PayService;
 import com.light.outside.comes.service.WeiXinPayService;
 import com.light.outside.comes.utils.CONST;
+import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.OrderUtil;
 import com.light.outside.comes.utils.RequestTools;
 import org.slf4j.Logger;
@@ -39,9 +41,9 @@ import java.util.TreeMap;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,7 +51,7 @@ import java.util.TreeMap;
  * limitations under the License.
  */
 @Controller
-@RequestMapping("yeshizuileweixin/Cart")
+@RequestMapping("yeshizuileweixin/pay")
 public class PayController extends BaseController {
 
     @Autowired
@@ -113,24 +115,33 @@ public class PayController extends BaseController {
             String out_trade_no = (String) map.get("out_trade_no");
             String transaction_id = (String) map.get("transaction_id");
             //查询订单状态
-            Map<String, String> resuletMap = TenWeChatGenerator.orderQuery(out_trade_no);
+            Map<String, String> resuletMap = TenWeChatGenerator.orderQuery(transaction_id);
+            LOG.info("order status:" + JsonTools.jsonSer(resuletMap));
             OrderModel orderModel = payService.getOrderByTradeno(out_trade_no);
             if (orderModel != null) {
                 //更新支付状态
                 if (orderModel.getStatus() != CONST.ORDER_PAY) {
-                    payService.updateOrderByOrderno(orderModel.getOrderNo(),out_trade_no, transaction_id);
+                    orderModel=payService.updateOrderByOrderno(orderModel.getOrderNo(), out_trade_no, transaction_id, CONST.ORDER_PAY);
                     LOG.info("update order status to payed by order number:" + out_trade_no);
+                    if (orderModel.getAtype() == CONST.FOCUS_BANQUET) {
+                        banquetService.upateBanquetRecordStatusByOrder(orderModel);
+                        LOG.info("update banquet record status by order :" + orderModel.getId());
+                    }
                 }
+            } else {
+                LOG.info("order is null");
             }
             retMap.put("return_code", "SUCCESS");
         } else {
             retMap.put("return_code", "FAIL");
+
         }
         response.getWriter().write(XMLUtil.toXml(retMap));
     }
 
     /**
      * 拍卖保证金支付
+     *
      * @param data
      * @param request
      * @param response
@@ -139,20 +150,20 @@ public class PayController extends BaseController {
      */
     @RequestMapping("auction_margin_pay.action")
     public String weChatPayAuction(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String url = "http://www.qubulikou.com/yeshizuileweixin/Cart/auction_margin_pay.action";
+        String url = "http://www.qubulikou.com/yeshizuileweixin/pay/auction_margin_pay.action";
         String queryString = request.getQueryString();
         if (!Strings.isNullOrEmpty(queryString)) {
             url = url + "?" + queryString;
         }
         UserModel userModel = getAppUserInfo();
-        String title = RequestTools.RequestString(request, "title", "曲不离口-拍卖保证金");
+        //String title = RequestTools.RequestString(request, "title", "曲不离口-拍卖保证金");
         String ip = getRemoteHost(request);
         //TODO
         String payPrice = "0.01";
         //String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
         String code = RequestTools.RequestString(request, "code", "");
-        System.out.println("code:" + code + " ip:" + ip);
+        //System.out.println("code:" + code + " ip:" + ip);
         long aid = RequestTools.RequestLong(request, "aid", 0);
         //查询拍卖详情
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
@@ -160,12 +171,17 @@ public class PayController extends BaseController {
         //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
         JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
         String openid = jsonObject.getString("openid");
-        String wechatTitle = "曲不离口-保证金-" + title;
+        String title = "曲不离口-保证金-" + auctionModel.getTitle();
         try {
             //生成预支付订单
-            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, wechatTitle, tradeNo, payPrice, openid, ip);
-            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
+            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
+            if (orderModel != null) {
+                tradeNo = orderModel.getTradeno();
+            }
+            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, title, tradeNo, payPrice, openid, ip);
+            LOG.info("appId:" + payMap.get("appId"));
             if (orderModel == null) {
+                LOG.info("order is null careate order ");
                 orderModel = new OrderModel();
                 float deposit = auctionModel.getDeposit();
                 orderModel.setAmount(deposit);
@@ -173,14 +189,16 @@ public class PayController extends BaseController {
                 orderModel.setAid(aid);
                 orderModel.setUid(userModel.getId());
                 orderModel.setPhone(userModel.getPhone());
-                orderModel.setAname(wechatTitle);
+                orderModel.setAname(title);
                 orderModel.setStatus(CONST.ORDER_CREATE);
                 orderModel.setCreatetime(new Date());
+                orderModel.setPtype(CONST.PAY_WEIXIN);
                 orderModel.setOrderNo(OrderUtil.getOrderNo());
                 orderModel.setTradeno(tradeNo);
                 payService.createOrder(orderModel);//创建订单
             }
             data.putAll(payMap);
+            data.put("redirectUrl", "http://www.qubulikou.com/qblk/auction/auction_d.action?aid=" + aid);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -191,6 +209,7 @@ public class PayController extends BaseController {
 
     /**
      * 约饭支付
+     *
      * @param data
      * @param request
      * @param response
@@ -199,13 +218,12 @@ public class PayController extends BaseController {
      */
     @RequestMapping("banquet_pay.action")
     public String weChatPayBanquet(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String url = "http://www.qubulikou.com/yeshizuileweixin/Cart/banquet_pay.action";
+        String url = "http://www.qubulikou.com/yeshizuileweixin/pay/banquet_pay.action";
         String queryString = request.getQueryString();
         if (!Strings.isNullOrEmpty(queryString)) {
             url = url + "?" + queryString;
         }
         UserModel userModel = getAppUserInfo();
-        String title = RequestTools.RequestString(request, "title", "曲不离口-约饭");
         String ip = getRemoteHost(request);
         //TODO
         String payPrice = "0.01";
@@ -222,27 +240,33 @@ public class PayController extends BaseController {
         String openid = jsonObject.getString("openid");
         try {
             String wechatTitle = "曲不离口-约饭-" + banquetModel.getTitle();
+            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_BANQUET);
+            if (orderModel != null) {
+                tradeNo = orderModel.getTradeno();
+            }
             //生成预支付订单
             Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, wechatTitle, tradeNo, payPrice, openid, ip);
-            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid);
             if (orderModel == null) {
-                orderModel = new OrderModel();
-                float amount = banquetModel.getAmount();
-                orderModel.setAmount(amount);
-                orderModel.setAname(wechatTitle);
-                orderModel.setAtype(CONST.FOCUS_BANQUET);
-                orderModel.setCreatetime(new Date());
-                orderModel.setPhone(userModel.getPhone());
-                orderModel.setUid(userModel.getId());
-                orderModel.setStatus(CONST.ORDER_PAY);
-                orderModel.setPtype(CONST.PAY_WEIXIN);
-                orderModel.setOrderNo(OrderUtil.getOrderNo());
-                orderModel.setTradeno(tradeNo);
-                orderModel.setPaytime(new Date());
-                orderModel.setAid(aid);
-                payService.createOrder(orderModel);//创建订单
+                banquetService.payBanquet(aid, userModel, tradeNo);
+//                orderModel = new OrderModel();
+//                float amount = banquetModel.getAmount();
+//                orderModel.setAmount(amount);
+//                orderModel.setAname(wechatTitle);
+//                orderModel.setAtype(CONST.FOCUS_BANQUET);
+//                orderModel.setCreatetime(new Date());
+//                orderModel.setPhone(userModel.getPhone());
+//                orderModel.setUid(userModel.getId());
+//                orderModel.setStatus(CONST.ORDER_CREATE);
+//                orderModel.setPtype(CONST.PAY_WEIXIN);
+//                orderModel.setOrderNo(OrderUtil.getOrderNo());
+//                orderModel.setTradeno(tradeNo);
+//                orderModel.setPaytime(new Date());
+//                orderModel.setAid(aid);
+//                payService.createOrder(orderModel);//创建订单
+//
             }
             data.putAll(payMap);
+            data.put("redirectUrl", "http://www.qubulikou.com/qblk/banquet/banquet_d.action?aid=" + aid);
         } catch (Exception e) {
             e.printStackTrace();
         }

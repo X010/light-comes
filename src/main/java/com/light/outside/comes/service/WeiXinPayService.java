@@ -43,14 +43,19 @@ public class WeiXinPayService implements PayService {
     }
 
     @Override
+    public long updateOrder(OrderModel orderModel) {
+        return 0;
+    }
+
+    @Override
     public OrderModel getOrderById(long id) {
         Preconditions.checkArgument(id > 0);
         return this.persistentDao.getOrderById(id);
     }
 
     @Override
-    public OrderModel getOrderByUidAndAid(long uid, long aid) {
-        return this.persistentDao.getOrderByUidAndAid(uid, aid);
+    public OrderModel getOrderByUidAndAid(long uid,long aid,int atype) {
+        return this.persistentDao.getOrderByUidAndAid(uid,aid,atype);
     }
 
     @Override
@@ -68,10 +73,10 @@ public class WeiXinPayService implements PayService {
     }
 
     @Override
-    public OrderModel updateOrderByOrderno(String orderno, String tradeno, String transaction_id) {
+    public OrderModel updateOrderByOrderno(String orderno, String tradeno, String transaction_id,int status) {
         OrderModel updateModel = this.persistentDao.getOrderByOrderNo(orderno);
         if (updateModel != null) {
-            updateModel.setStatus(CONST.ORDER_PAY);
+            updateModel.setStatus(status);
             updateModel.setPaytime(new Date());
             updateModel.setTradeno(tradeno);//微信订单号
             updateModel.setOrderNo(orderno);
@@ -80,6 +85,7 @@ public class WeiXinPayService implements PayService {
         }
         return updateModel;
     }
+
 
     @Override
     public OrderModel getOrderByTradeno(String tradeno) {
