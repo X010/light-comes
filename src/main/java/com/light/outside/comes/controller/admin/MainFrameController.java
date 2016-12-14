@@ -509,6 +509,10 @@ public class MainFrameController {
     public String test(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
         return "admin/t";
     }
+    @RequestMapping("tt.action")
+    public String testRedirect(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
+        return test(data,request,response);
+    }
 
     /**
      * 保存饭局数据
@@ -773,7 +777,7 @@ public class MainFrameController {
      */
     @ResponseBody
     @RequestMapping("coupon_balance_search.action")
-    public String coupon_balance_search(Map<String, Objects> data, @RequestParam(value = "phone", required = false) String phone) {
+    public String coupon_balance_search(Map<String, Object> data, @RequestParam(value = "phone", required = false) String phone) {
         String res = "";
         if (!Strings.isNullOrEmpty(phone)) {
             List<CouponUsedRecord> couponUsedRecords = this.couponService.getCouponUsedRecordByPhone(phone, CONST.COUPON_B_INIT);
