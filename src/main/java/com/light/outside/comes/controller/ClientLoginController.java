@@ -34,6 +34,7 @@ public class ClientLoginController extends BaseController {
 
     @Resource
     private LoginService loginService;
+
     @Value("${baseUrl}")
     private String baseUrl;
 
