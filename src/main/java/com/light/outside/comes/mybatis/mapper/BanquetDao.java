@@ -45,12 +45,15 @@ public interface BanquetDao {
     public int getBanquetRecordPageByAidTotal(@Param("aid") long aid);
 
 
-    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} and br.`status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} " +
+            " and br.`status`=#{status}" +
+            " order by br.id desc limit #{start},#{size}")
     public List<BanquetRecordViewModel> getBanquetRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status, @Param("start") int start,@Param("size") int size);
 
 
 
-    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} limit #{start},#{size}")
+    @Select("select * from comes_banquet b,comes_banquet_records br where b.id=br.aid and br.uid=#{uid} " +
+            " order by br.id desc limit #{start},#{size}")
     public List<BanquetRecordViewModel> getBanquetRecordPageByUid(@Param("uid") long uid, @Param("start") int start,@Param("size") int size);
 
 

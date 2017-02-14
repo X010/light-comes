@@ -38,11 +38,11 @@ public class SessionFilter implements javax.servlet.Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
         String url = request.getServletPath();
-        LOG.info("req :" + url);
+//        LOG.info("req :" + url);
         boolean isLogin = false;
         if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
-            LOG.info("req no filter:" + url);
+//            LOG.info("req no filter:" + url);
             chain.doFilter(request, response);
         } else if (url.contains("admin/")) {
             LOG.info("check session status");
@@ -120,8 +120,8 @@ public class SessionFilter implements javax.servlet.Filter {
 //                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
                 out = response.getWriter();
                 out.println("<script language='javascript' type='text/javascript'>");
-                System.out.println(StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
-                out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
+                System.out.println("url:"+StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
+                out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
                 out.println("</script>");
             }
 //            out = response.getWriter();

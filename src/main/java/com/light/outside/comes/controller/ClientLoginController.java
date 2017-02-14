@@ -115,7 +115,7 @@ public class ClientLoginController extends BaseController {
         if (isSuccess) {
             LOG.info("login and redirect url:" + redirect);
             if (Strings.isNullOrEmpty(redirect))
-                return "redirect:" + baseUrl + "raffle/lottery.action";
+                return "redirect:/raffle/lottery.action";
             else
                 return "redirect:" + redirect;
         }

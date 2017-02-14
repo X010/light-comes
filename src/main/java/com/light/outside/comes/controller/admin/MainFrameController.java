@@ -256,7 +256,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.deleteRaffle(id);
         }
-        return "redirect:"+baseUrl+"admin/raffle_list.action";
+        return "redirect:raffle_list.action";
     }
 
     /**
@@ -284,7 +284,7 @@ public class MainFrameController {
             raffleModel.setCreatetime(new Date());
             this.raffleService.save_raffle(raffleModel, raffleCouponModels);
         }
-        return "redirect:"+baseUrl+"admin/raffle_list.action";
+        return "redirect:raffle_list.action";
     }
 
     /**
@@ -362,7 +362,7 @@ public class MainFrameController {
                 this.overchargedService.addOverChage(overchargedModel);
             }
         }
-        return "redirect:"+baseUrl+"admin/overcharge_list.action";
+        return "redirect:overcharge_list.action";
     }
 
 
@@ -381,7 +381,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:"+baseUrl+"admin/overcharge_list.action";
+        return "redirect:overcharge_list.action";
     }
 
 
@@ -447,7 +447,7 @@ public class MainFrameController {
                 this.auctionService.addAuction(auctionModel);
             }
         }
-        return "redirect:"+baseUrl+"admin/auction_list.action";
+        return "redirect:auction_list.action";
     }
 
     /**
@@ -463,7 +463,7 @@ public class MainFrameController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:"+baseUrl+"admin/auction_list.action";
+        return "redirect:auction_list.action";
     }
 
     /**
@@ -544,7 +544,7 @@ public class MainFrameController {
                 this.banquetService.addBanquet(banquetModel);
             }
         }
-        return "redirect:"+baseUrl+"admin/banquet_list.action";
+        return "redirect:banquet_list.action";
     }
 
     /**
@@ -581,7 +581,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:"+baseUrl+"admin/banquet_list.action";
+        return "redirect:banquet_list.action";
     }
 
 
@@ -619,7 +619,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.generateCoupon(id);
         }
-        return "redirect:"+baseUrl+"admin/coupon_list.action";
+        return "redirect:coupon_list.action";
     }
 
     /**
@@ -656,7 +656,7 @@ public class MainFrameController {
 
             this.raffleService.addCoupon(couponModel);
         }
-        return "redirect:"+baseUrl+"admin/coupon_list.action";
+        return "redirect:coupon_list.action";
     }
 
     /**
@@ -672,7 +672,7 @@ public class MainFrameController {
         if (id > 0) {
             this.raffleService.deleteCoupon(id);
         }
-        return "redirect:"+baseUrl+"admin/coupon_list.action";
+        return "redirect:coupon_list.action";
     }
 
     /**
@@ -827,7 +827,7 @@ public class MainFrameController {
                 this.loginService.addUsers(userModel);
             }
         }
-        return "redirect:"+baseUrl+"admin/user_list.action";
+        return "redirect:user_list.action";
     }
 
     /**
@@ -861,7 +861,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:"+baseUrl+"admin/user_list.action";
+        return "redirect:user_list.action";
     }
 
     /**
@@ -892,7 +892,7 @@ public class MainFrameController {
             backList.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             this.backListService.addBackList(backList);
         }
-        return "redirect:"+baseUrl+"admin/backlist_list.action";
+        return "redirect:backlist_list.action";
     }
 
 
@@ -911,7 +911,7 @@ public class MainFrameController {
                 e.printStackTrace();
             }
         }
-        return "redirect:"+baseUrl+"admin/backlist_list.action";
+        return "redirect:backlist_list.action";
     }
 
 
@@ -967,7 +967,7 @@ public class MainFrameController {
         if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
             if (pastModel != null && pastModel.getTotal_drunk() > 0) {
                 pastModel = this.pastService.svePastModel(pastModel);
-                return "redirect:"+baseUrl+"admin/past_setting.action";
+                return "redirect:past_setting.action";
             }
         }
 
@@ -1008,7 +1008,7 @@ public class MainFrameController {
         if (!Strings.isNullOrEmpty(phone) && status > 0) {
             this.pastService.clearPastInfo(phone, status);
         }
-        return "redirect:"+baseUrl+"admin/past_detail.action";
+        return "redirect:past_detail.action";
     }
 
 

@@ -20,7 +20,8 @@ package com.light.outside.comes.utils;
 public class CONST {
 
 
-    public static String SITE_URL = "http://qulk.dssmp.com/";
+    //public static String SITE_URL = "http://qulk.dssmp.com/";
+    public static String SITE_URL="http://www.qubulikou.com/";
     public static String QBLK_PHOTO_URL = "http://120.27.154.7:8069/yeshizuile/frontend/web/images/goods/list_img/";
 
     public static int RAFFLE_STATUS_NORMAL = 2;//正常
