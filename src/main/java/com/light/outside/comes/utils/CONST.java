@@ -62,4 +62,6 @@ public class CONST {
     public static int PAST_ID = 9999; //签到活动ID
     public static int DRUNK_SELF = 1; //自己独杯
     public static int DRUNK_OTHER = 2;//与家人干杯
+
+    public static String SIGNATURE_KEY="f12da117d91c0e0f3ba301e7cb122c13";
 }

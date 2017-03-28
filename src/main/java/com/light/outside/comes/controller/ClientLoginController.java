@@ -3,6 +3,8 @@ package com.light.outside.comes.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.light.outside.comes.service.admin.LoginService;
+import com.light.outside.comes.service.weixin.MD5;
+import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonClient;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
@@ -73,13 +75,14 @@ public class ClientLoginController extends BaseController {
 
     @RequestMapping(value = "logout.action", method = {RequestMethod.POST, RequestMethod.GET})
     public String logout(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().invalidate();
-        Cookie usernameCookie = new Cookie("username", null);
-        Cookie passwordCookie = new Cookie("password", null);
-        usernameCookie.setMaxAge(0);
-        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
-        response.addCookie(usernameCookie);
-        response.addCookie(passwordCookie);
+        loginout(request, response);
+//        request.getSession().invalidate();
+//        Cookie usernameCookie = new Cookie("username", null);
+//        Cookie passwordCookie = new Cookie("password", null);
+//        usernameCookie.setMaxAge(0);
+//        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
+//        response.addCookie(usernameCookie);
+//        response.addCookie(passwordCookie);
         return "login";
     }
 
@@ -123,6 +126,62 @@ public class ClientLoginController extends BaseController {
         return "login";
     }
 
+    /**
+     * 登录API
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("login_api.action")
+    @ResponseBody
+    public String loginForAPI(Map<String, Object> data, HttpServletRequest request){
+        String phone = RequestTools.RequestString(request, "username", "");
+        String password = RequestTools.RequestString(request, "password", "");
+        String token=RequestTools.RequestString(request,"token","");
+        //String signStr=phone+"&"+password+"&"+ CONST.SIGNATURE_KEY;
+        String signStr=String.format("%s&%s&%s",password,phone,CONST.SIGNATURE_KEY);
+        String checkToken = MD5.MD5Encode(signStr);
+        if(checkToken.equals(token)) {
+            boolean isSuccess = loginService.clientLogin(phone, password, request);
+            if (isSuccess) {
+                data.put("code", 200);
+                data.put("msg", "登录成功");
+            } else {
+                data.put("code", 500);
+                data.put("msg", "登录失败");
+            }
+        }else{
+            data.put("code",404);
+            data.put("msg","签名验证失败");
+        }
+        return JsonTools.jsonSer(data);
+    }
+
+    /**
+     * 退出登录API
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("loginout_api.action")
+    @ResponseBody
+    public String loginoutForAPI(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response){
+        loginout(request,response);
+        data.put("code", 200);
+        data.put("msg","登出成功");
+        return JsonTools.jsonSer(data);
+    }
+
+    private void loginout(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().invalidate();
+        Cookie usernameCookie = new Cookie("username", null);
+        Cookie passwordCookie = new Cookie("password", null);
+        usernameCookie.setMaxAge(0);
+        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
+        response.addCookie(usernameCookie);
+        response.addCookie(passwordCookie);
+    }
 
     @RequestMapping(value = "wechatLogin.action", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody

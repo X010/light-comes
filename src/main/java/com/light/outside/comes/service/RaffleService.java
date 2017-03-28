@@ -1,5 +1,6 @@
 package com.light.outside.comes.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -11,11 +12,13 @@ import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
+import com.light.outside.comes.utils.HttpTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -532,11 +535,36 @@ public class RaffleService {
 
     /**
      * 根据奖品ID抽奖
-     *
+     *接口地址：
+     http://www.qubulikou.com/user/createCoupon
+
+     请求方式：POST
+     参数格式: JSON
+     具体参数：
+     [
+     'id' => 11, //新系统优惠券id，必选
+     'amount' => 10, //金额, 必选
+     'starttime' => '2017-3-2 12:32:34', //开始时间，必选，需小于截止时间
+     'endtime' => '2017-4-2 12:32:34', //截止时间，必选，需大于开始时间，且大于现在时间
+     'userid' => 13, //用户id，可选，新建的优惠券会发放给此用户, 不发放传0
+     'shopid' => 10, //商铺id, 可选，新建的优惠券在此商铺使用（此商铺必须存在），不限制传0
+     'promotionid' => 30, //促销活动id, 可选， 新建的优惠券在此促销活动中使用(此促销活动必须存在),不限制传0
+     'categoryid' => 12, //分类id, 可选,新建的优惠券在此分类下使用 （此分类必须存在）,不限制传0
+     'picture' => 'xxx.jpg', //图片路径, 可选
+     'threshold' => 0, //起用门限，可选
+     ]
+
+     返回：JSON
+     成功:
+     ['errcode'=>0,'msg'=>'success', 'data'=>['couponId'=>100]]  //老系统新建的优惠券id
+
+     失败：
+     ['errcode'=>1004,'msg'=>'参数shopid错误', 'data'=>[]]
      * @param rcid
      * @return
      */
     public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
+        String url="http://www.qubulikou.com/user/createCoupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
@@ -546,6 +574,21 @@ public class RaffleService {
                 if (couponRecordModels != null) {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
+                    //TODO
+                    JSONObject params=new JSONObject();
+                    params.put("id",String.valueOf(couponRecordModel.getId()));
+                    params.put("amount", String.valueOf(couponRecordModel.getPrice()));
+                    params.put("starttime", String.valueOf(couponRecordModel.getUse_start_time()));
+                    params.put("endtime", String.valueOf(couponRecordModel.getUse_end_time()));
+                    params.put("userid", String.valueOf(couponRecordModel.getUid()));
+                    params.put("shopid", String.valueOf(0));
+                    params.put("promotionid", String.valueOf(rcid));
+                    params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    try {
+                        HttpTools.post(url,params.toJSONString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return raffleCouponModel;
                 }
             }

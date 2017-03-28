@@ -59,6 +59,37 @@ public class CouponService {
         return status;
     }
 
+    public int changeCoupon(String cardno,long couponRecordId){
+        int status=0;
+        CouponRecordModel couponRecordModel = persistentDao.getCouponRecordById(couponRecordId);
+        if (couponRecordModel != null) {
+            if (couponRecordModel.getStatus() == CONST.COUPON_STATUS_NOTUSED) {
+                CouponUsedRecord couponUsedRecord = new CouponUsedRecord();
+                couponUsedRecord.setCoupon_record_id(couponRecordModel.getId());
+                couponUsedRecord.setUid(0);
+                couponUsedRecord.setCardno(cardno);
+                couponUsedRecord.setUsed_time(new Date());
+                couponUsedRecord.setSource_uid(couponRecordModel.getUid());
+                couponUsedRecord.setSource_phone(couponRecordModel.getPhone());
+                couponUsedRecord.setTo_phone("0");
+                couponUsedRecord.setCoupon_title(couponRecordModel.getTitle());
+                couponUsedRecord.setStatus(1);
+                couponUsedRecord.setPrice(couponRecordModel.getPrice());
+                int count = persistentDao.addCouponUsedRecord(couponUsedRecord);
+                if (count > 0) {
+                    status = 1;
+                    //修改为已使用状态
+                    persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
+                }
+            } else {
+                status = -1;
+            }
+        } else {
+            status = -2;
+        }
+        return status;
+    }
+
     /**
      * 根据手机号码获取转让过来信息
      *
