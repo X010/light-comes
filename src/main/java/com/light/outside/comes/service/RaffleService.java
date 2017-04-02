@@ -10,6 +10,7 @@ import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
+import com.light.outside.comes.service.weixin.MD5;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
 import com.light.outside.comes.utils.HttpTools;
@@ -574,7 +575,7 @@ public class RaffleService {
                 if (couponRecordModels != null) {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
-                    //TODO
+                    //TODO 请求老系统保存优惠券信息
                     JSONObject params=new JSONObject();
                     params.put("id",String.valueOf(couponRecordModel.getId()));
                     params.put("amount", String.valueOf(couponRecordModel.getPrice()));
@@ -584,6 +585,9 @@ public class RaffleService {
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(rcid));
                     params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    String checkToken = MD5.MD5Encode(params.toJSONString());
+                    params.put("token",checkToken);
+                    System.out.println(params.toJSONString() + "    " + checkToken);
                     try {
                         HttpTools.post(url,params.toJSONString());
                     } catch (IOException e) {
@@ -593,7 +597,6 @@ public class RaffleService {
                 }
             }
         }
-        //
         return null;
     }
 

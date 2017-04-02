@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
-
+    private final static String LOGIN_URL="http://www.qubulikou.com/yeshizuileweixin/Mine/login.html";
     private final static Logger LOG = LoggerFactory.getLogger(SessionFilter.class);
 
     @Value("${baseUrl}")
@@ -105,8 +105,9 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             String servletPath = request.getServletPath().replace("//", "");
             String contextPath = request.getContextPath();
-            String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
-            System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
+            //String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
+            //System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
+            String forwardUrl=LOGIN_URL;
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
@@ -121,7 +122,8 @@ public class SessionFilter implements javax.servlet.Filter {
                 out = response.getWriter();
                 out.println("<script language='javascript' type='text/javascript'>");
                 System.out.println("url:"+StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
-                out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
+                //out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
+                out.println("window.top.location.href="+forwardUrl);
                 out.println("</script>");
             }
 //            out = response.getWriter();

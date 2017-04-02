@@ -134,7 +134,7 @@ public class ClientLoginController extends BaseController {
      */
     @RequestMapping("login_api.action")
     @ResponseBody
-    public String loginForAPI(Map<String, Object> data, HttpServletRequest request){
+    public String loginForAPI(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response){
         String phone = RequestTools.RequestString(request, "username", "");
         String password = RequestTools.RequestString(request, "password", "");
         String token=RequestTools.RequestString(request,"token","");
@@ -144,6 +144,12 @@ public class ClientLoginController extends BaseController {
         if(checkToken.equals(token)) {
             boolean isSuccess = loginService.clientLogin(phone, password, request);
             if (isSuccess) {
+                Cookie usernameCookie = new Cookie("username", URLEncoder.encode(phone));
+                Cookie passwordCookie = new Cookie("password", URLEncoder.encode(password));
+                usernameCookie.setMaxAge(864000);
+                passwordCookie.setMaxAge(864000);//设置最大生存期限为10天
+                response.addCookie(usernameCookie);
+                response.addCookie(passwordCookie);
                 data.put("code", 200);
                 data.put("msg", "登录成功");
             } else {
