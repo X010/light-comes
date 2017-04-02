@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
     private final static String LOGIN_URL="http://www.qubulikou.com/yeshizuileweixin/Mine/login.html";
+    private final static String TEST_LOGIN_URL="http://120.55.241.127/Mine/login.html";
     private final static Logger LOG = LoggerFactory.getLogger(SessionFilter.class);
 
     @Value("${baseUrl}")
@@ -107,7 +108,7 @@ public class SessionFilter implements javax.servlet.Filter {
             String contextPath = request.getContextPath();
             //String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
             //System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
-            String forwardUrl=LOGIN_URL;
+            String forwardUrl=TEST_LOGIN_URL;
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {

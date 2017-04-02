@@ -157,7 +157,8 @@
         <p>砍价</p>
     </a>
     <#--<a class="on" href="${baseUrl}my/mine.action">-->
-    <a class="on" href="http://www.qubulikou.com/yeshizuileweixin/mine.html">
+    <#--<a class="on" href="http://www.qubulikou.com/yeshizuileweixin/mine.html">-->
+    <a class="on" href="http://120.55.241.127/mine.html"
         <img class="" src="${baseUrl}images/mine_on.png"/>
 
         <p class="on">我的</p>

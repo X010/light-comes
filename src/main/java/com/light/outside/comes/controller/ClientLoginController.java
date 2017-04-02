@@ -141,8 +141,10 @@ public class ClientLoginController extends BaseController {
         //String signStr=phone+"&"+password+"&"+ CONST.SIGNATURE_KEY;
         String signStr=String.format("%s&%s&%s",password,phone,CONST.SIGNATURE_KEY);
         String checkToken = MD5.MD5Encode(signStr);
+        LOG.info("login:"+phone +" password:" +password +" token:"+token);
         if(checkToken.equals(token)) {
             boolean isSuccess = loginService.clientLogin(phone, password, request);
+            LOG.info("username:"+phone +" status:"+isSuccess);
             if (isSuccess) {
                 Cookie usernameCookie = new Cookie("username", URLEncoder.encode(phone));
                 Cookie passwordCookie = new Cookie("password", URLEncoder.encode(password));
