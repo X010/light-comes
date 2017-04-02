@@ -123,7 +123,7 @@ public class SessionFilter implements javax.servlet.Filter {
                 out.println("<script language='javascript' type='text/javascript'>");
                 System.out.println("url:"+StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
                 //out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
-                out.println("window.top.location.href="+forwardUrl);
+                out.println("window.top.location.href='"+forwardUrl+"'");
                 out.println("</script>");
             }
 //            out = response.getWriter();
