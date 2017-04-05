@@ -42,7 +42,7 @@ public interface ReadDao {
      * @param phone
      * @return
      */
-    @Select("select * from t_user where phone=#{phone} and passwd=substr(md5(#{pwd}),8,8)")
+    @Select("select * from t_user where phone=#{phone} and passwd=substr(md5(#{pwd}),9,8)")
     UserModel getUserByPassword(@Param("phone") String phone, @Param("pwd") String pwd);
 
     /**
