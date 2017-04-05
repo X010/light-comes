@@ -565,7 +565,8 @@ public class RaffleService {
      * @return
      */
     public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
-        String url="http://www.qubulikou.com/user/createCoupon";
+        //String url="http://www.qubulikou.com/user/createCoupon";
+        String url="http://120.55.241.127/user/createCoupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
@@ -589,7 +590,8 @@ public class RaffleService {
                     params.put("token",checkToken);
                     System.out.println(params.toJSONString() + "    " + checkToken);
                     try {
-                        HttpTools.post(url,params.toJSONString());
+                        String response=HttpTools.post(url, params.toJSONString());
+                        System.out.println("response:"+response);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

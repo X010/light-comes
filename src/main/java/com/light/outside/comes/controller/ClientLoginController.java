@@ -140,9 +140,9 @@ public class ClientLoginController extends BaseController {
         String token=RequestTools.RequestString(request,"token","");
         //String signStr=phone+"&"+password+"&"+ CONST.SIGNATURE_KEY;
         String signStr=String.format("%s&%s&%s",password,phone,CONST.SIGNATURE_KEY);
-        String checkToken = MD5.MD5Encode(signStr);
+//        String checkToken = MD5.MD5Encode(signStr);
         LOG.info("login:"+phone +" password:" +password +" token:"+token);
-        if(checkToken.equals(token)) {
+        //if(checkToken.equals(token)) {
             boolean isSuccess = loginService.clientLogin(phone, password, request);
             LOG.info("username:"+phone +" status:"+isSuccess);
             if (isSuccess) {
@@ -158,10 +158,10 @@ public class ClientLoginController extends BaseController {
                 data.put("code", 500);
                 data.put("msg", "登录失败");
             }
-        }else{
-            data.put("code",404);
-            data.put("msg","签名验证失败");
-        }
+//        }else{
+//            data.put("code",404);
+//            data.put("msg","签名验证失败");
+//        }
         return JsonTools.jsonSer(data);
     }
 
@@ -186,7 +186,7 @@ public class ClientLoginController extends BaseController {
         Cookie usernameCookie = new Cookie("username", null);
         Cookie passwordCookie = new Cookie("password", null);
         usernameCookie.setMaxAge(0);
-        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
+        passwordCookie.setMaxAge(0);
         response.addCookie(usernameCookie);
         response.addCookie(passwordCookie);
     }
