@@ -138,6 +138,7 @@ public class ClientLoginController extends BaseController {
         String phone = RequestTools.RequestString(request, "username", "");
         String password = RequestTools.RequestString(request, "password", "");
         String token=RequestTools.RequestString(request,"token","");
+        String callback=RequestTools.RequestString(request,"callback","");
         //String signStr=phone+"&"+password+"&"+ CONST.SIGNATURE_KEY;
         String signStr=String.format("%s&%s&%s",password,phone,CONST.SIGNATURE_KEY);
 //        String checkToken = MD5.MD5Encode(signStr);
@@ -162,7 +163,7 @@ public class ClientLoginController extends BaseController {
 //            data.put("code",404);
 //            data.put("msg","签名验证失败");
 //        }
-        return JsonTools.jsonSer(data);
+        return CallBackResultJsonP(JsonTools.jsonSer(data), callback);
     }
 
     /**
@@ -175,10 +176,11 @@ public class ClientLoginController extends BaseController {
     @RequestMapping("loginout_api.action")
     @ResponseBody
     public String loginoutForAPI(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response){
+        String callback=RequestTools.RequestString(request,"callback","");
         loginout(request,response);
         data.put("code", 200);
         data.put("msg","登出成功");
-        return JsonTools.jsonSer(data);
+        return CallBackResultJsonP(JsonTools.jsonSer(data), callback);
     }
 
     private void loginout(HttpServletRequest request,HttpServletResponse response){

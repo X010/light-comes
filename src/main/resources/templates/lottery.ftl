@@ -45,6 +45,11 @@
 <div id="firstDiv"></div>
 
 <footer>
+    <#--<a href="http://www.qubulikou.com/yeshizuileweixin/index.html">-->
+        <a href="http://120.55.241.127/index.html">
+        <img src="${baseUrl}images/home.png"/>
+        <p>首页</p>
+    </a>
     <a href="${baseUrl}raffle/lottery.action" class="on">
         <img src="${baseUrl}images/ticket_on.png"/>
         <p class="on">抽奖券</p>

@@ -134,4 +134,18 @@ public class BaseController {
         }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
+
+    /**
+     * callback数据处理
+     *
+     * @param result
+     * @param callback
+     * @return
+     */
+    public static String CallBackResultJsonP(String result, String callback) {
+        if (Strings.isNullOrEmpty(callback))
+            return result;
+        result = String.format("%s(%s)", callback, result);
+        return result;
+    }
 }

@@ -81,6 +81,7 @@ public class CouponController extends BaseController {
     public String useCoupon(Map<String,Object> data,HttpServletRequest request){
         long id=RequestTools.RequestLong(request, "id", 0);
         String token=RequestTools.RequestString(request, "token", "");
+        String callback=RequestTools.RequestString(request,"callback","");
         String signStr=String.format("%d&%s",id,CONST.SIGNATURE_KEY);
         System.out.println(signStr);
         String checkToken = MD5.MD5Encode(signStr);
@@ -105,7 +106,7 @@ public class CouponController extends BaseController {
         }
         data.put("code",code);
         data.put("msg",msg);
-        return JsonTools.jsonSer(data);
+        return CallBackResultJsonP(JsonTools.jsonSer(data),callback);
     }
 
 
