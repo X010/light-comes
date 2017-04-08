@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.json.Json;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -575,7 +576,7 @@ public class RaffleService {
             int result = percentageRandom(rate);
             if (result > 0) {
                 List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
-                if (couponRecordModels != null) {
+                if (couponRecordModels != null&&couponRecordModels.size()>0) {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
@@ -593,7 +594,13 @@ public class RaffleService {
                     System.out.println(params.toJSONString());
                     try {
                         String response=HttpTools.post(url, params.toJSONString());
-                        System.out.println("response:"+response);
+                        JSONObject jsonObject=JSONObject.parseObject(response);
+                        String errcode= (String) jsonObject.get("errcode");
+                        if(errcode.equals("0")){
+                            System.out.println("add success "+response);
+                        }else {
+                            System.out.println("response:" + response);
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
