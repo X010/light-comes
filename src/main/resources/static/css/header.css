@@ -24,7 +24,7 @@ header p.right{ right:3.2rem;}
 
 /*底部*/
 footer{position: fixed;left: 0;bottom: 0;height:60px;background: #fff;color:#000;width:100%; border-top:1px solid #f1522f;padding:0 0 10px; line-height: 35px; box-shadow:0 0 10px #ccc;}
-footer>a{ display:block; float:left;width:19%; margin:0 0.2%;text-align: center;color:#000;text-decoration:none; }
+footer>a{ display:block; float:left;width:16%; margin:0 0.2%;text-align: center;color:#000;text-decoration:none; }
 a.on{border-top:5px solid #f15739;}
 p.on{color:#f15739;}
 footer>a img{position:relative; width:40%; height: 25px; margin-top:10px;}

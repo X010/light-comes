@@ -13,6 +13,7 @@ import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.service.weixin.MD5;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
+import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.HttpTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -566,7 +567,8 @@ public class RaffleService {
      */
     public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
-        String url="http://120.55.241.127/user/createCoupon";
+        //String url="http://120.55.241.127/user/createCoupon";
+        String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
@@ -580,15 +582,15 @@ public class RaffleService {
                     JSONObject params=new JSONObject();
                     params.put("id",String.valueOf(couponRecordModel.getId()));
                     params.put("amount", String.valueOf(couponRecordModel.getPrice()));
-                    params.put("starttime", String.valueOf(couponRecordModel.getUse_start_time()));
-                    params.put("endtime", String.valueOf(couponRecordModel.getUse_end_time()));
+                    params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
+                    params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
                     params.put("userid", String.valueOf(couponRecordModel.getUid()));
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(rcid));
                     params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
                     String checkToken = MD5.MD5Encode(params.toJSONString());
                     params.put("token",checkToken);
-                    System.out.println(params.toJSONString() + "    " + checkToken);
+                    System.out.println(params.toJSONString());
                     try {
                         String response=HttpTools.post(url, params.toJSONString());
                         System.out.println("response:"+response);

@@ -70,7 +70,8 @@
 
         <p>砍价</p>
     </a>
-    <a href="${baseUrl}my/mine.action">
+    <#--<a href="${baseUrl}my/mine.action">-->
+        <a href="http://120.55.241.127/mine.html">
         <img class="" src="${baseUrl}images/mine.png"/>
 
         <p>我的</p>
