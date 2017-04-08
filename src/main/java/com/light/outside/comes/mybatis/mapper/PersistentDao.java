@@ -47,7 +47,7 @@ public interface PersistentDao {
     @Select("select * from comes_conpon_records where id=#{id}")
     public CouponRecordModel getCouponRecordById(@Param("id") long id);
 
-    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status}  order  by id desc limit #{star},#{size}")
+    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} and uid=0  order  by id desc limit #{star},#{size}")
     public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")

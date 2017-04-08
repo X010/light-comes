@@ -565,7 +565,7 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
+    public RaffleCouponModel drawRaffleByRage(long rid,long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
         String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
@@ -584,9 +584,9 @@ public class RaffleService {
                     params.put("amount", String.valueOf(couponRecordModel.getPrice()));
                     params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
                     params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
-                    params.put("userid", String.valueOf(couponRecordModel.getUid()));
+                    params.put("userid", String.valueOf(uid));
                     params.put("shopid", String.valueOf(0));
-                    params.put("promotionid", String.valueOf(rcid));
+                    params.put("promotionid", String.valueOf(0));
                     params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
                     String checkToken = MD5.MD5Encode(params.toJSONString());
                     params.put("token",checkToken);
