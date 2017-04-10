@@ -82,12 +82,12 @@ public class CouponController extends BaseController {
         long id=RequestTools.RequestLong(request, "id", 0);
         String token=RequestTools.RequestString(request, "token", "");
         String callback=RequestTools.RequestString(request,"callback","");
-        String signStr=String.format("%d&%s",id,CONST.SIGNATURE_KEY);
-        System.out.println(signStr);
-        String checkToken = MD5.MD5Encode(signStr);
+//        String signStr=String.format("%d&%s",id,CONST.SIGNATURE_KEY);
+//        System.out.println(signStr);
+//        String checkToken = MD5.MD5Encode(signStr);
         int code=-2;
         String msg="转让成功！";
-        if(checkToken.equals(token)) {
+//        if(checkToken.equals(token)) {
         CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
         if(couponRecordModel!=null) {
             code = couponService.changeCoupon(couponRecordModel.getCardno(), id);
@@ -100,10 +100,10 @@ public class CouponController extends BaseController {
                 msg="兑换失败，该优惠券状态已过期或已使用!";
             }
         }
-        }else{
-            code=-3;
-            msg="签名验证失败";
-        }
+//        }else{
+//            code=-3;
+//            msg="签名验证失败";
+//        }
         data.put("code",code);
         data.put("msg",msg);
         return CallBackResultJsonP(JsonTools.jsonSer(data),callback);
