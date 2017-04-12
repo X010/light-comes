@@ -34,7 +34,10 @@ public class CommodityCategory {
      * 二级分类ID
      */
     private String category2;
-
+    /**
+     * 三级分类
+     */
+    private String category3;
 
     private String filters;
 
@@ -81,5 +84,13 @@ public class CommodityCategory {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public String getCategory3() {
+        return category3;
+    }
+
+    public void setCategory3(String category3) {
+        this.category3 = category3;
     }
 }

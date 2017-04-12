@@ -273,9 +273,9 @@ public class PastService {
 
                 if (pastModel != null) {
                     int dayTotal = 0;
-                    if (pastModel.getCreate_time() != null) {
+                    if (pastModel.getStart_time() != null) {
                         try {
-                            dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                            dayTotal = daysBetween(pastModel.getStart_time(), new Date());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

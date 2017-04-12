@@ -595,8 +595,8 @@ public class RaffleService {
                     try {
                         String response=HttpTools.post(url, params.toJSONString());
                         JSONObject jsonObject=JSONObject.parseObject(response);
-                        String errcode= (String) jsonObject.get("errcode");
-                        if(errcode.equals("0")){
+                        int errcode=jsonObject.getInteger("errcode");
+                        if(errcode==0){
                             System.out.println("add success "+response);
                         }else {
                             System.out.println("response:" + response);

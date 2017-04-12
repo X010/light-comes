@@ -101,6 +101,18 @@ public class OverchargedModel extends BaseModel {
      * 还有多少天
      */
     private int free_time;
+    /**
+     * 砍价活动说明
+     */
+    private String info;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public int getFree_time() {
         return free_time;

@@ -60,7 +60,7 @@ public interface ReadDao {
      * @param size
      * @return
      */
-    @Select("select * from t_goods where name like #{keyword} limit 1,#{size}")
+    @Select("select * from t_goods where name like #{keyword} limit 0,#{size}")
     public List<Commodity> getCommodityByKeyword(@Param("keyword") String keyword, @Param("size") int size);
 
 

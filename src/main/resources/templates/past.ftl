@@ -47,6 +47,18 @@
         </div>
     </div>
     <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
+    <#--<div class="msgn">-->
+        <#--<p style="width: 100%;">-->
+        <#--<span class="msgbold">活动规则说明：<span>-->
+        <#--<span>-->
+        <#--<#if info??>-->
+        <#--${info}-->
+        <#--<#else>-->
+            <#--无-->
+        <#--</#if>-->
+        <#--</span>-->
+        <#--</p>-->
+    <#--</div>-->
 </div>
 		<div id="shareit" onclick="close_sharewx()">
 			<img class="arrow" src='${baseUrl}images/share.jpg'/>
