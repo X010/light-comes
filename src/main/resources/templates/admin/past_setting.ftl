@@ -125,6 +125,21 @@
                                        name="prizes_name" id="prizes_name" placeholder="奖品名称">
                             </div>
                             <div class="form-group">
+                                <label for="title">签到标题</label>
+                                <input type="text" class="form-control"
+                                <#--<#if pr??>-->
+
+                                <#--</#if>-->
+                                       name="title" id="title" placeholder="签到标题">
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="photo_up">活动图片(建议使用JPG图片)</label>
+
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="photo" name="photo_up" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="title">活动规则说明</label>
                                 <textarea id="info" name="info" class="form-control"
                                           style="height: 300px"><#if pr??>${pr.info}</#if></textarea>
@@ -158,7 +173,9 @@
         document.title = "签到";
         $("#check").addClass("active");
         setNav("签到", "签到设置");
-        $("#info").wysihtml5();
+        $("#info").wysihtml5({
+            language:'zh-CN'
+        });
         $('#start_time').datetimepicker({
             format: "yyyy-mm-dd hh:ii:ss",
             autoclose: true,

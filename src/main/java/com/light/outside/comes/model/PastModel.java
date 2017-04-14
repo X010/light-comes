@@ -83,6 +83,30 @@ public class PastModel extends BaseModel {
      *  活动规则说明
      */
     private String info;
+    /**
+     * 签到标题
+     */
+    private String title;
+    /**
+     * 顶部图片
+     */
+    private String photo;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public String getInfo() {
         return info;

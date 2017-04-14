@@ -187,7 +187,10 @@
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;
+                var drunk = data.total_drunk - data.cycle_drunk;//清空后total_drunk变成了0
+                if (drunk<0){
+                    drunk=0;
+                }
                 maxValue = data.total_drunk;
                 console.log(maxValue);
                 config.maxValue = maxValue;//总容量
