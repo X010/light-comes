@@ -632,7 +632,7 @@ public class RaffleService {
      * 清除过期活动
      */
     public void clearRaffle() {
-        List<RaffleModel> raffleModels = this.persistentDao.getRaffles(1, Integer.MAX_VALUE);
+        List<RaffleModel> raffleModels = this.persistentDao.getRaffles(0, Integer.MAX_VALUE);
         if (raffleModels != null) {
             for (RaffleModel raffleModel : raffleModels) {
                 if (raffleModel.getEnd_time().getTime() <= System.currentTimeMillis() && raffleModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {

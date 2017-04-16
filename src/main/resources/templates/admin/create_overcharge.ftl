@@ -46,7 +46,15 @@
                                 <!-- /.input group -->
                             </div>
 
-
+                            <div class="form-group">
+                                <label for="subtract_price">砍价力度</label>
+                                <input type="number" name="subtract_count"
+                                <#if overcharged??>
+                                       value="${overcharged.subtract_count}"
+                                </#if>
+                                       class="form-control" id="subtract_count"
+                                       placeholder="共需要砍？刀：1">
+                            </div>
                             <div class="form-group">
                                 <label for="subtract_price">砍价幅度</label>
                                 <input type="number" name="subtract_price"
@@ -76,12 +84,10 @@
                             </div>
                             <div class="form-group">
                                 <label>绑定商品</label>
-
                                 <div class="input-group input-group-sm">
                                     <input type="text" name="searchKeyword"
                                     <#if overcharged??>
                                            value="${overcharged.good_name}"
-
                                            disabled
                                     </#if>
                                            id="searchKeyword" class="form-control">
@@ -106,6 +112,15 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="form-group">
+                                <label for="inventory">商品库存</label>
+                                <input type="number" name="inventory"
+                                <#if overcharged??>
+                                       value="${overcharged.inventory}"
+                                </#if>
+                                       class="form-control" id="inventory"
+                                       placeholder="如：2">
                             </div>
                             <div class="box-footer">
                                 <div class="pull-right">

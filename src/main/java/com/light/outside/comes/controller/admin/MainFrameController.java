@@ -962,14 +962,39 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping(value = "past_setting.action")
-    public String past_setting(Map<String, Object> data, PastModel pastModel, HttpServletRequest httpServletRequest) {
-
+    public String past_setting(Map<String, Object> data, PastModel pastModel, @RequestParam("photo_up") MultipartFile file,  @RequestParam("share_photo_file") MultipartFile share_file,HttpServletRequest httpServletRequest) {
         if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
             if (pastModel != null && pastModel.getTotal_drunk() > 0) {
+                String file_path = FileUtil.saveFile(file);
+                if (!Strings.isNullOrEmpty(file_path)) {
+                    pastModel.setPhoto(file_path);
+                }
+                String share_file_path=FileUtil.saveFile(share_file);
+                if(!Strings.isNullOrEmpty(file_path)){
+                    pastModel.setShare_photo(share_file_path);
+                }
                 pastModel = this.pastService.svePastModel(pastModel);
-                return "redirect:past_setting.action";
+                return "redirect:past_redirect.action";
             }
         }
+
+        if (pastModel == null || pastModel.getTotal_drunk() <= 0) {
+            pastModel = this.pastService.getPastModelById();
+        }
+
+        if (pastModel != null) {
+            data.put("pr", pastModel);
+        }
+        return "/admin/past_setting";
+    }
+
+    /**
+     * 签到设置
+     *
+     * @return
+     */
+    @RequestMapping(value = "past_redirect.action")
+    public String past_redirect(Map<String, Object> data, PastModel pastModel,HttpServletRequest httpServletRequest) {
 
         if (pastModel == null || pastModel.getTotal_drunk() <= 0) {
             pastModel = this.pastService.getPastModelById();

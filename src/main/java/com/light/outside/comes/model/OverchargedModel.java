@@ -105,9 +105,33 @@ public class OverchargedModel extends BaseModel {
      * 砍价活动说明
      */
     private String info;
+    /**
+     * 砍价力度
+     */
+    private int subtract_count;
+    /**
+     * 商品库存
+     */
+    private int inventory;
 
     public String getInfo() {
         return info;
+    }
+
+    public int getSubtract_count() {
+        return subtract_count;
+    }
+
+    public void setSubtract_count(int subtract_count) {
+        this.subtract_count = subtract_count;
+    }
+
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
     }
 
     public void setInfo(String info) {

@@ -9,7 +9,7 @@
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
     <section class="content">
-        <form action="${baseUrl}admin/past_setting.action" id="past_setting" name="past_setting" method="post">
+        <form action="${baseUrl}admin/past_setting.action" id="past_setting" name="past_setting" method="post"  enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-primary">
@@ -127,9 +127,9 @@
                             <div class="form-group">
                                 <label for="title">签到标题</label>
                                 <input type="text" class="form-control"
-                                <#--<#if pr??>-->
-
-                                <#--</#if>-->
+                                <#if pr??>
+                                    value="${pr.title}";
+                                </#if>
                                        name="title" id="title" placeholder="签到标题">
                             </div>
                             <div class="control-group">
@@ -137,6 +137,28 @@
 
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="photo" name="photo_up" type="file">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享标题</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_title}";
+                                </#if>
+                                       name="share_title" id="share_title" placeholder="签到标题">
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享描述</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_desc}";
+                                </#if>
+                                       name="share_desc" id="share_desc" placeholder="签到标题">
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="share_photo">分享图标</label>
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -176,6 +198,10 @@
         $("#info").wysihtml5({
             language:'zh-CN'
         });
+//        var editor = new wysihtml5.Editor('editor', {
+//            toolbar: 'toolbar',
+//            parserRules:  wysihtml5ParserRules
+//        });
         $('#start_time').datetimepicker({
             format: "yyyy-mm-dd hh:ii:ss",
             autoclose: true,

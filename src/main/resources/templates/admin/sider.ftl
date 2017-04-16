@@ -21,7 +21,7 @@
             <li id="check" class="treeview">
                 <a href="#"><i class="fa   fa-check-circle"></i> <span>签到</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="${baseUrl}admin/past_setting.action"> <i class="fa   fa-gift"></i> <span>会员签到设置</span></a></li>
+                    <li><a href="${baseUrl}admin/past_redirect.action"> <i class="fa   fa-gift"></i> <span>会员签到设置</span></a></li>
                     <li><a href="${baseUrl}admin/past_detail.action"> <i class="fa  fa-calendar"></i> <span>会员签到详情</span></a></li>
                 </ul>
             </li>

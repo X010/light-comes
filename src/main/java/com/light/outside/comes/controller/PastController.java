@@ -3,6 +3,7 @@ package com.light.outside.comes.controller;
 import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.model.JsonResponse;
+import com.light.outside.comes.model.PastModel;
 import com.light.outside.comes.model.PastTotal;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.qbkl.service.QblkService;
@@ -58,7 +59,9 @@ public class PastController extends BaseController {
             url=url+"?"+queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
+        PastModel pastModel=pastService.getPastModelById();
         data.put("phone",userModel.getPhone());
+        data.put("pt",pastModel);
         return "past";
     }
 

@@ -88,7 +88,7 @@
     config.displayPercent = false;
     var gauge;
     wx.config({
-        debug: false,
+        debug: true,
         appId: '${app_id}',
         timestamp: ${timestamp!},
         nonceStr: '${nonceStr!}',
@@ -103,33 +103,33 @@
     });
     wx.ready(function () {
     wx.onMenuShareTimeline({
-        title: '帮朋友干杯', // 分享标题
+        title: '${pt.share_title}', // 分享标题
         link: 'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone}, // 分享链接
-        imgUrl: 'http://www.qubulikou.com/qblk/images/caro2.png' // 分享图标
+        imgUrl: 'http://www.qubulikou.com/qblk/photo/${pt.share_photo}' // 分享图标
         });
     wx.onMenuShareAppMessage({
-	title:'大侠，帮我来干杯！',
-	desc:'帮朋友干杯',
+	title:'${pt.share_title}',
+	desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
 	});
     wx.onMenuShareQQ({
-	title:'大侠，帮我来干杯！',
-	desc:'帮朋友干杯',
+        title:'${pt.share_title}',
+        desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
     	});
     wx.onMenuShareWeibo({
-	title:'大侠，帮我来干杯！',
-	desc:'帮朋友干杯',
+        title:'${pt.share_title}',
+        desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+	imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
 	});
     wx.onMenuShareQZone({
-    	title:'大侠，帮我来干杯！',
-    	desc:'帮朋友干杯',
-    	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-    	imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
+        title:'${pt.share_title}',
+        desc:'${pt.share_desc}',
+        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
+        imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
 	});
     });
 
