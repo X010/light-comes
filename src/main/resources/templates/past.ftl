@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
+    <input type="button" id="chess" value="我也要干杯" class="chess" onclick="changeNum();"/>
 </div>
 		<div id="shareit" onclick="close_sharewx()">
 			<img class="arrow" src='${baseUrl}images/share.jpg'/>
@@ -123,6 +123,7 @@
 
     function changeNum() {
              if (data.today_have_times < 1) {
+			$("#chess").css("display","none");
            		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
            		  //点击确认后的回调函数
            		  sharewx();
@@ -144,8 +145,11 @@
                 $("#tdo_drunk").text(data.today_other_drunk);
                 var drunk = data.total_drunk - data.cycle_drunk;
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-                gauge.update(drunk);
+                gauge.update(drunk+"ml");
                 $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
+		if(data.today_have_times < 1){
+			$("#chess").css("display","none");
+		}
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
