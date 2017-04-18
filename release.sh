@@ -1,6 +1,6 @@
 #!/bin/sh
 # git pull origin master
-#sleep 5
+# sleep 5
 mvn clean install
 
 APP_NAME=light-comes

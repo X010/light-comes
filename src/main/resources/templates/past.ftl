@@ -18,7 +18,6 @@
         <div class="mid-top">
             <div class="mid-left">
                 <p class="drink">今天喝掉</p>
-
                 <p class="ml"><span id="td_drunk"></span>ml</p>
             </div>
             <div class="mid-right">
@@ -46,10 +45,14 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
     <input type="button" id="chess" value="我也要干杯" class="chess" onclick="changeNum();"/>
-=======
-    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
+    <div class="good">
+	<p>今日好人榜</p>
+	<div class="goodBottom">
+	    <p>今日没有好友干杯</p>
+	    <input type="button" value="召唤朋友帮您喝掉" class="call" onclick="sharewx();"/>
+	</div>
+    </div>
     <#--<div class="msgn">-->
         <#--<p style="width: 100%;">-->
         <#--<span class="msgbold">活动规则说明：<span>-->
@@ -62,7 +65,6 @@
         <#--</span>-->
         <#--</p>-->
     <#--</div>-->
->>>>>>> 33b8b1bbc06910c2f3f97c1736cde9947e3a2b61
 </div>
 		<div id="shareit" onclick="close_sharewx()">
 			<img class="arrow" src='${baseUrl}images/share.jpg'/>
@@ -81,7 +83,7 @@
     config.textColor = "#ED1E37";
     config.waveTextColor = "#FD8F94";
     config.waveColor = "#FFDDDD";
-    config.textVertPosition = 0.52;
+    config.textVertPosition = 0.8;
     config.waveAnimateTime = 2000;
     config.waveHeight = 0.1;
     config.waveAnimate = true;
@@ -139,8 +141,7 @@
 
     function changeNum() {
              if (data.today_have_times < 1) {
-			$("#chess").css("display","none");
-           		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
+		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
            		  //点击确认后的回调函数
            		  sharewx();
            		    }, function() {
@@ -163,9 +164,6 @@
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
                 gauge.update(drunk+"ml");
                 $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
-		if(data.today_have_times < 1){
-			$("#chess").css("display","none");
-		}
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
@@ -182,6 +180,7 @@
     }
 
     function loadAjax() {
+	var chess = document.getElementById("chess");
         $.ajax({
             type: 'GET',
             url: 'info.action',
@@ -191,6 +190,9 @@
             async: false,
             success: function (re_json) {
                 data = re_json.data;
+		if(data.today_have_times < 1){
+		   chess.style.display = "none";
+		}
                 $("#td_drunk").text(data.today_drunk);
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
