@@ -138,7 +138,7 @@ public class AuctionController extends BaseController {
                 if (auctionRecordsModel != null) {
                     topPrice = auctionRecordsModel.getPrice();
                 }
-                if ((price - topPrice) < auctionModel.getSetp_amount()) {
+                if (ArithUtil.sub(ArithUtil.sub(price,topPrice),auctionModel.getSetp_amount())>0) {
                     msg = "加价幅度必须大于" + auctionModel.getSetp_amount() + "元";
                 } else if (price > topPrice) {
                     isSuccess = auctionService.bidAuction(userModel, aid, price);
@@ -240,8 +240,11 @@ public class AuctionController extends BaseController {
     public String pay(Map<String, Object> data, HttpServletRequest request) {
         String payPrice = RequestTools.RequestString(request, "price", "0");
         long aid = RequestTools.RequestLong(request, "aid", 0);
+//        String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
+//                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fauction_margin_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
+//                "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
-                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fauction_margin_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fyeshizuileweixin%2FCart%2Fauction_margin_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
                 "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         return "redirect:" + tourl;
     }
@@ -257,8 +260,6 @@ public class AuctionController extends BaseController {
         UserModel userModel = getAppUserInfo();
         //String title = RequestTools.RequestString(request, "title", "未知商品");
         String ip = getRemoteHost(request);
-        //TODO
-        String payPrice="0.01";
         //String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
         String code = RequestTools.RequestString(request, "code", "");
@@ -268,6 +269,7 @@ public class AuctionController extends BaseController {
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
         String title="曲不离口-保证金-" +auctionModel.getTitle();
         //TODO 测试完后放开
+        String payPrice=String.valueOf(auctionModel.getDeposit());
         //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
             JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
             String openid = jsonObject.getString("openid");

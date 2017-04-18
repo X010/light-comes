@@ -16,7 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SessionFilter implements javax.servlet.Filter {
-
+    private final static String LOGIN_URL="http://www.qubulikou.com/yeshizuileweixin/Mine/login.html";
+    private final static String TEST_LOGIN_URL="http://120.55.241.127/Mine/login.html";
     private final static Logger LOG = LoggerFactory.getLogger(SessionFilter.class);
 
     @Value("${baseUrl}")
@@ -38,11 +39,11 @@ public class SessionFilter implements javax.servlet.Filter {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();
         String url = request.getServletPath();
-        LOG.info("req :" + url);
+//        LOG.info("req :" + url);
         boolean isLogin = false;
         if (url.contains("admin/to_login.action") || url.contains("admin/login.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
-            LOG.info("req no filter:" + url);
+//            LOG.info("req no filter:" + url);
             chain.doFilter(request, response);
         } else if (url.contains("admin/")) {
             LOG.info("check session status");
@@ -54,7 +55,7 @@ public class SessionFilter implements javax.servlet.Filter {
             }
         }
         //客户端登录验证
-        else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action")
+        else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action") ||url.contains("qblk/loginout_api.acton")||url.contains("qblk/login_api.action")||url.contains("coupon/use_coupon_api.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             chain.doFilter(request, response);
         } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/") || url.contains("/my/") || url.contains("/pt/")) {
@@ -106,7 +107,8 @@ public class SessionFilter implements javax.servlet.Filter {
             String servletPath = request.getServletPath().replace("//", "");
             String contextPath = request.getContextPath();
             String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
-            System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
+            //System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
+//            String forwardUrl=TEST_LOGIN_URL;
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
@@ -120,8 +122,9 @@ public class SessionFilter implements javax.servlet.Filter {
 //                        + "?redirect=" + URLEncoder.encode(baseUrl+redirect, "UTF-8"));
                 out = response.getWriter();
                 out.println("<script language='javascript' type='text/javascript'>");
-                System.out.println(StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
-                out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(baseUrl + redirect, "UTF-8") + "'");
+                System.out.println("url:"+StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
+                //out.println("window.top.location.href='" + StringUtils.defaultIfEmpty(forwardUrl, "/") + "?redirect=" + URLEncoder.encode(redirect, "UTF-8") + "'");
+                out.println("window.top.location.href='"+forwardUrl+"'");
                 out.println("</script>");
             }
 //            out = response.getWriter();

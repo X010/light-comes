@@ -1,5 +1,6 @@
 package com.light.outside.comes.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -9,13 +10,18 @@ import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
+import com.light.outside.comes.service.weixin.MD5;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
+import com.light.outside.comes.utils.DateUtils;
+import com.light.outside.comes.utils.HttpTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.json.Json;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -532,25 +538,76 @@ public class RaffleService {
 
     /**
      * 根据奖品ID抽奖
-     *
+     *接口地址：
+     http://www.qubulikou.com/user/createCoupon
+
+     请求方式：POST
+     参数格式: JSON
+     具体参数：
+     [
+     'id' => 11, //新系统优惠券id，必选
+     'amount' => 10, //金额, 必选
+     'starttime' => '2017-3-2 12:32:34', //开始时间，必选，需小于截止时间
+     'endtime' => '2017-4-2 12:32:34', //截止时间，必选，需大于开始时间，且大于现在时间
+     'userid' => 13, //用户id，可选，新建的优惠券会发放给此用户, 不发放传0
+     'shopid' => 10, //商铺id, 可选，新建的优惠券在此商铺使用（此商铺必须存在），不限制传0
+     'promotionid' => 30, //促销活动id, 可选， 新建的优惠券在此促销活动中使用(此促销活动必须存在),不限制传0
+     'categoryid' => 12, //分类id, 可选,新建的优惠券在此分类下使用 （此分类必须存在）,不限制传0
+     'picture' => 'xxx.jpg', //图片路径, 可选
+     'threshold' => 0, //起用门限，可选
+     ]
+
+     返回：JSON
+     成功:
+     ['errcode'=>0,'msg'=>'success', 'data'=>['couponId'=>100]]  //老系统新建的优惠券id
+
+     失败：
+     ['errcode'=>1004,'msg'=>'参数shopid错误', 'data'=>[]]
      * @param rcid
      * @return
      */
-    public RaffleCouponModel drawRaffleByRage(long rcid, long uid, String phone) {
+    public RaffleCouponModel drawRaffleByRage(long rid,long rcid, long uid, String phone) {
+        //String url="http://www.qubulikou.com/user/createCoupon";
+        //String url="http://120.55.241.127/user/createCoupon";
+        String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             double rate = raffleCouponModel.getWinrate() / 100.00f;
             int result = percentageRandom(rate);
             if (result > 0) {
                 List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordModelByCid(raffleCouponModel.getCid(), CONST.RAFFLE_STATUS_NORMAL, 0, 1);
-                if (couponRecordModels != null) {
+                if (couponRecordModels != null&&couponRecordModels.size()>0) {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
+                    //TODO 请求老系统保存优惠券信息
+                    JSONObject params=new JSONObject();
+                    params.put("id",String.valueOf(couponRecordModel.getId()));
+                    params.put("amount", String.valueOf(couponRecordModel.getPrice()));
+                    params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
+                    params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
+                    params.put("userid", String.valueOf(uid));
+                    params.put("shopid", String.valueOf(0));
+                    params.put("promotionid", String.valueOf(0));
+                    params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    String checkToken = MD5.MD5Encode(params.toJSONString());
+                    params.put("token",checkToken);
+                    System.out.println(params.toJSONString());
+                    try {
+                        String response=HttpTools.post(url, params.toJSONString());
+                        JSONObject jsonObject=JSONObject.parseObject(response);
+                        int errcode=jsonObject.getInteger("errcode");
+                        if(errcode==0){
+                            System.out.println("add success "+response);
+                        }else {
+                            System.out.println("response:" + response);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return raffleCouponModel;
                 }
             }
         }
-        //
         return null;
     }
 

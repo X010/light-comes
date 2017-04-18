@@ -47,7 +47,7 @@ public interface PersistentDao {
     @Select("select * from comes_conpon_records where id=#{id}")
     public CouponRecordModel getCouponRecordById(@Param("id") long id);
 
-    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status}  order  by id desc limit #{star},#{size}")
+    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} and uid=0  order  by id desc limit #{star},#{size}")
     public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")
@@ -181,7 +181,7 @@ public interface PersistentDao {
             "and crc.rid=#{rid} " +
             "and ccr.`status`=#{status} " +
             "and ccr.uid>0 " +
-            "order by ccr.createtime desc " +
+            "order by ccr.updatetime desc " +
             "limit #{start},#{size}")
     public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
@@ -189,7 +189,7 @@ public interface PersistentDao {
             "where ccr.cid=crc.cid " +
             "and crc.rid=#{rid} " +
             "and ccr.uid>0 " +
-            "order by ccr.createtime desc " +
+            "order by ccr.updatetime desc " +
             "limit #{start},#{size}")
     public List<CouponRecordModel> getRaffleCouponRecordByRaffleId(@Param("rid") long rid, @Param("start") int start, @Param("size") int size);
 
@@ -251,13 +251,13 @@ public interface PersistentDao {
             "start_time=#{start_time},end_time=#{end_time},memo=#{memo},win_uid=#{win_uid},win_phone=#{win_phone},win_price=#{win_price} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
-    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount)" +
-            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount})")
+    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount,info)" +
+            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount},#{info})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOvercharged(OverchargedModel overchargedModel);
 
 
-    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time},over_amount=#{over_amount}  where id=#{id}")
+    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time},over_amount=#{over_amount},info=#{info}  where id=#{id}")
     public void updateOvercharged(OverchargedModel overchargedModel);
 
     @Select("select count(1) from comes_overcharged where status<>9")
@@ -381,13 +381,13 @@ public interface PersistentDao {
     public PastModel getPastById(@Param("id") long id);
 
 
-    @Insert("insert into comes_past(id,interval_day,min_drunk,max_drunk,total_drunk,past_times,coupon_id,prizes_name,past_type,fix_drunk)values(#{id}," +
-            "#{interval_day},#{min_drunk},#{max_drunk},#{total_drunk},#{past_times},#{coupon_id},#{prizes_name},#{past_type},#{fix_drunk})")
+    @Insert("insert into comes_past(id,interval_day,min_drunk,max_drunk,total_drunk,past_times,coupon_id,prizes_name,past_type,fix_drunk,start_time,info)values(#{id}," +
+            "#{interval_day},#{min_drunk},#{max_drunk},#{total_drunk},#{past_times},#{coupon_id},#{prizes_name},#{past_type},#{fix_drunk},#{start_time},#{info})")
     public void addPast(PastModel pastModel);
 
 
     @Update("update comes_past set interval_day=#{interval_day},min_drunk=#{min_drunk},max_drunk=#{max_drunk},total_drunk=#{total_drunk},past_times=#{past_times}," +
-            "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk}  where id=#{id}")
+            "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk},start_time=#{start_time},info=#{info}  where id=#{id}")
     public void updatePast(PastModel pastModel);
 
     /**

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>约饭</title>
+    <title>${oc.title!}</title>
     <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
     <link href="${baseUrl}css/auction.css" type="text/css" rel="stylesheet">
     <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>

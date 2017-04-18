@@ -42,7 +42,7 @@ public interface ReadDao {
      * @param phone
      * @return
      */
-    @Select("select * from t_user where phone=#{phone} and passwd=md5(#{pwd})")
+    @Select("select * from t_user where phone=#{phone} and passwd=substr(md5(#{pwd}),9,8)")
     UserModel getUserByPassword(@Param("phone") String phone, @Param("pwd") String pwd);
 
     /**
@@ -60,7 +60,7 @@ public interface ReadDao {
      * @param size
      * @return
      */
-    @Select("select * from t_goods where name like #{keyword} limit 1,#{size}")
+    @Select("select * from t_goods where name like #{keyword} limit 0,#{size}")
     public List<Commodity> getCommodityByKeyword(@Param("keyword") String keyword, @Param("size") int size);
 
 

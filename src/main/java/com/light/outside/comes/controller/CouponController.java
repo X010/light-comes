@@ -5,6 +5,7 @@ import com.light.outside.comes.model.CouponUsedRecord;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.CouponService;
 import com.light.outside.comes.service.RaffleService;
+import com.light.outside.comes.service.weixin.MD5;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
@@ -74,6 +75,41 @@ public class CouponController extends BaseController {
         data.put("msg",msg);
         return JsonTools.jsonSer(data);
     }
+
+    @RequestMapping("use_coupon_api.action")
+    @ResponseBody
+    public String useCoupon(Map<String,Object> data,HttpServletRequest request){
+        long id=RequestTools.RequestLong(request, "id", 0);
+        String token=RequestTools.RequestString(request, "token", "");
+        String callback=RequestTools.RequestString(request,"callback","");
+//        String signStr=String.format("%d&%s",id,CONST.SIGNATURE_KEY);
+//        System.out.println(signStr);
+//        String checkToken = MD5.MD5Encode(signStr);
+        int code=-2;
+        String msg="转让成功！";
+//        if(checkToken.equals(token)) {
+        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
+        if(couponRecordModel!=null) {
+            code = couponService.changeCoupon(couponRecordModel.getCardno(), id);
+        }
+
+        if(code<0){
+            if(code==-2){
+                msg="兑换失败，无法查询到该优惠券!";
+            }else if(code==-1){
+                msg="兑换失败，该优惠券状态已过期或已使用!";
+            }
+        }
+//        }else{
+//            code=-3;
+//            msg="签名验证失败";
+//        }
+        data.put("code",code);
+        data.put("msg",msg);
+        return CallBackResultJsonP(JsonTools.jsonSer(data),callback);
+    }
+
+
 
 
 }

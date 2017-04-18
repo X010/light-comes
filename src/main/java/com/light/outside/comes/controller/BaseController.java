@@ -4,13 +4,10 @@ import com.google.common.base.Strings;
 import com.light.outside.comes.model.admin.UsersModel;
 import com.light.outside.comes.qbkl.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * B3ST9U
@@ -131,6 +128,24 @@ public class BaseController {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        if(ip.split(",").length>1){
+            String ips[]=ip.split(",");
+            ip=ips[0];
+        }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
+    }
+
+    /**
+     * callback数据处理
+     *
+     * @param result
+     * @param callback
+     * @return
+     */
+    public static String CallBackResultJsonP(String result, String callback) {
+        if (Strings.isNullOrEmpty(callback))
+            return result;
+        result = String.format("%s(%s)", callback, result);
+        return result;
     }
 }

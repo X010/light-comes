@@ -3,6 +3,8 @@ package com.light.outside.comes.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.light.outside.comes.service.admin.LoginService;
+import com.light.outside.comes.service.weixin.MD5;
+import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonClient;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
@@ -73,13 +75,14 @@ public class ClientLoginController extends BaseController {
 
     @RequestMapping(value = "logout.action", method = {RequestMethod.POST, RequestMethod.GET})
     public String logout(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().invalidate();
-        Cookie usernameCookie = new Cookie("username", null);
-        Cookie passwordCookie = new Cookie("password", null);
-        usernameCookie.setMaxAge(0);
-        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
-        response.addCookie(usernameCookie);
-        response.addCookie(passwordCookie);
+        loginout(request, response);
+//        request.getSession().invalidate();
+//        Cookie usernameCookie = new Cookie("username", null);
+//        Cookie passwordCookie = new Cookie("password", null);
+//        usernameCookie.setMaxAge(0);
+//        passwordCookie.setMaxAge(0);//设置最大生存期限为10天
+//        response.addCookie(usernameCookie);
+//        response.addCookie(passwordCookie);
         return "login";
     }
 
@@ -115,7 +118,7 @@ public class ClientLoginController extends BaseController {
         if (isSuccess) {
             LOG.info("login and redirect url:" + redirect);
             if (Strings.isNullOrEmpty(redirect))
-                return "redirect:" + baseUrl + "raffle/lottery.action";
+                return "redirect:/raffle/lottery.action";
             else
                 return "redirect:" + redirect;
         }
@@ -123,6 +126,72 @@ public class ClientLoginController extends BaseController {
         return "login";
     }
 
+    /**
+     * 登录API
+     * @param data
+     * @param request
+     * @return
+     */
+    @RequestMapping("login_api.action")
+    @ResponseBody
+    public String loginForAPI(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response){
+        String phone = RequestTools.RequestString(request, "username", "");
+        String password = RequestTools.RequestString(request, "password", "");
+        String token=RequestTools.RequestString(request,"token","");
+        String callback=RequestTools.RequestString(request,"callback","");
+        //String signStr=phone+"&"+password+"&"+ CONST.SIGNATURE_KEY;
+        String signStr=String.format("%s&%s&%s",password,phone,CONST.SIGNATURE_KEY);
+//        String checkToken = MD5.MD5Encode(signStr);
+        LOG.info("login:"+phone +" password:" +password +" token:"+token);
+        //if(checkToken.equals(token)) {
+            boolean isSuccess = loginService.clientLogin(phone, password, request);
+            LOG.info("username:"+phone +" status:"+isSuccess);
+            if (isSuccess) {
+                Cookie usernameCookie = new Cookie("username", URLEncoder.encode(phone));
+                Cookie passwordCookie = new Cookie("password", URLEncoder.encode(password));
+                usernameCookie.setMaxAge(864000);
+                passwordCookie.setMaxAge(864000);//设置最大生存期限为10天
+                response.addCookie(usernameCookie);
+                response.addCookie(passwordCookie);
+                data.put("code", 200);
+                data.put("msg", "登录成功");
+            } else {
+                data.put("code", 500);
+                data.put("msg", "登录失败");
+            }
+//        }else{
+//            data.put("code",404);
+//            data.put("msg","签名验证失败");
+//        }
+        return CallBackResultJsonP(JsonTools.jsonSer(data), callback);
+    }
+
+    /**
+     * 退出登录API
+     * @param data
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("loginout_api.action")
+    @ResponseBody
+    public String loginoutForAPI(Map<String, Object> data, HttpServletRequest request,HttpServletResponse response){
+        String callback=RequestTools.RequestString(request,"callback","");
+        loginout(request,response);
+        data.put("code", 200);
+        data.put("msg","登出成功");
+        return CallBackResultJsonP(JsonTools.jsonSer(data), callback);
+    }
+
+    private void loginout(HttpServletRequest request,HttpServletResponse response){
+        request.getSession().invalidate();
+        Cookie usernameCookie = new Cookie("username", null);
+        Cookie passwordCookie = new Cookie("password", null);
+        usernameCookie.setMaxAge(0);
+        passwordCookie.setMaxAge(0);
+        response.addCookie(usernameCookie);
+        response.addCookie(passwordCookie);
+    }
 
     @RequestMapping(value = "wechatLogin.action", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody

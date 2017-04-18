@@ -8,7 +8,8 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form action="${baseUrl}admin/save_raffle.action" id="raffle_form" name="raffle_form" enctype="multipart/form-data" method="post">
+    <form action="${baseUrl}admin/save_raffle.action" id="raffle_form" name="raffle_form" enctype="multipart/form-data"
+          method="post">
     <#if editid??>
         <input type="hidden" name="editid" id="editid" value="${editid}"/>
     </#if>
@@ -50,6 +51,17 @@
                             <div class="form-group">
                                 <label>每人每天抽奖次数:</label>
                                 <select id="times" name="times" class="form-control">
+                                <#if raffle??>
+                                    <option value="1" <#if raffle.times==1>selected</#if>> 每人每天1次</option>
+                                    <option value="2" <#if raffle.times==2>selected</#if>>每人每天2次</option>
+                                    <option value="3" <#if raffle.times==3>selected</#if>>每人每天3次</option>
+                                    <option value="4" <#if raffle.times==4>selected</#if>>每人每天4次</option>
+                                    <option value="5" <#if raffle.times==5>selected</#if>>每人每天5次</option>
+                                    <option value="6" <#if raffle.times==6>selected</#if>>每人每天6次</option>
+                                    <option value="7" <#if raffle.times==7>selected</#if>>每人每天7次</option>
+                                    <option value="8" <#if raffle.times==8>selected</#if>>每人每天8次</option>
+                                    <option value="9" <#if raffle.times==9>selected</#if>>每人每天9次</option>
+                                <#else>
                                     <option value="1">每人每天1次</option>
                                     <option value="2">每人每天2次</option>
                                     <option value="3">每人每天3次</option>
@@ -59,6 +71,7 @@
                                     <option value="7">每人每天7次</option>
                                     <option value="8">每人每天8次</option>
                                     <option value="9">每人每天9次</option>
+                                </#if>
                                 </select>
                             </div>
 
@@ -105,7 +118,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_1" id="cid_rate_1">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_1" id="cid_rate_1">
                                             </td>
                                         </tr>
                                         <tr>
@@ -121,7 +135,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_2" id="cid_rate_2">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_2" id="cid_rate_2">
                                             </td>
                                         </tr>
                                         <tr>
@@ -137,7 +152,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_3" id="cid_rate_3">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_3" id="cid_rate_3">
                                             </td>
                                         </tr>
                                         <tr>
@@ -153,7 +169,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_4" id="cid_rate_4">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_4" id="cid_rate_4">
                                             </td>
                                         </tr>
                                         <tr>
@@ -169,7 +186,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_5" id="cid_rate_5">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_5" id="cid_rate_5">
                                             </td>
                                         </tr>
                                         <tr>
@@ -185,7 +203,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_6" id="cid_rate_6">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_6" id="cid_rate_6">
                                             </td>
                                         </tr>
                                         <tr>
@@ -201,7 +220,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_7" id="cid_rate_7">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_7" id="cid_rate_7">
                                             </td>
                                         </tr>
                                         <tr>
@@ -217,7 +237,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_8" id="cid_rate_8">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_8" id="cid_rate_8">
                                             </td>
                                         </tr>
                                         <tr>
@@ -233,7 +254,8 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="number" value="0" min="0" max="100" class="form-control" name="cid_rate_9" id="cid_rate_9">
+                                                <input type="number" value="0" min="0" max="100" class="form-control"
+                                                       name="cid_rate_9" id="cid_rate_9">
                                             </td>
                                         </tr>
                                     </table>
@@ -242,7 +264,8 @@
                         </div>
                         <div class="box-footer">
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>发送
+                                </button>
                             </div>
                             <button type="reset" class="btn btn-default"><i class="fa fa-times"></i>取消</button>
                         </div>

@@ -145,8 +145,11 @@ public class BanquetController extends BaseController {
     public String pay(Map<String, Object> data, HttpServletRequest request) {
         String payPrice = RequestTools.RequestString(request, "price", "0");
         long aid = RequestTools.RequestLong(request, "aid", 0);
+//        String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
+//                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fbanquet_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
+//                "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         String tourl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + TenWeChatConfig.app_id + "&redirect_uri=" +
-                "http%3A%2F%2Fwww.qubulikou.com%2Fqblk%2Fyeshizuileweixin%2Fpay%2Fbanquet_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
+                "http%3A%2F%2Fwww.qubulikou.com%2Fyeshizuileweixin%2FCart%2Fbanquet_pay.action%3Fprice%3D" + payPrice + "%26aid%3D" + aid +
                 "&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
         return "redirect:" + tourl;
     }

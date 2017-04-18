@@ -53,7 +53,7 @@ import java.util.TreeMap;
 @Controller
 @RequestMapping("yeshizuileweixin/pay")
 public class PayController extends BaseController {
-
+    //http://www.qubulikou.com/yeshizuileweixin/Cart/
     @Autowired
     private AuctionService auctionService;
     @Autowired

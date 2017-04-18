@@ -1,5 +1,7 @@
 package com.light.outside.comes.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -71,6 +73,48 @@ public class PastModel extends BaseModel {
      * 开始时间
      */
     private Date create_time;
+
+    /**
+     * 周期开始时间
+     */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date start_time;
+    /**
+     *  活动规则说明
+     */
+    private String info;
+    /**
+     * 签到标题
+     */
+    private String title;
+    /**
+     * 顶部图片
+     */
+    private String photo;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public Date getCreate_time() {
         return create_time;
@@ -150,5 +194,13 @@ public class PastModel extends BaseModel {
 
     public void setFix_drunk(int fix_drunk) {
         this.fix_drunk = fix_drunk;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
     }
 }

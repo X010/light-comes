@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>拍卖</title>
+    <title>约饭</title>
     <link type="text/css" rel="stylesheet" href="${baseUrl}css/header.css"/>
     <link type="text/css" rel="stylesheet" href="${baseUrl}css/lottery.css"/>
     <link rel="stylesheet" href="${baseUrl}css/swiper.min.css">
@@ -45,6 +45,11 @@
 <div id="firstDiv"></div>
 
 <footer>
+    <#--<a href="http://www.qubulikou.com/yeshizuileweixin/index.html">-->
+        <a href="http://120.55.241.127/index.html">
+        <img src="${baseUrl}images/home.png"/>
+        <p>首页</p>
+    </a>
     <a href="${baseUrl}raffle/lottery.action">
         <img src="${baseUrl}images/ticket.png"/>
 
@@ -65,7 +70,8 @@
 
         <p>砍价</p>
     </a>
-    <a href="${baseUrl}my/mine.action">
+    <#--<a href="${baseUrl}my/mine.action">-->
+        <a href="http://120.55.241.127/mine.html">
         <img class="" src="${baseUrl}images/mine.png"/>
 
         <p>我的</p>

@@ -131,7 +131,9 @@ public class PastService {
                 } else {
                     //随机值
                     Random random = new Random();
-                    pastDetail.setDrunk_num(random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk());
+                    int drunkNum=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
+                    System.out.println(drunkNum);
+                    pastDetail.setDrunk_num(drunkNum);
                 }
                 this.persistentDao.addPastDetail(pastDetail);
 
@@ -142,7 +144,6 @@ public class PastService {
                     pastTotal.setToday_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                     pastTotal.setToday_times(pastTotal.getToday_times() + 1);
-
                     this.persistentDao.updatePastTotal(pastTotal);
                 }
             }
@@ -273,9 +274,9 @@ public class PastService {
 
                 if (pastModel != null) {
                     int dayTotal = 0;
-                    if (pastModel.getCreate_time() != null) {
+                    if (pastModel.getStart_time() != null) {
                         try {
-                            dayTotal = daysBetween(pastModel.getCreate_time(), new Date());
+                            dayTotal = daysBetween(pastModel.getStart_time(), new Date());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

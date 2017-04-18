@@ -46,11 +46,14 @@ public interface OverchargedDao {
     @Select("select count(1) from comes_overcharged_record where aid=#{aid}")
     public int getOverchargedRecordPageByAidTotal(@Param("aid") long aid);
 
-    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and cor.`status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} and cor.`status`=#{status} " +
+            "order by cor.id desc limit #{start},#{size}")
     public List<OverchargedRecordViewModel> getOverchargedRecordPageByUidAndStatus(@Param("uid") long uid,@Param("status") int status,@Param("start") int start,@Param("size") int size);
 
 
-    @Select("select * from comes_overcharged_record cor,comes_overcharged o where o.id=cor.aid and uid=#{uid} limit #{start},#{size}")
+    @Select("select * from comes_overcharged_record cor,comes_overcharged o" +
+            " where o.id=cor.aid and uid=#{uid} " +
+            " order by cor.id desc limit #{start},#{size}")
     public List<OverchargedRecordViewModel> getOverchargedRecordPageByUid(@Param("uid") long uid,@Param("start") int start,@Param("size") int size);
 
 }

@@ -46,7 +46,23 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <input type="button" id="chess" value="我也要干杯" class="chess" onclick="changeNum();"/>
+=======
+    <input type="button" value="我也要干杯" class="chess" onclick="changeNum();"/>
+    <#--<div class="msgn">-->
+        <#--<p style="width: 100%;">-->
+        <#--<span class="msgbold">活动规则说明：<span>-->
+        <#--<span>-->
+        <#--<#if info??>-->
+        <#--${info}-->
+        <#--<#else>-->
+            <#--无-->
+        <#--</#if>-->
+        <#--</span>-->
+        <#--</p>-->
+    <#--</div>-->
+>>>>>>> 33b8b1bbc06910c2f3f97c1736cde9947e3a2b61
 </div>
 		<div id="shareit" onclick="close_sharewx()">
 			<img class="arrow" src='${baseUrl}images/share.jpg'/>
@@ -179,7 +195,10 @@
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;
+                var drunk = data.total_drunk - data.cycle_drunk;//清空后total_drunk变成了0
+                if (drunk<0){
+                    drunk=0;
+                }
                 maxValue = data.total_drunk;
                 console.log(maxValue);
                 config.maxValue = maxValue;//总容量

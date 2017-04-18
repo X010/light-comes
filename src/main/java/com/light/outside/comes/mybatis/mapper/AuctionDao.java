@@ -74,7 +74,7 @@ public interface AuctionDao {
      */
     @Select("select a.title,t.* from (select * from comes_auction_records where uid=#{uid} and `status`=#{status} order by price desc) t,comes_auction a " +
             "where t.aid=a.id " +
-            "group by t.aid " +
+            "group by t.aid desc " +
             "limit #{start},#{size} ")
     public List<AuctionRecordsModel> queryAuctionRecordsByUserStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
@@ -86,7 +86,7 @@ public interface AuctionDao {
 
     @Select("select a.title,t.* from (select * from comes_auction_records where uid=#{uid} order by price desc) t,comes_auction a " +
             "where t.aid=a.id " +
-            "group by t.aid " +
+            "group by t.aid desc " +
             "limit #{start},#{size} ")
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 }

@@ -49,7 +49,7 @@ public class WeChatController extends BaseController {
     //获取用户基础信息
     public static final String GET_USER_INFO = String.valueOf(TenWeChatConfig.userinfoUrl).trim();//"https://api.weixin.qq.com/sns/userinfo";
 
-    public static final String BASE_URL = String.valueOf("http://qulk.dssmp.com/#!");
+    public static final String BASE_URL = String.valueOf("http://www.qubulikou.com/#!");
     //获取微信语言
     public static final String LANG = "zh_CN";
     //log
