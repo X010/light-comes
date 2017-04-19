@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form id="create_overcharge_form" name="create_overcharge_form" action="${baseUrl}admin/save_overcharge.action" method="post">
+    <form id="create_overcharge_form" name="create_overcharge_form" action="${baseUrl}admin/save_overcharge.action" method="post" enctype="multipart/form-data">
 
     <#if overcharged??>
         <input type="hidden" id="editid" name="editid" value="${overcharged.id}"/>
@@ -121,6 +121,28 @@
                                 </#if>
                                        class="form-control" id="inventory"
                                        placeholder="如：2">
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享标题</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_title}";
+                                </#if>
+                                       name="share_title" id="share_title" placeholder="签到标题">
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享描述</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_desc}";
+                                </#if>
+                                       name="share_desc" id="share_desc" placeholder="签到标题">
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="share_photo">分享图标</label>
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
+                                </div>
                             </div>
                             <div class="box-footer">
                                 <div class="pull-right">

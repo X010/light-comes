@@ -51,16 +51,15 @@ public class OverchargedRecordModel extends BaseModel {
     private int status;
 
     /**
-     * 砍价后的价格
+     * 本次砍价金额
      */
-    private float amount;
+    private double amount;
 
-
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

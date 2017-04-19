@@ -251,13 +251,13 @@ public interface PersistentDao {
             "start_time=#{start_time},end_time=#{end_time},memo=#{memo},win_uid=#{win_uid},win_phone=#{win_phone},win_price=#{win_price} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
-    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount,info,subtract_count,inventory)" +
-            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount},#{info},#{subtract_count},#{inventory })")
+    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount,info,subtract_count,inventory,share_title,share_desc,share_photo)" +
+            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount},#{info},#{subtract_count},#{inventory},#{share_title},#{share_desc},#{share_photo})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOvercharged(OverchargedModel overchargedModel);
 
 
-    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time},over_amount=#{over_amount},info=#{info},subtract_count=#{subtract_count},inventory=#{inventory}  where id=#{id}")
+    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price},title=#{title},status=#{status},start_time=#{start_time},end_time=#{end_time},over_amount=#{over_amount},info=#{info},subtract_count=#{subtract_count},inventory=#{inventory},share_title=#{share_title},share_desc=#{share_desc},share_photo=#{share_photo}  where id=#{id}")
     public void updateOvercharged(OverchargedModel overchargedModel);
 
     @Select("select count(1) from comes_overcharged where status<>9")

@@ -348,12 +348,15 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("save_overcharge.action")
-    public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel) {
+    public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel,@RequestParam(value="share_photo_file",required = false) MultipartFile share_file) {
         if (overchargedModel != null) {
             overchargedModel.rangle_time();
             overchargedModel.setCreate_time(new Date());
             overchargedModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
-
+            String share_file_path=FileUtil.saveFile(share_file);
+            if(!Strings.isNullOrEmpty(share_file_path)){
+                overchargedModel.setShare_photo(share_file_path);
+            }
             String editid = request.getParameter("editid");
             if (!Strings.isNullOrEmpty(editid)) {
                 overchargedModel.setId(Long.valueOf(editid));

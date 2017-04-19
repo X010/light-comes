@@ -28,12 +28,33 @@ public interface OverchargedDao {
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit 1")
     public OverchargedRecordModel getWinOverChargedRecordModel(@Param("aid") long aid);
 
+    /**
+     * 查询砍价记录
+     * @param aid 活动ID
+     * @param sponsor 发起人ID
+     * @return
+     */
+    @Select("select * from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor} order by createtime desc ")
+    public List<OverchargedRecordModel> getOverchargeRecordHistory(@Param("aid") long aid,@Param("sponsor") long sponsor);
+
+    /**
+     * 查询已砍价金额
+     * @param aid 活动id
+     * @param sponsor 发起人ID
+     * @return
+     */
+    @Select("select IFNULL(sum(amount),0) as oTotal from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor}")
+    public double getOverchargeBlance(@Param("aid") long aid,@Param("sponsor") long sponsor);
+
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc")
     public List<OverchargedRecordModel> getOverchargedRecords(@Param("aid") long aid);
 
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} limit 1")
     public OverchargedRecordModel getOverChargedRecordByPhoneAndAid(@Param("aid") long aid, @Param("phone") String phone);
+
+    @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} sponsor=#{sponsor}  limit 1")
+    public OverchargedRecordModel getOverChargedRecordByPhoneAndAidAndSponsor(@Param("aid") long aid,@Param("sponsor") long sponsor, @Param("phone") String phone);
 
     @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount)values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)

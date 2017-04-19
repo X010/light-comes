@@ -116,11 +116,15 @@ public class OverchargedController extends BaseController {
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
                     data.put("join", isJoin);
-
+                    //获取当前价格
+                    double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, userModel.getUserid());
                     //获取砍价清单
                     List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    data.put("now_price",nowPrice);//当前价格
+                    data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
                     if (orms != null) {
                         data.put("orms", orms);
+                        data.put("now_count",orms.size());
                     }
                 }
             }
@@ -131,15 +135,33 @@ public class OverchargedController extends BaseController {
     }
 
 
+//    @ResponseBody
+//    @RequestMapping("send_overcharged.action")
+//    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {
+//        String res = "";
+//        if (aid > 0) {
+//            try {
+//                UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
+//                if (userModel != null) {
+//                    OverchargedRecordModel orm = this.overchargedService.overchargedRecordModel(aid, userModel);
+//                    res = JsonTools.jsonSer(orm);
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return res;
+//    }
+
     @ResponseBody
     @RequestMapping("send_overcharged.action")
-    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid) {
+    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam("sponsor") long sponsor) {
         String res = "";
         if (aid > 0) {
             try {
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
                 if (userModel != null) {
-                    OverchargedRecordModel orm = this.overchargedService.overchargedRecordModel(aid, userModel);
+                    OverchargedRecordModel orm = this.overchargedService.overcharged(aid,sponsor,userModel);
                     res = JsonTools.jsonSer(orm);
                 }
             } catch (Exception e) {
