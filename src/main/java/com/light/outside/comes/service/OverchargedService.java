@@ -177,10 +177,13 @@ public class OverchargedService {
                     double money = OverchargedRandom.randomRedPacket(totlSubtract, 0.01, max, count);//随机生成砍价金额
                     orm.setAmount(money);//本次砍价金额
                     orm.setAname(overchargedModel.getGood_name());
-                    this.overchargedDao.addOverchargedRecordModel(orm);
                     if (count == 1) {
-                        orm.setStatus(5);
+                        orm.setStatus(5);//最后一次砍价获取该商品
+                        overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
+                        //overchargedModel.setStatus(CONST.RAFFLE_STATUS_DELETE);//结束状态
+                        this.overchargedDao.updateOvercharged(overchargedModel);
                     }
+                    this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
                 }else{
                     orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完
                 }

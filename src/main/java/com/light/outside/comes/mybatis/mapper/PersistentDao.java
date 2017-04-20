@@ -251,8 +251,8 @@ public interface PersistentDao {
             "start_time=#{start_time},end_time=#{end_time},memo=#{memo},win_uid=#{win_uid},win_phone=#{win_phone},win_price=#{win_price} where id=#{id}")
     public void updateAuction(AuctionModel auctionModel);
 
-    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount,info,subtract_count,inventory,share_title,share_desc,share_photo)" +
-            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount},#{info},#{subtract_count},#{inventory},#{share_title},#{share_desc},#{share_photo})")
+    @Insert("insert into comes_overcharged(create_time,amount,subtract_price,title,status,goodsid,start_time,end_time,good_photo,good_name,over_amount,info,subtract_count,inventory,share_title,share_desc,share_photo,remain_count)" +
+            "values(#{create_time},#{amount},#{subtract_price},#{title},#{status},#{goodsid},#{start_time},#{end_time},#{good_photo},#{good_name},#{over_amount},#{info},#{subtract_count},#{inventory},#{share_title},#{share_desc},#{share_photo},#{remain_count})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOvercharged(OverchargedModel overchargedModel);
 
