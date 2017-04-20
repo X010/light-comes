@@ -163,7 +163,7 @@ public class OverchargedService {
                     double averageAmount = totlSubtract / count;//平均砍价幅度
                     double max = (averageAmount * TIMES);
                     max = max > totlSubtract ? totlSubtract : max;//最大砍掉数额
-                    double oTotal = this.overchargedDao.getOverchargeBlance(aid, sponsor);
+                    double oTotal = this.overchargedDao.getOverchargeSubtractPrice(aid, sponsor);
                     List<OverchargedRecordModel> list = this.overchargedDao.getOverchargeRecordHistory(aid, sponsor);
                     if (oTotal > 0) {//已砍价金额
                         totlSubtract = totlSubtract - oTotal;//剩余总价
@@ -180,7 +180,6 @@ public class OverchargedService {
                     if (count == 1) {
                         orm.setStatus(5);//最后一次砍价获取该商品
                         overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
-                        //overchargedModel.setStatus(CONST.RAFFLE_STATUS_DELETE);//结束状态
                         this.overchargedDao.updateOvercharged(overchargedModel);
                     }
                     this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
@@ -203,8 +202,18 @@ public class OverchargedService {
      */
     public double getOverchargedNowPrice(long aid,long uid){
         OverchargedModel overchargedModel = this.getOverchargedModel(aid);//获取砍价活动
-        double oTotal=this.overchargedDao.getOverchargeBlance(aid, uid);//已砍价格
+        double oTotal=this.overchargedDao.getOverchargeSubtractPrice(aid, uid);//已砍价格
         return overchargedModel.getAmount()-oTotal;
+    }
+
+    /**
+     * 获取已砍掉的价格
+     * @param aid
+     * @param uid
+     * @return
+     */
+    public double getOverchargedSubtractPrice(long aid,long uid){
+        return this.overchargedDao.getOverchargeSubtractPrice(aid,uid);
     }
 
     /**
