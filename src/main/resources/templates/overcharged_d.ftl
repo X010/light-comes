@@ -81,6 +81,10 @@
     </#if>
 </#if>
 </div>
+<div id="shareit" onclick="close_sharewx()">
+                        <img class="arrow" src='${baseUrl}images/share.jpg'/>
+                        <a href="#" id="follow"><p id="share-text"></p></a>
+                </div>
 </body>
 
 <script language="JavaScript">
@@ -91,8 +95,17 @@
             success: function (data, textStatus) {
                 if (data != null) {
                     if (data.status == 1) {
-                        $.alert("您成功砍了一刀,但未获取该商品");
-
+                        //$.alert("您成功砍了一刀,但未获取该商品");
+			$.modal({
+  				 title: '已减5元',
+ 				 text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
+  				 buttons: [
+					{ text:"取消",className:"default",onclick:function(){}},
+					{ text:"找朋友帮我砍",onclick:function(){
+						sharewx();
+					}},
+				]
+			});
                         $("#deposit").html("您已砍过一刀");
                         $("#deposit").click(function () {
                             $.alert("您已参与过该活动");
@@ -104,6 +117,13 @@
             }
         });
     }
+var share = document.getElementById("shareit");
+       function sharewx(){
+        share.style.display = 'block';
+       };
+       function close_sharewx(){
+        share.style.display = 'none';
+       };
 
     function timer(intDiff) {
         window.setInterval(function () {
