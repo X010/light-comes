@@ -11,14 +11,15 @@ import java.util.List;
  * Created by b3st9u on 16/10/15.
  */
 public interface OverchargedDao {
-    @Insert("insert into comes_overcharged(sku_id,create_time,amount,deposit,subtract_price,title,status,deal_time) " +
-            " values(#{sku_id},#{create_time},#{amount},#{deposit},#{subtract_price},#{title},#{status},#{deal_time}) ")
+    @Insert("insert into comes_overcharged(sku_id,create_time,amount,deposit,subtract_price,title,status,deal_time,remain_count) " +
+            " values(#{sku_id},#{create_time},#{amount},#{deposit},#{subtract_price},#{title},#{status},#{deal_time},#{remain_count}) ")
     public int addOvercharged(OverchargedModel overchargedModel);
 
     @Select("select id,sku_id,create_time,amount,deposit,subtract_price,title,status,deal_time from comes_overcharged ")
     public List<OverchargedModel> queryOverchargedModelList();
 
-    @Update("update comes_overcharged set sku_id=#{sku_id},amount=#{amount},deposit=#{deposit},subtract_price=#{subtract_price},title=#{title},status=#{status},deal_time=#{deal_time}" +
+    @Update("update comes_overcharged set sku_id=#{sku_id},amount=#{amount},deposit=#{deposit},subtract_price=#{subtract_price}," +
+            "title=#{title},status=#{status},deal_time=#{deal_time},remain_count=#{remain_count}" +
             " where id=#{id}")
     public int updateOvercharged(OverchargedModel overchargedModel);
 
@@ -28,12 +29,33 @@ public interface OverchargedDao {
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc limit 1")
     public OverchargedRecordModel getWinOverChargedRecordModel(@Param("aid") long aid);
 
+    /**
+     * 查询砍价记录
+     * @param aid 活动ID
+     * @param sponsor 发起人ID
+     * @return
+     */
+    @Select("select * from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor} order by createtime desc ")
+    public List<OverchargedRecordModel> getOverchargeRecordHistory(@Param("aid") long aid,@Param("sponsor") long sponsor);
+
+    /**
+     * 查询已砍价金额
+     * @param aid 活动id
+     * @param sponsor 发起人ID
+     * @return
+     */
+    @Select("select IFNULL(sum(amount),0) as oTotal from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor}")
+    public double getOverchargeSubtractPrice(@Param("aid") long aid,@Param("sponsor") long sponsor);
+
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc")
     public List<OverchargedRecordModel> getOverchargedRecords(@Param("aid") long aid);
 
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} limit 1")
     public OverchargedRecordModel getOverChargedRecordByPhoneAndAid(@Param("aid") long aid, @Param("phone") String phone);
+
+    @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} sponsor=#{sponsor}  limit 1")
+    public OverchargedRecordModel getOverChargedRecordByPhoneAndAidAndSponsor(@Param("aid") long aid,@Param("sponsor") long sponsor, @Param("phone") String phone);
 
     @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount)values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)

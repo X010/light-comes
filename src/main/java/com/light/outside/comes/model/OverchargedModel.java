@@ -105,9 +105,81 @@ public class OverchargedModel extends BaseModel {
      * 砍价活动说明
      */
     private String info;
+    /**
+     * 砍价力度
+     */
+    private int subtract_count;
+    /**
+     * 商品库存
+     */
+    private int inventory;
+    /**
+     * 分享标题
+     */
+    private String share_title;
+    /**
+     * 分享图标
+     */
+    private String share_photo;
+    /**
+     * 分享描述
+     */
+    private String share_desc;
+    /**
+     * 剩余库存
+     */
+    private int remain_count;
+
+    public int getRemain_count() {
+        return remain_count;
+    }
+
+    public void setRemain_count(int remain_count) {
+        this.remain_count = remain_count;
+    }
+
+    public String getShare_title() {
+        return share_title;
+    }
+
+    public void setShare_title(String share_title) {
+        this.share_title = share_title;
+    }
+
+    public String getShare_photo() {
+        return share_photo;
+    }
+
+    public void setShare_photo(String share_photo) {
+        this.share_photo = share_photo;
+    }
+
+    public String getShare_desc() {
+        return share_desc;
+    }
+
+    public void setShare_desc(String share_desc) {
+        this.share_desc = share_desc;
+    }
 
     public String getInfo() {
         return info;
+    }
+
+    public int getSubtract_count() {
+        return subtract_count;
+    }
+
+    public void setSubtract_count(int subtract_count) {
+        this.subtract_count = subtract_count;
+    }
+
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
     }
 
     public void setInfo(String info) {

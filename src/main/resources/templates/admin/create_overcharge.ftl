@@ -8,7 +8,7 @@
 <div class="content-wrapper">
 <#include "navigation.ftl">
     <!-- 具体内容区域 -->
-    <form id="create_overcharge_form" name="create_overcharge_form" action="${baseUrl}admin/save_overcharge.action" method="post">
+    <form id="create_overcharge_form" name="create_overcharge_form" action="${baseUrl}admin/save_overcharge.action" method="post" enctype="multipart/form-data">
 
     <#if overcharged??>
         <input type="hidden" id="editid" name="editid" value="${overcharged.id}"/>
@@ -46,7 +46,15 @@
                                 <!-- /.input group -->
                             </div>
 
-
+                            <div class="form-group">
+                                <label for="subtract_price">砍价力度</label>
+                                <input type="number" name="subtract_count"
+                                <#if overcharged??>
+                                       value="${overcharged.subtract_count}"
+                                </#if>
+                                       class="form-control" id="subtract_count"
+                                       placeholder="共需要砍？刀：1">
+                            </div>
                             <div class="form-group">
                                 <label for="subtract_price">砍价幅度</label>
                                 <input type="number" name="subtract_price"
@@ -76,12 +84,10 @@
                             </div>
                             <div class="form-group">
                                 <label>绑定商品</label>
-
                                 <div class="input-group input-group-sm">
                                     <input type="text" name="searchKeyword"
                                     <#if overcharged??>
                                            value="${overcharged.good_name}"
-
                                            disabled
                                     </#if>
                                            id="searchKeyword" class="form-control">
@@ -106,6 +112,37 @@
                                     <tbody>
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="form-group">
+                                <label for="inventory">商品库存</label>
+                                <input type="number" name="inventory"
+                                <#if overcharged??>
+                                       value="${overcharged.inventory}"
+                                </#if>
+                                       class="form-control" id="inventory"
+                                       placeholder="如：2">
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享标题</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_title}";
+                                </#if>
+                                       name="share_title" id="share_title" placeholder="签到标题">
+                            </div>
+                            <div class="form-group">
+                                <label for="share_title">分享描述</label>
+                                <input type="text" class="form-control"
+                                <#if pr??>
+                                       value="${pr.share_desc}";
+                                </#if>
+                                       name="share_desc" id="share_desc" placeholder="签到标题">
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label" for="share_photo">分享图标</label>
+                                <div class="controls">
+                                    <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
+                                </div>
                             </div>
                             <div class="box-footer">
                                 <div class="pull-right">

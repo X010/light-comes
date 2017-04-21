@@ -348,12 +348,16 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping("save_overcharge.action")
-    public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel) {
+    public String save_overchage(HttpServletRequest request, HttpServletResponse response, OverchargedModel overchargedModel,@RequestParam(value="share_photo_file",required = false) MultipartFile share_file) {
         if (overchargedModel != null) {
             overchargedModel.rangle_time();
             overchargedModel.setCreate_time(new Date());
             overchargedModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
-
+            overchargedModel.setRemain_count(overchargedModel.getInventory());//剩余库存初始化为总库存
+            String share_file_path=FileUtil.saveFile(share_file);
+            if(!Strings.isNullOrEmpty(share_file_path)){
+                overchargedModel.setShare_photo(share_file_path);
+            }
             String editid = request.getParameter("editid");
             if (!Strings.isNullOrEmpty(editid)) {
                 overchargedModel.setId(Long.valueOf(editid));
@@ -962,14 +966,39 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping(value = "past_setting.action")
-    public String past_setting(Map<String, Object> data, PastModel pastModel, HttpServletRequest httpServletRequest) {
-
+    public String past_setting(Map<String, Object> data, PastModel pastModel, @RequestParam("photo_up") MultipartFile file,  @RequestParam("share_photo_file") MultipartFile share_file,HttpServletRequest httpServletRequest) {
         if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
             if (pastModel != null && pastModel.getTotal_drunk() > 0) {
+                String file_path = FileUtil.saveFile(file);
+                if (!Strings.isNullOrEmpty(file_path)) {
+                    pastModel.setPhoto(file_path);
+                }
+                String share_file_path=FileUtil.saveFile(share_file);
+                if(!Strings.isNullOrEmpty(file_path)){
+                    pastModel.setShare_photo(share_file_path);
+                }
                 pastModel = this.pastService.svePastModel(pastModel);
-                return "redirect:past_setting.action";
+                return "redirect:past_redirect.action";
             }
         }
+
+        if (pastModel == null || pastModel.getTotal_drunk() <= 0) {
+            pastModel = this.pastService.getPastModelById();
+        }
+
+        if (pastModel != null) {
+            data.put("pr", pastModel);
+        }
+        return "/admin/past_setting";
+    }
+
+    /**
+     * 签到设置
+     *
+     * @return
+     */
+    @RequestMapping(value = "past_redirect.action")
+    public String past_redirect(Map<String, Object> data, PastModel pastModel,HttpServletRequest httpServletRequest) {
 
         if (pastModel == null || pastModel.getTotal_drunk() <= 0) {
             pastModel = this.pastService.getPastModelById();

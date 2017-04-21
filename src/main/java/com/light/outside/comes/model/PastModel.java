@@ -92,6 +92,19 @@ public class PastModel extends BaseModel {
      */
     private String photo;
 
+    /**
+     * 分享标题
+     */
+    private String share_title;
+    /**
+     * 分享描述
+     */
+    private String share_desc;
+    /**
+     *  分享图片
+     */
+    private String share_photo;
+
     public String getTitle() {
         return title;
     }
@@ -202,5 +215,29 @@ public class PastModel extends BaseModel {
 
     public void setStart_time(Date start_time) {
         this.start_time = start_time;
+    }
+
+    public String getShare_title() {
+        return share_title;
+    }
+
+    public void setShare_title(String share_title) {
+        this.share_title = share_title;
+    }
+
+    public String getShare_desc() {
+        return share_desc;
+    }
+
+    public void setShare_desc(String share_desc) {
+        this.share_desc = share_desc;
+    }
+
+    public String getShare_photo() {
+        return share_photo;
+    }
+
+    public void setShare_photo(String share_photo) {
+        this.share_photo = share_photo;
     }
 }

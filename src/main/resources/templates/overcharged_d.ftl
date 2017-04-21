@@ -67,10 +67,17 @@
         <#if orms??>
             <#list orms as orm>
             <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 30%; padding-left:10px; ">
+<<<<<<< HEAD
             ${orm.phone}</span><span style="width: 16%; padding-left: 10px;">
                 砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
+=======
+            ${orm.phone}</span><span style="width: 15%; padding-left: 10px;">
+                <#--砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>-->
+                砍掉:<strong style="color: red">${orm.amount}元</strong> </span>
+>>>>>>> b7ac21d628a1c30de523300b4b01ef02a72a9759
             </p>
             </#list>
+            已有${now_count}位朋友帮忙砍价，共砍掉${subtract_price}元，再砍${difference_price}元就成功了，加油！
         <#else>
         <p>
             无人参与砍价!
