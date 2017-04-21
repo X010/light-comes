@@ -10,7 +10,6 @@
     <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
     <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body style="background-color: #f3f3f3;">
 <header>
@@ -50,12 +49,7 @@
 </div>
 
 <div class="auct-friend">
-   <div class="progress"></div>
-   <p>已有N位朋友帮忙砍价，共砍N元，再砍N元就成功了！加油！</p>
-   <div class="friendList">
-   	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>
-	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>	
-   </div> 
+    
 </div>
 
 <div class="auct-name">
@@ -67,17 +61,10 @@
         <#if orms??>
             <#list orms as orm>
             <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 30%; padding-left:10px; ">
-<<<<<<< HEAD
             ${orm.phone}</span><span style="width: 16%; padding-left: 10px;">
                 砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
-=======
-            ${orm.phone}</span><span style="width: 15%; padding-left: 10px;">
-                <#--砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>-->
-                砍掉:<strong style="color: red">${orm.amount}元</strong> </span>
->>>>>>> b7ac21d628a1c30de523300b4b01ef02a72a9759
             </p>
             </#list>
-            已有${now_count}位朋友帮忙砍价，共砍掉${subtract_price}元，再砍${difference_price}元就成功了，加油！
         <#else>
         <p>
             无人参与砍价!
@@ -85,15 +72,6 @@
         </#if>
         
     </div>
-</div>
-
-<div class="manual">
-   <div class="msgt">
-  	<p style="color:#000; font-size:14px;"><strong>活动说明</strong></p>
-	<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>
-	<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！</p>
-	<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
-   </div>
 </div>
 
 <div class="footer">
@@ -112,51 +90,6 @@
 </body>
 
 <script language="JavaScript">
-	wx.config({
-        debug: false,
-        appId: '${app_id}',
-        timestamp: ${timestamp!},
-        nonceStr: '${nonceStr!}',
-        signature: '${signature!}',
-        jsApiList: [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone'
-        ]
-    });
-    wx.ready(function () {
-    wx.onMenuShareTimeline({
-        title: '帮朋友干杯', // 分享标题
-        link: 'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone}, // 分享链接
-        imgUrl: 'http://www.qubulikou.com/qblk/images/caro2.png' // 分享图标
-        });
-    wx.onMenuShareAppMessage({
-        title:'大侠，帮我来干杯！',
-        desc:'帮朋友干杯',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
-        });
-    wx.onMenuShareQQ({
-        title:'大侠，帮我来干杯！',
-        desc:'帮朋友干杯',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
-        });
-    wx.onMenuShareWeibo({
-        title:'大侠，帮我来干杯！',
-        desc:'帮朋友干杯',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
-        });
-    wx.onMenuShareQZone({
-        title:'大侠，帮我来干杯！',
-        desc:'帮朋友干杯',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/images/caro2.png'
-        });
-    });
     function send_overcharged(aid) {
         $.ajax({
             url: "send_overcharged.action?aid=" + aid,

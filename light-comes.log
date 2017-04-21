@@ -4964,3 +4964,7 @@ Tip: If the failing expression is known to be legally refer to something that's 
 FTL stack trace ("~" means nesting-related):
 	- Failed at: ${app_id}  [in template "overcharged_d.ftl" at line 110, column 17]
 ----
+2017-04-21 22:08:10,959  WARN HttpParser:1714 - Illegal character 0x0 in state=START for buffer HeapByteBuffer@83a4f41b[p=1,l=5,c=16384,r=4]={\x00<<<\x00\x00\x01\x07>>>ratchet/jquery-we...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+2017-04-21 22:08:10,959  WARN HttpParser:1342 - badMessage: 400 Illegal character 0x0 for HttpChannelOverHttp@62c493f2{r=0,c=false,a=IDLE,uri=-}
+2017-04-21 22:39:42,320  INFO ClientLoginController:145 - login:15002168837 password:123456 token:db3e1a51ae485309cbc1e1e789957d41
+2017-04-21 22:39:42,329  INFO ClientLoginController:148 - username:15002168837 status:true
