@@ -94,7 +94,7 @@
     config.displayPercent = false;
     var gauge;
     wx.config({
-        debug: true,
+        debug: false,
         appId: '${app_id}',
         timestamp: ${timestamp!},
         nonceStr: '${nonceStr!}',

@@ -99,7 +99,56 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("overcharged_d.action")
-    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam("sponsor") long sponsor) {
+    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) long sponsor) {
+        try {
+            if (aid > 0) {
+                //输出基本信息
+                UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
+                if(sponsor==0){
+                    sponsor=userModel.getUserid();
+                }
+                OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
+                if (overchargedModel != null) {
+                    long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
+
+                    overchargedModel.setTime_second((int) seconds);
+                    data.put("seconds", seconds);
+                    data.put("oc", overchargedModel);
+
+                    //获取该用户是否已经砍过价
+                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
+                    data.put("join", isJoin);
+                    //获取当前价格
+                    double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
+                    //当前砍掉价格
+                    double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
+                    //获取砍价清单
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    data.put("now_price",nowPrice);//当前价格
+                    data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
+                    if (orms != null) {
+                        data.put("orms", orms);
+                        data.put("now_count",orms.size());
+                        data.put("subtract_price",subtractPrice);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "overcharged_d";
+    }
+
+    /**
+     * 帮别人砍价
+     * @param data
+     * @param request
+     * @param aid
+     * @param sponsor
+     * @return
+     */
+    @RequestMapping("other_overcharged_d.action")
+    public String otherOvercharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam("sponsor") long sponsor) {
         try {
             if (aid > 0) {
                 //输出基本信息
@@ -133,7 +182,7 @@ public class OverchargedController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "overcharged_d";
+        return "other_overcharged_d";
     }
 
 
