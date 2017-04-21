@@ -101,7 +101,7 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("overcharged_d.action")
-    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) long sponsor) {
+    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) Integer sponsor) {
         String url="http://www.qubulikou.com/qblk/pt/overcharged_d.action";
         String queryString=request.getQueryString();
         if(!Strings.isNullOrEmpty(queryString)){
@@ -112,7 +112,7 @@ public class OverchargedController extends BaseController {
             if (aid > 0) {
                 //输出基本信息
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
-                if(sponsor==0){
+                if(sponsor==null||sponsor==0){
                     sponsor=userModel.getUserid();
                 }
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
