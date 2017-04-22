@@ -117,11 +117,11 @@ public class OverchargedController extends BaseController {
                 }
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
-                    long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
+                        long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
-
+                    data.put("sponsor",sponsor);
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
                     data.put("join", isJoin);
@@ -130,7 +130,7 @@ public class OverchargedController extends BaseController {
                     //当前砍掉价格
                     double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
                     //获取砍价清单
-                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecordsByAidUid(aid,sponsor);
                     data.put("now_price",nowPrice);//当前价格
                     data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
                     if (orms != null) {
