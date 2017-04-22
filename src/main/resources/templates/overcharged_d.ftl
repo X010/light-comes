@@ -59,7 +59,7 @@
             <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span
                     style="width: 30%; padding-left:10px; ">
             ${orm.phone}</span><span style="width: 16%; padding-left: 10px;">
-                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
+                砍掉:<strong style="color: red">${orm.amount}元</strong> </span>
             </p>
         </#list>
     </#if>
@@ -156,7 +156,7 @@
         wx.onMenuShareWeibo({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}?sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQZone({
