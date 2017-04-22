@@ -48,6 +48,15 @@
     </div>
 </div>
 
+<div class="auct-friend">
+   <div class="progress"></div>
+   <p>已有N位朋友帮忙砍价，共砍N元，再砍N元就成功了！加油！</p>
+   <div class="friendList">
+   	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>
+	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>	
+   </div> 
+</div>
+
 <div class="auct-name">
     <div class="msgt">
         <p style="color:#000; font-size:14px;"><strong>砍价者信息</strong></p>
@@ -57,19 +66,25 @@
         <#if orms??>
             <#list orms as orm>
             <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 30%; padding-left:10px; ">
-            ${orm.phone}</span><span style="width: 15%; padding-left: 10px;">
-                <#--砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>-->
-                砍掉:<strong style="color: red">${orm.amount}元</strong> </span>
+            ${orm.phone}</span><span style="width: 16%; padding-left: 10px;">
+                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
             </p>
             </#list>
-            已有${now_count}位朋友帮忙砍价，共砍掉${subtract_price}元，再砍${difference_price}元就成功了，加油！
         <#else>
         <p>
             无人参与砍价!
         </p>
         </#if>
-        
     </div>
+</div>
+
+<div class="manual">
+   <div class="msgt">
+  	<p style="color:#000; font-size:14px;"><strong>活动说明</strong></p>
+	<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>
+	<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！</p>
+	<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
+   </div>
 </div>
 
 <div class="footer">
