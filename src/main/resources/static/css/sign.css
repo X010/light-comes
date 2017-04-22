@@ -61,3 +61,5 @@ and (-webkit-min-device-pixel-ratio: 2) {
 .other p{font-size: 24px; text-align: center;}
 .help{ width: 90%; height:46px; position: absolute; top:72%; left:10%;   border-radius: 5px;  }
 .otherchess{ width:42%; height: 100%; border-radius: 5px; float: left; margin-left: 5px; color:#fff; font-size:16px;}
+
+.now{ position:absolute; top:50%; margin-left:10px; font-size:13px; color:#ED1E37;}
