@@ -49,7 +49,12 @@
 </div>
 
 <div class="auct-friend">
-    
+   <div class="progress"></div>
+   <p>已有N位朋友帮忙砍价，共砍N元，再砍N元就成功了！加油！</p>
+   <div class="friendList">
+   	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>
+	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>	
+   </div> 
 </div>
 
 <div class="auct-name">
@@ -70,8 +75,16 @@
             无人参与砍价!
         </p>
         </#if>
-        
     </div>
+</div>
+
+<div class="manual">
+   <div class="msgt">
+  	<p style="color:#000; font-size:14px;"><strong>活动说明</strong></p>
+	<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>
+	<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！</p>
+	<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
+   </div>
 </div>
 
 <div class="footer">
