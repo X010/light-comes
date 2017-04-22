@@ -6,10 +6,10 @@
           content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>${oc.title!}</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
     <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
     <link href="${baseUrl}css/auction.css" type="text/css" rel="stylesheet">
     <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript" src="${baseUrl}ratchet/jquery-weui.js"></script>
 </head>
@@ -67,10 +67,13 @@
 </div>
 
 <div class="auct-progress">
-    <span>${oc.amount}</span>
-    <progress value="55" max="100">
-    </progress>
-    <span>${oc.over_amount}</span>
+    <p>${oc.amount}</p>
+    <div class="weui-progress">
+      <div class="weui-progress__bar">
+        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 50%;"></div>
+      </div>
+    </div>
+    <p>${oc.over_amount}</p>
 </div>
 
 <#--<div class="auct-name">-->
