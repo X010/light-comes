@@ -252,3 +252,141 @@ Caused by: java.lang.IllegalStateException: Optional long parameter 'sponsor' is
 	... 33 more
 jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=7327a18b-15c3-4e39-bdba-b7fbec38e978&timestamp=1492858810&url=http://www.qubulikou.com/qblk/pt/past.action
 jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=7327a18b-15c3-4e39-bdba-b7fbec38e978&timestamp=1492858810&url=http://www.qubulikou.com/qblk/pt/past.action  singature:48a32cab419445ef60776503518736617fadbba2
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=ef65a3cc-7eaa-4ca6-8a86-439eb288dc96&timestamp=1492858895&url=http://www.qubulikou.com/qblk/pt/past.action
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=ef65a3cc-7eaa-4ca6-8a86-439eb288dc96&timestamp=1492858895&url=http://www.qubulikou.com/qblk/pt/past.action  singature:a753d1ed63a73486a51e131430e5f21c27f7d961
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged.action'
+2017-04-22 20:19:48,866  INFO ClientLoginController:119 - login and redirect url:
+2017-04-22 20:19:58,662  WARN ServletHandler:620 - 
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.IllegalStateException: Optional long parameter 'sponsor' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:618)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:808)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at org.eclipse.jetty.websocket.server.WebSocketUpgradeFilter.doFilter(WebSocketUpgradeFilter.java:224)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at com.light.outside.comes.filter.SessionFilter.doFilter(SessionFilter.java:66)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:497)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:310)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:540)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:635)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:555)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.IllegalStateException: Optional long parameter 'sponsor' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.handleNullValue(AbstractNamedValueMethodArgumentResolver.java:192)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:96)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:77)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:162)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:129)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	... 33 more
+2017-04-22 20:30:41,763  WARN ServletHandler:620 - 
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.lang.IllegalStateException: Optional long parameter 'sponsor' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:618)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:725)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:808)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1669)
+	at org.eclipse.jetty.websocket.server.WebSocketUpgradeFilter.doFilter(WebSocketUpgradeFilter.java:224)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at com.light.outside.comes.filter.SessionFilter.doFilter(SessionFilter.java:66)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:85)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.eclipse.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1652)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:585)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:143)
+	at org.eclipse.jetty.security.SecurityHandler.handle(SecurityHandler.java:577)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:223)
+	at org.eclipse.jetty.server.handler.ContextHandler.doHandle(ContextHandler.java:1127)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:515)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:185)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1061)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:497)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:310)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:257)
+	at org.eclipse.jetty.io.AbstractConnection$2.run(AbstractConnection.java:540)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:635)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:555)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.IllegalStateException: Optional long parameter 'sponsor' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.handleNullValue(AbstractNamedValueMethodArgumentResolver.java:192)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:96)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:77)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:162)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:129)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:110)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:776)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:705)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:85)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:959)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:893)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)
+	... 33 more
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=dd098ca2-f7a4-4b1b-8bbd-6a10e34eea0c&timestamp=1492865379&url=http://www.qubulikou.com/qblk/pt/past.action
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=dd098ca2-f7a4-4b1b-8bbd-6a10e34eea0c&timestamp=1492865379&url=http://www.qubulikou.com/qblk/pt/past.action  singature:b95e38755d8f795747797d816fa76e2f5ce276cc
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D23%26nsukey%3DXsnVmarrlEMhogP52Q8XosMDdTW61nQHIo6WUHfr7w4RXQv0lrysnSkHF3ZOmhWChj8FKJxR3ULyNXALxASRFXWYCOzvtj9Sg191RnGuj927PbivFgrdU9ejrnfrNxbvdDd0ko%252FNZ5iWQ67TKnNhtEeVIxVPG5VNgLLNCNZtELpJgiOO9KFIqQN%252F90AuP%252FJg'
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D23%26nsukey%3DXsnVmarrlEMhogP52Q8XosMDdTW61nQHIo6WUHfr7w4RXQv0lrysnSkHF3ZOmhWChj8FKJxR3ULyNXALxASRFXWYCOzvtj9Sg191RnGuj927PbivFgrdU9ejrnfrNxbvdDd0ko%252FNZ5iWQ67TKnNhtEeVIxVPG5VNgLLNCNZtELpJgiOO9KFIqQN%252F90AuP%252FJg'
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D23%26nsukey%3DXsnVmarrlEMhogP52Q8XosMDdTW61nQHIo6WUHfr7w4RXQv0lrysnSkHF3ZOmhWChj8FKJxR3ULyNXALxASRFXWYCOzvtj9Sg191RnGuj927PbivFgrdU9ejrnfrNxbvdDd0ko%252FNZ5iWQ67TKnNhtEeVIxVPG5VNgLLNCNZtELpJgiOO9KFIqQN%252F90AuP%252FJg'
+2017-04-22 20:49:54,983  INFO ClientLoginController:119 - login and redirect url:
+url:/qblk/to_login.action?redirect=%2Fraffle%2Flottery.action%3Fnsukey%3D0WRhETkxQ2TXR%252FblLa%252FidDs5uaAzJDBSTta7B7h7FcQqG1spPjnNBhRU6tuwGf0xMPIX7BYpekZ2LXBZUbppWbaxYBcox3q7I1VodtyIC1KuGbvyZUbG%252BryErPWu%252BAZCOglZ3gN0o4BAD33aGCtMWLeS40sEw4u2fXvzGVfNtNkXD7Vhbn3NdRUP04zq9GVU'
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D23'
+url:/qblk/to_login.action?redirect=%2Fraffle%2Flottery.action%3Fnsukey%3D0WRhETkxQ2TXR%252FblLa%252FidDs5uaAzJDBSTta7B7h7FcQqG1spPjnNBhRU6tuwGf0xMPIX7BYpekZ2LXBZUbppWbaxYBcox3q7I1VodtyIC1KuGbvyZUbG%252BryErPWu%252BAZCOglZ3gN0o4BAD33aGCtMWLeS40sEw4u2fXvzGVfNtNkXD7Vhbn3NdRUP04zq9GVU'
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D23%26nsukey%3DXsnVmarrlEMhogP52Q8XosMDdTW61nQHIo6WUHfr7w4RXQv0lrysnSkHF3ZOmhWChj8FKJxR3ULyNXALxASRFXWYCOzvtj9Sg191RnGuj927PbivFgrdU9ejrnfrNxbvdDd0ko%252FNZ5iWQ67TKnNhtEeVIxVPG5VNgLLNCNZtELpJgiOO9KFIqQN%252F90AuP%252FJg'
+url:/qblk/to_login.action?redirect=%2Fraffle%2Flottery.action%3Fnsukey%3D0WRhETkxQ2TXR%252FblLa%252FidDs5uaAzJDBSTta7B7h7FcQqG1spPjnNBhRU6tuwGf0xMPIX7BYpekZ2LXBZUbppWbaxYBcox3q7I1VodtyIC1KuGbvyZUbG%252BryErPWu%252BAZCOglZ3gN0o4BAD33aGCtMWLeS40sEw4u2fXvzGVfNtNkXD7Vhbn3NdRUP04zq9GVU'
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=1349e40e-7c68-4771-9130-225cd8387de1&timestamp=1492865409&url=http://www.qubulikou.com/qblk/pt/past.action
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=1349e40e-7c68-4771-9130-225cd8387de1&timestamp=1492865409&url=http://www.qubulikou.com/qblk/pt/past.action  singature:1fd026485f79a8481fa161e85167b0d327b3ce92
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3DUl%252ByZdBKzq6QX3VIiab0cH65JT%252F%252FwmF%252F9%252FAddu%252FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%252FHVXGftch58ykPJdZFblAx4t4Syx3m%252Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB'
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3DUl%252ByZdBKzq6QX3VIiab0cH65JT%252F%252FwmF%252F9%252FAddu%252FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%252FHVXGftch58ykPJdZFblAx4t4Syx3m%252Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB'
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=da9c47ee-eef2-463d-9273-11dd15dc45e3&timestamp=1492865415&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=da9c47ee-eef2-463d-9273-11dd15dc45e3&timestamp=1492865415&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB  singature:0e61abe11fe8a821b3476ac38eb86101e1796cad
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action'
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3DUl%252ByZdBKzq6QX3VIiab0cH65JT%252F%252FwmF%252F9%252FAddu%252FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%252FHVXGftch58ykPJdZFblAx4t4Syx3m%252Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB'
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=8504b49b-91b8-4ddc-9168-4644b2f1c0b4&timestamp=1492865433&url=http://www.qubulikou.com/qblk/pt/past.action
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=8504b49b-91b8-4ddc-9168-4644b2f1c0b4&timestamp=1492865433&url=http://www.qubulikou.com/qblk/pt/past.action  singature:59cecafb10809c476b7d60a6c5069e6524612e31
+253
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=760c2d10-65df-422c-8a38-961ac1955ee6&timestamp=1492865440&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=760c2d10-65df-422c-8a38-961ac1955ee6&timestamp=1492865440&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB  singature:39f8340d2becea8abbe33a10dc48cbc130a43373
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=2abd9d3a-7393-4745-9a29-5f4f8010b79a&timestamp=1492865462&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=2abd9d3a-7393-4745-9a29-5f4f8010b79a&timestamp=1492865462&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=Ul%2ByZdBKzq6QX3VIiab0cH65JT%2F%2FwmF%2F9%2FAddu%2FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%2FHVXGftch58ykPJdZFblAx4t4Syx3m%2Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB  singature:262747b4b0cc3334b5700faea310308e9c164f8d
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3D9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%252FcLacjaYchkXoX%252Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%252BF%252F27b1y6yBGjYyWbzEgydydqkPRpLMx%252FAhzK6qLXKgq7rewm8l10AY%252BuaXUTGoH%26from%3Dsinglemessage%26isappinstalled%3D0'
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3D9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%252FcLacjaYchkXoX%252Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%252BF%252F27b1y6yBGjYyWbzEgydydqkPRpLMx%252FAhzK6qLXKgq7rewm8l10AY%252BuaXUTGoH%26from%3Dsinglemessage%26isappinstalled%3D0'
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=d36c5afe-1724-4ecc-ad99-339fedf4057e&timestamp=1492865490&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%2FcLacjaYchkXoX%2Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%2BF%2F27b1y6yBGjYyWbzEgydydqkPRpLMx%2FAhzK6qLXKgq7rewm8l10AY%2BuaXUTGoH&from=singlemessage&isappinstalled=0
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jtBUjSmk_O95taxEM0Ph-2x6ct6kv6LNMNjBHEUl9z_A&noncestr=d36c5afe-1724-4ecc-ad99-339fedf4057e&timestamp=1492865490&url=http://www.qubulikou.com/qblk/pt/past.action?nsukey=9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%2FcLacjaYchkXoX%2Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%2BF%2F27b1y6yBGjYyWbzEgydydqkPRpLMx%2FAhzK6qLXKgq7rewm8l10AY%2BuaXUTGoH&from=singlemessage&isappinstalled=0  singature:a39b106237a977ff94d8f0c94ccdb916d13f6aef
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3DUl%252ByZdBKzq6QX3VIiab0cH65JT%252F%252FwmF%252F9%252FAddu%252FbjjiEzkROdPSbfjMu1FQdRMjwvVOdBk3sjjXkP0m1aUKOmO33yp6kp5cY9iiIlzwweB%252FHVXGftch58ykPJdZFblAx4t4Syx3m%252Bg9E194WqDsRlSKMRDxDJpuyXzAS5LlQvgCcI1ohWl2GJLvRomO5HziB%26from%3Dsinglemessage%26isappinstalled%3D0'
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3D9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%252FcLacjaYchkXoX%252Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%252BF%252F27b1y6yBGjYyWbzEgydydqkPRpLMx%252FAhzK6qLXKgq7rewm8l10AY%252BuaXUTGoH%26from%3Dsinglemessage%26isappinstalled%3D0'
+url:/qblk/to_login.action?redirect=%2Fpt%2Fpast.action%3Fnsukey%3D9oGmU1pKdF93tkjTnaOnnwsOk5lWU8GI5TpFFGzeviCLb2QEVhB%252FcLacjaYchkXoX%252Fo0hydzozLYkIrecRc2kr4aCAs8gxpkNS5Vt91f8u70Cc1zi0O1LdY4qmRhn87p%252BF%252F27b1y6yBGjYyWbzEgydydqkPRpLMx%252FAhzK6qLXKgq7rewm8l10AY%252BuaXUTGoH%26from%3Dsinglemessage%26isappinstalled%3D0'
+2017-04-22 20:56:13,068  INFO TokenThread:24 - accesstoken:aSDcCUemO9mOOeSriYyhAPeNuiPgv29oUXJnHJ85FK6v-5OBJRFhwWnvIwMcT6A52GGNda6ehPWXEmChGlFYFJYltNXDWciCMxk-7UdQI1JLhP9C6Hpz5hG6_mroFjGiHJGhAFALNK date:2017-04-22 20:56:13

@@ -52,8 +52,8 @@
    <div class="progress"></div>
    <p>已有N位朋友帮忙砍价，共砍N元，再砍N元就成功了！加油！</p>
    <div class="friendList">
-   	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>
-	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮您砍价14元</span></p>	
+   	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮TA砍价14元</span></p>
+	<p><span style="font-weight:bold; padding-right:2%;">12345678901</span><span>帮TA砍价14元</span></p>	
    </div> 
 </div>
 
@@ -64,27 +64,6 @@
     <span>108</span>
 </div>
 
-<div class="auct-name">
-    <div class="msgt">
-        <p style="color:#000; font-size:14px;"><strong>砍价者信息</strong></p>
-    </div>
-    <div class="msgt">
-        
-        <#if orms??>
-            <#list orms as orm>
-            <p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 30%; padding-left:10px; ">
-            ${orm.phone}</span><span style="width: 16%; padding-left: 10px;">
-                砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>
-            </p>
-            </#list>
-        <#else>
-        <p>
-            无人参与砍价!
-        </p>
-        </#if>
-    </div>
-</div>
-
 <div class="manual">
    <div class="msgt">
   	<p style="color:#000; font-size:14px;"><strong>活动说明</strong></p>
@@ -93,20 +72,14 @@
 	<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
    </div>
 </div>
-
-<div class="footer">
-<#if oc.status==2>
-    <#if join>
-        <div id="deposit">您已砍过一刀</div>
-    <#else>
-        <div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>
-    </#if>
-</#if>
-</div>
-<div id="shareit" onclick="close_sharewx()">
-                        <img class="arrow" src='${baseUrl}images/share.jpg'/>
-                        <a href="#" id="follow"><p id="share-text"></p></a>
-                </div>
+        <div class="help">
+            <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;"/>
+            <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #89CF46;"/>
+        </div>
+     <div id="shareit" onclick="close_sharewx()">
+         <img class="arrow" src='${baseUrl}images/share.jpg'/>
+         <a href="#" id="follow"><p id="share-text"></p></a>
+     </div>
 </body>
 
 <script language="JavaScript">
