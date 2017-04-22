@@ -213,12 +213,15 @@ public class OverchargedController extends BaseController {
 
     @ResponseBody
     @RequestMapping("send_overcharged.action")
-    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam("sponsor") long sponsor) {
+    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required = false) Long sponsor) {
         String res = "";
         if (aid > 0) {
             try {
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
                 if (userModel != null) {
+                    if(sponsor==null){
+                        sponsor=userModel.getId();
+                    }
                     OverchargedRecordModel orm = this.overchargedService.overcharged(aid,sponsor,userModel);
                     res = JsonTools.jsonSer(orm);
                 }

@@ -54,6 +54,18 @@ public class OverchargedRecordModel extends BaseModel {
      * 本次砍价金额
      */
     private double amount;
+    /**
+     * 发起人
+     */
+    private long sponsor;
+
+    public long getSponsor() {
+        return sponsor;
+    }
+
+    public void setSponsor(long sponsor) {
+        this.sponsor = sponsor;
+    }
 
     public double getAmount() {
         return amount;
