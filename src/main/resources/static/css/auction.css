@@ -52,6 +52,11 @@
 .manual p{ color:#000;}
 .manual span{ font-weight:bold;}
 
+.auct-progress{ height:36px; margin-left:20px;}
+.auct-progress p{ float:left;}
+.weui-progress{ width:70%; margin:8px 10px; float:left;}
+.weui-progress__bar{ height:8px;}
+
 .help{ width: 90%; height:46px; position: absolute; top:72%; left:10%;   border-radius: 5px;  }
 .otherchess{ width:42%; height: 100%; border-radius: 5px; float: left; margin-left: 5px; color:#fff; font-size:16px;}
 .footer{ border-top:none;}
