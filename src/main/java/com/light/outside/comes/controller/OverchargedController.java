@@ -102,7 +102,7 @@ public class OverchargedController extends BaseController {
      */
     @RequestMapping("overcharged_d.action")
     public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) Long sponsor) {
-        String url="http://www.qubulikou.com/qblk/pt/overcharged_d.action";
+        String url="http://www.qubulikou.com/qblk/oc/overcharged_d.action";
         String queryString=request.getQueryString();
         if(!Strings.isNullOrEmpty(queryString)){
             url=url+"?"+queryString;
