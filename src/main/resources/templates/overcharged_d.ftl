@@ -59,8 +59,11 @@
 
 <div class="auct-progress">
     <span>198</span>
-    <progress value="55" max="100">
-    </progress>
+    <div class="weui-progress">
+      <div class="weui-progress__bar">
+      	<div class="weui-progress__inner-bar js_progress" style="width: 50%;"></div>
+      </div>
+    </div>
     <span>108</span>
 </div>
 
