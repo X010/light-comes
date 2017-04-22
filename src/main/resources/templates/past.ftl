@@ -16,17 +16,21 @@
 <div class="container" id="cont">
     <div class="mid">
         <div class="mid-top">
-            <div class="mid-left">
+            <!--<div class="mid-left">
                 <p class="drink">今天喝掉</p>
                 <p class="ml"><span id="td_drunk"></span>ml</p>
             </div>
             <div class="mid-right">
                 <p class="drink">当前喝掉</p>
-
                 <p class="ml"><span id="cy_drunk"></span>ml</p>
-            </div>
+            </div>-->
+	    <p class="status">今日已签到</p>
         </div>
         <div class="bottle">
+	    <div class="mid-left">
+                <p class="drink">酒瓶总量</p>
+                <p class="ml"><span id="tt_drunk"></span>ml</p>
+            </div>
             <img src="${baseUrl}images/cover.png" class="cover" alt=""/>
             <svg id="fillgauge" width="50%" height="120" onclick="gauge.update(NewValue());">
 		<p class="now">当前容量</p>	
@@ -55,7 +59,15 @@
 	</div>
     </div>
     <div>
- 	
+
+<div class="manual">
+   <div class="msgt">
+        <p style=" text-align:center; color:#ffb03a; font-size:14px;"><strong>活动说明</strong></p>
+        <p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>
+        <p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱>纪念酒，夺茅台飞天酒！</p>
+        <p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
+   </div>
+</div> 	
     </div>
     <#--<div class="msgn">-->
         <#--<p style="width: 100%;">-->
@@ -160,7 +172,7 @@
             dataType: 'json',
             success: function (re_json) {
                 data = re_json.data;
-                $("#td_drunk").text(data.today_drunk);
+                $("#tt_drunk").text(data.total_drunk);
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
@@ -199,7 +211,7 @@
 		if(data.today_have_times < 1){
 		   chess.style.display = "none";
 		}
-                $("#td_drunk").text(data.today_drunk);
+                $("#tt_drunk").text(data.today_drunk);
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
