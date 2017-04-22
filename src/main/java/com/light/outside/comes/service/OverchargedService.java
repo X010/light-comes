@@ -227,6 +227,10 @@ public class OverchargedService {
         return this.overchargedDao.getOverchargedRecords(aid);
     }
 
+    public List<OverchargedRecordModel> getOverchargedRecordsByAidUid(long aid,long sponsor){
+        return this.overchargedDao.getOverchargedRecordsByAidUid(aid,sponsor);
+    }
+
     /**
      * 添加OverChage
      *

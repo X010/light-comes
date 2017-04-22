@@ -101,7 +101,7 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("overcharged_d.action")
-    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) long sponsor) {
+    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) Integer sponsor) {
         String url="http://www.qubulikou.com/qblk/pt/overcharged_d.action";
         String queryString=request.getQueryString();
         if(!Strings.isNullOrEmpty(queryString)){
@@ -112,16 +112,16 @@ public class OverchargedController extends BaseController {
             if (aid > 0) {
                 //输出基本信息
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
-                if(sponsor==0){
+                if(sponsor==null||sponsor==0){
                     sponsor=userModel.getUserid();
                 }
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
-                    long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
+                        long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
-
+                    data.put("sponsor",sponsor);
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
                     data.put("join", isJoin);
@@ -130,7 +130,7 @@ public class OverchargedController extends BaseController {
                     //当前砍掉价格
                     double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
                     //获取砍价清单
-                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
+                    List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecordsByAidUid(aid,sponsor);
                     data.put("now_price",nowPrice);//当前价格
                     data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
                     if (orms != null) {

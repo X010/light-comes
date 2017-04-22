@@ -50,6 +50,9 @@ public interface OverchargedDao {
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc")
     public List<OverchargedRecordModel> getOverchargedRecords(@Param("aid") long aid);
 
+    @Select("select * from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor} order by amount asc")
+    public List<OverchargedRecordModel> getOverchargedRecordsByAidUid(@Param("aid") long aid,@Param("sponsor") long sponsor);
+
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} limit 1")
     public OverchargedRecordModel getOverChargedRecordByPhoneAndAid(@Param("aid") long aid, @Param("phone") String phone);
