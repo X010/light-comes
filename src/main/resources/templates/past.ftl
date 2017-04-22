@@ -28,7 +28,9 @@
         </div>
         <div class="bottle">
             <img src="${baseUrl}images/cover.png" class="cover" alt=""/>
-            <svg id="fillgauge" width="50%" height="120" onclick="gauge.update(NewValue());"></svg>
+            <svg id="fillgauge" width="50%" height="120" onclick="gauge.update(NewValue());">
+		<p class="now">当前容量</p>	
+	    </svg>
         </div>
     </div>
     <div class="bottom">
@@ -40,7 +42,6 @@
             </div>
             <div class="bottom-d">
                 <p class="drink">朋友已帮你喝掉</p>
-
                 <p class="mll"><span id="tdo_drunk"></span>ml</p>
             </div>
         </div>
@@ -52,6 +53,9 @@
 	    <p>今日没有好友干杯</p>
 	    <input type="button" value="召唤朋友帮您喝掉" class="call" onclick="sharewx();"/>
 	</div>
+    </div>
+    <div>
+ 	
     </div>
     <#--<div class="msgn">-->
         <#--<p style="width: 100%;">-->
@@ -162,8 +166,10 @@
                 $("#tdo_drunk").text(data.today_other_drunk);
                 var drunk = data.total_drunk - data.cycle_drunk;
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
-                gauge.update(drunk+"ml");
-                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！");
+                gauge.update(drunk);
+                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！",function(){
+			window.location.reload();
+		});
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
