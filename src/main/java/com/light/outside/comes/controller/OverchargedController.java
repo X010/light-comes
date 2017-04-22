@@ -1,6 +1,8 @@
 package com.light.outside.comes.controller;
 
+import com.google.common.base.Strings;
 import com.light.outside.comes.controller.admin.LoginController;
+import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.model.admin.FocusImageModel;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -100,6 +102,12 @@ public class OverchargedController extends BaseController {
      */
     @RequestMapping("overcharged_d.action")
     public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) long sponsor) {
+        String url="http://www.qubulikou.com/qblk/pt/overcharged_d.action";
+        String queryString=request.getQueryString();
+        if(!Strings.isNullOrEmpty(queryString)){
+            url=url+"?"+queryString;
+        }
+        data.putAll(TenWeChatGenerator.getWxConfig(url));
         try {
             if (aid > 0) {
                 //输出基本信息
@@ -110,7 +118,6 @@ public class OverchargedController extends BaseController {
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
                     long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
-
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
@@ -245,5 +252,21 @@ public class OverchargedController extends BaseController {
             return JsonTools.jsonSer(list);
         else
             return "";
+    }
+
+    /**
+     * 分享页面
+     *
+     * @return
+     */
+    @RequestMapping("share_overcharged.action")
+    public String share(@RequestParam("phone") String phone,Map<String,Object> data,HttpServletRequest request) {
+        String url="http://www.qubulikou.com/qblk/pt/share_overcharged.action";
+        String queryString=request.getQueryString();
+        if(!Strings.isNullOrEmpty(queryString)){
+            url=url+"?"+queryString;
+        }
+        data.putAll(TenWeChatGenerator.getWxConfig(url));
+        return "share_overcharged";
     }
 }
