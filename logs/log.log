@@ -7,3 +7,7 @@
 2017-04-24 09:47:09,070  INFO ClientLoginController:119 - login and redirect url:
 2017-04-24 09:49:36,250  INFO ClientLoginController:119 - login and redirect url:
 2017-04-24 09:50:15,931  INFO ClientLoginController:119 - login and redirect url:
+2017-04-24 11:09:07,463  INFO TokenThread:24 - accesstoken:6HHZL8W-aeN-TWmVx_QYOv7x7fvZ0LYy4xAKrfo7PBfAhFvph9Wq5mks-vFa3AHYDC1mzyv4mrBM8RRKw78GexvgYh2y2gCTJ_qZOBNYlnUrDBJ5anCCDNGXX1xC9pMeMQReAEAWAB date:2017-04-24 11:09:07
+2017-04-24 13:05:47,553  INFO TokenThread:24 - accesstoken:sVMUVlVtwaJ_cZ_MjdAsWDzUJCJlJxb8eyxlc1H83YWspQiJZzkvH2m8j_XpFIrDdRzX9GZJgRfie617KCX8nIJJk1ci3ZYmvTG8ivv2mp1VGpM8ywyIvLKv8Fiu_BMRCHGdABANSR date:2017-04-24 13:05:47
+2017-04-24 15:02:27,668  INFO TokenThread:24 - accesstoken:XXSaIYaIY_XVSFwYZGrftuNvPSLViQTE7z6fDQf0lXu1gUgx7PqIEMN25kyJmVc0TzJB2hMQSVF_QAwdNQfO2nE2PNjiMBNQ69-c-YnduorMtoWB3QnzGz2RLGfNKn5oFNVcACAUCK date:2017-04-24 15:02:27
+2017-04-24 16:59:07,824  INFO TokenThread:24 - accesstoken:OyoYoy7-q6KsPHZSe_INlVhtlW7UVSCMaFzxgKhvhIDVXM1oF6LPr8aTdv-4abutWppkbMs000RHorXbwexGqi-2zS9slQAOgI6BpZcr-tIScd9zjcdx5haFgAD4TJp6KXDaAIABOU date:2017-04-24 16:59:07
