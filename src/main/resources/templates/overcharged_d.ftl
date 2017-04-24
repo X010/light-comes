@@ -108,6 +108,11 @@
     </div>
 </div>
 
+<!--<div class="help">
+    <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},$(sponsor))"/>
+    <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"/>
+</div>-->
+
 <div class="footer">
 <#if oc.status==2>
     <#if join>
@@ -198,6 +203,29 @@
                         });
                     } else if (data.status == 5) {
                         $.alert("恭喜您成功获取该商品去我的进行支付!");
+                    }
+                }
+            }
+        });
+    }
+function sendOcBySponsor(aid,sponsor) {
+        $.ajax({
+            url: "send_overcharged.action?aid=" + aid +"&sponsor=" + sponsor,
+            dataType: "json",
+            success: function (data, textStatus) {
+                if (data != null) {
+                    if (data.status == 1) {
+                        $.alert("已减5元,你已帮朋友砍了一刀，真给力!");
+                                }
+                               },
+                            ]
+                        });
+                        $("#deposit").html("您已砍过一刀");
+                        $("#deposit").click(function () {
+                            $.alert("您已参与过该活动");
+                        });
+                    } else if (data.status == 5) {
+                        $.alert("你已帮朋友拿下该商品！");
                     }
                 }
             }

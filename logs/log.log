@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2017-04-23 00:01:25,998  INFO App:47 - Starting App on b3st9udeMBP.local with PID 50358 (/Users/qujia/www/work/light-comes/target/classes started by b3st9u in /Users/qujia/www/work/light-comes)
 2017-04-23 00:01:26,064  INFO AnnotationConfigEmbeddedWebApplicationContext:510 - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2abf4075: startup date [Sun Apr 23 00:01:26 HKT 2017]; root of context hierarchy
 2017-04-23 00:01:27,956  INFO XmlBeanDefinitionReader:317 - Loading XML bean definitions from class path resource [applicationContext.xml]
@@ -2253,3 +2254,18 @@ Caused by: java.net.SocketException: Network is unreachable
 2017-04-23 23:14:36,334  INFO ServerConnector:306 - Stopped ServerConnector@7503f653{HTTP/1.1}{0.0.0.0:8087}
 2017-04-23 23:14:36,347  INFO /:2052 - Destroying Spring FrameworkServlet 'dispatcherServlet'
 2017-04-23 23:14:36,349  INFO ContextHandler:865 - Stopped o.s.b.c.e.j.JettyEmbeddedWebAppContext@66153688{/,null,UNAVAILABLE}
+=======
+2017-04-24 01:25:46,870  INFO TokenThread:24 - accesstoken:gpVeIeZ10_QcvDfsmMm-K_Y-jSS7rtiki-YS-rMIj8Rrcg4WT-nM3y_WyF-tA8hKCd1mAGU7vN315naP4cyw1pQ5pfJYY2pck9Yy59n8oYyTjyQUafKuyOl2Dmbmac56TJDfABAAQK date:2017-04-24 01:25:46
+2017-04-24 03:22:27,022  INFO TokenThread:24 - accesstoken:jVf4EYXNzpZ-zPRTn_o0x-qNN7rMfP6HkYefyCl8vrBcJ6_gOwHEBkDpqbAM_ip5Y8wyygp-5j1-GLDmEnY2ldbQKdGaMCI5fz0q55OTi-6xHQdQt44kAdZdyKM-YRanNZJjAIAEQA date:2017-04-24 03:22:27
+2017-04-24 05:19:07,135  INFO TokenThread:24 - accesstoken:-cjveo3cp_3O_VpFWkLkKbHlCkg6emG-unaqXqO6XyINwe8fMqpynI9NNw5xAlRQCdwYIjTx47E3TAn48MHT9kh2zUAoVAjnF7HkokkCGR27rBNAqswrHmsLt1c6UxQGRQNaACAVUR date:2017-04-24 05:19:07
+2017-04-24 07:15:47,224  INFO TokenThread:24 - accesstoken:jixfhWXBCh5_6ouUoeFFUvrDeW0AXF9Fnl36DFKS5HgKgSpgrlgpwBE9FAVmKHQltSPkIqs3ieS4L4sVdngFV4HcacQ4PWtNEUhFyhBTvvTRTh8J7tYxNVcGjwkeKnLoOWDeAJAUCJ date:2017-04-24 07:15:47
+2017-04-24 08:29:22,180  INFO ClientLoginController:119 - login and redirect url:
+2017-04-24 09:12:27,337  INFO TokenThread:24 - accesstoken:o2KsGKj0oJM_CT8l4UmtRbHV-twa12D7m1BvE-f6Sxq3ErxSZS1DqyRaho75yf6xjAJPDTn_R22dTxBDM-YUhIkTqD4R7_gqWWx9w4PegM4VWEfAJAJKS date:2017-04-24 09:12:27
+2017-04-24 09:47:09,070  INFO ClientLoginController:119 - login and redirect url:
+2017-04-24 09:49:36,250  INFO ClientLoginController:119 - login and redirect url:
+2017-04-24 09:50:15,931  INFO ClientLoginController:119 - login and redirect url:
+2017-04-24 11:09:07,463  INFO TokenThread:24 - accesstoken:6HHZL8W-aeN-TWmVx_QYOv7x7fvZ0LYy4xAKrfo7PBfAhFvph9Wq5mks-vFa3AHYDC1mzyv4mrBM8RRKw78GexvgYh2y2gCTJ_qZOBNYlnUrDBJ5anCCDNGXX1xC9pMeMQReAEAWAB date:2017-04-24 11:09:07
+2017-04-24 13:05:47,553  INFO TokenThread:24 - accesstoken:sVMUVlVtwaJ_cZ_MjdAsWDzUJCJlJxb8eyxlc1H83YWspQiJZzkvH2m8j_XpFIrDdRzX9GZJgRfie617KCX8nIJJk1ci3ZYmvTG8ivv2mp1VGpM8ywyIvLKv8Fiu_BMRCHGdABANSR date:2017-04-24 13:05:47
+2017-04-24 15:02:27,668  INFO TokenThread:24 - accesstoken:XXSaIYaIY_XVSFwYZGrftuNvPSLViQTE7z6fDQf0lXu1gUgx7PqIEMN25kyJmVc0TzJB2hMQSVF_QAwdNQfO2nE2PNjiMBNQ69-c-YnduorMtoWB3QnzGz2RLGfNKn5oFNVcACAUCK date:2017-04-24 15:02:27
+2017-04-24 16:59:07,824  INFO TokenThread:24 - accesstoken:OyoYoy7-q6KsPHZSe_INlVhtlW7UVSCMaFzxgKhvhIDVXM1oF6LPr8aTdv-4abutWppkbMs000RHorXbwexGqi-2zS9slQAOgI6BpZcr-tIScd9zjcdx5haFgAD4TJp6KXDaAIABOU date:2017-04-24 16:59:07
+>>>>>>> 5660e44d2f17dbcc6938f8f290887d906989e33a

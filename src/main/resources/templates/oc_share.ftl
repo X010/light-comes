@@ -74,7 +74,7 @@
 </div>
         <div class="help">
             <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;"/>
-            <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #89CF46;"/>
+            <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"/>
         </div>
      <div id="shareit" onclick="close_sharewx()">
          <img class="arrow" src='${baseUrl}images/share.jpg'/>
@@ -83,51 +83,6 @@
 </body>
 
 <script language="JavaScript">
-wx.config({
-        debug: false,
-        appId: '${app_id}',
-        timestamp: ${timestamp!},
-        nonceStr: '${nonceStr!}',
-        signature: '${signature!}',
-        jsApiList: [
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone'
-        ]
-    });
-    wx.ready(function () {
-    wx.onMenuShareTimeline({
-        title: '${pt.share_title}', // 分享标题
-        link: 'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone}, // 分享链接
-        imgUrl: 'http://www.qubulikou.com/qblk/photo/${pt.share_photo}' // 分享图标
-        });
-    wx.onMenuShareAppMessage({
-        title:'${pt.share_title}',
-        desc:'${pt.share_desc}',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
-        });
-    wx.onMenuShareQQ({
-        title:'${pt.share_title}',
-        desc:'${pt.share_desc}',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
-        });
-    wx.onMenuShareWeibo({
-        title:'${pt.share_title}',
-        desc:'${pt.share_desc}',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
-        });
-    wx.onMenuShareQZone({
-        title:'${pt.share_title}',
-        desc:'${pt.share_desc}',
-        link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
-        });
-    });
     function send_overcharged(aid) {
         $.ajax({
             url: "send_overcharged.action?aid=" + aid,
