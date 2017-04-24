@@ -108,6 +108,11 @@
     </div>
 </div>
 
+<!--<div class="help">
+    <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;"/>
+    <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"/>
+</div>-->
+
 <div class="footer">
 <#if oc.status==2>
     <#if join>
