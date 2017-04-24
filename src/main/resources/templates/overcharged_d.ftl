@@ -178,7 +178,7 @@
                     if (data.status == 1) {
                         //$.alert("您成功砍了一刀,但未获取该商品");
                         $.modal({
-                            title: '已减5元',
+                            title: '已减'+data.amount+'元',
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
                             buttons: [
                                 {
