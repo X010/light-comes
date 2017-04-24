@@ -70,7 +70,7 @@
     <p>${oc.amount}</p>
     <div class="weui-progress">
       <div class="weui-progress__bar">
-        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 50%;"></div>
+        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${oc.over_amount/oc.amount*100}%"></div>
       </div>
     </div>
     <p>${oc.over_amount}</p>
@@ -109,16 +109,32 @@
 </div>
 
 <!--<div class="help">
-    <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},$(sponsor))"/>
+    <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
     <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"/>
 </div>-->
 
 <div class="footer">
 <#if oc.status==2>
     <#if join>
-        <div id="deposit">您已砍过一刀</div>
+        <#--<div id="deposit">您已砍过一刀</div>-->
+        <div class="help">
+            <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
+            <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx()"/>
+        </div>
     <#else>
-        <div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>
+        <#if sponsor==0>
+            <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
+        <div class="help">
+            <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
+            <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
+        </div>
+        <#else>
+        <div class="help">
+            <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+            <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
+        </div>
+        </#if>
+
     </#if>
 </#if>
 </div>
@@ -215,11 +231,8 @@ function sendOcBySponsor(aid,sponsor) {
             success: function (data, textStatus) {
                 if (data != null) {
                     if (data.status == 1) {
-                        $.alert("已减5元,你已帮朋友砍了一刀，真给力!");
-                                }
-                               },
-                            ]
-                        });
+                        $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
+                    }
                         $("#deposit").html("您已砍过一刀");
                         $("#deposit").click(function () {
                             $.alert("您已参与过该活动");
@@ -228,9 +241,9 @@ function sendOcBySponsor(aid,sponsor) {
                         $.alert("你已帮朋友拿下该商品！");
                     }
                 }
-            }
         });
     }
+
     var share = document.getElementById("shareit");
     function sharewx() {
         share.style.display = 'block';

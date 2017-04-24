@@ -60,7 +60,7 @@ public interface OverchargedDao {
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} sponsor=#{sponsor}  limit 1")
     public OverchargedRecordModel getOverChargedRecordByPhoneAndAidAndSponsor(@Param("aid") long aid,@Param("sponsor") long sponsor, @Param("phone") String phone);
 
-    @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount)values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount},#{sponsor})")
+    @Insert("insert into comes_overcharged_record(aname,aid,uid,phone,createtime,status,amount,sponsor) values(#{aname},#{aid},#{uid},#{phone},#{createtime},#{status},#{amount},#{sponsor})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
     public long addOverchargedRecordModel(OverchargedRecordModel overchargedRecordModel);
 
