@@ -81,6 +81,16 @@ public class OverchargedService {
         return res;
     }
 
+    public boolean isJoinOvercharged(long aid, long sponsor) {
+        boolean res = false;
+        OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, sponsor);
+        if (overchargedRecordModel != null) {
+            res = true;
+        }
+        return res;
+    }
+
+
     /**
      * 添加砍价记录
      *
@@ -154,7 +164,8 @@ public class OverchargedService {
         orm.setPhone(userModel.getPhone());
         orm.setCreatetime(new Date());
         orm.setSponsor(sponsor);
-        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid,userModel.getPhone());//查询当前砍价用户
+        //OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid,userModel.getPhone());//查询当前砍价用户
+        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAid(aid,userModel.getId());
         if (ownOrm == null) {
             OverchargedModel overchargedModel = this.getOverchargedModel(aid);//获取砍价活动
             if (overchargedModel != null) {

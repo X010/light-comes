@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>签到</title>
+    <title>${pt.title!""}</title>
     <link href="${baseUrl}css/sign.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" src="${baseUrl}js/jquery.min.js"></script>
     <script type="text/javascript" src="${baseUrl}js/laytpl.js"></script>
@@ -24,7 +24,7 @@
                 <p class="drink">当前喝掉</p>
                 <p class="ml"><span id="cy_drunk"></span>ml</p>
             </div>-->
-	    <p class="status">今日已签到</p>
+	    <p class="status" id="status">${pt.title!""}</p>
         </div>
         <div class="bottle">
 	    <div class="mid-left">
@@ -44,7 +44,6 @@
         <div class="bottom-box">
             <div class="bottom-d">
                 <p class="drink">今日您已喝掉</p>
-
                 <p class="mll"><span id="tdu_drunk"></span>ml</p>
             </div>
             <div class="bottom-d">
@@ -66,24 +65,13 @@
 <div class="manual">
    <div class="msgt">
         <p style=" text-align:center; color:#ffb03a; font-size:14px;"><strong>活动说明</strong></p>
-        <p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>
-        <p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱>纪念酒，夺茅台飞天酒！</p>
-        <p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>
+   ${pt.info!""}
+        <#--<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>-->
+        <#--<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱>纪念酒，夺茅台飞天酒！</p>-->
+        <#--<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>-->
    </div>
 </div> 	
     </div>
-    <#--<div class="msgn">-->
-        <#--<p style="width: 100%;">-->
-        <#--<span class="msgbold">活动规则说明：<span>-->
-        <#--<span>-->
-        <#--<#if info??>-->
-        <#--${info}-->
-        <#--<#else>-->
-            <#--无-->
-        <#--</#if>-->
-        <#--</span>-->
-        <#--</p>-->
-    <#--</div>-->
 </div>
 		<div id="shareit" onclick="close_sharewx()">
 			<img class="arrow" src='${baseUrl}images/share.jpg'/>
@@ -217,7 +205,10 @@
                 data = re_json.data;
 		if(data.today_have_times < 1){
 		   chess.style.display = "none";
-		}
+            $("#status").text("今日已签到");
+		}else{
+
+        }
                 $("#tt_drunk").text(data.total_drunk);
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);

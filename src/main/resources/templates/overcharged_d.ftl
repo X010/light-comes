@@ -205,6 +205,7 @@
                             buttons: [
                                 {
                                     text: "取消", className: "default", onclick: function () {
+                                    window.location.reload();
                                 }
                                 },
                                 {
@@ -233,6 +234,7 @@ function sendOcBySponsor(aid,sponsor) {
                 if (data != null) {
                     if (data.status == 1) {
                         $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
+                        window.location.reload();
                     }
                         $("#deposit").html("您已砍过一刀");
                         $("#deposit").click(function () {

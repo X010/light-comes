@@ -123,7 +123,7 @@ public class OverchargedController extends BaseController {
                     data.put("oc", overchargedModel);
                     data.put("sponsor",sponsor);
                     //获取该用户是否已经砍过价
-                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
+                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, sponsor);
                     data.put("join", isJoin);
                     //获取当前价格
                     double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
