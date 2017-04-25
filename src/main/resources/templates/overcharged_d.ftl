@@ -162,31 +162,31 @@
     wx.ready(function () {
         wx.onMenuShareTimeline({
             title: '${oc.share_title}', // 分享标题
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}' // 分享图标
         });
         wx.onMenuShareAppMessage({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQQ({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareWeibo({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQZone({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=' +${sponsor}, // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
     });
