@@ -202,3 +202,9 @@ url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D24'
 2017-04-25 10:41:49,946  INFO DruidDataSource:669 - {dataSource-2} inited
 jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=897b079b-289c-4d2d-a2d7-35f287900622&timestamp=1493088112&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=24
 jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=897b079b-289c-4d2d-a2d7-35f287900622&timestamp=1493088112&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=24  singature:ad8aeb203e6d3a1751bf058fdf0fd35e1a25117d
+url:/qblk/to_login.action?redirect=%2Foc%2Fovercharged_d.action%3Faid%3D24'
+2017-04-25 10:52:38,084  INFO ClientLoginController:119 - login and redirect url:
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=1ed53608-50e8-4fea-a044-9cb2a77e8b56&timestamp=1493088761&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=24
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=1ed53608-50e8-4fea-a044-9cb2a77e8b56&timestamp=1493088761&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=24  singature:9c0df6fdf10e589b9d055e01343d006a303fdfba
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=6a1290b3-8409-4411-87c1-24c4677fef72&timestamp=1493088785&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=23
+jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VKCg_7JQNM9HfwIW1bjcn4jPUCoTYRxbVJ8U4mYVLt6ZvxU6sRrd2AiGAoJDWKscEg&noncestr=6a1290b3-8409-4411-87c1-24c4677fef72&timestamp=1493088785&url=http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=23  singature:93d761450959e9eb0d67a0ca1230ddd900e691c7

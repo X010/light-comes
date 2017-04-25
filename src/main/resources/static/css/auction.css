@@ -58,5 +58,5 @@
 .weui-progress__bar{ height:8px;}
 
 .help{ width: 100%; height:50px; position: fixed; bottom：0; left:0; background:#f3f3f3; }
-.otherchess{ width:40%; height: 100%; float: left; margin-left: 24px; color:#fff; font-size:16px;}
+.otherchess{ width:50%; height: 100%; float: left; color:#fff; font-size:16px;}
 .footer{ border-top:none;}
