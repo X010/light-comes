@@ -7,6 +7,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>${oc.title!}</title>
     <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="${baseUrl}ratchet/weui.css" type="text/css">
     <link href="${baseUrl}css/header.css" type="text/css" rel="stylesheet">
     <link href="${baseUrl}css/auction.css" type="text/css" rel="stylesheet">
     <script src="${baseUrl}plugins/jQuery/jQuery-2.1.4.min.js"></script>

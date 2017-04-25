@@ -211,7 +211,7 @@
 		if(data.today_have_times < 1){
 		   chess.style.display = "none";
 		}
-                $("#tt_drunk").text(data.today_drunk);
+                $("#tt_drunk").text(data.total_drunk);
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
