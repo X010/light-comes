@@ -33,8 +33,11 @@
             </div>
             <img src="${baseUrl}images/cover.png" class="cover" alt=""/>
             <svg id="fillgauge" width="50%" height="120" onclick="gauge.update(NewValue());">
-		<p class="now">当前容量</p>	
 	    </svg>
+	    <div class="mid-right">
+                <p class="drink">当前容量</p>
+                <p class="ml"><span id="re_drunk"></span>ml</p>
+            </div>
         </div>
     </div>
     <div class="bottom">
@@ -96,7 +99,7 @@
     var config = liquidFillGaugeDefaultSettings();
     config.circleThickness = 0;
     config.circleColor = "#ED1E37";
-    config.textColor = "#ED1E37";
+    config.textColor = "#FDF0F3";
     config.waveTextColor = "#FD8F94";
     config.waveColor = "#FFDDDD";
     config.textVertPosition = 0.8;
@@ -179,6 +182,10 @@
                 var drunk = data.total_drunk - data.cycle_drunk;
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
                 gauge.update(drunk);
+		if(drunk<0){
+			drunk=0;
+		}
+		$("#re_drunk").text(drunk);
                 $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！",function(){
 			window.location.reload();
 		});
@@ -219,6 +226,7 @@
                 if (drunk<0){
                     drunk=0;
                 }
+		$("#re_drunk").text(drunk);
                 maxValue = data.total_drunk;
                 console.log(maxValue);
                 config.maxValue = maxValue;//总容量
