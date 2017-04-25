@@ -48,7 +48,7 @@
 
 .auct-friend{ width:88%; position:relative; background:#fff; padding:6%; margin-bottom:4%;}
 .auct-friend p{ font-size:14px; line-height:32px;}
-.manual{ padding:20px 0; position:relative; width:100%; background:#fff;}
+.manual{ padding:20px 0; position:relative; width:100%; background:#fff; margin-bottom:50px;}
 .manual p{ color:#000;}
 .manual span{ font-weight:bold;}
 
@@ -59,4 +59,4 @@
 
 .help{ width: 100%; height:46px; position: fixed; bottom：0; left:0; background:#f3f3f3; }
 .otherchess{ width:40%; height: 100%; float: left; margin-left: 24px; color:#fff; font-size:16px;}
-.footer{ border-top:none;}
+.footer{ border-top:none; height:50px;}

@@ -3675,3 +3675,4 @@ FTL stack trace ("~" means nesting-related):
 2017-04-25 10:24:38,283  INFO App:56 - Started App in 14.27 seconds (JVM running for 15.294)
 2017-04-25 10:25:00,023  INFO DruidDataSource:669 - {dataSource-2} inited
 2017-04-25 10:25:00,660  INFO ClientLoginController:119 - login and redirect url:
+2017-04-25 10:35:27,189  INFO ClientLoginController:119 - login and redirect url:
