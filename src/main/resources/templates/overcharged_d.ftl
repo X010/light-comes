@@ -122,17 +122,17 @@
             <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx()"/>
         </div>
     <#else>
-        <#if sponsor==0>
-            <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
-        <div class="help">
-            <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
-            <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
-        </div>
+        <#if sponsor??>
+            <div class="help">
+                <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+                <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
+            </div>
         <#else>
-        <div class="help">
-            <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
-            <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
-        </div>
+        <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
+            <div class="help">
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+                <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
+            </div>
         </#if>
 
     </#if>
