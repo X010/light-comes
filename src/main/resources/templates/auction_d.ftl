@@ -84,7 +84,7 @@
                 <div class="msg-r">
                     <h4>${auction.good_name!}</h4>
                     <p>数量 x1</p>
-                    <p>成交价格 389元</p>
+                    <p>成交价格 ${auction.win_price}元</p>
                 </div>
             </div>
         </div>
