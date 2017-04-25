@@ -125,7 +125,7 @@
         <#if sponsor==0>
             <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
         <div class="help">
-            <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
+            <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
             <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
         </div>
         <#else>
