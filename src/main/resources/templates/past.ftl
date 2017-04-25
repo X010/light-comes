@@ -145,7 +145,7 @@
         imgUrl:'http://www.qubulikou.com/qblk/photo/${pt.share_photo}'
 	});
     });
-    $("#cont").css('background','url("${baseUrl}images/signbg.png") no-repeat');
+    $("#cont").css('background','url("${baseUrl}images/signbg1.png") no-repeat');
     function changeNum() {
              if (data.today_have_times < 1) {
 		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {
