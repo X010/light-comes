@@ -138,9 +138,11 @@ public class AuctionController extends BaseController {
                 if (auctionRecordsModel != null) {
                     topPrice = auctionRecordsModel.getPrice();
                 }
-                if (ArithUtil.sub(ArithUtil.sub(price,topPrice),auctionModel.getSetp_amount())>0) {
+//                if (ArithUtil.sub(ArithUtil.sub(price,topPrice),auctionModel.getSetp_amount())>0) {
+                if (ArithUtil.sub(price,auctionModel.getSetp_amount())>0) {
                     msg = "加价幅度必须大于" + auctionModel.getSetp_amount() + "元";
-                } else if (price > topPrice) {
+                }
+                if (price > topPrice) {
                     isSuccess = auctionService.bidAuction(userModel, aid, price);
                     LOG.info("auction id:" + auctionModel.getId() + " title:" + auctionModel.getTitle() + " aid:" + aid + " phone: " + userModel.getPhone() + " oruce:" + price);
                     if (isSuccess) {

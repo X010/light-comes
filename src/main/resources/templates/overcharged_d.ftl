@@ -118,12 +118,19 @@
 <#if oc.status==2>
     <#if join>
         <#--<div id="deposit">您已砍过一刀</div>-->
+        <#if sponsor==uid>
         <div class="help">
             <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
             <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx()"/>
         </div>
+        <#else>
+            <div class="help">
+                <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+            </div>
+        </#if>
     <#else>
-        <#if sponsor??>
+        <#if sponsor==uid>
             <div class="help">
                 <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
                 <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
@@ -163,31 +170,32 @@
     wx.ready(function () {
         wx.onMenuShareTimeline({
             title: '${oc.share_title}', // 分享标题
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
+            desc: '${oc.share_desc}',//描述
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}' // 分享图标
         });
         wx.onMenuShareAppMessage({
-            title: '${oc.share_title}',
-            desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
+            title: '${oc.share_title}',//标题
+            desc: '${oc.share_desc}',//描述
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'//图片
         });
         wx.onMenuShareQQ({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareWeibo({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQZone({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${sponsor}', // 分享链接
+            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
         });
     });
@@ -219,7 +227,24 @@
                         $("#deposit").click(function () {
                             $.alert("您已参与过该活动");
                         });
-                    } else if (data.status == 5) {
+                    } else if (data.status == 8) {
+                        $.modal({
+                            text: '您已自砍，想要获取商品需要集众人之力，召唤朋友帮你砍价吧！',
+                            buttons: [
+                                {
+                                    text: "取消", className: "default", onclick: function () {
+                                    window.location.reload();
+                                    }
+                                },
+                                {
+                                    text: "找朋友帮我砍", onclick: function () {
+                                    sharewx();
+                                }
+                                },
+                            ]
+                        });
+                    }
+                    else if (data.status == 5) {
                         $.alert("恭喜您成功获取该商品去我的进行支付!");
                     }
                 }
@@ -232,18 +257,21 @@ function sendOcBySponsor(aid,sponsor) {
             dataType: "json",
             success: function (data, textStatus) {
                 if (data != null) {
+                    $("#deposit").html("您已砍过一刀");
+                    $("#deposit").click(function () {
+                        $.alert("您已参与过该活动");
+                    });
                     if (data.status == 1) {
                         $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
                         window.location.reload();
-                    }
-                        $("#deposit").html("您已砍过一刀");
-                        $("#deposit").click(function () {
-                            $.alert("您已参与过该活动");
-                        });
+                    } else if (data.status == 8) {
+                        $.alert("每个活动只能帮一个朋友砍价！");
                     } else if (data.status == 5) {
                         $.alert("你已帮朋友拿下该商品！");
+                        window.location.reload();
                     }
                 }
+            }
         });
     }
 
