@@ -14,16 +14,11 @@
 </head>
 <body>
 <div class="container" id="cont">
+    <div class="title">
+	<img src="${baseUrl}images/bgReplace.jpg"/>
+    </div>
     <div class="mid">
         <div class="mid-top">
-            <!--<div class="mid-left">
-                <p class="drink">今天喝掉</p>
-                <p class="ml"><span id="td_drunk"></span>ml</p>
-            </div>
-            <div class="mid-right">
-                <p class="drink">当前喝掉</p>
-                <p class="ml"><span id="cy_drunk"></span>ml</p>
-            </div>-->
 	    <p class="status" id="status">${pt.title!""}</p>
         </div>
         <div class="bottle">
@@ -145,7 +140,7 @@
         imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
 	});
     });
-    $("#cont").css('background','url("${baseUrl}images/signbg1.png") no-repeat');
+    //$("#cont").css('background','url("${baseUrl}images/signbg1.jpg") no-repeat');
     function changeNum() {
              if (data.today_have_times < 1) {
 		$.confirm("今天干杯次数已用完，点击确定分享给朋友", function() {

@@ -14,16 +14,18 @@ input[type='button']{cursor: pointer;}
 .clear{ clear:both;}
 
 body{ background-color:#e72333;}
-.container{ background: url("../images/signbg.png") no-repeat; width: 100%; height: 100%; position: absolute; background-size: 100%;}
+.container{ width: 100%; height: 100%; position: absolute; background-size: 100%;}
 .status{ text-align:center; line-height:66px;}
-.mid{ position: relative; width:100%; background: url("../images/Comb Shape.png") no-repeat;  height:270px;  background-size: 100%; margin-top:120px;}
-.mid-top{ border-bottom: 2px dashed #DF7F88; height: 20%; width: 82%; margin: 10px auto; padding-top: 10px;}
+.mid{ position: relative; width:100%; background: url("../images/Comb Shape.png") no-repeat;  height:270px;  background-size: 100%; }
+.mid-top{ border-bottom: 2px dashed #DF7F88; height: 20%; width: 82%; margin: 0 auto; padding-top: 10px;}
 .mid-left{ float: left; position:absolute; left:10%;}
 .mid-right{float: right; position:absolute; right:10%;}
 .drink{ font-size: 12px; color: #4A2E1C; text-align: center;}
 .ml{ color:#ED1E37; font-size: 18px;font-weight: 600; }
 .bottle{ width: 90px; height: 140px; padding-left:5px;  margin: 10px auto; }
 .bot{width: 90px; height: 140px; position: absolute; z-index: 999;}
+.title{ position:relative; margin-top:35px;}
+.title img{ width:100%;}
 .cover{ width: 40%; position: absolute; top:28%; left:28%;z-index: 1; }
 .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
 svg{position: absolute; margin:0 auto; top:30%; left: 25%;}
