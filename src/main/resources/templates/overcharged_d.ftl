@@ -172,31 +172,31 @@
             title: '${oc.share_title}', // 分享标题
             desc: '${oc.share_desc}',//描述
             link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}' // 分享图标
+            imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}' // 分享图标
         });
         wx.onMenuShareAppMessage({
             title: '${oc.share_title}',//标题
             desc: '${oc.share_desc}',//描述
             link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'//图片
+            imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'//图片
         });
         wx.onMenuShareQQ({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
             link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
+            imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareWeibo({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
             link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
+            imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQZone({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
             link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
-            imgUrl: 'http://www.qubulikou.com/qblk/photo/${oc.share_photo!""}'
+            imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
     });
     function send_overcharged(aid) {
