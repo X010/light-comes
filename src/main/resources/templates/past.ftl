@@ -118,31 +118,31 @@
     wx.onMenuShareTimeline({
         title: '${pt.share_title}', // 分享标题
         link: 'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone}, // 分享链接
-        imgUrl: 'http://www.qubulikou.com/photo/${pt.share_photo}' // 分享图标
+        imgUrl: 'http://www.qubulikou.com/photo/${pt.share_photo!""}' // 分享图标
         });
     wx.onMenuShareAppMessage({
 	title:'${pt.share_title}',
 	desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo}'
+	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
 	});
     wx.onMenuShareQQ({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo}'
+	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
     	});
     wx.onMenuShareWeibo({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo}'
+	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
 	});
     wx.onMenuShareQZone({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
         link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo}'
+        imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
 	});
     });
     $("#cont").css('background','url("${baseUrl}images/signbg1.png") no-repeat');
