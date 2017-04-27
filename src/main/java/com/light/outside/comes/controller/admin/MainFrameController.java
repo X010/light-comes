@@ -1007,6 +1007,10 @@ public class MainFrameController {
         if (pastModel != null) {
             data.put("pr", pastModel);
         }
+        List<CouponModel> couponModels = this.raffleService.getCouponsByStatus(CONST.RAFFLE_STATUS_NORMAL);
+        if(couponModels!=null){
+            data.put("coupons",couponModels);
+        }
         return "/admin/past_setting";
     }
 

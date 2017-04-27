@@ -24,9 +24,9 @@ import java.util.Random;
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,8 +42,19 @@ public class PastService {
     @Autowired
     private QblkService qblkService;
 
+    @Autowired
+    private RaffleService raffleService;
+
     public PastModel getPastModelById() {
         return this.persistentDao.getPastById(CONST.PAST_ID);
+    }
+
+    public List<PastDetail> getPastDetailByUid(long uid) {
+        return this.persistentDao.getPastDetailByUid(uid);
+    }
+
+    public List<PastDetail> getPastDetailByPhone(String phone) {
+        return this.persistentDao.getPastDetail(phone);
     }
 
     /**
@@ -118,7 +129,6 @@ public class PastService {
             //判断今天次数是否达到
             int times = this.getTodayDrunkTimes(userModel.getPhone());
             if (times < pastModel.getPast_times()) {
-
                 PastDetail pastDetail = new PastDetail();
                 pastDetail.setCreate_time(new Date());
                 pastDetail.setDrunk_type(CONST.DRUNK_SELF);
@@ -131,8 +141,7 @@ public class PastService {
                 } else {
                     //随机值
                     Random random = new Random();
-                    int drunkNum=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
-                    System.out.println(drunkNum);
+                    int drunkNum = random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
                     pastDetail.setDrunk_num(drunkNum);
                 }
                 this.persistentDao.addPastDetail(pastDetail);
@@ -145,7 +154,12 @@ public class PastService {
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                     pastTotal.setToday_times(pastTotal.getToday_times() + 1);
                     this.persistentDao.updatePastTotal(pastTotal);
+                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
+                        long couponId = pastModel.getCoupon_id();
+                        raffleService.drawRaffleByRage(pastModel.getId(), couponId, userModel.getId(), userModel.getPhone());//发放优惠券
+                    }
                 }
+
             }
         }
         return this.getPastTotalByPhone(userModel);
@@ -161,19 +175,18 @@ public class PastService {
     public PastTotal otherPast(UserModel userModel, String phone) {
         Preconditions.checkNotNull(userModel);
         Preconditions.checkNotNull(phone);
-
+        UserModel mainUser = this.qblkService.getUserByPhone(phone);
         int total = this.getTodayOtherDrunkTimes(phone, userModel.getPhone());
 
         if (total <= 0) {
             PastModel pastModel = getPastModelById();
-
             PastDetail pastDetail = new PastDetail();
             pastDetail.setCreate_time(new Date());
             pastDetail.setDrunk_type(CONST.DRUNK_OTHER);
             pastDetail.setPhone(phone);
             pastDetail.setUid(0);
             pastDetail.setFriend_phone(userModel.getPhone());
-            pastDetail.setFriend_uid(userModel.getUserid());
+            pastDetail.setFriend_uid(userModel.getId());
 
             if (pastModel.getPast_type() == 1) {
                 //固定值
@@ -189,15 +202,20 @@ public class PastService {
 
             if (pastTotal != null) {
                 pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
-                pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk()+ pastDetail.getDrunk_num());
+                pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk() + pastDetail.getDrunk_num());
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                 pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
 
                 this.persistentDao.updatePastTotal(pastTotal);
+
+                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
+                    long couponId = pastModel.getCoupon_id();
+                    raffleService.drawRaffleByRage(pastModel.getId(), couponId, mainUser.getId(), phone);//发放优惠券
+                }
             }
+
         }
 
-        UserModel mainUser = this.qblkService.getUserByPhone(phone);
         return getPastTotalByPhone(mainUser);
     }
 

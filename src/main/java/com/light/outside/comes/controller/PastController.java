@@ -3,6 +3,7 @@ package com.light.outside.comes.controller;
 import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.model.JsonResponse;
+import com.light.outside.comes.model.PastDetail;
 import com.light.outside.comes.model.PastModel;
 import com.light.outside.comes.model.PastTotal;
 import com.light.outside.comes.qbkl.model.UserModel;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -60,8 +62,10 @@ public class PastController extends BaseController {
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
         PastModel pastModel=pastService.getPastModelById();
+        List<PastDetail> list= pastService.getPastDetailByPhone(userModel.getPhone());
         data.put("phone",userModel.getPhone());
         data.put("pt",pastModel);
+        data.put("pdList",list);
         return "past";
     }
 
@@ -78,6 +82,8 @@ public class PastController extends BaseController {
             url=url+"?"+queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
+        PastModel pastModel=pastService.getPastModelById();
+        data.put("pt",pastModel);
         return "share";
     }
 

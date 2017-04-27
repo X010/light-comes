@@ -566,7 +566,7 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public RaffleCouponModel drawRaffleByRage(long rid,long rcid, long uid, String phone) {
+    public RaffleCouponModel    drawRaffleByRage(long rid,long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
         String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";

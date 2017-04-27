@@ -387,7 +387,8 @@ public interface PersistentDao {
 
 
     @Update("update comes_past set interval_day=#{interval_day},min_drunk=#{min_drunk},max_drunk=#{max_drunk},total_drunk=#{total_drunk},past_times=#{past_times}," +
-            "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk},start_time=#{start_time},info=#{info},share_title=#{share_title},share_desc=#{share_desc},share_photo=#{share_photo}  where id=#{id}")
+            "coupon_id=#{coupon_id},prizes_name=#{prizes_name},past_type=#{past_type},fix_drunk=#{fix_drunk},start_time=#{start_time},info=#{info}," +
+            "share_title=#{share_title},share_desc=#{share_desc},share_photo=#{share_photo},title=#{title},photo=#{photo}  where id=#{id}")
     public void updatePast(PastModel pastModel);
 
     /**
@@ -414,7 +415,8 @@ public interface PersistentDao {
      * @param pastTotal
      * @return
      */
-    @Update("update comes_past_total set today_times=#{today_times},today_drunk=#{today_drunk},cycle_times=#{cycle_times},cycle_drunk=#{cycle_drunk}" +
+    @Update("update comes_past_total set today_times=#{today_times},today_drunk=#{today_drunk}," +
+            "cycle_times=#{cycle_times},cycle_drunk=#{cycle_drunk}" +
             ",today_other_times=#{today_other_times},today_other_drunk=#{today_other_drunk},update_time=now()" +
             " where phone=#{phone}")
     public int updatePastTotal(PastTotal pastTotal);
@@ -454,6 +456,12 @@ public interface PersistentDao {
 
     @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone=#{other}  and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndOtherPhoneAndTime(@Param("phone") String phone,@Param("other") String other, @Param("start_time") String start_time, @Param("end_time") String end_time);
+
+    @Select("select * from comes_past_detail where friend_phone=#{phone} and TO_DAYS(create_time)=TO_DAYS(now())")
+    public List<PastDetail> getPastDetail(@Param("phone") String phone);
+
+    @Select("select * from comes_past_detail where uid=#{uid}")
+    public List<PastDetail> getPastDetailByUid(@Param("uid") long uid);
 
     @Update("update comes_past_total set today_other_times=0,today_other_drunk=0,today_drunk=0,today_times=0")
     public void clearPastTotal();

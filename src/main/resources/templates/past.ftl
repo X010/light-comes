@@ -15,7 +15,11 @@
 <body>
 <div class="container" id="cont">
     <div class="title">
-	<img src="${baseUrl}images/bgReplace.jpg"/>
+        <#if pt.photo!=''>
+            <img src="http://www.qubulikou.com/${pt.photo!""}"/>
+            <#else>
+	        <img src="${baseUrl}images/bgReplace.jpg"/>
+        </#if>
     </div>
     <div class="mid">
         <div class="mid-top">
@@ -51,7 +55,16 @@
     <div class="good">
 	<p>今日好人榜</p>
 	<div class="goodBottom">
-	    <p>今日没有好友干杯</p>
+        <#if pdList??>
+            <#list pdList as pd>
+                <p>
+                    <span style="width: 32%" padding-left:10px;>${pd.friend_phone!""}</span>
+                    <span style="width: 32%" padding-left:10px;>喝掉${pd.drunk_num}ml</span>
+                </p>
+            </#list>
+        <#else>
+            <p>今日没有好友干杯</p>
+        </#if>
 	    <input type="button" value="召唤朋友帮您喝掉" class="call" onclick="sharewx();"/>
 	</div>
     </div>

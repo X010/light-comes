@@ -56,7 +56,7 @@
 <script lanuage="javascript">
     $(function () {
         document.title = "抽奖";
-        $("#minizone").addClass("active");
+        $("#coupon").addClass("active");
         setNav("抽奖", "优惠劵结算列表");
     })
 </script>

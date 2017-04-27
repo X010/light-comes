@@ -125,6 +125,18 @@
                                        name="prizes_name" id="prizes_name" placeholder="奖品名称">
                             </div>
                             <div class="form-group">
+                                <label for="title">奖品优惠券</label>
+                                <select id="coupon_id" name="coupon_id" class="form-control">
+                                    <option value="0">不设优惠劵</option>
+                                <#if coupons??>
+                                    <#list coupons as coupon>
+                                        <option value="${coupon.id}" <#if pr.coupon_id==coupon.id>selected</#if>>${coupon.title}</option>
+                                    </#list>
+                                </#if>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="title">签到标题</label>
                                 <input type="text" class="form-control"
                                 <#if pr??>
