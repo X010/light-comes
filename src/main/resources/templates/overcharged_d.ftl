@@ -68,7 +68,6 @@
 </div>
 
 <div class="auct-progress">
-    <p>原价:${oc.amount}元</p>
     <div class="weui-progress">
       <div class="weui-progress__bar">
           <#if orm??>
@@ -81,7 +80,7 @@
 
       </div>
     </div>
-    <p>底价:${oc.over_amount}元</p>
+<div class="auct-bottom"><p class="auct-p">原价：110元</p><p>现价：122元</p><p>底价：110元</p></div>
 </div>
 
 <#--<div class="auct-name">-->
