@@ -36,7 +36,7 @@
             <p style="font-weight: bold;"><span id="toy_drunk"></span>ml</p>
         </div>
         <div class="help">
-            <input type="button" value="我来帮忙干杯" class="otherchess" style="background-color: #FFB046;" onclick="changeNum();"/>
+            <input type="button" id="otherchess" value="我来帮忙干杯" class="otherchess" style="background-color: #FFB046;" onclick="changeNum();"/>
             <input type="button" value="我也要领酒水券" class="otherchess" style="background-color: #89CF46;" onclick="javascript:window.location.href='${baseUrl}pt/past.action';"/>
         </div>
     </div>
@@ -72,6 +72,7 @@
                 //$("#toy_drunk").text(data.today_other_drunk);
                     $("#toy_drunk").text(data.total_drunk);
                 $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
+                    $("#toy_drunk").text(data.total_drunk-data.today_other_drunk);
                 }
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
@@ -98,7 +99,11 @@
                 data = re_json.data;
                 $("#tt_drunk").text(data.total_drunk);
                 $("#oy_drunk").text(data.today_other_drunk);
-                $("#toy_drunk").text(data.today_other_drunk);
+                $("#toy_drunk").text(data.total_drunk-data.today_other_drunk);
+                if(data.total_drunk-data.today_other_drunk<=0){
+                    $("#toy_drunk").style("background-color: #80807b;");
+                    $("#toy_drunk").onclick("");
+                }
             },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况

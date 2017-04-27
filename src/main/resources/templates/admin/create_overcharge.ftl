@@ -47,23 +47,23 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="subtract_price">砍价力度</label>
+                                <label for="subtract_price">砍价力度(共需砍多少刀)</label>
                                 <input type="number" name="subtract_count"
                                 <#if overcharged??>
                                        value="${overcharged.subtract_count}"
                                 </#if>
                                        class="form-control" id="subtract_count"
-                                       placeholder="共需要砍？刀：1">
-                            </div>
-                            <div class="form-group">
-                                <label for="subtract_price">砍价幅度</label>
-                                <input type="number" name="subtract_price"
-                                <#if overcharged??>
-                                       value="${overcharged.subtract_price}"
-                                </#if>
-                                       class="form-control" id="subtract_price"
                                        placeholder="如：1">
                             </div>
+                            <#--<div class="form-group">-->
+                                <#--<label for="subtract_price">砍价幅度</label>-->
+                                <#--<input type="number" name="subtract_price"-->
+                                <#--<#if overcharged??>-->
+                                       <#--value="${overcharged.subtract_price}"-->
+                                <#--</#if>-->
+                                       <#--class="form-control" id="subtract_price"-->
+                                       <#--placeholder="如：1">-->
+                            <#--</div>-->
                             <div class="form-group">
                                 <label for="amount">活动价</label>
                                 <input type="number" name="amount"
@@ -125,16 +125,16 @@
                             <div class="form-group">
                                 <label for="share_title">分享标题</label>
                                 <input type="text" class="form-control"
-                                <#if pr??>
-                                       value="${pr.share_title}";
+                                <#if overcharged??>
+                                       value="${overcharged.share_title}";
                                 </#if>
                                        name="share_title" id="share_title" placeholder="签到标题">
                             </div>
                             <div class="form-group">
                                 <label for="share_title">分享描述</label>
                                 <input type="text" class="form-control"
-                                <#if pr??>
-                                       value="${pr.share_desc}";
+                                <#if overcharged??>
+                                       value="${overcharged.share_desc}";
                                 </#if>
                                        name="share_desc" id="share_desc" placeholder="签到标题">
                             </div>
@@ -142,7 +142,13 @@
                                 <label class="control-label" for="share_photo">分享图标</label>
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
+                                    <input id="old_share_photo" name="old_share_photo_file" type="hidden" <#if overcharged??> value="${overcharged.share_photo!""}</#if>">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title">活动规则说明</label>
+                                <textarea id="info" name="info" class="form-control"
+                                          style="height: 300px"><#if overcharged??>${overcharged.info!""}</#if></textarea>
                             </div>
                             <div class="box-footer">
                                 <div class="pull-right">
@@ -159,6 +165,9 @@
 </div>
 <script lanuage="javascript">
     $(function () {
+        $("#info").wysihtml5({
+            language:'zh-CN'
+        });
         document.title = "砍价";
         $("#estate").addClass("active");
         setNav("砍价", "创建砍价商品");

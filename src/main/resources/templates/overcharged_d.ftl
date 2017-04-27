@@ -68,13 +68,20 @@
 </div>
 
 <div class="auct-progress">
-    <p>${oc.amount}</p>
+    <p>原价:${oc.amount}元</p>
     <div class="weui-progress">
       <div class="weui-progress__bar">
-        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${oc.over_amount/oc.amount*100}%"></div>
+          <#if orm??>
+              <#if (orm.amount>0)>
+                <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${oc.over_amount/oc.amount*100}%"></div>
+              </#if>
+              <#else>
+                  <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
+          </#if>
+
       </div>
     </div>
-    <p>${oc.over_amount}</p>
+    <p>底价:${oc.over_amount}元</p>
 </div>
 
 <#--<div class="auct-name">-->

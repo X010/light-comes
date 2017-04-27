@@ -58,7 +58,7 @@
         <#if pdList??>
             <#list pdList as pd>
                 <p>
-                    <span style="width: 32%" padding-left:10px;>${pd.friend_phone!""}</span>
+                    <span style="width: 32%" padding-left:10px;>${pd.phone!""}</span>
                     <span style="width: 32%" padding-left:10px;>喝掉${pd.drunk_num}ml</span>
                 </p>
             </#list>

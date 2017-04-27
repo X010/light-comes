@@ -355,8 +355,11 @@ public class MainFrameController {
             overchargedModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             overchargedModel.setRemain_count(overchargedModel.getInventory());//剩余库存初始化为总库存
             String share_file_path=FileUtil.saveFile(share_file);
+            String oldSharePhoto=request.getParameter("old_share_photo");
             if(!Strings.isNullOrEmpty(share_file_path)){
                 overchargedModel.setShare_photo(share_file_path);
+            }else if(!Strings.isNullOrEmpty(oldSharePhoto)){
+                overchargedModel.setShare_photo(oldSharePhoto);
             }
             String editid = request.getParameter("editid");
             if (!Strings.isNullOrEmpty(editid)) {
