@@ -139,15 +139,16 @@ public class AuctionController extends BaseController {
                     topPrice = auctionRecordsModel.getPrice();
                 }
 //                if (ArithUtil.sub(ArithUtil.sub(price,topPrice),auctionModel.getSetp_amount())>0) {
-                if (ArithUtil.sub(price,auctionModel.getSetp_amount())>0) {
-                    msg = "加价幅度必须大于" + auctionModel.getSetp_amount() + "元";
-                }
                 if (price > topPrice) {
-                    isSuccess = auctionService.bidAuction(userModel, aid, price);
-                    LOG.info("auction id:" + auctionModel.getId() + " title:" + auctionModel.getTitle() + " aid:" + aid + " phone: " + userModel.getPhone() + " oruce:" + price);
-                    if (isSuccess) {
-                        code = 1;
-                        msg = "出价成功！";
+                    if (ArithUtil.sub(price,topPrice)<auctionModel.getSetp_amount()) {
+                        msg = "加价幅度必须大于" + auctionModel.getSetp_amount() + "元";
+                    }else {
+                        isSuccess = auctionService.bidAuction(userModel, aid, price);
+                        LOG.info("auction id:" + auctionModel.getId() + " title:" + auctionModel.getTitle() + " aid:" + aid + " phone: " + userModel.getPhone() + " oruce:" + price);
+                        if (isSuccess) {
+                            code = 1;
+                            msg = "出价成功！";
+                        }
                     }
                 } else {
                     msg = "出价失败，目前最高价格:" + topPrice;

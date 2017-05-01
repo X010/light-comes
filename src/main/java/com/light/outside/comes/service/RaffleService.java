@@ -159,10 +159,7 @@ public class RaffleService {
 
             //修改
             this.persistentDao.editRaffle(raffleModel);
-
-
             this.persistentDao.deleteRaffleCouponByRaffleId(raffleModel.getId());
-
             if (raffleCouponModels != null && raffleCouponModels.size() > 0) {
                 for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
                     if (raffleCouponModel.getCid() > 0) {
@@ -172,8 +169,9 @@ public class RaffleService {
             }
         } else {
             //更新
-            long rid = this.persistentDao.addRaffle(raffleModel);
-
+            this.persistentDao.addRaffle(raffleModel);
+            long rid=raffleModel.getId();
+            System.out.println(raffleModel.getId());
             if (rid > 0) {
                 for (RaffleCouponModel raffleCouponModel : raffleCouponModels) {
                     if (raffleCouponModel.getCid() > 0) {

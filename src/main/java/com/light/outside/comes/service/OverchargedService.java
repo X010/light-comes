@@ -81,6 +81,12 @@ public class OverchargedService {
         return res;
     }
 
+    /**
+     * 是否帮朋友砍过价
+     * @param aid
+     * @param sponsor
+     * @return
+     */
     public boolean isJoinOvercharged(long aid, long sponsor) {
         boolean res = false;
         OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, sponsor);

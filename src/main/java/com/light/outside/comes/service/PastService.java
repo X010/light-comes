@@ -45,6 +45,9 @@ public class PastService {
     @Autowired
     private RaffleService raffleService;
 
+    @Autowired
+    private CouponService couponService;
+
     public PastModel getPastModelById() {
         return this.persistentDao.getPastById(CONST.PAST_ID);
     }
@@ -125,7 +128,6 @@ public class PastService {
         Preconditions.checkNotNull(userModel);
         PastModel pastModel = this.getPastModelById();
         if (pastModel != null) {
-
             //判断今天次数是否达到
             int times = this.getTodayDrunkTimes(userModel.getPhone());
             if (times < pastModel.getPast_times()) {
@@ -156,7 +158,8 @@ public class PastService {
                     this.persistentDao.updatePastTotal(pastTotal);
                     if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
                         long couponId = pastModel.getCoupon_id();
-                        raffleService.drawRaffleByRage(pastModel.getId(), couponId, userModel.getId(), userModel.getPhone());//发放优惠券
+                        CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
+                        raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), userModel.getId(), userModel.getPhone());//发放优惠券
                     }
                 }
 
@@ -210,7 +213,8 @@ public class PastService {
 
                 if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
                     long couponId = pastModel.getCoupon_id();
-                    raffleService.drawRaffleByRage(pastModel.getId(), couponId, mainUser.getId(), phone);//发放优惠券
+                    CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
+                    raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), 0, phone);//发放优惠券
                 }
             }
 

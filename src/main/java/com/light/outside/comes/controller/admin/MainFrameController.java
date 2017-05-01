@@ -229,8 +229,6 @@ public class MainFrameController {
             //修改状态
             data.put("action", action);
             data.put("editid", id);
-
-
             //加载数据
             RaffleModel raffleModel = this.raffleService.getRaffleById(id);
             if (raffleModel != null) {

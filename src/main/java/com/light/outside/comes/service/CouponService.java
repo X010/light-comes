@@ -165,5 +165,14 @@ public class CouponService {
         return couponBillPageResult;
     }
 
+    /**
+     * 查询一个未绑定的优惠券
+     * @param cid
+     * @return
+     */
+    public CouponRecordModel getCouponBlanceByCouponId(long cid){
+        return  this.persistentDao.getCouponRecorByCid(cid);
+    }
+
 
 }

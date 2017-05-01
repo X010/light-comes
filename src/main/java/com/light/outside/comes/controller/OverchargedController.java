@@ -139,6 +139,8 @@ public class OverchargedController extends BaseController {
                         data.put("now_count",orms.size());
                         data.put("subtract_price",subtractPrice);
                     }
+                    String link="http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid="+overchargedModel.getId()+"&sponsor="+ userModel.getId();
+                    data.put("link",link);
                 }
             }
         } catch (Exception e) {
@@ -169,8 +171,11 @@ public class OverchargedController extends BaseController {
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
 
-                    //获取该用户是否已经砍过价
-                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getPhone());
+                    //获取该用户是否已经帮朋友砍过价
+                    boolean isJoin = false;
+                    if(userModel.getId()!=sponsor) {
+                        isJoin = this.overchargedService.isJoinOvercharged(aid, sponsor);
+                    }
                     data.put("join", isJoin);
                     //获取当前价格
                     double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);

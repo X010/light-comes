@@ -156,6 +156,13 @@ public interface PersistentDao {
     public List<CouponRecordModel> getCouponRecordByCid(@Param("cid") long cid, @Param("start") int start, @Param("size") int size);
 
     /**
+     * 查询未绑定券
+     * @param cid
+     * @return
+     */
+    @Select("select * from comes_conpon_records where cid=#{cid}  and status=9 limti 1")
+    public CouponRecordModel getCouponRecorByCid(@Param("cid") long cid);
+    /**
      * 查询抽奖次数
      *
      * @param rid
@@ -202,6 +209,7 @@ public interface PersistentDao {
     @Insert("insert into comes_raffle(title,start_time,end_time,memo,photo,createtime,status,times)" +
             "values(#{title},#{start_time},#{end_time},#{memo},#{photo},#{createtime},#{status},#{times})")
     @SelectKey(statement = "select last_insert_id() as id", keyProperty = "id", keyColumn = "id", before = false, resultType = long.class)
+    //@Options(useGeneratedKeys = true, keyProperty = "id")
     public long addRaffle(RaffleModel raffleModel);
 
     @Update("update comes_raffle set title=#{title},start_time=#{start_time},end_time=#{end_time},memo=#{memo}," +

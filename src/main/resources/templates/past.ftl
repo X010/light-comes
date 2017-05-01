@@ -132,25 +132,25 @@
 	title:'${pt.share_title}',
 	desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
+	imgUrl:'http://www.qubulikou.com/${pt.share_photo!""}'
 	});
     wx.onMenuShareQQ({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
+	imgUrl:'http://www.qubulikou.com/${pt.share_photo!""}'
     	});
     wx.onMenuShareWeibo({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
 	link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-	imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
+	imgUrl:'http://www.qubulikou.com/${pt.share_photo!""}'
 	});
     wx.onMenuShareQZone({
         title:'${pt.share_title}',
         desc:'${pt.share_desc}',
         link:'http://www.qubulikou.com/qblk/pt/share.action?phone='+${phone},
-        imgUrl:'http://www.qubulikou.com/photo/${pt.share_photo!""}'
+        imgUrl:'http://www.qubulikou.com/${pt.share_photo!""}'
 	});
     });
     //$("#cont").css('background','url("${baseUrl}images/signbg1.jpg") no-repeat');
@@ -181,10 +181,17 @@
 		if(drunk<0){
 			drunk=0;
 		}
-		$("#re_drunk").text(drunk);
-                $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！",function(){
-			window.location.reload();
-		});
+                if(data.cycle_drunk>data.total_drunk){
+                    $("#re_drunk").text(drunk);
+                    $.alert("已获得该奖品!",function(){
+                        window.location.reload();
+                    });
+                }else{
+                    $("#re_drunk").text(drunk);
+                    $.alert("今日已签到！今日干杯获得"+data.today_drunk+"ml酒量，继续加油哦！",function(){
+                        window.location.reload();
+                    });
+                }
 		 },
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况

@@ -70,40 +70,19 @@
 <div class="auct-progress">
     <div class="weui-progress">
       <div class="weui-progress__bar">
-          <#if orm??>
-              <#if (orm.amount>0)>
+          <#if oc??>
+              <#if (oc.over_amount<now_price)>
                 <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${oc.over_amount/oc.amount*100}%"></div>
-              </#if>
               <#else>
                   <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
+              </#if>
+
           </#if>
 
       </div>
     </div>
-<div class="auct-bottom"><p class="auct-p">原价：110元</p><p>现价：122元</p><p>底价：110元</p></div>
+<div class="auct-bottom"><p class="auct-p">原价:${oc.amount}元</p><p>现价:${oc.amount-subtract_price}元</p><p>底价:${oc.over_amount}元</p></div>
 </div>
-
-<#--<div class="auct-name">-->
-<#--<div class="msgt">-->
-<#--<p style="color:#000; font-size:14px;"><strong>砍价者信息</strong></p>-->
-<#--</div>-->
-<#--<div class="msgt">-->
-<#---->
-<#--<#if orms??>-->
-<#--<#list orms as orm>-->
-<#--<p><span style="width: 32%">${orm.createtime?string("MM月dd日 HH:mm:ss")}</span><span style="width: 30%; padding-left:10px; ">-->
-<#--${orm.phone}</span><span style="width: 16%; padding-left: 10px;">-->
-<#--砍掉:<strong style="color: red">${oc.subtract_price}元</strong> </span>-->
-<#--</p>-->
-<#--</#list>-->
-<#--已有${now_count}位朋友帮忙砍价，共砍掉${subtract_price}元，再砍${difference_price}元就成功了，加油！-->
-<#--<#else>-->
-<#--<p>-->
-<#--无人参与砍价!-->
-<#--</p>-->
-<#--</#if>-->
-<#--</div>-->
-<#--</div>-->
 
 <div class="manual">
     <div class="msgt">
@@ -161,7 +140,7 @@
 <script language="JavaScript">
     wx.config({
         debug: false,
-        appId: '${app_id}',
+        appId: '${app_id!}',
         timestamp: ${timestamp!},
         nonceStr: '${nonceStr!}',
         signature: '${signature!}',
@@ -175,33 +154,33 @@
     });
     wx.ready(function () {
         wx.onMenuShareTimeline({
-            title: '${oc.share_title}', // 分享标题
-            desc: '${oc.share_desc}',//描述
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            title: '${oc.share_title!""}', // 分享标题
+            desc: '${oc.share_desc!""}',//描述
+            link: '${link!""}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}' // 分享图标
         });
         wx.onMenuShareAppMessage({
-            title: '${oc.share_title}',//标题
-            desc: '${oc.share_desc}',//描述
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            title: '${oc.share_title!""}',//标题
+            desc: '${oc.share_desc!""}',//描述
+            link: '${link!""}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'//图片
         });
         wx.onMenuShareQQ({
-            title: '${oc.share_title}',
-            desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            title: '${oc.share_title!""}',
+            desc: '${oc.share_desc!""}',
+            link: '${link!""}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareWeibo({
-            title: '${oc.share_title}',
-            desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            title: '${oc.share_title!""}',
+            desc: '${oc.share_desc!""}',
+            link: '${link!""}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
         wx.onMenuShareQZone({
             title: '${oc.share_title}',
             desc: '${oc.share_desc}',
-            link: 'http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=${oc.id}&sponsor=${uid}', // 分享链接
+            link: '${link!""}', // 分享链接
             imgUrl: 'http://www.qubulikou.com/photo/${oc.share_photo!""}'
         });
     });
@@ -213,6 +192,7 @@
                 if (data != null) {
                     if (data.status == 1) {
                         //$.alert("您成功砍了一刀,但未获取该商品");
+                        window.location.reload();
                         $.modal({
                             title: '已减'+data.amount+'元',
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
