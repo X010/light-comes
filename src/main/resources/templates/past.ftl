@@ -104,7 +104,7 @@
     config.waveAnimate = true;
     config.waveCount = 2;
     config.waveOffset = 0.5;
-    config.textSize = .5;
+    config.textSize = 0;
     config.minValue = 0;
     config.displayPercent = false;
     var gauge;
