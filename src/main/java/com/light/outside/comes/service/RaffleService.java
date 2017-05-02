@@ -564,7 +564,7 @@ public class RaffleService {
      * @param rcid
      * @return
      */
-    public RaffleCouponModel    drawRaffleByRage(long rid,long rcid, long uid, String phone) {
+    public RaffleCouponModel drawRaffleByRage(long rid,long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
         String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
@@ -608,6 +608,38 @@ public class RaffleService {
         }
         return null;
     }
+
+    public void sendCoupon(CouponRecordModel couponRecordModel, long uid, String phone) {
+                    String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
+                    this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
+                    //TODO 请求老系统保存优惠券信息
+                    JSONObject params=new JSONObject();
+                    params.put("id",String.valueOf(couponRecordModel.getId()));
+                    params.put("amount", String.valueOf(couponRecordModel.getPrice()));
+                    params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
+                    params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
+                    params.put("userid", String.valueOf(uid));
+                    params.put("shopid", String.valueOf(0));
+                    params.put("promotionid", String.valueOf(0));
+                    params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    String checkToken = MD5.MD5Encode(params.toJSONString());
+                    params.put("token",checkToken);
+                    System.out.println(params.toJSONString());
+                    try {
+                        String response=HttpTools.post(url, params.toJSONString());
+                        JSONObject jsonObject=JSONObject.parseObject(response);
+                        int errcode=jsonObject.getInteger("errcode");
+                        if(errcode==0){
+                            System.out.println("add success "+response);
+                        }else {
+                            System.out.println("response:" + response);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+    }
+
+
 
     public boolean addRaffleCount(long uid, long rid, int count) {
         return this.persistentDao.updateRaffleUserByRaffleId(uid, rid, count) > 0;

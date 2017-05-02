@@ -228,17 +228,21 @@
                 $("#cy_drunk").text(data.cycle_drunk);
                 $("#tdu_drunk").text(data.today_drunk);
                 $("#tdo_drunk").text(data.today_other_drunk);
-                var drunk = data.total_drunk - data.cycle_drunk;//清空后total_drunk变成了0
+                var drunk =data.total_drunk;
+                if(data.cycle_drunk>0) {
+                    drunk=data.total_drunk-data.cycle_drunk;//清空后total_drunk变成了0
+                }
                 if (drunk<0){
                     drunk=0;
                 }
-		$("#re_drunk").text(drunk);
+		        $("#re_drunk").text(drunk);
                 maxValue = data.total_drunk;
                 console.log(maxValue);
                 config.maxValue = maxValue;//总容量
                 var gauge = loadLiquidFillGauge("fillgauge", 120, config);
                 gauge.update(drunk);
             },
+
             complete: function (XMLHttpRequest, status) { //请求完成后最终执行参数
                 if (status == 'timeout') {//超时,status还有success,error等值的情况
                     //ajaxTimeoutTest.abort();

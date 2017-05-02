@@ -89,7 +89,7 @@ public class PastService {
      * @param userModel
      * @return
      */
-    public PastTotal getPastTotalByPhone(UserModel userModel) {
+    public PastTotal getPastTotalByPhone(UserModel userModel){
         Preconditions.checkNotNull(userModel);
         PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(userModel.getPhone());
         if (pastTotal == null) {
@@ -110,6 +110,42 @@ public class PastService {
         PastModel pastModel = this.getPastModelById();
         if (pastModel != null) {
             int times = this.getTodayDrunkTimes(userModel.getPhone());
+            pastTotal.setToday_times(times);
+            pastTotal.setToday_have_times(pastModel.getPast_times() - times);
+            pastTotal.setTotal_drunk(pastModel.getTotal_drunk());
+        }
+
+        return pastTotal;
+    }
+
+    /**
+     * 根据用户的手机号码获取和朋友的干杯信息
+     *
+     * @param userModel
+     * @return
+     */
+    public PastTotal getPastTotalByPhoneAndFriend(UserModel userModel,UserModel friend) {
+        Preconditions.checkNotNull(userModel);
+        PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(friend.getPhone());
+        if (null==pastTotal) {
+            //加入本周期的相关信息
+            pastTotal = new PastTotal();
+            pastTotal.setPhone(userModel.getPhone());
+            pastTotal.setUid(userModel.getUserid());
+            pastTotal.setCycle_drunk(0);
+            pastTotal.setCycle_times(0);
+            pastTotal.setToday_drunk(0);
+            pastTotal.setToday_other_drunk(0);
+            pastTotal.setToday_other_times(0);
+            pastTotal.setToday_times(0);
+            this.persistentDao.addPastTotal(pastTotal);
+        }
+
+        //根据信息判断用户当前的签到状态
+        PastModel pastModel = this.getPastModelById();
+        if (pastModel != null) {
+            //修改为帮朋友干杯次数
+            int times = this.getTodayOtherDrunkTimes(userModel.getPhone(), friend.getPhone());
             pastTotal.setToday_times(times);
             pastTotal.setToday_have_times(pastModel.getPast_times() - times);
             pastTotal.setTotal_drunk(pastModel.getTotal_drunk());
@@ -156,10 +192,12 @@ public class PastService {
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                     pastTotal.setToday_times(pastTotal.getToday_times() + 1);
                     this.persistentDao.updatePastTotal(pastTotal);
-                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
+                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
                         long couponId = pastModel.getCoupon_id();
                         CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
-                        raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), userModel.getId(), userModel.getPhone());//发放优惠券
+                        if(couponRecordModel!=null) {
+                            raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), userModel.getId(), userModel.getPhone());//发放优惠券
+                        }
                     }
                 }
 
@@ -176,7 +214,7 @@ public class PastService {
      * @return
      */
     public PastTotal otherPast(UserModel userModel, String phone) {
-        Preconditions.checkNotNull(userModel);
+            Preconditions.checkNotNull(userModel);
         Preconditions.checkNotNull(phone);
         UserModel mainUser = this.qblkService.getUserByPhone(phone);
         int total = this.getTodayOtherDrunkTimes(phone, userModel.getPhone());
@@ -190,31 +228,34 @@ public class PastService {
             pastDetail.setUid(0);
             pastDetail.setFriend_phone(userModel.getPhone());
             pastDetail.setFriend_uid(userModel.getId());
-
+            int drunk_num=0;
             if (pastModel.getPast_type() == 1) {
                 //固定值
                 pastDetail.setDrunk_num(pastModel.getFix_drunk());
             } else {
                 //随机值
                 Random random = new Random();
-                pastDetail.setDrunk_num(random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk());
+                drunk_num=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
+                pastDetail.setDrunk_num(drunk_num);
             }
             this.persistentDao.addPastDetail(pastDetail);
 
             PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(phone);
 
             if (pastTotal != null) {
-                pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
-                pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk() + pastDetail.getDrunk_num());
+                pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + drunk_num);
+                pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk() + drunk_num);
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                 pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
 
                 this.persistentDao.updatePastTotal(pastTotal);
 
-                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() > pastModel.getTotal_drunk()) {
+                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
                     long couponId = pastModel.getCoupon_id();
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
-                    raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), 0, phone);//发放优惠券
+                    if (couponRecordModel != null) {
+                        raffleService.sendCoupon(couponRecordModel, mainUser.getId(), phone);//发放优惠券
+                    }
                 }
             }
 
@@ -346,7 +387,6 @@ public class PastService {
     public int getTodayOtherDrunkTimes(String phone, String otherPhone) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String time = simpleDateFormat.format(new Date());
-
         return this.persistentDao.countPastDetailByPhoneAndOtherPhoneAndTime(phone, otherPhone, time + " 00:00:01", time + " 23:59:59");
     }
 

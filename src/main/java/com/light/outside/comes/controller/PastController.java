@@ -134,9 +134,10 @@ public class PastController extends BaseController {
     public String otherInfo(@RequestParam("phone") String phone) {
         JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
         try {
-            UserModel user = this.qblkService.getUserByPhone(phone);
-            if (user != null) {
-                PastTotal pastTotal = this.pastService.getPastTotalByPhone(user);
+            UserModel frind = this.qblkService.getUserByPhone(phone);//朋友
+            UserModel user=getAppUserInfo();//当前登录用户
+            if (frind != null) {
+                PastTotal pastTotal = this.pastService.getPastTotalByPhoneAndFriend(user,frind);
                 data.setData(pastTotal);
             }
         } catch (Exception e) {

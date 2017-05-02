@@ -64,18 +64,21 @@
             success: function (re_json) {
                 data = re_json.data;
                 if (data.today_other_times < 1) {
-           		$.alert("今天干杯次数已用完");
-           		       }
-           	else{
+           		    $.alert("今天干杯次数已用完");
+                }else{
                 $("#tt_drunk").text(data.total_drunk);
                 $("#oy_drunk").text(data.today_other_drunk);
-                //$("#toy_drunk").text(data.today_other_drunk);
-//                    $("#toy_drunk").text(data.total_drunk);
                     $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
-                    if(data.total_drunk-data.today_other_drunk<0){
+                    if(data.total_drunk-(data.today_other_drunk+data.today_drunk)<=0){
                         $("#toy_drunk").text(0);
+                        $("#otherchess").attr("style","background-color: #80807b;");
+                        $("#otherchess").attr("value","已帮朋友干杯");
+                        $("#otherchess").attr("disabled",true);
                     }else {
-                        $("#toy_drunk").text(data.total_drunk - data.today_other_drunk);
+                        $("#toy_drunk").text(data.total_drunk - (data.today_other_drunk+data.today_drunk));
+                        $("#otherchess").attr("style","background-color: #80807b;");
+                        $("#otherchess").attr("value","已帮朋友干杯");
+                        $("#otherchess").attr("disabled",true);
                     }
                 }
 		 },
@@ -103,10 +106,13 @@
                 data = re_json.data;
                 $("#tt_drunk").text(data.total_drunk);
                 $("#oy_drunk").text(data.today_other_drunk);
-                if(data.total_drunk-data.today_other_drunk<0){
+                if(data.total_drunk-(data.today_other_drunk+data.today_drunk)<=0){
                     $("#toy_drunk").text(0);
+                    $("#otherchess").attr("style","background-color: #80807b;");
+                    $("#otherchess").attr("value","酒瓶已经空了");
+                    $("#otherchess").attr("disabled",true);
                 }else {
-                    $("#toy_drunk").text(data.total_drunk - data.today_other_drunk);
+                    $("#toy_drunk").text(data.total_drunk - (data.today_other_drunk+data.today_drunk));
                 }
                 if(data.today_times>0){
                     $("#otherchess").attr("style","background-color: #80807b;");

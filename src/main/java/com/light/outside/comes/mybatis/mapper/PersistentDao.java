@@ -160,7 +160,7 @@ public interface PersistentDao {
      * @param cid
      * @return
      */
-    @Select("select * from comes_conpon_records where cid=#{cid}  and status=9 limti 1")
+    @Select("select * from comes_conpon_records where cid=#{cid} and uid=0  and status=2 limit 1")
     public CouponRecordModel getCouponRecorByCid(@Param("cid") long cid);
     /**
      * 查询抽奖次数
@@ -462,10 +462,10 @@ public interface PersistentDao {
     public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
 
 
-    @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone=#{other}  and create_time>=#{start_time} and create_time<=#{end_time}")
+    @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone=#{other} and drunk_type=2 and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndOtherPhoneAndTime(@Param("phone") String phone,@Param("other") String other, @Param("start_time") String start_time, @Param("end_time") String end_time);
 
-    @Select("select * from comes_past_detail where friend_phone=#{phone} and TO_DAYS(create_time)=TO_DAYS(now())")
+    @Select("select * from comes_past_detail where phone=#{phone} and drunk_type=2 and TO_DAYS(create_time)=TO_DAYS(now())")
     public List<PastDetail> getPastDetail(@Param("phone") String phone);
 
     @Select("select * from comes_past_detail where uid=#{uid}")

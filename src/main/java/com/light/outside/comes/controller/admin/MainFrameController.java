@@ -967,16 +967,22 @@ public class MainFrameController {
      * @return
      */
     @RequestMapping(value = "past_setting.action")
-    public String past_setting(Map<String, Object> data, PastModel pastModel, @RequestParam("photo_up") MultipartFile file,  @RequestParam("share_photo_file") MultipartFile share_file,HttpServletRequest httpServletRequest) {
-        if (httpServletRequest.getMethod().equalsIgnoreCase("POST")) {
+    public String past_setting(Map<String, Object> data, PastModel pastModel, @RequestParam("photo_up") MultipartFile file,  @RequestParam("share_photo_file") MultipartFile share_file,HttpServletRequest request) {
+        if (request.getMethod().equalsIgnoreCase("POST")) {
+            String oldPhoto=request.getParameter("old_photo");
+            String oldSharePhoto=request.getParameter("old_share_photo");
             if (pastModel != null && pastModel.getTotal_drunk() > 0) {
                 String file_path = FileUtil.saveFile(file);
                 if (!Strings.isNullOrEmpty(file_path)) {
                     pastModel.setPhoto(file_path);
+                }else{
+                    pastModel.setPhoto(oldPhoto);
                 }
                 String share_file_path=FileUtil.saveFile(share_file);
                 if(!Strings.isNullOrEmpty(file_path)){
                     pastModel.setShare_photo(share_file_path);
+                }else{
+                    pastModel.setShare_photo(oldSharePhoto);
                 }
                 pastModel = this.pastService.svePastModel(pastModel);
                 return "redirect:past_redirect.action";

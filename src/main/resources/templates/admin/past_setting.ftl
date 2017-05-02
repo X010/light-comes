@@ -145,10 +145,16 @@
                                        name="title" id="title" placeholder="签到标题">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="photo_up">活动图片(建议使用JPG图片)</label>
-
+                                <label class="control-label" for="photo_up">活动图片(建议使用360*100JPG图片)</label>
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="photo" name="photo_up" type="file">
+                                </div>
+                                <div id="image-div" class="overflow">
+                                <#if pr.photo??>
+                                    <img id="focus_image_preview" name="focus_image_preview"
+                                         src="http://www.qubulikou.com/${pr.photo!""}" width="360" height="100">
+                                </#if>
+                                    <input id="old_photo" name="old_photo" type="hidden" <#if pr??> value="${pr.photo!""}</#if>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -168,9 +174,14 @@
                                        name="share_desc" id="share_desc" placeholder="签到标题">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="share_photo">分享图标</label>
+                                <label class="control-label" for="share_photo">分享图标（300*300）</label>
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
+                                <#if pr.share_photo??>
+                                    <img id="focus_image_preview" name="focus_image_preview"
+                                         src="http://www.qubulikou.com/${pr.share_photo!""}" width="300" height="300">
+                                </#if>
+                                    <input id="old_share_photo" name="old_share_photo" type="hidden" <#if pr??> value="${pr.share_photo!""}</#if>">
                                 </div>
                             </div>
                             <div class="form-group">
