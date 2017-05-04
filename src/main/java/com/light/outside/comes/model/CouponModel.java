@@ -89,6 +89,18 @@ public class CouponModel extends BaseModel {
      * 使用张数
      */
     private int usenum;
+    /**
+     * 使用规则说明
+     */
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public int getSendnum() {
         return sendnum;

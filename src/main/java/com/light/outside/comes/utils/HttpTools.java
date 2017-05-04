@@ -105,4 +105,12 @@ public class HttpTools {
         return body;
     }
 
+    public static void main(String[]args){
+        try {
+            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", "{\"endtime\":\"2017-07-01 00:00:00\",\"amount\":\"36.0\",\"id\":\"995\",\"categoryid\":\"1763\",\"shopid\":\"0\",\"starttime\":\"2017-05-04 00:00:00\",\"token\":\"54e0714e29289113ede1a1646bf73a46\",\"promotionid\":\"0\",\"userid\":\"12347\",\"title\":\"hahaha\",\"remark\":\"满减券\"}"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

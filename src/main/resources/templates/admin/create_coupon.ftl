@@ -22,6 +22,10 @@
                                 <input type="text" class="form-control" name="title" id="title" placeholder="优惠劵名称">
                             </div>
                             <div class="form-group">
+                                <label for="rule">优惠劵规则说明</label>
+                                <input type="text" class="form-control" name="rule" id="rule" placeholder="优惠劵规则说明">
+                            </div>
+                            <div class="form-group">
                                 <label>优惠劵起始时间:</label>
 
                                 <div class="input-group">

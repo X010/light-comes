@@ -152,7 +152,7 @@ public interface PersistentDao {
     public int getCouponRecordByCidTotal(@Param("cid") long cid);
 
 
-    @Select("select * from comes_conpon_records where cid=#{cid} order by update_time desc limit #{start},#{size}")
+    @Select("select * from comes_conpon_records where cid=#{cid} order by updatetime desc limit #{start},#{size}")
     public List<CouponRecordModel> getCouponRecordByCid(@Param("cid") long cid, @Param("start") int start, @Param("size") int size);
 
     /**
@@ -458,7 +458,7 @@ public interface PersistentDao {
      * @param end_time
      * @return
      */
-    @Select("select count(1) from comes_past_detail where phone=#{phone} and create_time>=#{start_time} and create_time<=#{end_time}")
+    @Select("select count(1) from comes_past_detail where phone=#{phone} and friend_phone is null and create_time>=#{start_time} and create_time<=#{end_time}")
     public int countPastDetailByPhoneAndTime(@Param("phone") String phone, @Param("start_time") String start_time, @Param("end_time") String end_time);
 
 

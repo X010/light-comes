@@ -252,9 +252,10 @@ public class PastService {
 
                 if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
                     long couponId = pastModel.getCoupon_id();
+                    CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
-                    if (couponRecordModel != null) {
-                        raffleService.sendCoupon(couponRecordModel, mainUser.getId(), phone);//发放优惠券
+                    if (couponRecordModel != null&&couponModel!=null) {
+                        raffleService.sendCoupon(couponModel,couponRecordModel, mainUser.getId(), phone);//发放优惠券
                     }
                 }
             }

@@ -608,7 +608,7 @@ public class RaffleService {
         return null;
     }
 
-    public void sendCoupon(CouponRecordModel couponRecordModel, long uid, String phone) {
+    public void sendCoupon(CouponModel couponModel,CouponRecordModel couponRecordModel, long uid, String phone) {
                     String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
@@ -620,7 +620,9 @@ public class RaffleService {
                     params.put("userid", String.valueOf(uid));
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(0));
-                    params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    params.put("categoryid", String.valueOf(couponModel.getMid()));
+                    params.put("title",couponModel.getTitle());
+                    params.put("remark",Strings.isNullOrEmpty(couponModel.getRole())?"":couponModel.getRole());
                     String checkToken = MD5.MD5Encode(params.toJSONString());
                     params.put("token",checkToken);
                     System.out.println(params.toJSONString());

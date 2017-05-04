@@ -174,5 +174,14 @@ public class CouponService {
         return  this.persistentDao.getCouponRecorByCid(cid);
     }
 
+    /**
+     * 获取优惠券信息
+     * @param cid
+     * @return
+     */
+    public CouponModel getCouponByCouponId(long cid){
+        return this.persistentDao.getCouponById(cid);
+    }
+
 
 }
