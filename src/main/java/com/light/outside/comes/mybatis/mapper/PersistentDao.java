@@ -24,11 +24,11 @@ import java.util.List;
  */
 public interface PersistentDao {
 
-    @Insert("insert into comes_coupon(title,createtime,use_start_time,use_end_time,num,ctype,mid,price,status)" +
-            "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{num},#{ctype},#{mid},#{price},#{status})")
+    @Insert("insert into comes_coupon(title,createtime,use_start_time,use_end_time,num,ctype,mid,price,status,rule)" +
+            "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{num},#{ctype},#{mid},#{price},#{status},#{rule})")
     public void addCoupon(CouponModel couponModel);
 
-    @Update("update comes_coupon set title=#{title},use_start_time=#{use_start_time},use_end_time=#{use_end_time},status=#{status} where id=#{id}")
+    @Update("update comes_coupon set title=#{title},use_start_time=#{use_start_time},use_end_time=#{use_end_time},status=#{status},rule=#{rule} where id=#{id}")
     public void editCoupon(CouponModel couponModel);
 
     @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")

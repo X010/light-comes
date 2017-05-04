@@ -154,6 +154,7 @@ public class PastController extends BaseController {
         try {
             UserModel user = getAppUserInfo();
             PastTotal pastTotal = this.pastService.otherPast(user, phone);
+//            this.pastService.getPastTotalByPhone(user);
             data.setData(pastTotal);
         } catch (Exception e) {
             e.printStackTrace();

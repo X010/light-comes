@@ -92,14 +92,14 @@ public class CouponModel extends BaseModel {
     /**
      * 使用规则说明
      */
-    private String role;
+    private String rule;
 
-    public String getRole() {
-        return role;
+    public String getRule() {
+        return rule;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRule(String rule) {
+        this.rule = rule;
     }
 
     public int getSendnum() {

@@ -622,7 +622,7 @@ public class RaffleService {
                     params.put("promotionid", String.valueOf(0));
                     params.put("categoryid", String.valueOf(couponModel.getMid()));
                     params.put("title",couponModel.getTitle());
-                    params.put("remark",Strings.isNullOrEmpty(couponModel.getRole())?"":couponModel.getRole());
+                    params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
                     String checkToken = MD5.MD5Encode(params.toJSONString());
                     params.put("token",checkToken);
                     System.out.println(params.toJSONString());

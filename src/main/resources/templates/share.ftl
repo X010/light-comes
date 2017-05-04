@@ -75,7 +75,7 @@
                         $("#otherchess").attr("value","已帮朋友干杯");
                         $("#otherchess").attr("disabled",true);
                     }else {
-                        $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
+                        $.alert("今日为朋友干杯"+data.drunk_num+"ml酒量，真给力！");
                         $("#toy_drunk").text(data.total_drunk - (data.today_other_drunk+data.today_drunk));
                         $("#otherchess").attr("style","background-color: #80807b;");
                         $("#otherchess").attr("value","已帮朋友干杯");

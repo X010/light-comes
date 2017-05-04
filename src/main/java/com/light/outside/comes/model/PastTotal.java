@@ -75,6 +75,18 @@ public class PastTotal extends BaseModel {
      * 更新时间
      */
     private Date update_time;
+    /**
+     *
+     */
+    private int drunk_num;
+
+    public int getDrunk_num() {
+        return drunk_num;
+    }
+
+    public void setDrunk_num(int drunk_num) {
+        this.drunk_num = drunk_num;
+    }
 
     public Date getUpdate_time() {
         return update_time;
