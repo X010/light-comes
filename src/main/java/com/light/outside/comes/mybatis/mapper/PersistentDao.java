@@ -152,7 +152,7 @@ public interface PersistentDao {
     public int getCouponRecordByCidTotal(@Param("cid") long cid);
 
 
-    @Select("select * from comes_conpon_records where cid=#{cid} order by id desc limit #{start},#{size}")
+    @Select("select * from comes_conpon_records where cid=#{cid} order by update_time desc limit #{start},#{size}")
     public List<CouponRecordModel> getCouponRecordByCid(@Param("cid") long cid, @Param("start") int start, @Param("size") int size);
 
     /**

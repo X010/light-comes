@@ -71,8 +71,8 @@
     <div class="weui-progress">
       <div class="weui-progress__bar">
           <#if oc??>
-              <#if (oc.over_amount<now_price)>
-                <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${oc.over_amount/oc.amount*100}%"></div>
+              <#if (oc.amount>now_price)>
+                <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${(oc.amount-now_price)/oc.over_amount*100}%"></div>
               <#else>
                   <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
               </#if>
@@ -111,20 +111,20 @@
         <#else>
             <div class="help">
                 <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
-                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
             </div>
         </#if>
     <#else>
         <#if sponsor==uid>
             <div class="help">
-                <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
+                <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
                 <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
             </div>
         <#else>
         <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
             <div class="help">
-                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id});"/>
-                <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id},${sponsor})"/>
+                <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id?c},${sponsor?c})"/>
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
             </div>
         </#if>
 
@@ -198,12 +198,12 @@
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
                             buttons: [
                                 {
-                                    text: "取消", className: "default", onclick: function () {
+                                    text: "取消", className: "default", onClick: function () {
                                     window.location.reload();
                                 }
                                 },
                                 {
-                                    text: "找朋友帮我砍", onclick: function () {
+                                    text: "找朋友帮我砍", onClick: function () {
                                     sharewx();
                                 }
                                 },
@@ -218,12 +218,12 @@
                             text: '您已自砍，想要获取商品需要集众人之力，召唤朋友帮你砍价吧！',
                             buttons: [
                                 {
-                                    text: "取消", className: "default", onclick: function () {
+                                    text: "取消", className: "default", onClick: function () {
                                     window.location.reload();
                                     }
                                 },
                                 {
-                                    text: "找朋友帮我砍", onclick: function () {
+                                    text: "找朋友帮我砍", onClick: function () {
                                     sharewx();
                                 }
                                 },
@@ -251,7 +251,9 @@ function sendOcBySponsor(aid,sponsor) {
                         $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
                         window.location.reload();
                     } else if (data.status == 8) {
-                        $.alert("每个活动只能帮一个朋友砍价！");
+                        $.alert("该活动商品已售完！");
+                    } else if (data.status == 9) {
+                        $.alert("每次活动只能帮一个朋友砍价！");
                     } else if (data.status == 5) {
                         $.alert("你已帮朋友拿下该商品！");
                         window.location.reload();

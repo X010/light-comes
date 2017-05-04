@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* CSS Document */
-#banner{width: 100%;  height:250px;  overflow: hidden; position:relative;}
+#banner{width: 100%;  height:100%;  overflow: hidden; position:relative;}
 #banner img {width: 100%; height: 100%;}
 
 .auction{ width: 100%; position: relative; background: #fff; box-shadow: 0 0 30px #ccc;}
@@ -57,7 +57,7 @@
 .weui-progress{ width:90%; margin:8px; float:left;}
 .weui-progress__bar{ height:8px;}
 .auct-p{ float:left; font-size:10px;margin-left:6px;}
-.auct-bottom p+p{ float:left; font-size:10px; margin-left:59px;}
+.auct-bottom p+p{ float:left; font-size:10px; margin-left:80px;}
 
 .help{ width: 100%; height:50px; position: fixed; bottom：0; left:0; background:#f3f3f3; }
 .otherchess{ width:50%; height: 100%; float: left; color:#fff; font-size:16px;}

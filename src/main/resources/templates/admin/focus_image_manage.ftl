@@ -36,7 +36,7 @@
                                        value="${focusImage0.title!}">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="focus_image">焦点图1</label>
+                                <label class="control-label" for="focus_image">焦点图1(375*225)</label>
 
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="focus_image" name="focus_image"
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="focus_image1">焦点图2</label>
+                                <label class="control-label" for="focus_image1">焦点图2(375*225)</label>
 
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="focus_image1" name="focus_image1"
@@ -93,7 +93,7 @@
                                 <input type="text" class="form-control" name="title2" id="title2" value="${focusImage2.title!}" placeholder="标题3">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="focus_image2">焦点图3</label>
+                                <label class="control-label" for="focus_image2">焦点图3(375*225)</label>
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="focus_image2" name="focus_image2"
                                            value="${focusImage2.image}"

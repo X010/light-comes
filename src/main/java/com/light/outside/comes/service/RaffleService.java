@@ -242,7 +242,6 @@ public class RaffleService {
     public PageResult<CouponRecordModel> getCouponRecordModelByAid(long aid, PageModel pageModel) {
         Preconditions.checkNotNull(pageModel);
         int total = this.persistentDao.getCouponRecordByCidTotal(aid);
-
         List<CouponRecordModel> couponRecordModels = this.persistentDao.getCouponRecordByCid(aid, pageModel.getStart(), pageModel.getSize());
 
         PageResult<CouponRecordModel> couponRecordModelPageResult = new PageResult<CouponRecordModel>();
@@ -627,6 +626,7 @@ public class RaffleService {
                     System.out.println(params.toJSONString());
                     try {
                         String response=HttpTools.post(url, params.toJSONString());
+                        System.out.println("response:"+response);
                         JSONObject jsonObject=JSONObject.parseObject(response);
                         int errcode=jsonObject.getInteger("errcode");
                         if(errcode==0){

@@ -139,10 +139,16 @@
                                        name="share_desc" id="share_desc" placeholder="签到标题">
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="share_photo">分享图标</label>
+                                <label class="control-label" for="share_photo">分享图标(300*300)</label>
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="share_photo" name="share_photo_file" type="file">
                                     <input id="old_share_photo" name="old_share_photo_file" type="hidden" <#if overcharged??> value="${overcharged.share_photo!""}</#if>">
+                                    <div id="image-div2" class="overflow">
+                                    <#if overcharged??>
+                                        <img id="focus_image_preview2" name="focus_image_preview2"
+                                             src="http://www.qubulikou.com/${overcharged.share_photo!""}" width="300" height="300">
+                                    </#if>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

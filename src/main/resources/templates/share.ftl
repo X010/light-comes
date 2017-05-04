@@ -68,13 +68,14 @@
                 }else{
                 $("#tt_drunk").text(data.total_drunk);
                 $("#oy_drunk").text(data.today_other_drunk);
-                    $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
                     if(data.total_drunk-(data.today_other_drunk+data.today_drunk)<=0){
+                        $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，朋友已获得该奖品！");
                         $("#toy_drunk").text(0);
                         $("#otherchess").attr("style","background-color: #80807b;");
                         $("#otherchess").attr("value","已帮朋友干杯");
                         $("#otherchess").attr("disabled",true);
                     }else {
+                        $.alert("今日为朋友干杯"+data.today_other_drunk+"ml酒量，真给力！");
                         $("#toy_drunk").text(data.total_drunk - (data.today_other_drunk+data.today_drunk));
                         $("#otherchess").attr("style","background-color: #80807b;");
                         $("#otherchess").attr("value","已帮朋友干杯");

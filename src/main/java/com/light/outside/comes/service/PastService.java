@@ -345,15 +345,13 @@ public class PastService {
                         }
                     }
 
-                    int days = dayTotal % pastModel.getInterval_day();
-
-                    if (days > 0) {
+                    int days = dayTotal % pastModel.getInterval_day();//签到周期
+                    if (days >= 0) {//签到周期未完成
                         //删除周期签到信息
                         this.persistentDao.clearPastTotalForPhone(phone);
                         this.persistentDao.clearCyclePastTotalForPhone(phone);
                         //删除详情信息
                         Calendar calendar = Calendar.getInstance();
-
                         calendar.setTime(new Date());
                         calendar.add(Calendar.DAY_OF_YEAR, -1 * days);
                         String start_time = simpleDateFormat.format(calendar.getTime());
@@ -361,7 +359,6 @@ public class PastService {
 
                         this.persistentDao.deletePastDetailForPhoneandTime(phone, start_time + " 00:00:01", end_time + " 23:59:59");
                     }
-
 
                 }
 

@@ -18,7 +18,7 @@ public interface OverchargedDao {
     @Select("select id,sku_id,create_time,amount,deposit,subtract_price,title,status,deal_time from comes_overcharged ")
     public List<OverchargedModel> queryOverchargedModelList();
 
-    @Update("update comes_overcharged set sku_id=#{sku_id},amount=#{amount},deposit=#{deposit},subtract_price=#{subtract_price}," +
+    @Update("update comes_overcharged set amount=#{amount},deposit=#{deposit},subtract_price=#{subtract_price}," +
             "title=#{title},status=#{status},deal_time=#{deal_time},remain_count=#{remain_count}" +
             " where id=#{id}")
     public int updateOvercharged(OverchargedModel overchargedModel);
@@ -60,6 +60,10 @@ public interface OverchargedDao {
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor} limit 1")
     public OverchargedRecordModel getOverChargedRecordByUidAndAid(@Param("aid") long aid, @Param("sponsor") long sponsor);
+
+
+    @Select("select * from comes_overcharged_record where aid=#{aid} and uid=#{uid} and sponsor=#{sponsor} limit 1")
+    public OverchargedRecordModel getOverChargedRecordByUidAndAidAndSponsor(@Param("aid") long aid,@Param("uid") long uid, @Param("sponsor") long sponsor);
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} sponsor=#{sponsor}  limit 1")
     public OverchargedRecordModel getOverChargedRecordByPhoneAndAidAndSponsor(@Param("aid") long aid,@Param("sponsor") long sponsor, @Param("phone") String phone);

@@ -124,7 +124,7 @@ public class OverchargedController extends BaseController {
                     data.put("sponsor",sponsor);
                     data.put("uid",userModel.getId());
                     //获取该用户是否已经砍过价
-                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, sponsor);
+                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid,userModel.getId(), sponsor);
                     data.put("join", isJoin);
                     //获取当前价格
                     double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
@@ -174,7 +174,7 @@ public class OverchargedController extends BaseController {
                     //获取该用户是否已经帮朋友砍过价
                     boolean isJoin = false;
                     if(userModel.getId()!=sponsor) {
-                        isJoin = this.overchargedService.isJoinOvercharged(aid, sponsor);
+                        isJoin = this.overchargedService.isJoinOvercharged(aid,userModel.getId(), sponsor);
                     }
                     data.put("join", isJoin);
                     //获取当前价格

@@ -87,9 +87,9 @@ public class OverchargedService {
      * @param sponsor
      * @return
      */
-    public boolean isJoinOvercharged(long aid, long sponsor) {
+    public boolean isJoinOvercharged(long aid,long uid, long sponsor) {
         boolean res = false;
-        OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, sponsor);
+        OverchargedRecordModel overchargedRecordModel = this.overchargedDao.getOverChargedRecordByUidAndAidAndSponsor(aid, uid, sponsor);
         if (overchargedRecordModel != null) {
             res = true;
         }
@@ -202,12 +202,12 @@ public class OverchargedService {
                     }
                     this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
                 }else{
-                    orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完
+                    orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完or已帮朋友砍价
                 }
             }
         } else {
             //已经砍过价了
-            orm.setStatus(CONST.RAFFLE_STATUS_OVER);
+            orm.setStatus(9);
         }
         return orm;
     }
