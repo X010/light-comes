@@ -198,12 +198,12 @@
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
                             buttons: [
                                 {
-                                    text: "取消", className: "default", onclick: function () {
+                                    text: "取消", className: "default", onClick: function () {
                                     window.location.reload();
                                 }
                                 },
                                 {
-                                    text: "找朋友帮我砍", onclick: function () {
+                                    text: "找朋友帮我砍", onClick: function () {
                                     sharewx();
                                 }
                                 },
@@ -218,12 +218,12 @@
                             text: '您已自砍，想要获取商品需要集众人之力，召唤朋友帮你砍价吧！',
                             buttons: [
                                 {
-                                    text: "取消", className: "default", onclick: function () {
+                                    text: "取消", className: "default", onClick: function () {
                                     window.location.reload();
                                     }
                                 },
                                 {
-                                    text: "找朋友帮我砍", onclick: function () {
+                                    text: "找朋友帮我砍", onClick: function () {
                                     sharewx();
                                 }
                                 },
