@@ -18,7 +18,7 @@ public interface OverchargedDao {
     @Select("select id,sku_id,create_time,amount,deposit,subtract_price,title,status,deal_time from comes_overcharged ")
     public List<OverchargedModel> queryOverchargedModelList();
 
-    @Update("update comes_overcharged set amount=#{amount},deposit=#{deposit},subtract_price=#{subtract_price}," +
+    @Update("update comes_overcharged set amount=#{amount},subtract_price=#{subtract_price}," +
             "title=#{title},status=#{status},deal_time=#{deal_time},remain_count=#{remain_count}" +
             " where id=#{id}")
     public int updateOvercharged(OverchargedModel overchargedModel);
