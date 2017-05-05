@@ -175,20 +175,21 @@ public class PastService {
                 pastDetail.setDrunk_type(CONST.DRUNK_SELF);
                 pastDetail.setPhone(userModel.getPhone());
                 pastDetail.setUid(userModel.getUserid());
-
+                int drunkNum=0;
                 if (pastModel.getPast_type() == 1) {
                     //固定值
                     pastDetail.setDrunk_num(pastModel.getFix_drunk());
+                    drunkNum=pastModel.getFix_drunk();
                 } else {
                     //随机值
                     Random random = new Random();
-                    int drunkNum = random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
+                    drunkNum= random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
                     pastDetail.setDrunk_num(drunkNum);
-                    pastTotal.setDrunk_num(drunkNum);
                 }
                 this.persistentDao.addPastDetail(pastDetail);
 
                 if (pastTotal != null) {
+                    pastTotal.setDrunk_num(drunkNum);
                     pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
                     pastTotal.setToday_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
@@ -234,16 +235,16 @@ public class PastService {
             if (pastModel.getPast_type() == 1) {
                 //固定值
                 pastDetail.setDrunk_num(pastModel.getFix_drunk());
+                drunk_num=pastModel.getFix_drunk();
             } else {
                 //随机值
                 Random random = new Random();
                 drunk_num=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
                 pastDetail.setDrunk_num(drunk_num);
-                pastTotal.setDrunk_num(drunk_num);
-            }
-            this.persistentDao.addPastDetail(pastDetail);
+            }this.persistentDao.addPastDetail(pastDetail);
 
             if (pastTotal != null) {
+                pastTotal.setDrunk_num(drunk_num);
                 pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + drunk_num);
                 pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk() + drunk_num);
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
