@@ -163,6 +163,7 @@ public class PastService {
     public PastTotal pastSelf(UserModel userModel) {
         Preconditions.checkNotNull(userModel);
         PastModel pastModel = this.getPastModelById();
+        int drunkNum=0;
         if (pastModel != null) {
             //判断今天次数是否达到
             int times = this.getTodayDrunkTimes(userModel.getPhone());
@@ -175,7 +176,6 @@ public class PastService {
                 pastDetail.setDrunk_type(CONST.DRUNK_SELF);
                 pastDetail.setPhone(userModel.getPhone());
                 pastDetail.setUid(userModel.getUserid());
-                int drunkNum=0;
                 if (pastModel.getPast_type() == 1) {
                     //固定值
                     pastDetail.setDrunk_num(pastModel.getFix_drunk());
@@ -206,7 +206,11 @@ public class PastService {
 
             }
         }
-        return this.getPastTotalByPhone(userModel);
+        PastTotal tempPast=getPastTotalByPhone(userModel);
+        if(tempPast!=null){
+            tempPast.setDrunk_num(drunkNum);
+        }
+        return tempPast;
     }
 
     /**
@@ -222,6 +226,7 @@ public class PastService {
         UserModel mainUser = this.qblkService.getUserByPhone(phone);
         int total = this.getTodayOtherDrunkTimes(phone, userModel.getPhone());
         PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(phone);
+        int drunk_num=0;
         if (total <= 0) {
             PastModel pastModel = getPastModelById();
             PastDetail pastDetail = new PastDetail();
@@ -231,7 +236,6 @@ public class PastService {
             pastDetail.setUid(0);
             pastDetail.setFriend_phone(userModel.getPhone());
             pastDetail.setFriend_uid(userModel.getId());
-            int drunk_num=0;
             if (pastModel.getPast_type() == 1) {
                 //固定值
                 pastDetail.setDrunk_num(pastModel.getFix_drunk());
@@ -240,7 +244,6 @@ public class PastService {
                 //随机值
                 Random random = new Random();
                 drunk_num=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
-                pastDetail.setDrunk_num(drunk_num);
             }this.persistentDao.addPastDetail(pastDetail);
 
             if (pastTotal != null) {
@@ -262,8 +265,11 @@ public class PastService {
             }
 
         }
-
-        return getPastTotalByPhone(mainUser);
+        PastTotal tempPast=getPastTotalByPhone(mainUser);
+        if(tempPast!=null){
+            tempPast.setDrunk_num(drunk_num);
+        }
+        return tempPast;
     }
 
     /**
