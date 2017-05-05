@@ -244,6 +244,7 @@ public class PastService {
                 //随机值
                 Random random = new Random();
                 drunk_num=random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
+                pastDetail.setDrunk_num(drunk_num);
             }this.persistentDao.addPastDetail(pastDetail);
 
             if (pastTotal != null) {
