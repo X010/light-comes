@@ -44,7 +44,7 @@ public interface OverchargedDao {
      * @param sponsor 发起人ID
      * @return
      */
-    @Select("select IFNULL(sum(amount),0) as oTotal from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor}")
+    @Select("select ROUND(IFNULL(sum(amount),0),2) as oTotal from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor}")
     public double getOverchargeSubtractPrice(@Param("aid") long aid,@Param("sponsor") long sponsor);
 
     @Select("select * from comes_overcharged_record where aid=#{aid} order by amount asc")

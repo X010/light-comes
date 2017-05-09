@@ -173,6 +173,8 @@
         deposit.style.display = "none";
         price.style.display = "none";
         buy.style.display="block";
+    }else{
+        footer.style.display = "none";
     }
 
     buy.onclick=function(){

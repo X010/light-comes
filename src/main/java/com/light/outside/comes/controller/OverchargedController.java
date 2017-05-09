@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -122,14 +123,18 @@ public class OverchargedController extends BaseController {
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
                     data.put("sponsor",sponsor);
-                    data.put("uid",userModel.getId());
+                    data.put("uid", userModel.getId());
                     //获取该用户是否已经砍过价
                     boolean isJoin = this.overchargedService.isJoinOvercharged(aid,userModel.getId(), sponsor);
                     data.put("join", isJoin);
                     //获取当前价格
                     double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
+                    BigDecimal   b   =   new   BigDecimal(nowPrice);
+                    nowPrice   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     //当前砍掉价格
                     double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
+                    BigDecimal   b2   =   new   BigDecimal(subtractPrice);
+                    subtractPrice   =   b2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     //获取砍价清单
                     List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecordsByAidUid(aid, sponsor);
                     data.put("now_price",nowPrice);//当前价格
