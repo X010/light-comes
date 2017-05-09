@@ -197,9 +197,10 @@ public class PastService {
                     this.persistentDao.updatePastTotal(pastTotal);
                     if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
                         long couponId = pastModel.getCoupon_id();
+                        CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                         CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
-                        if(couponRecordModel!=null) {
-                            raffleService.drawRaffleByRage(pastModel.getId(), couponRecordModel.getId(), userModel.getId(), userModel.getPhone());//发放优惠券
+                        if (couponRecordModel != null&&couponModel!=null) {
+                            raffleService.sendCoupon(couponModel,couponRecordModel, userModel.getId(), userModel.getPhone());//发放优惠券
                         }
                     }
                 }
