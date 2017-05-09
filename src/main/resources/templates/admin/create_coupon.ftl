@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <select id="cate2" name="cate2" class="form-control">
-                                        <option value="0">qua</option>
+                                        <#--<option value="0">qua</option>-->
                                     <#if subCategories??>
                                         <#list subCategories as subCategorie>
                                             <option value="${subCategorie.id}">${subCategorie.category2}</option>

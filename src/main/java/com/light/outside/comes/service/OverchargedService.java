@@ -171,7 +171,7 @@ public class OverchargedService {
         orm.setCreatetime(new Date());
         orm.setSponsor(sponsor);
         //OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid,userModel.getPhone());//查询当前砍价用户
-        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAid(aid,userModel.getId());
+        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, userModel.getId());
         if (ownOrm == null) {
             OverchargedModel overchargedModel = this.getOverchargedModel(aid);//获取砍价活动
             if (overchargedModel != null) {
@@ -192,17 +192,22 @@ public class OverchargedService {
                     if (list != null && list.size() > 0) {
                         count = count - list.size();//砍价剩余次数
                     }
-                    double money = OverchargedRandom.randomRedPacket(totlSubtract, 0.01, max, count);//随机生成砍价金额
-                    orm.setAmount(money);//本次砍价金额
-                    orm.setAname(overchargedModel.getGood_name());
-                    if (count == 1) {
-                        orm.setStatus(5);//最后一次砍价获取该商品
-                        overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
-                        this.overchargedDao.updateOvercharged(overchargedModel);
+                    //剩余金额大于0才砍价
+                    if(totlSubtract>0) {
+                        double money = OverchargedRandom.randomRedPacket(totlSubtract, 0.01, max, count);//随机生成砍价金额
+                        orm.setAmount(money);//本次砍价金额
+                        orm.setAname(overchargedModel.getGood_name());
+                        if (count == 1) {
+                            orm.setStatus(5);//最后一次砍价获取该商品
+                            overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
+                            this.overchargedDao.updateOvercharged(overchargedModel);
+                        }
+                        this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
+                    }else{
+                        orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已砍到最低价
                     }
-                    this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
                 }else{
-                    orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完or已帮朋友砍价
+                    orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完
                 }
             }
         } else {
@@ -246,9 +251,17 @@ public class OverchargedService {
     }
 
     public List<OverchargedRecordModel> getOverchargedRecordsByAidUid(long aid,long sponsor){
-        return this.overchargedDao.getOverchargedRecordsByAidUid(aid,sponsor);
+        return this.overchargedDao.getOverchargedRecordsByAidUid(aid, sponsor);
     }
 
+    /**
+     *已经拍下的用户
+     * @param aid
+     * @return
+     */
+    public OverchargedRecordModel getOverchargedRecordsByAid(long aid){
+        return this.overchargedDao.getOVerchargedRecordsByAid(aid);
+    }
     /**
      * 添加OverChage
      *
@@ -378,9 +391,9 @@ public class OverchargedService {
         PageResult<OverchargedRecordViewModel> overchargedRecordModelPageResult = new PageResult<OverchargedRecordViewModel>();
         List<OverchargedRecordViewModel> overchargedRecordModels = Lists.newArrayList();
         if (status > 0) {
-            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
+            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPricePageByUidAndStatus(uid, status, pageModel.getStart(), pageModel.getSize());
         } else {
-            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPageByUid(uid, pageModel.getStart(), pageModel.getSize());
+            overchargedRecordModels = this.overchargedDao.getOverchargedRecordPricePageByUid(uid, pageModel.getStart(), pageModel.getSize());
         }
         overchargedRecordModelPageResult.setData(overchargedRecordModels);
         overchargedRecordModelPageResult.setPageModel(pageModel);
@@ -398,4 +411,9 @@ public class OverchargedService {
         overchargedRecordModelPageResult.setTotal(total);
         return overchargedRecordModelPageResult;
     }
+
+    public OverchargedModel queryOverchargedByUidGoodsid(long uid,long goodsid){
+        return this.overchargedDao.queryOverchargedModel(uid,goodsid);
+    }
+
 }

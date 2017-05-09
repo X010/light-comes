@@ -264,4 +264,15 @@ public class AuctionService {
             }
         }
     }
+
+    /**
+     * 查询拍卖价格
+     * @param uid
+     * @param goodsid
+     * @return
+     */
+    public AuctionModel queryAuctionPrice(long uid,long goodsid){
+        return this.auctionDao.queryAuctionModel(uid,goodsid);
+    }
+
 }

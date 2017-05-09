@@ -53,7 +53,11 @@
 
 <div class="auct-friend">
     <div class="progress"></div>
-    <p>已有${now_count}位朋友帮忙砍价，共砍掉${subtract_price}元，再砍${difference_price}元就成功了，加油！</p>
+    <#if difference_price??>
+        <p>已有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，再砍${difference_price?c}元就成功了，加油！</p>
+        <#else>
+            <p>有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，砍价成功，立即购买吧！</p>
+    </#if>
     <div class="friendList">
     <#if orms??>
         <#list orms as orm>
@@ -72,7 +76,11 @@
       <div class="weui-progress__bar">
           <#if oc??>
               <#if (oc.amount>now_price)>
-                <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${(oc.amount-now_price)/oc.over_amount*100}%"></div>
+              <#if now_price<=oc.over_amount >
+                  <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 100%"></div>
+                <#else>
+                    <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${((oc.amount-now_price)/oc.over_amount)*100}%"></div>
+              </#if>
               <#else>
                   <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
               </#if>
@@ -81,7 +89,7 @@
 
       </div>
     </div>
-<div class="auct-bottom"><p class="auct-p">原价:${oc.amount}元</p><p>现价:${oc.amount-subtract_price}元</p><p>底价:${oc.over_amount}元</p></div>
+<div class="auct-bottom"><p class="auct-p">原价:${oc.amount}元</p><p>现价:${now_price}元</p><p>底价:${oc.over_amount}元</p></div>
 </div>
 
 <div class="manual">
@@ -105,7 +113,7 @@
         <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
         <div class="help">
-            <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
+            <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;"/>
             <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx()"/>
         </div>
         <#else>
@@ -129,6 +137,10 @@
         </#if>
 
     </#if>
+    <#elseif auctioned>
+        <div class="help">
+                <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
+            </div>
 </#if>
 </div>
 <div id="shareit" onclick="close_sharewx()">
@@ -231,12 +243,14 @@
                         });
                     }
                     else if (data.status == 5) {
-                        $.alert("恭喜您成功获取该商品去我的进行支付!");
+                        $.alert("恭喜您成功获取该商品去购物车进行支付!");
+                        //window.location.reload();
                     }
                 }
             }
         });
     }
+
 function sendOcBySponsor(aid,sponsor) {
         $.ajax({
             url: "send_overcharged.action?aid=" + aid +"&sponsor=" + sponsor,
@@ -300,5 +314,19 @@ function sendOcBySponsor(aid,sponsor) {
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);
     });
+
+    /**
+     * 购买
+     */
+    function buy(){
+        var db = openDatabase('yeshizuilecartdb', '', '购物列表', 1024 * 1024,function(){});
+        db.transaction(function (context) {
+            context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
+            <#--context.executeSql('SELECT * FROM cart WHERE goodsid=${oc.goodsid?c}');-->
+            context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${oc.goodsid?c},1,1,"${oc.good_name!""}",0,2)');
+            console.log('yeshizuile');
+            window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
+        });
+        };
 </script>
 </html>

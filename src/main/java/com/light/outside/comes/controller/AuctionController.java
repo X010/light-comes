@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,7 +137,7 @@ public class AuctionController extends BaseController {
                     topPrice = auctionRecordsModel.getPrice();
                 }
 //                if (ArithUtil.sub(ArithUtil.sub(price,topPrice),auctionModel.getSetp_amount())>0) {
-                if (price < (auctionModel.getAmount() + auctionModel.getSetp_amount())) {
+                if (price < (auctionModel.getAmount())) {
                     msg = "出价必须大于起拍价格" + auctionModel.getAmount() + "元";
                 } else {
                     if (price > topPrice) {
@@ -191,6 +192,11 @@ public class AuctionController extends BaseController {
             OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), auctionId, CONST.FOCUS_AUCTION);
             if (orderModel != null && orderModel.getStatus() == CONST.ORDER_PAY) {
                 isPay = true;
+            }
+            if(auctionModel!=null&&auctionModel.getWin_uid()==userModel.getId()) {
+                data.put("auctioned", true);
+            }else{
+                data.put("auctioned", false);
             }
         }
         data.put("isPay", isPay);
@@ -331,6 +337,21 @@ public class AuctionController extends BaseController {
             return JsonTools.jsonSer(auctionRecordsModels);
         } else {
             return "";
+        }
+    }
+
+    @RequestMapping("query_auction.action")
+    @ResponseBody
+    public String query_auction(Map<String, Object> data,@RequestParam("uid") long uid,@RequestParam("goodsid") long goodsid){
+    AuctionModel auctionModel=auctionService.queryAuctionPrice(uid, goodsid);
+        if(auctionModel!=null){
+            data.put("code",200);
+            data.put("data",auctionModel);
+            return JsonTools.jsonSer(data);
+        }else{
+            data.put("code",404);
+            data.put("data","");
+            return JsonTools.jsonSer(data);
         }
     }
 }

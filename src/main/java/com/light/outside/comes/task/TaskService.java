@@ -39,6 +39,8 @@ public class TaskService {
 
     @Autowired
     private PastService pastService;
+    @Autowired
+    private CouponService couponService;
 
 
     /**
@@ -74,10 +76,18 @@ public class TaskService {
     }
 
     /**
-     * 清空签则信息
+     * 清空签到信息
      */
     @Scheduled(cron = "0 15 1 ? * * ")
     public void clearEveryDayPastInfo() {
         this.pastService.clearEveryDayPastInfo();
+    }
+
+    /**
+     * 修改过期优惠券状态
+     */
+    @Scheduled(cron="0 0 * * * *")
+    public void clearCoupon(){
+        //this.couponService.
     }
 }

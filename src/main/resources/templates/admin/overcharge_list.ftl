@@ -70,7 +70,7 @@
                                             <a class="badge  bg-green" href="${baseUrl}admin/create_overcharge.action?action=edit&id=${overcharged.id}">编缉</a>
                                             &nbsp;&nbsp;
                                             <a class="badge  bg-red"
-                                               href="javascript:if(confirm('您是否确定停用该饭局')){window.location.href='${baseUrl}admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
+                                               href="javascript:if(confirm('您是否确定停用该砍价')){window.location.href='${baseUrl}admin/delete_overcharged.action?id=#{overcharged.id}';}">停用
                                             </a>&nbsp;&nbsp;
                                             <a class="badge  bg-blue" href="${baseUrl}admin/overcharged_list_detail.action?id=#{overcharged.id}">参与者信息</a>
                                         </td>

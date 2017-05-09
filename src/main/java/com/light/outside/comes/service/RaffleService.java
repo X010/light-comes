@@ -368,6 +368,8 @@ public class RaffleService {
                 } else {
                     recordModel.setLimit("全品类");
                 }
+            }else if(recordModel.getCtype()==1){
+                recordModel.setLimit("全品类");
             }
         }
     }

@@ -141,6 +141,10 @@ public class OverchargedController extends BaseController {
                     }
                     String link="http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid="+overchargedModel.getId()+"&sponsor="+ userModel.getId();
                     data.put("link",link);
+                    OverchargedRecordModel orm=this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
+                    if(orm!=null&&orm.getUid()==userModel.getId()&&overchargedModel.getStatus()==5){
+                        data.put("auctioned",true);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -277,5 +281,22 @@ public class OverchargedController extends BaseController {
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
         return "share_overcharged";
+    }
+
+    @ResponseBody
+    @RequestMapping("query_overcharged.action")
+    public String queryOvercharged(Map<String, Object> data,@RequestParam("uid") long uid,@RequestParam("goodsid") long goodsid)
+    {
+        OverchargedModel overchargedModel=overchargedService.queryOverchargedByUidGoodsid(uid, goodsid);
+        if(overchargedModel!=null) {
+            data.put("code",200);
+            data.put("data",overchargedModel);
+            return JsonTools.jsonSer(data);
+        }
+        else {
+            data.put("code",404);
+            data.put("data",overchargedModel);
+            return JsonTools.jsonSer(data);
+        }
     }
 }

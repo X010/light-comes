@@ -89,4 +89,7 @@ public interface AuctionDao {
             "group by t.aid desc " +
             "limit #{start},#{size} ")
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
+
+    @Select("select id,amount,title,goodsid,good_photo,good_name,win_uid,win_price,start_time,end_time from comes_auction where win_uid=#{uid} and goodsid=#{goodsid}")
+    public AuctionModel queryAuctionModel(@Param("uid") long uid,@Param("goodsid") long goodsid);
 }

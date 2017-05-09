@@ -7,6 +7,15 @@ public class OverchargedRecordViewModel extends OverchargedRecordModel {
     private String good_name;
     private String good_photo;
     private float over_amount;
+    private float now_price;
+
+    public float getNow_price() {
+        return now_price;
+    }
+
+    public void setNow_price(float now_price) {
+        this.now_price = now_price;
+    }
 
     public String getGood_name() {
         return good_name;

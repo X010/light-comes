@@ -74,7 +74,6 @@
     <div class="auct-success">
         <div class="succ-top">
             <p class="title-succ">拍卖成功!</p>
-
             <p id="close">x</p>
         </div>
         <div class="succ-main">
@@ -96,6 +95,7 @@
         <div class="footer-right" id="auction"><p>拍下来</p></div>
     </div>
     <div id="deposit">报名交保证金</div>
+    <div id="buy">购买</div>
 </div>
 <script type="text/javascript" charset="UTF-8" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
@@ -105,7 +105,7 @@
     var price = document.getElementById("price");
     var deposit = document.getElementById("deposit");
     var footer = document.getElementById("footer");
-
+    var buy=document.getElementById("buy");
     auct.onclick = function () {
         var price = $("#txtPrice").val();
         $.ajax({
@@ -152,6 +152,8 @@
 
     var isPay =${isPay?c};
     var seconds2 =${seconds?c};
+    var status=${auction.status?c};
+    var auctioned=${auctioned?c};
     closebtn.onclick = function () {
         floatbg.style.display = "none";
     }
@@ -162,13 +164,34 @@
     if (isPay == true && seconds2 > 0) {
         deposit.style.display = "none";
         price.style.display = "block";
+        buy.style.display="none";
     } else if (seconds2 > 0) {
         price.style.display = "none";
         deposit.style.display = "block";
-    }else{
-        footer.style.display = "none";
+        buy.style.display="none";
+    }else if(auctioned==true&&status==5){
+        deposit.style.display = "none";
+        price.style.display = "none";
+        buy.style.display="block";
     }
 
+    buy.onclick=function(){
+        var db = openDatabase('yeshizuilecartdb', '', '购物列表', 1024 * 1024);
+        db.transaction(function (context) {
+//            context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)',
+//                    function(){ alert('创建模板表成功');},
+//                    function(context, error){ alert('创建模板表失败:' + error.message)}
+//            );
+//            context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")',
+//                    function(){ alert('插入模板表·成功');},
+//                    function(context, error){ alert('插入模板表失败:' + error.message)}
+//            );
+            context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
+            context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
+            console.log('yeshizuile');
+            window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
+        });
+    }
 </script>
 </body>
 </html>

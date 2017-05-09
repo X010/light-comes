@@ -41,7 +41,7 @@
            </div>
        </div>
        <div class="item-order-ext clearfix">
-       <div class="pull-left item-price-total">活动价格：<strong>{{d[i].amount}}元</strong> </div>
+       <div class="pull-left item-price-total">当前价格：<strong>{{d[i].now_price}}元</strong> </div>
            <div class="pull-right">
             创建时间：{{d[i].createtime}}
            </div>
@@ -105,7 +105,7 @@
                     var spinner_div = 0;
                     var pages = 1;
                     var isload = true;
-                    //var status=${status?c};
+                    var status=${status?c};
                     $(document).ready(function(){
                         if(isload){
                 loadMore(); //加载所有瀑布流的数据

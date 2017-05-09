@@ -58,9 +58,6 @@ public class OverchargedRandom {
     public static double randomRedPacket(double money, double minS, double maxS, int count) {
         DecimalFormat df = new DecimalFormat("#.00");
         //若是只有一个，直接返回红包
-        if (MINMONEY <= 0) {
-            return 0;
-        }
         if (count == 1) {
             return Double.parseDouble(df.format(money));
         }
@@ -116,7 +113,7 @@ public class OverchargedRandom {
         //随机一个188.88  5个红包
         OverchargedRandom dd = new OverchargedRandom();
         //单位是分
-        System.out.println(dd.splitRedPackets(188.88, 10));
+        System.out.println(dd.splitRedPackets(0, 10));
     }
 
 }
