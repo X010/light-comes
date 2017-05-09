@@ -138,7 +138,10 @@ public class OverchargedController extends BaseController {
                     //获取砍价清单
                     List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecordsByAidUid(aid, sponsor);
                     data.put("now_price",nowPrice);//当前价格
-                    data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
+                    double diff_price=nowPrice-overchargedModel.getOver_amount();
+                    BigDecimal   b3   =   new   BigDecimal(diff_price);
+                    diff_price   =   b3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    data.put("difference_price",diff_price);//还差多少
                     if (orms != null) {
                         data.put("orms", orms);
                         data.put("now_count",orms.size());

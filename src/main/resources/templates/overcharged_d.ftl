@@ -76,13 +76,13 @@
       <div class="weui-progress__bar">
           <#if oc??>
               <#if (oc.amount>now_price)>
-              <#if now_price<=oc.over_amount >
-                  <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 100%"></div>
-                <#else>
-                    <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${(now_price/oc.over_amount)*100}%"></div>
-              </#if>
-              <#else>
-                  <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
+                  <#if now_price<=oc.over_amount >
+                      <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 100%"></div>
+                    <#else>
+                        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${(oc.over_amount/now_price)*100}%"></div>
+                  </#if>
+                  <#else>
+                      <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
               </#if>
 
           </#if>
