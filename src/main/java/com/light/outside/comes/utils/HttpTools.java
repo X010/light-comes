@@ -26,6 +26,7 @@ public class HttpTools {
     private static final HttpClient client = new DefaultHttpClient();
 
     static MultiThreadedHttpConnectionManager multiThreadedHttpConnectionManager = new MultiThreadedHttpConnectionManager();
+
     {
         HttpConnectionManagerParams params = new HttpConnectionManagerParams();
         params.setConnectionTimeout(5000);
@@ -34,7 +35,6 @@ public class HttpTools {
         params.setDefaultMaxConnectionsPerHost(4000);
         multiThreadedHttpConnectionManager.setParams(params);
     }
-
 
 
     /**
@@ -82,6 +82,7 @@ public class HttpTools {
         HttpPost httpPost = new HttpPost(url);
         StringEntity stringEntity = new StringEntity(data);
         stringEntity.setContentType("application/x-www-form-urlencoded");
+//        stringEntity.setContentType("application/json");
         stringEntity.setContentEncoding("UTF-8");
         httpPost.setEntity(stringEntity);
         HttpResponse httpResponse = client.execute(httpPost);
@@ -105,9 +106,24 @@ public class HttpTools {
         return body;
     }
 
-    public static void main(String[]args){
+    /**
+     * 字符串转换unicode
+     */
+    public static String string2Unicode(String string) {
+        StringBuffer unicode = new StringBuffer();
+        for (int i = 0; i < string.length(); i++) {
+            // 取出每一个字符
+            char c = string.charAt(i);
+            // 转换为unicode
+            unicode.append("\\u" + Integer.toHexString(c));
+        }
+
+        return unicode.toString();
+    }
+
+    public static void main(String[] args) {
         try {
-            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", "{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"2992\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"12347\",\"title\":\"hahaha\",\"remark\":\"满减券\"}"));
+            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", string2Unicode("{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}")));
         } catch (IOException e) {
             e.printStackTrace();
         }

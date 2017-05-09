@@ -53,11 +53,11 @@
 
 <div class="auct-friend">
     <div class="progress"></div>
-    <#if difference_price??>
-        <p>已有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，再砍${difference_price?c}元就成功了，加油！</p>
-        <#else>
-            <p>有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，砍价成功，立即购买吧！</p>
-    </#if>
+<#if (difference_price?c>0)>
+    <p>已有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，再砍${difference_price?c}元就成功了，加油！</p>
+<#else>
+    <p>有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，砍价成功，立即购买吧！</p>
+</#if>
     <div class="friendList">
     <#if orms??>
         <#list orms as orm>
@@ -73,32 +73,35 @@
 
 <div class="auct-progress">
     <div class="weui-progress">
-      <div class="weui-progress__bar">
-          <#if oc??>
-              <#if (oc.amount>now_price)>
-                  <#if now_price<=oc.over_amount >
-                      <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: 100%"></div>
-                    <#else>
-                        <div class="weui-progress__inner-bar js_progress" id = "progress" style="width: ${(oc.over_amount/now_price)*100}%"></div>
-                  </#if>
-                  <#else>
-                      <div class="weui-progress__inner-bar js_progress" id = "progress" style="width:0%"></div>
-              </#if>
+        <div class="weui-progress__bar">
+        <#if oc??>
+            <#if (oc.amount>now_price)>
+                <#if now_price<=oc.over_amount >
+                    <div class="weui-progress__inner-bar js_progress" id="progress" style="width: 100%"></div>
+                <#else>
+                    <div class="weui-progress__inner-bar js_progress" id="progress"
+                         style="width: ${(oc.over_amount/now_price)*100}%"></div>
+                </#if>
+            <#else>
+                <div class="weui-progress__inner-bar js_progress" id="progress" style="width:0%"></div>
+            </#if>
 
-          </#if>
+        </#if>
 
-      </div>
+        </div>
     </div>
-<div class="auct-bottom"><p class="auct-p">原价:${oc.amount}元</p><p>现价:${now_price}元</p><p>底价:${oc.over_amount}元</p></div>
+    <div class="auct-bottom"><p class="auct-p">原价:${oc.amount}元</p>
+        <p>现价:${now_price}元</p>
+        <p>底价:${oc.over_amount}元</p></div>
 </div>
 
 <div class="manual">
     <div class="msgt">
         <p style="color:#000; font-size:14px;"><strong>活动说明</strong></p>
-        ${oc.info!""}
-        <#--<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>-->
-        <#--<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！</p>-->
-        <#--<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>-->
+    ${oc.info!""}
+    <#--<p><span>活动福利：</span>砍习酱纪念酒，夺茅台飞天酒！</p>-->
+    <#--<p><span>活动内容：</span>砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！砍习酱纪念酒，夺茅台飞天酒！</p>-->
+    <#--<p><span>活动时间：</span>2017年3月22日14：30-2017年3月23日14：30</p>-->
     </div>
 </div>
 
@@ -110,37 +113,42 @@
 <div class="footer">
 <#if oc.status==2>
     <#if join>
-        <#--<div id="deposit">您已砍过一刀</div>-->
+    <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
-        <div class="help">
-            <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;"/>
-            <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx()"/>
-        </div>
+            <div class="help">
+                <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;"/>
+                <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;"
+                       onclick="sharewx()"/>
+            </div>
         <#else>
             <div class="help">
                 <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
-                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;"
+                       onclick="send_overcharged(${oc.id?c});"/>
             </div>
         </#if>
     <#else>
         <#if sponsor==uid>
             <div class="help">
-                <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
-                <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;" onclick="sharewx();"/>
+                <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;"
+                       onclick="send_overcharged(${oc.id?c});"/>
+                <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;"
+                       onclick="sharewx();"/>
             </div>
         <#else>
-        <#--<div id="deposit" onclick="send_overcharged(${oc.id})">我要砍一刀</div>-->
             <div class="help">
-                <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;" onclick="sendOcBySponsor(${oc.id?c},${sponsor?c})"/>
-                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;" onclick="send_overcharged(${oc.id?c});"/>
+                <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"
+                       onclick="sendOcBySponsor(${oc.id?c},${sponsor?c})"/>
+                <input type="button" value="我也要参与" class="otherchess" style="background-color: #FFB046;"
+                       onclick="send_overcharged(${oc.id?c});"/>
             </div>
         </#if>
 
     </#if>
-    <#elseif auctioned>
-        <div class="help">
-                <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
-            </div>
+<#elseif auctioned>
+    <div class="help">
+        <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
+    </div>
 </#if>
 </div>
 <div id="shareit" onclick="close_sharewx()">
@@ -206,7 +214,7 @@
                         //$.alert("您成功砍了一刀,但未获取该商品");
                         window.location.reload();
                         $.modal({
-                            title: '已减'+data.amount+'元',
+                            title: '已减' + data.amount + '元',
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
                             buttons: [
                                 {
@@ -232,7 +240,7 @@
                                 {
                                     text: "取消", className: "default", onClick: function () {
                                     window.location.reload();
-                                    }
+                                }
                                 },
                                 {
                                     text: "找朋友帮我砍", onClick: function () {
@@ -251,9 +259,9 @@
         });
     }
 
-function sendOcBySponsor(aid,sponsor) {
+    function sendOcBySponsor(aid, sponsor) {
         $.ajax({
-            url: "send_overcharged.action?aid=" + aid +"&sponsor=" + sponsor,
+            url: "send_overcharged.action?aid=" + aid + "&sponsor=" + sponsor,
             dataType: "json",
             success: function (data, textStatus) {
                 if (data != null) {
@@ -311,22 +319,26 @@ function sendOcBySponsor(aid,sponsor) {
 
     $(function () {
         var seconds =${seconds?c};
-        //var intDiff = parseInt(${seconds});//倒计时总秒数量
-        timer(seconds);
-    });
+        //var intDiff = parseInt(${seconds}
+        );//倒计时总秒数量
+    timer(seconds);
+    })
+    ;
 
     /**
      * 购买
      */
-    function buy(){
-        var db = openDatabase('yeshizuilecartdb', '', '购物列表', 1024 * 1024,function(){});
+    function buy() {
+        var db = openDatabase('yeshizuilecartdb', '', '购物列表', 1024 * 1024, function () {
+        });
         db.transaction(function (context) {
             context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
-            <#--context.executeSql('SELECT * FROM cart WHERE goodsid=${oc.goodsid?c}');-->
+        <#--context.executeSql('SELECT * FROM cart WHERE goodsid=${oc.goodsid?c}');-->
             context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${oc.goodsid?c},1,1,"${oc.good_name!""}",0,2)');
             console.log('yeshizuile');
-            window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
+            window.location.href = "http://www.qubulikou.com/yeshizuileweixin/cart.html"
         });
-        };
+    }
+    ;
 </script>
 </html>
