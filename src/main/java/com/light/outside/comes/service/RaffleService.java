@@ -571,6 +571,7 @@ public class RaffleService {
         String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
+            CouponModel couponModel=this.persistentDao.getCouponById(raffleCouponModel.getCid());
             double rate = raffleCouponModel.getWinrate() / 100.00f;
             int result = percentageRandom(rate);
             if (result > 0) {
@@ -588,6 +589,8 @@ public class RaffleService {
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(0));
                     params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    params.put("title",couponModel.getTitle());
+                    params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
                     String checkToken = MD5.MD5Encode(params.toJSONString());
                     params.put("token",checkToken);
                     System.out.println(params.toJSONString());

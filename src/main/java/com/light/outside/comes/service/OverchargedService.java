@@ -195,16 +195,20 @@ public class OverchargedService {
                     //剩余金额大于0才砍价
                     if(totlSubtract>0) {
                         double money = OverchargedRandom.randomRedPacket(totlSubtract, 0.01, max, count);//随机生成砍价金额
-                        orm.setAmount(money);//本次砍价金额
-                        orm.setAname(overchargedModel.getGood_name());
-                        if (count == 1) {
-                            orm.setStatus(5);//最后一次砍价获取该商品
-                            overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
-                            this.overchargedDao.updateOvercharged(overchargedModel);
+                        if(money>0) {//砍价金额为0
+                            orm.setAmount(money);//本次砍价金额
+                            orm.setAname(overchargedModel.getGood_name());
+                            if (count == 1) {
+                                orm.setStatus(CONST.RAFFLE_STATUS_BIND);//最后一次砍价获取该商品
+                                overchargedModel.setRemain_count(overchargedModel.getRemain_count() - 1);//修改剩余库存
+                                this.overchargedDao.updateOvercharged(overchargedModel);
+                            }
+                            this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
+                        }else{
+                            orm.setStatus(CONST.RAFFLE_STATUS_BIND);//已砍到最低价
                         }
-                        this.overchargedDao.addOverchargedRecordModel(orm);//保存砍价记录
                     }else{
-                        orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已砍到最低价
+                        orm.setStatus(CONST.RAFFLE_STATUS_BIND);//已砍到最低价
                     }
                 }else{
                     orm.setStatus(CONST.RAFFLE_STATUS_OVER);//已售完
@@ -212,7 +216,7 @@ public class OverchargedService {
             }
         } else {
             //已经砍过价了
-            orm.setStatus(9);
+            orm.setStatus(CONST.RAFFLE_STATUS_DELETE);//已经砍过价了
         }
         return orm;
     }

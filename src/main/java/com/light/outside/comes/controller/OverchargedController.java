@@ -151,7 +151,9 @@ public class OverchargedController extends BaseController {
                     data.put("link",link);
                     OverchargedRecordModel orm=this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
                     if(orm!=null&&orm.getUid()==userModel.getId()&&overchargedModel.getStatus()==5){
-                        data.put("auctioned",true);
+                        data.put("overcharged",true);
+                    }else{
+                        data.put("overcharged",false);
                     }
                 }
             }

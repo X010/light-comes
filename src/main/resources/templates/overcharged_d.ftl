@@ -53,7 +53,7 @@
 
 <div class="auct-friend">
     <div class="progress"></div>
-<#if (difference_price?c>0)>
+<#if (difference_price>0)>
     <p>已有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，再砍${difference_price?c}元就成功了，加油！</p>
 <#else>
     <p>有${now_count?c}位朋友帮忙砍价，共砍掉${subtract_price?c}元，砍价成功，立即购买吧！</p>
@@ -145,7 +145,7 @@
         </#if>
 
     </#if>
-<#elseif auctioned>
+<#elseif overcharged>
     <div class="help">
         <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
     </div>
@@ -212,7 +212,7 @@
                 if (data != null) {
                     if (data.status == 1) {
                         //$.alert("您成功砍了一刀,但未获取该商品");
-                        window.location.reload();
+                        //window.location.reload();
                         $.modal({
                             title: '已减' + data.amount + '元',
                             text: '你已自砍，想要获取商品需要集众人之力，砍价吧！',
@@ -271,13 +271,13 @@
                     });
                     if (data.status == 1) {
                         $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
+                    } else if (data.status == 3) {
+                        $.alert("好友已获取该商品，点击'我也要参与'");
                         window.location.reload();
-                    } else if (data.status == 8) {
-                        $.alert("该活动商品已售完！");
                     } else if (data.status == 9) {
                         $.alert("每次活动只能帮一个朋友砍价！");
                     } else if (data.status == 5) {
-                        $.alert("你已帮朋友拿下该商品！");
+                        $.alert("好友已获取该商品，点击'我也要参与'");
                         window.location.reload();
                     }
                 }
@@ -319,11 +319,9 @@
 
     $(function () {
         var seconds =${seconds?c};
-        //var intDiff = parseInt(${seconds}
-        );//倒计时总秒数量
-    timer(seconds);
-    })
-    ;
+        //var intDiff = parseInt(${seconds});//倒计时总秒数量
+        timer(seconds);
+    });
 
     /**
      * 购买

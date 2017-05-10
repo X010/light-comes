@@ -73,6 +73,9 @@ public class OverchargedRandom {
         //剩下的金额
         double moneyOther = money - one;
         //校验这种随机方案是否可行，不合法的话，就要重新分配方案
+        if(moneyOther<=0){//剩余金额小于0直接返回0
+            return 0;
+        }
         if (isRight(moneyOther, count - 1)) {
             return Double.parseDouble(df.format(one));
         } else {
