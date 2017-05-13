@@ -116,7 +116,7 @@ public class OverchargedRandom {
         //随机一个188.88  5个红包
         OverchargedRandom dd = new OverchargedRandom();
         //单位是分
-        System.out.println(dd.splitRedPackets(0, 10));
+        System.out.println(dd.splitRedPackets(100, 10));
     }
 
 }

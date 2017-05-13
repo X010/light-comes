@@ -1,6 +1,7 @@
 package com.light.outside.comes.utils;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
 import org.apache.http.HttpEntity;
@@ -9,12 +10,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +94,43 @@ public class HttpTools {
         return body;
     }
 
-    public static String post(String url, Map<String, String> params) throws IOException {
+    /**
+     * 转码后提交数据
+     * @param url
+     * @param data
+     * @return
+     * @throws IOException
+     */
+    public static String postUrlEncode(String url, String data) throws IOException {
+        Preconditions.checkNotNull(url);
+        Preconditions.checkNotNull(data);
+        HttpPost httpPost = new HttpPost(url);
+        String decodeStr= URLDecoder.decode(data);
+        StringEntity stringEntity = new StringEntity(decodeStr);
+        stringEntity.setContentType("application/x-www-form-urlencoded");
+//        stringEntity.setContentType("application/json");
+        stringEntity.setContentEncoding("UTF-8");
+        String body="";
+        int retryTimes=0;
+        int MAXRETRU=3;
+        while (retryTimes<MAXRETRU+1){
+            try {
+                        httpPost.setEntity(stringEntity);
+                        HttpResponse httpResponse = client.execute(httpPost);
+                        HttpEntity entity = httpResponse.getEntity();
+                        body = EntityUtils.toString(entity);
+                        if (!Strings.isNullOrEmpty(body)) {
+                            return body;
+                        }
+            } catch (IOException ioe){
+                retryTimes++;
+                continue;
+            }
+        }
+        return body;
+    }
+
+    public static String post(String url, Map<String, String> params) {
         Preconditions.checkNotNull(url);
         Preconditions.checkNotNull(params);
         HttpPost httpPost = new HttpPost(url);
@@ -99,10 +138,15 @@ public class HttpTools {
         for (String key : params.keySet()) {
             data.add(new BasicNameValuePair(key, params.get(key).toString()));
         }
-        httpPost.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
-        HttpResponse httpResponse = client.execute(httpPost);
-        HttpEntity entity = httpResponse.getEntity();
-        String body = EntityUtils.toString(entity);
+        String body="";
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
+            HttpResponse httpResponse = client.execute(httpPost);
+            HttpEntity entity = httpResponse.getEntity();
+             body= EntityUtils.toString(entity);
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
         return body;
     }
 
@@ -123,7 +167,7 @@ public class HttpTools {
 
     public static void main(String[] args) {
         try {
-            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", string2Unicode("{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}")));
+            System.out.println(postUrlEncode("http://120.55.241.127:8070/index.php?r=user/create-coupon", string2Unicode("{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}")));
         } catch (IOException e) {
             e.printStackTrace();
         }
