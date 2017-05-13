@@ -29,6 +29,7 @@ public class CONST {
     public static int RAFFLE_STATUS_BIND = 3;//已绑定到用户
     public static int RAFFLE_STATUS_DELETE = 9;//删除
     public static int RAFFLE_STATUS_OVER = 8;//结束
+    public static int RAFFLE_STATUS_EXPIRATION=4;//过期
 
     public static int COUPON_STATUS_NORMAL = 1;//正常
     public static int COUPON_STATUS_NOTUSED = 2;//未使用

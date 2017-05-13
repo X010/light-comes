@@ -184,4 +184,15 @@ public class CouponService {
     }
 
 
+    /**
+     * 修改过期状态
+     */
+    public void changeCouponRecordStatus(){
+        List<CouponModel> list=this.persistentDao.queryExpirationCoupon();
+        if(list!=null&&list.size()>0){
+            for(CouponModel couponModel:list) {
+                this.persistentDao.editCouponRecordStatus(couponModel.getId(),CONST.RAFFLE_STATUS_EXPIRATION);
+            }
+        }
+    }
 }

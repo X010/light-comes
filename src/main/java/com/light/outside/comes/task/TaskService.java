@@ -86,8 +86,8 @@ public class TaskService {
     /**
      * 修改过期优惠券状态
      */
-    @Scheduled(cron="0 0 * * * *")
+    @Scheduled(cron = "0 */1 *  * * * ")
     public void clearCoupon(){
-        //this.couponService.
+        this.couponService.changeCouponRecordStatus();
     }
 }

@@ -31,30 +31,32 @@ public interface PersistentDao {
     @Update("update comes_coupon set title=#{title},use_start_time=#{use_start_time},use_end_time=#{use_end_time},status=#{status},rule=#{rule} where id=#{id}")
     public void editCoupon(CouponModel couponModel);
 
-    @Update("update comes_conpon_records set status=#{status} where cid=#{cid}")
+    @Update("update comes_coupon_records set status=#{status} where cid=#{cid}")
     public void editCouponRecordStatus(@Param("cid") long cid, @Param("status") int status);
 
     @Insert("insert into comes_coupon_records_used(coupon_record_id,cardno,uid,used_time,source_uid,source_phone,to_phone,`status`,coupon_title,price) " +
             " values (#{coupon_record_id},#{cardno},#{uid},now(),#{source_uid},#{source_phone},#{to_phone},#{status},#{coupon_title},#{price})")
     public int addCouponUsedRecord(CouponUsedRecord couponUsedRecord);
 
-    @Update("update comes_conpon_records set status=#{status},uid=#{uid},phone=#{phone}, updatetime=now() where id=#{id}")
+    @Update("update comes_coupon_records set status=#{status},uid=#{uid},phone=#{phone}, updatetime=now() where id=#{id}")
     public void editCouponRecordStatusByUser(@Param("id") long id, @Param("status") int status, @Param("uid") long uid, @Param("phone") String phone);
 
-    @Update("update comes_conpon_records set status=#{status} where cardno=#{cardno}")
+    @Update("update comes_coupon_records set status=#{status} where cardno=#{cardno}")
     public void editCouponRecordStatusByCardno(@Param("cardno") String cardno, @Param("status") int status);
 
-    @Select("select * from comes_conpon_records where id=#{id}")
+    @Select("select * from comes_coupon_records where id=#{id}")
     public CouponRecordModel getCouponRecordById(@Param("id") long id);
 
-    @Select("select * from comes_conpon_records where cid=#{cid} and status=#{status} and uid=0  order  by id desc limit #{star},#{size}")
+    @Select("select * from comes_coupon_records where cid=#{cid} and status=#{status} and uid=0  order  by id desc limit #{star},#{size}")
     public List<CouponRecordModel> getCouponRecordModelByCid(@Param("cid") long cid, @Param("status") int status, @Param("star") int star, @Param("size") int size);
 
     @Select("select * from comes_coupon where id=#{id}")
     public CouponModel getCouponById(@Param("id") long id);
 
+    @Select("select * from comes_coupon where `status`=2 and use_end_time<now()")
+    public List<CouponModel> queryExpirationCoupon();
 
-    @Insert("insert into comes_conpon_records(title,createtime,use_start_time,use_end_time,cardno,uid,phone,status,price,mid,ctype,cid)" +
+    @Insert("insert into comes_coupon_records(title,createtime,use_start_time,use_end_time,cardno,uid,phone,status,price,mid,ctype,cid)" +
             "values(#{title},#{createtime},#{use_start_time},#{use_end_time},#{cardno},#{uid},#{phone},#{status},#{price},#{mid},#{ctype},#{cid})")
     public void addCouponRecord(CouponRecordModel couponRecordModel);
 
@@ -76,7 +78,7 @@ public interface PersistentDao {
     public List<RaffleModel> getRaffles(@Param("start") int start, @Param("size") int size);
 
 
-    @Select("select crc.*,count(ccr.id) quantity  from comes_raffle_coupon crc left join `comes_conpon_records` ccr " +
+    @Select("select crc.*,count(ccr.id) quantity  from comes_raffle_coupon crc left join `comes_coupon_records` ccr " +
             "on crc.cid=ccr.cid " +
             "WHERE crc.rid=#{rid} " +
             "and ccr.`status`<>9 " +
@@ -94,7 +96,7 @@ public interface PersistentDao {
      * @param status
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status}")
+    @Select("select * from comes_coupon_records where uid=#{uid} and `status`=#{status}")
     public List<CouponRecordViewModel> getRaffleCouponByUserStatus(@Param("uid") long uid, @Param("status") int status);
 
     /**
@@ -106,7 +108,7 @@ public interface PersistentDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
+    @Select("select * from comes_coupon_records where uid=#{uid} and `status`=#{status} limit #{start},#{size}")
     public List<CouponRecordViewModel> getRaffleCouponPageByUserStatus(@Param("uid") long uid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
     /**
@@ -117,7 +119,7 @@ public interface PersistentDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid}  limit #{start},#{size}")
+    @Select("select * from comes_coupon_records where uid=#{uid}  limit #{start},#{size}")
     public List<CouponRecordViewModel> getRaffleCouponPageByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
     /**
@@ -129,7 +131,7 @@ public interface PersistentDao {
      * @return
      */
     //@Select("select * from commes_coupon_records_useds where uid=#{uid}  limit #{start},#{size}")
-    @Select("select r.* from comes_coupon_records_used ru,comes_conpon_records r " +
+    @Select("select r.* from comes_coupon_records_used ru,comes_coupon_records r " +
             " where r.id=ru.coupon_record_id and ru.uid=#{uid} limit #{start},#{size}")
     public List<CouponRecordViewModel> getUsedRaffleCouponPageByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
@@ -139,7 +141,7 @@ public interface PersistentDao {
      * @param uid
      * @return
      */
-    @Select("select * from comes_conpon_records where uid=#{uid}")
+    @Select("select * from comes_coupon_records where uid=#{uid}")
     public List<CouponRecordViewModel> getRaffleCouponByUser(@Param("uid") long uid);
 
     /**
@@ -148,11 +150,11 @@ public interface PersistentDao {
      * @param cid
      * @return
      */
-    @Select("select count(1) from  comes_conpon_records where cid=#{cid}")
+    @Select("select count(1) from  comes_coupon_records where cid=#{cid}")
     public int getCouponRecordByCidTotal(@Param("cid") long cid);
 
 
-    @Select("select * from comes_conpon_records where cid=#{cid} order by updatetime desc limit #{start},#{size}")
+    @Select("select * from comes_coupon_records where cid=#{cid} order by updatetime desc limit #{start},#{size}")
     public List<CouponRecordModel> getCouponRecordByCid(@Param("cid") long cid, @Param("start") int start, @Param("size") int size);
 
     /**
@@ -160,7 +162,7 @@ public interface PersistentDao {
      * @param cid
      * @return
      */
-    @Select("select * from comes_conpon_records where cid=#{cid} and uid=0  and status=2 limit 1")
+    @Select("select * from comes_coupon_records where cid=#{cid} and uid=0  and status=2 limit 1")
     public CouponRecordModel getCouponRecorByCid(@Param("cid") long cid);
     /**
      * 查询抽奖次数
@@ -183,7 +185,7 @@ public interface PersistentDao {
     @Insert("insert into comes_raffle_user(uid,rid,count,raffle_date) values(#{uid},#{rid},#{count},current_date()) ON DUPLICATE KEY UPDATE count=count+1")
     public int updateRaffleUserByRaffleId(@Param("uid") long uid, @Param("rid") long rid, @Param("count") int count);
 
-    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
+    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_coupon_records ccr, comes_raffle_coupon crc " +
             "where ccr.cid=crc.cid " +
             "and crc.rid=#{rid} " +
             "and ccr.`status`=#{status} " +
@@ -192,7 +194,7 @@ public interface PersistentDao {
             "limit #{start},#{size}")
     public List<CouponRecordModel> getRaffleCouponByRaffleIdAndStatus(@Param("rid") long rid, @Param("status") int status, @Param("start") int start, @Param("size") int size);
 
-    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_conpon_records ccr, comes_raffle_coupon crc " +
+    @Select("select distinct ccr.id id,ccr.title title,concat(left(ccr.phone,3),'****',right(phone,4)) as phone,ccr.uid uid,ccr.cid cid from comes_coupon_records ccr, comes_raffle_coupon crc " +
             "where ccr.cid=crc.cid " +
             "and crc.rid=#{rid} " +
             "and ccr.uid>0 " +
@@ -332,7 +334,7 @@ public interface PersistentDao {
     @Select("select * from comes_order where tradeno=#{tradeno}")
     public OrderModel getOrderByTradeno(@Param("tradeno") String tradeno);
 
-    @Select("select count(1) from comes_conpon_records where cid=#{cid} and phone  is not null")
+    @Select("select count(1) from comes_coupon_records where cid=#{cid} and phone  is not null")
     public int getCouponSendNum(@Param("cid") long id);
 
     /**
@@ -341,7 +343,7 @@ public interface PersistentDao {
      * @param id
      * @return
      */
-    @Select("select count(1) from comes_conpon_records where cid=#{cid} and status=#{status} and  phone  is not null")
+    @Select("select count(1) from comes_coupon_records where cid=#{cid} and status=#{status} and  phone  is not null")
     public int getCouponUseNum(@Param("cid") long id, @Param("status") int status);
 
 
