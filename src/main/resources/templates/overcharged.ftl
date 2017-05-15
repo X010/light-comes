@@ -170,11 +170,11 @@
         function appendHtml(json){
             for(var i = 0, len = json.length; i < len; i++)
             {
-                if(json[i].good_name.length>32){
-                    json[i].good_name = json[i].good_name.substring(0,32)+"...";
+                if(json[i].good_name.length>48){
+                    json[i].good_name = json[i].good_name.substring(0,48)+"...";
                 }
-                if(json[i].title.length>16){
-                    json[i].title = json[i].title.substring(0,16)+"...";
+                if(json[i].title.length>20){
+                    json[i].title = json[i].title.substring(0,20)+"...";
                 }
             }
             var gettpl = document.getElementById('post_list').innerHTML;

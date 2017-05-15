@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label" for="photo_up">活动图片(建议使用JPG图片)</label>
+                                <label class="control-label" for="photo_up">活动图片(建议使用300*300JPG图片)</label>
 
                                 <div class="controls">
                                     <input class="input-file uniform_on" id="photo" name="photo_up" type="file">

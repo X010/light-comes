@@ -87,8 +87,8 @@ public class TenWeChatGenerator {
      * @return
      */
     public static Map<String,Object> getWxConfig(String url){
-//        String url = RequestTools.RequestString(request, "url", "");
-        if (Strings.isNullOrEmpty(TenWeChatConfig.access_token)) {
+        long exp=(System.currentTimeMillis()/1000)-TokenThread.accessToken.getTokenTime();
+        if (Strings.isNullOrEmpty(TenWeChatConfig.access_token)||exp>TokenThread.accessToken.getExpiresIn()) {
             if(TokenThread.accessToken!=null) {
                 TenWeChatConfig.access_token = TokenThread.accessToken.getToken();
             }else{
@@ -394,6 +394,7 @@ public class TenWeChatGenerator {
         //设置accessToken
         accessToken.setToken(access_token);
         accessToken.setExpiresIn(jsonObject.getInteger("expires_in"));
+        accessToken.setTokenTime(System.currentTimeMillis()/1000);
         TokenThread.accessToken = accessToken;
 
         return accessToken;

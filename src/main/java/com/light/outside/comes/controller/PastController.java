@@ -1,5 +1,6 @@
 package com.light.outside.comes.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
 import com.light.outside.comes.controller.pay.TenWeChatGenerator;
 import com.light.outside.comes.model.JsonResponse;
@@ -153,9 +154,14 @@ public class PastController extends BaseController {
         JsonResponse<PastTotal> data = new JsonResponse<PastTotal>(200);
         try {
             UserModel user = getAppUserInfo();
-            PastTotal pastTotal = this.pastService.otherPast(user, phone);
+            if(!user.getPhone().equals(phone)) {
+                PastTotal pastTotal = this.pastService.otherPast(user, phone);
 //            this.pastService.getPastTotalByPhone(user);
-            data.setData(pastTotal);
+                data.setData(pastTotal);
+            }
+            else{
+                data.setStatus(404);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             data.setStatus(300);

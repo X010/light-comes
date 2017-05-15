@@ -63,7 +63,9 @@
             dataType: 'json',
             success: function (re_json) {
                 data = re_json.data;
-                if (data.today_other_times < 1) {
+                if(re_json.status==404){
+                    $.alert("自己跟自己干杯多无聊，召唤朋友一起喝");
+                } else if (data.today_other_times < 1) {
            		    $.alert("今天干杯次数已用完");
                 }else{
                 $("#tt_drunk").text(data.total_drunk);

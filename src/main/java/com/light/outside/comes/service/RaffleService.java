@@ -15,6 +15,7 @@ import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.CouponCardUtil;
 import com.light.outside.comes.utils.DateUtils;
 import com.light.outside.comes.utils.HttpTools;
+import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -580,7 +581,8 @@ public class RaffleService {
                     CouponRecordModel couponRecordModel = couponRecordModels.get(0);
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
-                    JSONObject params=new JSONObject();
+                    //JSONObject params=new JSONObject();
+                    Map<String,String> params=new HashMap<String,String>();
                     params.put("id",String.valueOf(couponRecordModel.getId()));
                     params.put("amount", String.valueOf(couponRecordModel.getPrice()));
                     params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
@@ -588,14 +590,24 @@ public class RaffleService {
                     params.put("userid", String.valueOf(uid));
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(0));
-                    params.put("categoryid", String.valueOf(couponRecordModel.getMid()));
+                    if(couponModel.getCtype()==1) {//全局
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(0));
+                    }else if(couponModel.getCtype()==2){//商品栏目
+                        params.put("categoryid", String.valueOf(couponModel.getMid()));
+                        params.put("goodid",String.valueOf(0));
+                    }else{//单品
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(couponModel.getMid()));
+                    }
                     params.put("title",couponModel.getTitle());
                     params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
-                    String checkToken = MD5.MD5Encode(params.toJSONString());
-                    params.put("token",checkToken);
-                    System.out.println(params.toJSONString());
+                    //String checkToken = MD5.MD5Encode(params.toJSONString());
+                    //params.put("token",checkToken);
+                    //System.out.println(params.toJSONString());
                     try {
-                        String response=HttpTools.post(url, params.toJSONString());
+                        //String response=HttpTools.post(url, params.toJSONString());
+                        String response= HttpTools.post(url,params);
                         JSONObject jsonObject=JSONObject.parseObject(response);
                         int errcode=jsonObject.getInteger("errcode");
                         if(errcode==0){
@@ -603,7 +615,7 @@ public class RaffleService {
                         }else {
                             System.out.println("response:" + response);
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                     return raffleCouponModel;
@@ -617,7 +629,7 @@ public class RaffleService {
                     String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
-                    JSONObject params=new JSONObject();
+                    Map<String,String> params=new HashMap<String, String>();
                     params.put("id",String.valueOf(couponRecordModel.getId()));
                     params.put("amount", String.valueOf(couponRecordModel.getPrice()));
                     params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
@@ -625,14 +637,23 @@ public class RaffleService {
                     params.put("userid", String.valueOf(uid));
                     params.put("shopid", String.valueOf(0));
                     params.put("promotionid", String.valueOf(0));
-                    params.put("categoryid", String.valueOf(couponModel.getMid()));
+                    if(couponModel.getCtype()==1) {//全局
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(0));
+                    }else if(couponModel.getCtype()==2){//商品栏目
+                        params.put("categoryid", String.valueOf(couponModel.getMid()));
+                        params.put("goodid",String.valueOf(0));
+                    }else{//单品
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(couponModel.getMid()));
+                    }
                     params.put("title",couponModel.getTitle());
                     params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
-                    String checkToken = MD5.MD5Encode(params.toJSONString());
-                    params.put("token",checkToken);
-                    System.out.println(params.toJSONString());
+                    //String checkToken = MD5.MD5Encode(params.toJSONString());
+                    //params.put("token",checkToken);
+                    //System.out.println(params.toJSONString());
                     try {
-                        String response=HttpTools.post(url, params.toJSONString());
+                        String response=HttpTools.post(url, params);
                         System.out.println("response:"+response);
                         JSONObject jsonObject=JSONObject.parseObject(response);
                         int errcode=jsonObject.getInteger("errcode");
@@ -641,7 +662,7 @@ public class RaffleService {
                         }else {
                             System.out.println("response:" + response);
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
     }

@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +102,7 @@ public class HttpTools {
      * @return
      * @throws IOException
      */
+    static int MAXRETRU=3;
     public static String postUrlEncode(String url, String data) throws IOException {
         Preconditions.checkNotNull(url);
         Preconditions.checkNotNull(data);
@@ -112,7 +114,6 @@ public class HttpTools {
         stringEntity.setContentEncoding("UTF-8");
         String body="";
         int retryTimes=0;
-        int MAXRETRU=3;
         while (retryTimes<MAXRETRU+1){
             try {
                         httpPost.setEntity(stringEntity);
@@ -139,13 +140,20 @@ public class HttpTools {
             data.add(new BasicNameValuePair(key, params.get(key).toString()));
         }
         String body="";
-        try {
-            httpPost.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
-            HttpResponse httpResponse = client.execute(httpPost);
-            HttpEntity entity = httpResponse.getEntity();
-             body= EntityUtils.toString(entity);
-        }catch (IOException ioe){
-            ioe.printStackTrace();
+        int retryTimes=0;
+        while (retryTimes<MAXRETRU+1) {
+            try {
+                httpPost.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
+                HttpResponse httpResponse = client.execute(httpPost);
+                HttpEntity entity = httpResponse.getEntity();
+                body = EntityUtils.toString(entity);
+                if (!Strings.isNullOrEmpty(body)) {
+                    return body;
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                retryTimes++;
+            }
         }
         return body;
     }
@@ -167,8 +175,19 @@ public class HttpTools {
 
     public static void main(String[] args) {
         try {
-            System.out.println(postUrlEncode("http://120.55.241.127:8070/index.php?r=user/create-coupon", string2Unicode("{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}")));
-        } catch (IOException e) {
+            Map<String,String> params=new HashMap<String,String>();
+            params.put("id",String.valueOf(33313));
+            params.put("amount", String.valueOf(30));
+            params.put("starttime", "2017-05-13 00:00:01");
+            params.put("endtime", "2017-05-15 00:00:01");
+            params.put("userid", String.valueOf(7));
+            params.put("shopid", String.valueOf(0));
+            params.put("promotionid", String.valueOf(0));
+            params.put("categoryid", String.valueOf(1));
+            params.put("title", "测试标题");
+            params.put("remark", "的发送到发送到");
+            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
