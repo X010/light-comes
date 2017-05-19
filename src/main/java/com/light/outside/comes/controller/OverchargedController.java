@@ -150,7 +150,7 @@ public class OverchargedController extends BaseController {
                     String link="http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid="+overchargedModel.getId()+"&sponsor="+ userModel.getId();
                     data.put("link",link);
                     OverchargedRecordModel orm=this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
-                    if(orm!=null&&orm.getUid()==userModel.getId()&&overchargedModel.getStatus()==5){
+                    if(orm!=null&&orm.getUid()==userModel.getId()&&overchargedModel.getStatus()==3){
                         data.put("overcharged",true);
                     }else{
                         data.put("overcharged",false);
@@ -301,11 +301,13 @@ public class OverchargedController extends BaseController {
         if(overchargedModel!=null) {
             data.put("code",200);
             data.put("data",overchargedModel);
+            data.put("shopid",1);
             return JsonTools.jsonSer(data);
         }
         else {
             data.put("code",404);
             data.put("data",overchargedModel);
+            data.put("shopid",1);
             return JsonTools.jsonSer(data);
         }
     }

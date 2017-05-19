@@ -56,6 +56,7 @@
     var phoneNum=getUrlParam("phone");
     console.log(phoneNum);
     function changeNum() {
+        $("#otherchess").attr("disabled",true);
             $.ajax({
             type: 'GET',
             url: 'other_past.action?phone='+phoneNum,

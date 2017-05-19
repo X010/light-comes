@@ -54,7 +54,7 @@ public class SessionFilter implements javax.servlet.Filter {
                 chain.doFilter(request, response);
             }
         }
-        //客户端登录验证
+        //客户端登录验证url.contains("auction/query_auction.action")||url.contains("oc/query_overcharged.action")||
         else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action") ||url.contains("qblk/loginout_api.acton")||url.contains("qblk/login_api.action")||url.contains("coupon/use_coupon_api.action")
                 || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
             chain.doFilter(request, response);

@@ -347,10 +347,12 @@ public class AuctionController extends BaseController {
         if(auctionModel!=null){
             data.put("code",200);
             data.put("data",auctionModel);
+            data.put("shopid",1);
             return JsonTools.jsonSer(data);
         }else{
             data.put("code",404);
             data.put("data","");
+            data.put("shopid",1);
             return JsonTools.jsonSer(data);
         }
     }
