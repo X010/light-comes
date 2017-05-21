@@ -313,6 +313,14 @@ public interface PersistentDao {
     public void updateOrderByOrderno(OrderModel orderModel);
 
     /**
+     * 已付款订单
+     * @param aid
+     * @return
+     */
+    @Select("select * from comes_order where aid=#{aid} and status=2 and atype=#{atype} and uid!=#{uid}")
+    public List<OrderModel> getComesOrderByAuctionId(@Param("aid") long aid,@Param("atype") int atype ,@Param("uid") long uid);
+
+    /**
      * 根据用户ID和拍卖ID查询
      *
      * @param uid

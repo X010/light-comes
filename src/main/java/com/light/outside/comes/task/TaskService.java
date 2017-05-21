@@ -46,18 +46,19 @@ public class TaskService {
     /**
      * 拍卖定时任务
      */
-    @Scheduled(cron = "0 */1 *  * * * ")
+    @Scheduled(cron = "0 */1 * * * * ")//每分钟执行一次
     public void auctionScheuled() {
+        System.out.println("clear auction");
         this.auctionService.clearAuction();
     }
 
     /**
      * 砍价定时任务
      */
-//    @Scheduled(cron = "0 */1 *  * * * ")
-//    public void overchargedScheuled() {
-//        this.overchargedService.clearOvercharged();
-//    }
+    @Scheduled(cron = "0 */1 *  * * * ")
+    public void overchargedScheuled() {
+        this.overchargedService.clearOvercharged();
+    }
 
     /**
      * 抽奖定时任务

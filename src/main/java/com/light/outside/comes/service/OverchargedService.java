@@ -370,7 +370,7 @@ public class OverchargedService {
     }
 
     public void clearOvercharged() {
-        List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(1, Integer.MAX_VALUE);
+        List<OverchargedModel> overchargedModels = this.persistentDao.getOverchargeds(0, Integer.MAX_VALUE);
         if (overchargedModels != null) {
             for (OverchargedModel overchargedModel : overchargedModels) {
                 if (overchargedModel.getEnd_time().getTime() <= System.currentTimeMillis() && overchargedModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {

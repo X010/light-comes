@@ -654,7 +654,8 @@ public class RaffleService {
                     //System.out.println(params.toJSONString());
                     try {
                         String response=HttpTools.post(url, params);
-                        System.out.println("response:"+response);
+                        System.out.println("response:" + response);
+                        LOG.info("past send coupon :"+couponRecordModel.getCardno() +" phone:"+couponRecordModel.getPhone() +" id:"+couponRecordModel.getId());
                         JSONObject jsonObject=JSONObject.parseObject(response);
                         int errcode=jsonObject.getInteger("errcode");
                         if(errcode==0){

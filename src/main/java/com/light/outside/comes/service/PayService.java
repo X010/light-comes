@@ -81,5 +81,16 @@ public interface PayService {
      * @return
      */
     public OrderModel getOrderByOrderNo(String orderNo);
+
+    /**
+     * 退款
+     * @param out_trade_no
+     * @param transaction_id
+     * @param out_refund_no
+     * @param payMoney
+     * @param refund_fee
+     * @return
+     */
+    public OrderModel orderRefund(String out_trade_no,String transaction_id,String out_refund_no,String payMoney,String refund_fee);
 }
 

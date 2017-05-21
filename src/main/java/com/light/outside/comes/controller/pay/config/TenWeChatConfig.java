@@ -71,6 +71,11 @@ public class TenWeChatConfig {
      */
     public static final String orderQueryUrl="https://api.mch.weixin.qq.com/pay/orderquery";
 
+    /**
+     * 订单退款
+     */
+    public static final String orderRefundUrl="https://api.mch.weixin.qq.com/secapi/pay/refund";
+
 
 
 

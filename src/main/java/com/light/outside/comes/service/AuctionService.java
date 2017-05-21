@@ -2,10 +2,9 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.light.outside.comes.model.AuctionModel;
-import com.light.outside.comes.model.AuctionRecordsModel;
-import com.light.outside.comes.model.PageModel;
-import com.light.outside.comes.model.PageResult;
+import com.light.outside.comes.controller.pay.TenWeChatGenerator;
+import com.light.outside.comes.controller.pay.util.PubUtils;
+import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
 import com.light.outside.comes.qbkl.model.Commodity;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,6 +48,8 @@ public class AuctionService {
 
     @Autowired
     private AuctionDao auctionDao;
+    @Autowired
+    private PayService payService;
 
     private Logger LOG = LoggerFactory.getLogger(AuctionService.class);
 
@@ -242,7 +244,7 @@ public class AuctionService {
      * 清除过期的活动
      */
     public void clearAuction() {
-        List<AuctionModel> auctionModels = this.persistentDao.getAuctions(1, Integer.MAX_VALUE);
+        List<AuctionModel> auctionModels = this.persistentDao.getAuctions(0, Integer.MAX_VALUE);
         if (auctionModels != null) {
             for (AuctionModel auctionModel : auctionModels) {
                 if (auctionModel.getEnd_time().getTime() <= System.currentTimeMillis() && auctionModel.getStatus() != CONST.RAFFLE_STATUS_OVER) {
@@ -257,8 +259,19 @@ public class AuctionService {
                         auctionModel.setWin_price(auctionRecordsModel.getPrice());
                         auctionModel.setWin_uid(auctionRecordsModel.getUid());
                         this.auctionDao.updateWinAuactionRecord(auctionRecordsModel);
+                        //TODO 退款
+//                        List<OrderModel> list=this.persistentDao.getComesOrderByAuctionId(auctionModel.getId(),3,auctionRecordsModel.getUid());//拍卖
+//                        for(OrderModel order:list){
+//                            String outTradeno= PubUtils.getUniqueSn() + "";
+//                            Map result=TenWeChatGenerator.orderRefund(order.getTradeno(),order.getTransactionId(),outTradeno,String.valueOf(order.getAmount()),String.valueOf(order.getAmount()));
+//                            System.out.println(result.get("return_msg"));
+//                        }
+//                        List<AuctionRecordsModel> list= this.auctionDao.getFailAuctionRecord(auctionModel.getId());
+//                        for(AuctionRecordsModel recordModel:list){
+//                            this.persistentDao.
+//                            TenWeChatGenerator.orderRefund(recordModel.getPhone() )
+//                        }
                     }
-
                     this.updateAuction(auctionModel);
                 }
             }

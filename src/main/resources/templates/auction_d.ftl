@@ -184,14 +184,6 @@
         window.localStorage.setItem("currentShop",shop);
         var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024);
         db.transaction(function (context) {
-//            context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)',
-//                    function(){ alert('创建模板表成功');},
-//                    function(context, error){ alert('创建模板表失败:' + error.message)}
-//            );
-//            context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")',
-//                    function(){ alert('插入模板表·成功');},
-//                    function(context, error){ alert('插入模板表失败:' + error.message)}
-//            );
             context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
             context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
             console.log('yeshizuile');

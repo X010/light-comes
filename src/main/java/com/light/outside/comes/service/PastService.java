@@ -195,7 +195,7 @@ public class PastService {
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                     pastTotal.setToday_times(pastTotal.getToday_times() + 1);
                     this.persistentDao.updatePastTotal(pastTotal);
-                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
+                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {//已经喝完
                         long couponId = pastModel.getCoupon_id();
                         CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                         CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
@@ -256,7 +256,7 @@ public class PastService {
                 pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
                 this.persistentDao.updatePastTotal(pastTotal);
 
-                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {
+                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {//本周期+本次大于总量表示已经喝完
                     long couponId = pastModel.getCoupon_id();
                     CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);

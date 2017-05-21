@@ -56,6 +56,14 @@ public interface AuctionDao {
     @Select("select * from comes_auction_records where aid=#{aid} order by price desc limit 1")
     public AuctionRecordsModel getWinAuctionRecord(@Param("aid") long aid);
 
+    /**
+     * 获取拍卖失败记录
+     * @param aid
+     * @return
+     */
+    @Select("select * from comes_auction_records where aid=#{aid} and `status`=1")
+    public List<AuctionRecordsModel> getFailAuctionRecord(@Param("aid") long aid);
+
 
     /**
      * 更新中奖人
