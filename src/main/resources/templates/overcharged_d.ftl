@@ -115,11 +115,17 @@
     <#if join>
     <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
+            <#if overcharged>
+                <div class="help">
+                    <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
+                </div>
+            <#else>
             <div class="help">
                 <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;"/>
                 <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;"
                        onclick="sharewx()"/>
             </div>
+            </#if>
         <#else>
             <div class="help">
                 <input type="button" value="您已砍过一刀" class="otherchess" style="background-color: #80807b;" "/>
@@ -129,12 +135,18 @@
         </#if>
     <#else>
         <#if sponsor==uid>
+            <#if overcharged>
+                <div class="help">
+                    <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
+                </div>
+            <#else>
             <div class="help">
                 <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;"
                        onclick="send_overcharged(${oc.id?c});"/>
                 <input type="button" value="召唤朋友帮忙砍价" class="otherchess" style="background-color: #FFB046;"
                        onclick="sharewx();"/>
             </div>
+            </#if>
         <#else>
             <div class="help">
                 <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"
@@ -143,12 +155,7 @@
                        onclick="send_overcharged(${oc.id?c});"/>
             </div>
         </#if>
-
     </#if>
-<#elseif overcharged>
-    <div class="help">
-        <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
-    </div>
 </#if>
 </div>
 <div id="shareit" onclick="close_sharewx()">
@@ -331,12 +338,10 @@
     function buy() {
         window.localStorage.setItem("shopid",1);
         var shop='{"shopid":"1","name":"曲不离口商城","address":"小行里姜家营36号","longitude":"118.758537","latitude":"31.996302","phone":"13671964680","picture":"http://www.qubulikou.com/images/shop/shop0001.jpg","worktime":"08:30-19:00","distance":0}';
-        document.write(shop);
         window.localStorage.setItem("currentShop",shop);
-                var r = jQuery.parseJSON(result);
-                if (r.shopid == 1) {
-                    var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024, function () {
-                    });
+//                var r = jQuery.parseJSON(result);
+//                if (r.shopid == 1) {
+                    var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024, function () {});
                     db.transaction(function (context) {
                         context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
                     <#--context.executeSql('SELECT * FROM cart WHERE goodsid=${oc.goodsid?c}');-->
@@ -345,7 +350,7 @@
         //            window.location.href = "http://www.qubulikou.com/yeshizuileweixin/cart.html"
                         window.location.href = "http://120.55.241.127/cart.html"
                     });
-                }
+//                }
         }
 //    };
 </script>

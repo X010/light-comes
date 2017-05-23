@@ -176,7 +176,7 @@ public class HttpTools {
     public static void main(String[] args) {
         try {
             Map<String,String> params=new HashMap<String,String>();
-            params.put("id",String.valueOf(33313));
+            params.put("id",String.valueOf(12313));
             params.put("amount", String.valueOf(30));
             params.put("starttime", "2017-05-13 00:00:01");
             params.put("endtime", "2017-05-15 00:00:01");
@@ -184,6 +184,7 @@ public class HttpTools {
             params.put("shopid", String.valueOf(0));
             params.put("promotionid", String.valueOf(0));
             params.put("categoryid", String.valueOf(1));
+            params.put("goodid","994");
             params.put("title", "测试标题");
             params.put("remark", "的发送到发送到");
             System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));

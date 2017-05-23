@@ -11,10 +11,7 @@ import com.light.outside.comes.qbkl.dao.ReadDao;
 import com.light.outside.comes.qbkl.model.Commodity;
 import com.light.outside.comes.qbkl.model.CommodityCategory;
 import com.light.outside.comes.service.weixin.MD5;
-import com.light.outside.comes.utils.CONST;
-import com.light.outside.comes.utils.CouponCardUtil;
-import com.light.outside.comes.utils.DateUtils;
-import com.light.outside.comes.utils.HttpTools;
+import com.light.outside.comes.utils.*;
 import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -625,6 +622,13 @@ public class RaffleService {
         return null;
     }
 
+    /**
+     *
+     * @param couponModel
+     * @param couponRecordModel
+     * @param uid
+     * @param phone
+     */
     public void sendCoupon(CouponModel couponModel,CouponRecordModel couponRecordModel, long uid, String phone) {
                     String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
@@ -651,11 +655,10 @@ public class RaffleService {
                     params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
                     //String checkToken = MD5.MD5Encode(params.toJSONString());
                     //params.put("token",checkToken);
-                    //System.out.println(params.toJSONString());
+                    System.out.println("post json:"+JsonTools.jsonSer(params));
                     try {
                         String response=HttpTools.post(url, params);
-                        System.out.println("response:" + response);
-                        LOG.info("past send coupon :"+couponRecordModel.getCardno() +" phone:"+couponRecordModel.getPhone() +" id:"+couponRecordModel.getId());
+                        LOG.info("past send coupon :" + couponRecordModel.getCardno() + " phone:" + couponRecordModel.getPhone() + " id:" + couponRecordModel.getId());
                         JSONObject jsonObject=JSONObject.parseObject(response);
                         int errcode=jsonObject.getInteger("errcode");
                         if(errcode==0){

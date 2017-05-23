@@ -220,7 +220,6 @@ public class AuctionService {
                 auctionModel.setStatus(CONST.RAFFLE_STATUS_NORMAL);
             }
         }
-
         this.persistentDao.updateAuction(auctionModel);
     }
 
@@ -258,7 +257,8 @@ public class AuctionService {
                         auctionModel.setWin_phone(auctionRecordsModel.getPhone());
                         auctionModel.setWin_price(auctionRecordsModel.getPrice());
                         auctionModel.setWin_uid(auctionRecordsModel.getUid());
-                        this.auctionDao.updateWinAuactionRecord(auctionRecordsModel);
+                        this.auctionDao.updateWinAuactionRecord(auctionRecordsModel);//拍卖成功状态
+                        this.auctionDao.updateFailAuctionRecord(auctionModel.getId(),3);//拍卖失败状态
                         //TODO 退款
 //                        List<OrderModel> list=this.persistentDao.getComesOrderByAuctionId(auctionModel.getId(),3,auctionRecordsModel.getUid());//拍卖
 //                        for(OrderModel order:list){

@@ -190,12 +190,13 @@ public class PastService {
 
                 if (pastTotal != null) {
                     pastTotal.setDrunk_num(drunkNum);
-                    pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + pastDetail.getDrunk_num());
+                    int cycle=pastTotal.getCycle_drunk() + pastDetail.getDrunk_num();
+                    pastTotal.setCycle_drunk(cycle);
                     pastTotal.setToday_drunk(pastTotal.getToday_drunk() + pastDetail.getDrunk_num());
                     pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                     pastTotal.setToday_times(pastTotal.getToday_times() + 1);
                     this.persistentDao.updatePastTotal(pastTotal);
-                    if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {//已经喝完
+                    if (cycle >= pastModel.getTotal_drunk()) {//已经喝完
                         long couponId = pastModel.getCoupon_id();
                         CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                         CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
@@ -250,13 +251,13 @@ public class PastService {
 
             if (pastTotal != null) {
                 pastTotal.setDrunk_num(drunk_num);
-                pastTotal.setCycle_drunk(pastTotal.getCycle_drunk() + drunk_num);
+                int cycle=pastTotal.getCycle_drunk() + drunk_num;
+                pastTotal.setCycle_drunk(cycle);
                 pastTotal.setToday_other_drunk(pastTotal.getToday_other_drunk() + drunk_num);
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                 pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
                 this.persistentDao.updatePastTotal(pastTotal);
-
-                if (pastTotal.getCycle_drunk() + pastDetail.getDrunk_num() >= pastModel.getTotal_drunk()) {//本周期+本次大于总量表示已经喝完
+                if (cycle >= pastModel.getTotal_drunk()) {//本周期+本次大于总量表示已经喝完
                     long couponId = pastModel.getCoupon_id();
                     CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
