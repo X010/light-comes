@@ -53,7 +53,7 @@
 
 <header class="bar bar-nav">
     <#--<a class="icon icon-left-nav pull-left" onclick="location.href='${baseUrl}my/mine.action'" id="navBackBtn"></a>-->
-    <a class="icon icon-left-nav pull-left" onclick="location.href='http://120.55.241.127/mine.html'" id="navBackBtn"></a>
+    <a class="icon icon-left-nav pull-left" onclick="location.href='${domain}/mine.html'" id="navBackBtn"></a>
     <h1 class="title">我的拍卖</h1>
 </header>
 <div class="content">

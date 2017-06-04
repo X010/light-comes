@@ -189,7 +189,7 @@
                 context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
                 console.log('yeshizuile');
                 //window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
-                window.location.href = "http://120.55.241.127/cart.html"
+                window.location.href = "${domain}/cart.html"
             });
 //        }
     }

@@ -17,12 +17,15 @@ public class WebConfiguration extends FreeMarkerAutoConfiguration.FreeMarkerWebC
 
     @Value("${baseUrl}")
     private String baseUrl;
+    @Value("${domain}")
+    private String domain;
 
     @Override
     public FreeMarkerConfigurer freeMarkerConfigurer() {
         FreeMarkerConfigurer configurer = super.freeMarkerConfigurer();
         Map<String, Object> sharedVariables = new HashMap<String, Object>();
         sharedVariables.put("baseUrl", baseUrl);
+        sharedVariables.put("domain", domain);
         configurer.setFreemarkerVariables(sharedVariables);
 
         return configurer;

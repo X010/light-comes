@@ -137,7 +137,7 @@
 </div>
 <footer>
     <#--<a href="http://www.qubulikou.com/yeshizuileweixin/index.html">-->
-        <a href="http://120.55.241.127/index.html">
+        <a href="${domain}/index.html">
         <img src="${baseUrl}images/home.png"/>
         <p>首页</p>
     </a>
@@ -163,7 +163,7 @@
     </a>
     <#--<a class="on" href="${baseUrl}my/mine.action">-->
     <#--<a class="on" href="http://www.qubulikou.com/yeshizuileweixin/mine.html">-->
-    <a class="on" href="http://120.55.241.127/mine.html"
+    <a class="on" href="${domain}/mine.html"
         <img class="" src="${baseUrl}images/mine_on.png"/>
         <p class="on">我的</p>
     </a>

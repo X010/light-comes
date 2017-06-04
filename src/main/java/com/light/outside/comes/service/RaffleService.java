@@ -16,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.json.Json;
@@ -51,6 +52,9 @@ public class RaffleService {
     private PersistentDao persistentDao;
     @Autowired
     private ReadDao readDao;
+
+    @Value("${domain}")
+    private String domain;
 
     /**
      * 品类
@@ -566,7 +570,7 @@ public class RaffleService {
     public RaffleCouponModel drawRaffleByRage(long rid,long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
-        String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
+        String url=domain+":8070/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             CouponModel couponModel=this.persistentDao.getCouponById(raffleCouponModel.getCid());
@@ -630,7 +634,7 @@ public class RaffleService {
      * @param phone
      */
     public void sendCoupon(CouponModel couponModel,CouponRecordModel couponRecordModel, long uid, String phone) {
-                    String url="http://120.55.241.127:8070/index.php?r=user/create-coupon";
+                    String url=domain+":8070/index.php?r=user/create-coupon";
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
                     Map<String,String> params=new HashMap<String, String>();
