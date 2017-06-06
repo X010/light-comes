@@ -183,7 +183,8 @@ public class PastService {
                 } else {
                     //随机值
                     Random random = new Random();
-                    drunkNum= random.nextInt((pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1)) + pastModel.getMin_drunk();
+                    int num=(pastModel.getMax_drunk() - pastModel.getMin_drunk() + 1);
+                    drunkNum= random.nextInt(num) + pastModel.getMin_drunk();
                     pastDetail.setDrunk_num(drunkNum);
                 }
                 this.persistentDao.addPastDetail(pastDetail);

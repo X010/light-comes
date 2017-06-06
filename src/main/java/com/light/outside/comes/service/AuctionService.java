@@ -2,8 +2,6 @@ package com.light.outside.comes.service;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.light.outside.comes.controller.pay.TenWeChatGenerator;
-import com.light.outside.comes.controller.pay.util.PubUtils;
 import com.light.outside.comes.model.*;
 import com.light.outside.comes.mybatis.mapper.AuctionDao;
 import com.light.outside.comes.mybatis.mapper.PersistentDao;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one

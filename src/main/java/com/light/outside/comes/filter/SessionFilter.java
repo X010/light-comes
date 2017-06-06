@@ -18,7 +18,8 @@ import java.net.URLEncoder;
 public class SessionFilter implements javax.servlet.Filter {
 
     private final static String LOGIN_URL="http://www.qubulikou.com/yeshizuileweixin/Mine/login.html";
-    private final static String TEST_LOGIN_URL="http://120.55.241.127/Mine/login.html";
+    private final static String TEST_LOGIN_URL="http://www.qubulikou.com/weixin/Mine/login.html";
+    private final static String DEV_LOGIN_URL="http://120.55.241.127/Mine/login.html";
     private final static Logger LOG = LoggerFactory.getLogger(SessionFilter.class);
 
     @Value("${baseUrl}")

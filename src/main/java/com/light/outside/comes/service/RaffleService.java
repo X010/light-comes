@@ -634,7 +634,8 @@ public class RaffleService {
      * @param phone
      */
     public void sendCoupon(CouponModel couponModel,CouponRecordModel couponRecordModel, long uid, String phone) {
-                    String url=domain+":8070/index.php?r=user/create-coupon";
+                    //String url=domain+":8070/index.php?r=user/create-coupon";
+                    String url="http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon";
                     this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
                     //TODO 请求老系统保存优惠券信息
                     Map<String,String> params=new HashMap<String, String>();
