@@ -53,7 +53,7 @@
 
 <header class="bar bar-nav">
     <#--<a class="icon icon-left-nav pull-left" onclick="location.href='${baseUrl}my/mine.action'" id="navBackBtn"></a>-->
-    <a class="icon icon-left-nav pull-left" onclick="location.href='http://120.55.241.127/mine.html'" id="navBackBtn"></a>
+    <a class="icon icon-left-nav pull-left" onclick="location.href='${domain}/mine.html'" id="navBackBtn"></a>
     <h1 class="title">我的拍卖</h1>
 </header>
 <div class="content">
@@ -61,7 +61,7 @@
         <div class="segmented-control" id="orderStatusList">
             <a class="control-item <#if status==0>active</#if>" id="order_status_0" href="mine_auction.action">全部</a>
             <a class="control-item <#if status==1>active</#if>" id="order_status_1" href="mine_auction.action?status=1">出价中</a>
-            <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_auction.action?status=2">已拍得</a>
+            <a class="control-item <#if status==2>active</#if>" id="order_status_1" href="mine_auction.action?status=5">已拍得</a>
             <a class="control-item <#if status==3>active</#if>" id="order_status_2" href="mine_auction.action?status=3">未拍得</a>
         </div>
     </div>

@@ -10,6 +10,8 @@ import com.light.outside.comes.controller.pay.util.Sha1Util;
 import com.light.outside.comes.controller.pay.util.XMLUtil;
 import com.light.outside.comes.utils.JsonClient;
 import com.light.outside.comes.utils.RequestTools;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -17,15 +19,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.sf.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import javax.net.ssl.SSLContext;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.*;
 
 /**
@@ -285,7 +284,7 @@ public class TenWeChatGenerator {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        System.out.println(string1+"  singature:"+signature);
+        System.out.println(string1 + "  singature:" + signature);
         return signature;
     }
 
@@ -394,7 +393,7 @@ public class TenWeChatGenerator {
         //设置accessToken
         accessToken.setToken(access_token);
         accessToken.setExpiresIn(jsonObject.getInteger("expires_in"));
-        accessToken.setTokenTime(System.currentTimeMillis()/1000);
+        accessToken.setTokenTime(System.currentTimeMillis() / 1000);
         TokenThread.accessToken = accessToken;
 
         return accessToken;
@@ -488,13 +487,108 @@ public class TenWeChatGenerator {
         return null;
     }
 
+    /**
+     * 退款
+     * @param out_trade_no
+     * @param transaction_id
+     * @param out_refund_no String tradeNo = PubUtils.getUniqueSn() + "";
+     * @param payMoney
+     * @param refund_fee
+     * @return
+     */
+    public static Map orderRefund(String out_trade_no,String transaction_id,String out_refund_no,String payMoney,String refund_fee){
+//
+//        FileInputStream instream=null;
+//        KeyStore keyStore=null;
+//        try {
+//          keyStore= KeyStore.getInstance("PKCS12");
+//        instream= new FileInputStream(new File(""));//P12文件目录
+//        keyStore.load(instream, TenWeChatConfig.mch_id.toCharArray());//这里写密码..默认是你的MCHID
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        } finally{
+//            try {
+//                instream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        SSLContext sslcontext = null;
+//        try {
+//            sslcontext = SSLContexts.custom().loadKeyMaterial(keyStore, TenWeChatConfig.mch_id.toCharArray()).build();
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        } catch (KeyManagementException e) {
+//            e.printStackTrace();
+//        } catch (KeyStoreException e) {
+//            e.printStackTrace();
+//        } catch (UnrecoverableKeyException e) {
+//            e.printStackTrace();
+//        }
+//        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+//                sslcontext,
+//                new String[] { "TLSv1" },
+//                null,
+//                SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+
+        String noncestr = Sha1Util.getNonceStr();
+        SortedMap<String, String> packageParams = new TreeMap();
+        packageParams.put("appid", TenWeChatConfig.app_id);
+        packageParams.put("mch_id", TenWeChatConfig.mch_id);
+        packageParams.put("nonce_str", noncestr);
+        packageParams.put("out_trade_no", out_trade_no);
+        packageParams.put("transaction_id",transaction_id);
+        packageParams.put("total_fee", payMoney);
+        packageParams.put("refund_fee", refund_fee);        //订单生成的机器IP
+        packageParams.put("op_user_id", TenWeChatConfig.mch_id);
+        packageParams.put("out_refund_no",out_refund_no);
+        String sign = Sha1Util.genWXPackageSign(packageParams);
+        System.out.println("sign:"+sign);
+
+        Element signElement = DocumentHelper.createElement("sign");
+        signElement.setText(sign);
+//        packageParams.put("device_info","WEB");
+        Document curDocument = DocumentHelper.createDocument();
+        Element rootElement = DocumentHelper.createElement("xml");
+        for (String key : packageParams.keySet()) {
+            Element curElement = DocumentHelper.createElement(key);
+            curElement.setText(packageParams.get(key));
+            rootElement.add(curElement);
+        }
+        rootElement.add(signElement);
+        curDocument.setRootElement(rootElement);
+        String xmlParams = curDocument.getRootElement().asXML(); //XMLUtil.toXml(packageParams,sign);
+        System.out.println(xmlParams);
+        TenpayHttpClient httpClient = new TenpayHttpClient();
+        File certFile=new File("");//证书文件
+        httpClient.setCertInfo(certFile, "12345");
+        if (httpClient.callHttpPost(TenWeChatConfig.orderRefundUrl, xmlParams)) {
+            String resContent = httpClient.getResContent();
+            System.out.println("response:" + resContent);
+            try {
+                Map result = XMLUtil.doXMLParse(resContent);
+                String msg = (String) result.get("return_code");
+                if ("SUCCESS".equals(msg)) {
+                    return result;
+                } else {
+                    throw new OrderException("refund order error:" + msg);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws Exception {
         TenWeChatGenerator tt = new TenWeChatGenerator();
-        String accessToken = TenWeChatGenerator.getAccessToken2();
-        TenWeChatGenerator.getAccessTokenModel();
-        System.out.println(accessToken);
-        tt.getJsapiTicket("", accessToken);
+//        String accessToken = TenWeChatGenerator.getAccessToken2();
+//        TenWeChatGenerator.getAccessTokenModel();
+//        System.out.println(accessToken);
+//        tt.getJsapiTicket("", accessToken);
         //	Map ss = tt.orderQuery("4006652001201610288016305969");
+        tt.orderRefund("1704282118217722001","1704282118217722001","4009522001201704288722870449","1","1");
     }
 
 }

@@ -234,6 +234,7 @@ public class AuctionController extends BaseController {
             orderModel.setAname(auctionModel.getTitle());
             orderModel.setStatus(CONST.ORDER_PAY);
             orderModel.setCreatetime(new Date());
+            orderModel.setAmount(deposit);
             long id = payService.createOrder(orderModel);//创建订单
             if (id > 0) {
                 isPay = true;

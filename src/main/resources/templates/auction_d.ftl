@@ -169,7 +169,7 @@
         price.style.display = "none";
         deposit.style.display = "block";
         buy.style.display="none";
-    }else if(auctioned==true&&status==5){
+    }else if(auctioned==true&&status==8){
         deposit.style.display = "none";
         price.style.display = "none";
         buy.style.display="block";
@@ -180,24 +180,18 @@
     buy.onclick=function(){
         window.localStorage.setItem("shopid",1);
         var shop='{"shopid":"1","name":"曲不离口商城","address":"小行里姜家营36号","longitude":"118.758537","latitude":"31.996302","phone":"13671964680","picture":"http://www.qubulikou.com/images/shop/shop0001.jpg","worktime":"08:30-19:00","distance":0}';
-        document.write(shop);
         window.localStorage.setItem("currentShop",shop);
-        var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024);
-        db.transaction(function (context) {
-//            context.executeSql('CREATE TABLE IF NOT EXISTS testTable (id unique, name)',
-//                    function(){ alert('创建模板表成功');},
-//                    function(context, error){ alert('创建模板表失败:' + error.message)}
-//            );
-//            context.executeSql('INSERT INTO testTable (id, name) VALUES (0, "Byron")',
-//                    function(){ alert('插入模板表·成功');},
-//                    function(context, error){ alert('插入模板表失败:' + error.message)}
-//            );
-            context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
-            context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
-            console.log('yeshizuile');
-            //window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
-            window.location.href="http://120.55.241.127/cart.html"
-        });
+//        var r = jQuery.parseJSON(result);
+//        if (r.shopid == 1) {
+            var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024);
+            db.transaction(function (context) {
+                context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
+                context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
+                console.log('yeshizuile');
+                //window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
+                window.location.href = "${domain}/cart.html"
+            });
+//        }
     }
 </script>
 </body>

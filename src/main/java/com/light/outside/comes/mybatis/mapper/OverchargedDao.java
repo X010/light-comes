@@ -58,7 +58,7 @@ public interface OverchargedDao {
      * @param aid
      * @return
      */
-    @Select("select * from comes_overcharged_record where aid=#{aid} and status=5 limit 1")
+    @Select("select * from comes_overcharged_record where aid=#{aid} and status=3 limit 1")
     public OverchargedRecordModel getOVerchargedRecordsByAid(@Param("aid") long aid);
 
 

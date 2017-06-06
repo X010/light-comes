@@ -96,4 +96,9 @@ public class WeiXinPayService implements PayService {
     public OrderModel getOrderByOrderNo(String orderNo) {
         return this.persistentDao.getOrderByOrderNo(orderNo);
     }
+
+    @Override
+    public OrderModel orderRefund(String out_trade_no, String transaction_id, String out_refund_no, String payMoney, String refund_fee) {
+        return null;
+    }
 }

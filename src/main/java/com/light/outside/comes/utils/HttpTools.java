@@ -151,6 +151,9 @@ public class HttpTools {
                 body = EntityUtils.toString(entity);
                 if (!Strings.isNullOrEmpty(body)) {
                     return body;
+                } else {
+                    System.out.println("post response is null");
+                    retryTimes++;
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -178,16 +181,16 @@ public class HttpTools {
     public static void main(String[] args) {
         try {
             Map<String, String> params = new HashMap<String, String>();
-            params.put("id", String.valueOf(162201));
+            params.put("id", String.valueOf(162202));
             params.put("amount", String.valueOf(228.0));
             params.put("starttime", "2017-05-13 00:00:01");
             params.put("endtime", "2017-06-30 00:00:00");
-            params.put("userid", String.valueOf(12347));
+            params.put("userid", String.valueOf(7));
             params.put("shopid", String.valueOf(0));
             params.put("promotionid", String.valueOf(0));
             params.put("categoryid", String.valueOf(0));
             params.put("title", "签到50度五粮春");
-            params.put("goodid",String.valueOf(1731));
+            params.put("goodid", String.valueOf(1731));
             params.put("remark", "签到50度五粮春");
             System.out.println(JsonTools.jsonSer(params));
             System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon", params));

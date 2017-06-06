@@ -16,6 +16,7 @@ import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.json.Json;
@@ -51,6 +52,9 @@ public class RaffleService {
     private PersistentDao persistentDao;
     @Autowired
     private ReadDao readDao;
+
+    @Value("${domain}")
+    private String domain;
 
     /**
      * 品类
@@ -568,6 +572,7 @@ public class RaffleService {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
         String url = "http://120.55.241.127:8070/index.php?r=user/create-coupon";
+        //String url=domain+":8070/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             CouponModel couponModel = this.persistentDao.getCouponById(raffleCouponModel.getCid());
@@ -622,48 +627,54 @@ public class RaffleService {
         }
         return null;
     }
-
-    public void sendCoupon(CouponModel couponModel, CouponRecordModel couponRecordModel, long uid, String phone) {
-        String url = "http://120.55.241.127:8070/index.php?r=user/create-coupon";
-        this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
-        //TODO 请求老系统保存优惠券信息
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("id", String.valueOf(couponRecordModel.getId()));
-        params.put("amount", String.valueOf(couponRecordModel.getPrice()));
-        params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
-        params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
-        params.put("userid", String.valueOf(uid));
-        params.put("shopid", String.valueOf(0));
-        params.put("promotionid", String.valueOf(0));
-        if (couponModel.getCtype() == 1) {//全局
-            params.put("categoryid", String.valueOf(0));
-            params.put("goodid", String.valueOf(0));
-        } else if (couponModel.getCtype() == 2) {//商品栏目
-            params.put("categoryid", String.valueOf(couponModel.getMid()));
-            params.put("goodid", String.valueOf(0));
-        } else {//单品
-            params.put("categoryid", String.valueOf(0));
-            params.put("goodid", String.valueOf(couponModel.getMid()));
-        }
-        params.put("title", couponModel.getTitle());
-        params.put("remark", Strings.isNullOrEmpty(couponModel.getRule()) ? "" : couponModel.getRule());
-        //String checkToken = MD5.MD5Encode(params.toJSONString());
-        //params.put("token",checkToken);
-        //System.out.println(params.toJSONString());
-        //LOG.info(JsonTools.jsonSer(params));
-        try {
-            String response = HttpTools.post(url, params);
-            System.out.println("response:" + response);
-            JSONObject jsonObject = JSONObject.parseObject(response);
-            int errcode = jsonObject.getInteger("errcode");
-            if (errcode == 0) {
-                System.out.println("add success " + response);
-            } else {
-                System.out.println("response:" + response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    /**
+     *
+     * @param couponModel
+     * @param couponRecordModel
+     * @param uid
+     * @param phone
+     */
+    public void sendCoupon(CouponModel couponModel,CouponRecordModel couponRecordModel, long uid, String phone) {
+                    //String url=domain+":8070/index.php?r=user/create-coupon";
+                    String url="http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon";
+                    this.persistentDao.editCouponRecordStatusByUser(couponRecordModel.getId(), CONST.COUPON_STATUS_NOTUSED, uid, phone);
+                    //TODO 请求老系统保存优惠券信息
+                    Map<String,String> params=new HashMap<String, String>();
+                    params.put("id",String.valueOf(couponRecordModel.getId()));
+                    params.put("amount", String.valueOf(couponRecordModel.getPrice()));
+                    params.put("starttime", DateUtils.toDataTimeString(couponRecordModel.getUse_start_time()));
+                    params.put("endtime", DateUtils.toDataTimeString(couponRecordModel.getUse_end_time()));
+                    params.put("userid", String.valueOf(uid));
+                    params.put("shopid", String.valueOf(0));
+                    params.put("promotionid", String.valueOf(0));
+                    if(couponModel.getCtype()==1) {//全局
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(0));
+                    }else if(couponModel.getCtype()==2){//商品栏目
+                        params.put("categoryid", String.valueOf(couponModel.getMid()));
+                        params.put("goodid",String.valueOf(0));
+                    }else{//单品
+                        params.put("categoryid", String.valueOf(0));
+                        params.put("goodid",String.valueOf(couponModel.getMid()));
+                    }
+                    params.put("title",couponModel.getTitle());
+                    params.put("remark",Strings.isNullOrEmpty(couponModel.getRule())?"":couponModel.getRule());
+                    //String checkToken = MD5.MD5Encode(params.toJSONString());
+                    //params.put("token",checkToken);
+                    System.out.println("post json:"+JsonTools.jsonSer(params));
+                    try {
+                        String response=HttpTools.post(url, params);
+                        LOG.info("past send coupon :" + couponRecordModel.getCardno() + " phone:" + couponRecordModel.getPhone() + " id:" + couponRecordModel.getId());
+                        JSONObject jsonObject=JSONObject.parseObject(response);
+                        int errcode=jsonObject.getInteger("errcode");
+                        if(errcode==0){
+                            System.out.println("add success "+response);
+                        }else {
+                            System.out.println("response:" + response);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
     }
 
 
@@ -675,7 +686,7 @@ public class RaffleService {
     /**
      * 查询中奖记录
      *
-     * @param cid
+     * @param rid
      * @return
      */
     public List<CouponRecordModel> queryCouponRecords(long rid) {

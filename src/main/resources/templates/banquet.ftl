@@ -46,7 +46,7 @@
 
 <footer>
     <#--<a href="http://www.qubulikou.com/yeshizuileweixin/index.html">-->
-        <a href="http://120.55.241.127/index.html">
+        <a href="${domain}/index.html">
         <img src="${baseUrl}images/home.png"/>
         <p>首页</p>
     </a>
@@ -71,7 +71,7 @@
         <p>砍价</p>
     </a>
     <#--<a href="${baseUrl}my/mine.action">-->
-        <a href="http://120.55.241.127/mine.html">
+        <a href="${domain}/mine.html">
         <img class="" src="${baseUrl}images/mine.png"/>
 
         <p>我的</p>
