@@ -97,33 +97,35 @@ public class HttpTools {
 
     /**
      * 转码后提交数据
+     *
      * @param url
      * @param data
      * @return
      * @throws IOException
      */
-    static int MAXRETRU=3;
+    static int MAXRETRU = 3;
+
     public static String postUrlEncode(String url, String data) throws IOException {
         Preconditions.checkNotNull(url);
         Preconditions.checkNotNull(data);
         HttpPost httpPost = new HttpPost(url);
-        String decodeStr= URLDecoder.decode(data);
+        String decodeStr = URLDecoder.decode(data);
         StringEntity stringEntity = new StringEntity(decodeStr);
         stringEntity.setContentType("application/x-www-form-urlencoded");
 //        stringEntity.setContentType("application/json");
         stringEntity.setContentEncoding("UTF-8");
-        String body="";
-        int retryTimes=0;
-        while (retryTimes<MAXRETRU+1){
+        String body = "";
+        int retryTimes = 0;
+        while (retryTimes < MAXRETRU + 1) {
             try {
-                        httpPost.setEntity(stringEntity);
-                        HttpResponse httpResponse = client.execute(httpPost);
-                        HttpEntity entity = httpResponse.getEntity();
-                        body = EntityUtils.toString(entity);
-                        if (!Strings.isNullOrEmpty(body)) {
-                            return body;
-                        }
-            } catch (IOException ioe){
+                httpPost.setEntity(stringEntity);
+                HttpResponse httpResponse = client.execute(httpPost);
+                HttpEntity entity = httpResponse.getEntity();
+                body = EntityUtils.toString(entity);
+                if (!Strings.isNullOrEmpty(body)) {
+                    return body;
+                }
+            } catch (IOException ioe) {
                 retryTimes++;
                 continue;
             }
@@ -139,9 +141,9 @@ public class HttpTools {
         for (String key : params.keySet()) {
             data.add(new BasicNameValuePair(key, params.get(key).toString()));
         }
-        String body="";
-        int retryTimes=0;
-        while (retryTimes<MAXRETRU+1) {
+        String body = "";
+        int retryTimes = 0;
+        while (retryTimes < MAXRETRU + 1) {
             try {
                 httpPost.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
                 HttpResponse httpResponse = client.execute(httpPost);
@@ -175,18 +177,20 @@ public class HttpTools {
 
     public static void main(String[] args) {
         try {
-            Map<String,String> params=new HashMap<String,String>();
-            params.put("id",String.valueOf(33313));
-            params.put("amount", String.valueOf(30));
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("id", String.valueOf(162201));
+            params.put("amount", String.valueOf(228.0));
             params.put("starttime", "2017-05-13 00:00:01");
-            params.put("endtime", "2017-05-15 00:00:01");
-            params.put("userid", String.valueOf(7));
+            params.put("endtime", "2017-06-30 00:00:00");
+            params.put("userid", String.valueOf(12347));
             params.put("shopid", String.valueOf(0));
             params.put("promotionid", String.valueOf(0));
-            params.put("categoryid", String.valueOf(1));
-            params.put("title", "测试标题");
-            params.put("remark", "的发送到发送到");
-            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));
+            params.put("categoryid", String.valueOf(0));
+            params.put("title", "签到50度五粮春");
+            params.put("goodid",String.valueOf(1731));
+            params.put("remark", "签到50度五粮春");
+            System.out.println(JsonTools.jsonSer(params));
+            System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon", params));
         } catch (Exception e) {
             e.printStackTrace();
         }

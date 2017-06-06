@@ -1,5 +1,10 @@
 package com.light.outside.comes.utils;
 
+import com.alibaba.fastjson.JSONObject;
+
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 /**
  * Created by b3st on 2017/5/9.
  */
@@ -28,6 +33,12 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(string2Unicode("你好"));
+//        JSONObject params=new JSONObject();
+//        params.put("title",string2Unicode("标题"));
+//        System.out.println(params.toJSONString());
+        String a="{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}";
+        System.out.println(URLEncoder.encode(a));
+//        System.out.println(URLDecoder.decode(URLEncoder.encode(a)));
+        //System.out.println(string2Unicode("{\"endtime\":\"2017-05-20 00:00:00\",\"amount\":\"10.0\",\"id\":\"99998\",\"categoryid\":\"0\",\"shopid\":\"0\",\"starttime\":\"2017-05-08 00:00:00\",\"token\":\"facf240548d9a3cdc45feac76a15fce1\",\"promotionid\":\"0\",\"userid\":\"7\",\"title\":\"只是一个测试\",\"remark\":\"满减券\"}"));
     }
 }
