@@ -187,7 +187,8 @@ public class HttpTools {
             params.put("goodid","994");
             params.put("title", "测试标题");
             params.put("remark", "的发送到发送到");
-            System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));
+            //System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));
+            System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon",params));
         } catch (Exception e) {
             e.printStackTrace();
         }

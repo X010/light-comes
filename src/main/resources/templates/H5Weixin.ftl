@@ -21,7 +21,7 @@
                 signType: "MD5", // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                 paySign: "${paySign}", // 支付签名
                 success: function (res) {
-                    alert("支付成功${redirectUrl}");
+                    //alert("支付成功${redirectUrl}");
                     window.location.href="${redirectUrl}";
                 },
                 cancel: function (res) {

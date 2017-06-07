@@ -190,6 +190,7 @@
                 console.log('yeshizuile');
                 //window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
                 window.location.href = "${domain}/cart.html"
+
             });
 //        }
     }
