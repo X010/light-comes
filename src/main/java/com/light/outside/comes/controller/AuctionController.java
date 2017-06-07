@@ -220,9 +220,9 @@ public class AuctionController extends BaseController {
         float amount = Float.parseFloat(request.getParameter("amount"));
         long aid = RequestTools.RequestLong(request, "aid", 0);
         int status = CONST.ORDER_PAY;
-        OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
         //查询拍卖详情
         AuctionModel auctionModel = auctionService.queryAuctionById(aid);
+        OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
         if (orderModel == null) {
             orderModel = new OrderModel();
             float deposit = auctionModel.getDeposit();
@@ -281,7 +281,7 @@ public class AuctionController extends BaseController {
         String title = "曲不离口-保证金-" + auctionModel.getTitle();
         //TODO 测试完后放开
         String payPrice = String.valueOf(auctionModel.getDeposit());
-        //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
+        if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {//判断前后端价格是否一致
         JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
         String openid = jsonObject.getString("openid");
         try {
@@ -310,7 +310,7 @@ public class AuctionController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //}
+        }
         return "H5Weixin";
     }
 

@@ -188,12 +188,21 @@ public class HttpTools {
             params.put("userid", String.valueOf(7));
             params.put("shopid", String.valueOf(0));
             params.put("promotionid", String.valueOf(0));
+<<<<<<< HEAD
             params.put("categoryid", String.valueOf(0));
             params.put("title", "签到50度五粮春");
             params.put("goodid", String.valueOf(1731));
             params.put("remark", "签到50度五粮春");
             System.out.println(JsonTools.jsonSer(params));
             System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon", params));
+=======
+            params.put("categoryid", String.valueOf(1));
+            params.put("goodid","994");
+            params.put("title", "测试标题");
+            params.put("remark", "的发送到发送到");
+            //System.out.println(post("http://120.55.241.127:8070/index.php?r=user/create-coupon", params));
+            System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon",params));
+>>>>>>> 507fd2bddf2c59e98cbcfab29ef88b0eb0117f56
         } catch (Exception e) {
             e.printStackTrace();
         }
