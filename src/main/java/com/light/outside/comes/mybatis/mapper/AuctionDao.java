@@ -69,7 +69,7 @@ public interface AuctionDao {
      * @param aid
      * @param status
      */
-    @Update("update comes_auction_records set `status`=#{status}` where aid=#{aid} and `status`=1")
+    @Update("update comes_auction_records set `status`=#{status} where aid=#{aid} and `status`=1")
     public void updateFailAuctionRecord(@Param("aid") long aid,@Param("status") int status);
 
 

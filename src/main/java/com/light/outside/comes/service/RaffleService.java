@@ -571,8 +571,9 @@ public class RaffleService {
     public RaffleCouponModel drawRaffleByRage(long rid, long rcid, long uid, String phone) {
         //String url="http://www.qubulikou.com/user/createCoupon";
         //String url="http://120.55.241.127/user/createCoupon";
-        String url = "http://120.55.241.127:8070/index.php?r=user/create-coupon";
+//        String url = "http://120.55.241.127:8070/index.php?r=user/create-coupon";
         //String url=domain+":8070/index.php?r=user/create-coupon";
+        String url="http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon";
         RaffleCouponModel raffleCouponModel = this.persistentDao.getRaffleCouponById(rcid);
         if (raffleCouponModel != null) {
             CouponModel couponModel = this.persistentDao.getCouponById(raffleCouponModel.getCid());
@@ -607,7 +608,7 @@ public class RaffleService {
                     params.put("remark", Strings.isNullOrEmpty(couponModel.getRule()) ? "" : couponModel.getRule());
                     //String checkToken = MD5.MD5Encode(params.toJSONString());
                     //params.put("token",checkToken);
-                    //System.out.println(params.toJSONString());
+                    System.out.println("request params:"+JsonTools.jsonSer(params));
                     try {
                         //String response=HttpTools.post(url, params.toJSONString());
                         String response = HttpTools.post(url, params);

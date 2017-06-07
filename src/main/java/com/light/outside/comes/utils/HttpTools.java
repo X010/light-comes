@@ -181,7 +181,7 @@ public class HttpTools {
     public static void main(String[] args) {
         try {
             Map<String, String> params = new HashMap<String, String>();
-            params.put("id", String.valueOf(162202));
+            params.put("id", String.valueOf(162203));
             params.put("amount", String.valueOf(228.0));
             params.put("starttime", "2017-05-13 00:00:01");
             params.put("endtime", "2017-06-30 00:00:00");
@@ -193,7 +193,7 @@ public class HttpTools {
             params.put("goodid", String.valueOf(1731));
             params.put("remark", "签到50度五粮春");
             System.out.println(JsonTools.jsonSer(params));
-            System.out.println(post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon", params));
+            System.out.println("response:"+post("http://120.27.154.7:8067/pcfrontend/web/index.php?r=user/create-coupon", params));
         } catch (Exception e) {
             e.printStackTrace();
         }

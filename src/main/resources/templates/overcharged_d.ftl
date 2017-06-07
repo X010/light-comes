@@ -344,9 +344,15 @@
                     var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024, function () {});
                     db.transaction(function (context) {
                         context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
-                    <#--context.executeSql('SELECT * FROM cart WHERE goodsid=${oc.goodsid?c}');-->
-                        context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${oc.goodsid?c},1,1,"${oc.good_name!""}",0,2)');
-                        console.log('yeshizuile');
+                        context.executeSql('SELECT * FROM cart WHERE goodsid=? AND shopid=1',[${oc.goodsid?c}],function(context,rs){
+                            if(rs.rows.length>0){
+                                console.log('goods is exist');
+                                context.executeSql('UPDATE cart SET type=2 where goodsid=${oc.goodsid?c}');
+                            }else{
+                                console.log('insert cart');
+                                context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${oc.goodsid?c},1,1,"${oc.good_name!""}",0,2)');
+                            }
+                        });
         //            window.location.href = "http://www.qubulikou.com/yeshizuileweixin/cart.html"
                         window.location.href = "${domain}/cart.html"
                     });

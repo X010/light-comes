@@ -186,11 +186,18 @@
             var db = openDatabase('yeshizuilecartdbnew', '', '购物列表', 1024 * 1024);
             db.transaction(function (context) {
                 context.executeSql('CREATE TABLE IF NOT EXISTS cart (goodsid UNIQUE ,shopid,num,goodsname,agent,type)');
-                context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
-                console.log('yeshizuile');
+                context.executeSql('SELECT * FROM cart WHERE goodsid=? AND shopid=1',[${auction.goodsid?c}],function(context,rs) {
+                    if (rs.rows.length > 0) {
+                        console.log('goods is exist');
+                        context.executeSql('UPDATE cart SET type=3 WHERE goodsid=${auction.goodsid?c}');//修改类型为拍卖
+                    } else {
+                        console.log('insert cart');
+                        context.executeSql('INSERT INTO cart (goodsid,shopid,num,goodsname,agent,type) VALUES (${auction.goodsid?c},1,1,"${auction.good_name!""}",0,3)');
+                    }
+                });
+                //console.log('yeshizuile');
                 //window.location.href="http://www.qubulikou.com/yeshizuileweixin/cart.html"
                 window.location.href = "${domain}/cart.html"
-
             });
 //        }
     }
