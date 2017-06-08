@@ -58,6 +58,7 @@ public interface AuctionDao {
 
     /**
      * 获取拍卖失败记录
+     *
      * @param aid
      * @return
      */
@@ -66,11 +67,12 @@ public interface AuctionDao {
 
     /**
      * 修改状态
+     *
      * @param aid
      * @param status
      */
     @Update("update comes_auction_records set `status`=#{status} where aid=#{aid} and `status`=1")
-    public void updateFailAuctionRecord(@Param("aid") long aid,@Param("status") int status);
+    public void updateFailAuctionRecord(@Param("aid") long aid, @Param("status") int status);
 
 
     /**
@@ -106,6 +108,6 @@ public interface AuctionDao {
             "limit #{start},#{size} ")
     public List<AuctionRecordsModel> queryAuctionRecordsByUser(@Param("uid") long uid, @Param("start") int start, @Param("size") int size);
 
-    @Select("select id,amount,title,goodsid,good_photo,good_name,win_uid,win_price,start_time,end_time from comes_auction where win_uid=#{uid} and goodsid=#{goodsid}")
-    public AuctionModel queryAuctionModel(@Param("uid") long uid,@Param("goodsid") long goodsid);
+    @Select("select id,amount,title,goodsid,good_photo,good_name,win_uid,win_price,start_time,end_time from comes_auction where win_uid=#{uid} and goodsid in (${goodsid})")
+    public List<AuctionModel> queryAuctionModel(@Param("uid") long uid, @Param("goodsid") String goodsid);
 }

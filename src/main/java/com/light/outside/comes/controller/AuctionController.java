@@ -193,9 +193,9 @@ public class AuctionController extends BaseController {
             if (orderModel != null && orderModel.getStatus() == CONST.ORDER_PAY) {
                 isPay = true;
             }
-            if(auctionModel!=null&&auctionModel.getWin_uid()==userModel.getId()) {
+            if (auctionModel != null && auctionModel.getWin_uid() == userModel.getId()) {
                 data.put("auctioned", true);
-            }else{
+            } else {
                 data.put("auctioned", false);
             }
         }
@@ -282,34 +282,34 @@ public class AuctionController extends BaseController {
         //TODO 测试完后放开
         String payPrice = String.valueOf(auctionModel.getDeposit());
         if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {//判断前后端价格是否一致
-        JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
-        String openid = jsonObject.getString("openid");
-        try {
-            //生成预支付订单
-            Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, title, tradeNo, payPrice, openid, ip);
-            LOG.info("appId:" + payMap.get("appId"));
-            OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
-            if (orderModel == null) {
-                LOG.info("order is null careate order ");
-                orderModel = new OrderModel();
-                float deposit = auctionModel.getDeposit();
-                orderModel.setAmount(deposit);
-                orderModel.setAtype(CONST.FOCUS_AUCTION);
-                orderModel.setAid(aid);
-                orderModel.setUid(userModel.getId());
-                orderModel.setPhone(userModel.getPhone());
-                orderModel.setAname(title);
-                orderModel.setStatus(CONST.ORDER_CREATE);
-                orderModel.setCreatetime(new Date());
-                orderModel.setOrderNo(OrderUtil.getOrderNo());
-                orderModel.setTradeno(tradeNo);
-                payService.createOrder(orderModel);//创建订单
+            JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
+            String openid = jsonObject.getString("openid");
+            try {
+                //生成预支付订单
+                Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, title, tradeNo, payPrice, openid, ip);
+                LOG.info("appId:" + payMap.get("appId"));
+                OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
+                if (orderModel == null) {
+                    LOG.info("order is null careate order ");
+                    orderModel = new OrderModel();
+                    float deposit = auctionModel.getDeposit();
+                    orderModel.setAmount(deposit);
+                    orderModel.setAtype(CONST.FOCUS_AUCTION);
+                    orderModel.setAid(aid);
+                    orderModel.setUid(userModel.getId());
+                    orderModel.setPhone(userModel.getPhone());
+                    orderModel.setAname(title);
+                    orderModel.setStatus(CONST.ORDER_CREATE);
+                    orderModel.setCreatetime(new Date());
+                    orderModel.setOrderNo(OrderUtil.getOrderNo());
+                    orderModel.setTradeno(tradeNo);
+                    payService.createOrder(orderModel);//创建订单
+                }
+                data.putAll(payMap);
+                data.put("redirectUrl", "http://www.qubulikou.com/qblk/auction/auction_d.action?aid=" + aid);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            data.putAll(payMap);
-            data.put("redirectUrl", "http://www.qubulikou.com/qblk/auction/auction_d.action?aid=" + aid);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         }
         return "H5Weixin";
     }
@@ -343,17 +343,20 @@ public class AuctionController extends BaseController {
 
     @RequestMapping("query_auction.action")
     @ResponseBody
-    public String query_auction(Map<String, Object> data,@RequestParam("uid") long uid,@RequestParam("goodsid") long goodsid){
-    AuctionModel auctionModel=auctionService.queryAuctionPrice(uid, goodsid);
-        if(auctionModel!=null){
-            data.put("code",200);
-            data.put("data",auctionModel);
-            data.put("shopid",1);
+    public String query_auction(Map<String, Object> data, @RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid) {
+        List<AuctionModel> auctionModels = null;
+        if (uid > 0 && !Strings.isNullOrEmpty(goodsid)) {
+            auctionModels = auctionService.queryAuctionPrice(uid, goodsid);
+        }
+        if (auctionModels != null && auctionModels.size() > 0) {
+            data.put("code", 200);
+            data.put("data", auctionModels);
+            data.put("shopid", 1);
             return JsonTools.jsonSer(data);
-        }else{
-            data.put("code",404);
-            data.put("data","");
-            data.put("shopid",1);
+        } else {
+            data.put("code", 404);
+            data.put("data", "");
+            data.put("shopid", 1);
             return JsonTools.jsonSer(data);
         }
     }

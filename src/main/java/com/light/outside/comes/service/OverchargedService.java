@@ -416,7 +416,7 @@ public class OverchargedService {
         return overchargedRecordModelPageResult;
     }
 
-    public OverchargedModel queryOverchargedByUidGoodsid(long uid,long goodsid){
+    public List<OverchargedModel> queryOverchargedByUidGoodsid(long uid,String goodsid){
         return this.overchargedDao.queryOverchargedModel(uid,goodsid);
     }
 

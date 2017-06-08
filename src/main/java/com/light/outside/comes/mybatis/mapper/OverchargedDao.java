@@ -113,7 +113,7 @@ public interface OverchargedDao {
             "where co.id=cor.aid " +
             "and cor.status=5 " +
             "and cor.sponsor=#{uid} " +
-            "and co.goodsid=#{goodsid} ")
-    public OverchargedModel queryOverchargedModel(@Param("uid") long uid,@Param("goodsid") long goodsid);
+            "and co.goodsid in (${goodsid}) ")
+    public List<OverchargedModel> queryOverchargedModel(@Param("uid") long uid,@Param("goodsid") String goodsid);
 
 }

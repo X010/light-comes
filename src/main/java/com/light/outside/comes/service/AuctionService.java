@@ -281,7 +281,7 @@ public class AuctionService {
      * @param goodsid
      * @return
      */
-    public AuctionModel queryAuctionPrice(long uid,long goodsid){
+    public List<AuctionModel> queryAuctionPrice(long uid,String goodsid){
         return this.auctionDao.queryAuctionModel(uid,goodsid);
     }
 

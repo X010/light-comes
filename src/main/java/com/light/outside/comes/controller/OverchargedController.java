@@ -102,58 +102,58 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("overcharged_d.action")
-    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required=false) Long sponsor) {
-        String url="http://www.qubulikou.com/qblk/oc/overcharged_d.action";
-        String queryString=request.getQueryString();
-        if(!Strings.isNullOrEmpty(queryString)){
-            url=url+"?"+queryString;
+    public String overcharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid, @RequestParam(value = "sponsor", required = false) Long sponsor) {
+        String url = "http://www.qubulikou.com/qblk/oc/overcharged_d.action";
+        String queryString = request.getQueryString();
+        if (!Strings.isNullOrEmpty(queryString)) {
+            url = url + "?" + queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
         try {
             if (aid > 0) {
                 //输出基本信息
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
-                if(sponsor==null||sponsor==0){
-                    sponsor=userModel.getId();
+                if (sponsor == null || sponsor == 0) {
+                    sponsor = userModel.getId();
                 }
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
-                        long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
+                    long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
-                    data.put("sponsor",sponsor);
+                    data.put("sponsor", sponsor);
                     data.put("uid", userModel.getId());
                     //获取该用户是否已经砍过价
-                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid,userModel.getId(), sponsor);
+                    boolean isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getId(), sponsor);
                     data.put("join", isJoin);
                     //获取当前价格
-                    double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
-                    BigDecimal   b   =   new   BigDecimal(nowPrice);
-                    nowPrice   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    double nowPrice = this.overchargedService.getOverchargedNowPrice(aid, sponsor);
+                    BigDecimal b = new BigDecimal(nowPrice);
+                    nowPrice = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     //当前砍掉价格
-                    double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
-                    BigDecimal   b2   =   new   BigDecimal(subtractPrice);
-                    subtractPrice   =   b2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    double subtractPrice = this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
+                    BigDecimal b2 = new BigDecimal(subtractPrice);
+                    subtractPrice = b2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     //获取砍价清单
                     List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecordsByAidUid(aid, sponsor);
-                    data.put("now_price",nowPrice);//当前价格
-                    double diff_price=nowPrice-overchargedModel.getOver_amount();
-                    BigDecimal   b3   =   new   BigDecimal(diff_price);
-                    diff_price   =   b3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                    data.put("difference_price",diff_price);//还差多少
+                    data.put("now_price", nowPrice);//当前价格
+                    double diff_price = nowPrice - overchargedModel.getOver_amount();
+                    BigDecimal b3 = new BigDecimal(diff_price);
+                    diff_price = b3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    data.put("difference_price", diff_price);//还差多少
                     if (orms != null) {
                         data.put("orms", orms);
-                        data.put("now_count",orms.size());
-                        data.put("subtract_price",subtractPrice);
+                        data.put("now_count", orms.size());
+                        data.put("subtract_price", subtractPrice);
                     }
-                    String link="http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid="+overchargedModel.getId()+"&sponsor="+ userModel.getId();
-                    data.put("link",link);
-                    OverchargedRecordModel orm=this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
-                    if(orm!=null&&orm.getSponsor()==userModel.getId()&&diff_price<=0){
-                        data.put("overcharged",true);
-                    }else{
-                        data.put("overcharged",false);
+                    String link = "http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=" + overchargedModel.getId() + "&sponsor=" + userModel.getId();
+                    data.put("link", link);
+                    OverchargedRecordModel orm = this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
+                    if (orm != null && orm.getSponsor() == userModel.getId() && diff_price <= 0) {
+                        data.put("overcharged", true);
+                    } else {
+                        data.put("overcharged", false);
                     }
                 }
             }
@@ -165,6 +165,7 @@ public class OverchargedController extends BaseController {
 
     /**
      * 帮别人砍价
+     *
      * @param data
      * @param request
      * @param aid
@@ -172,7 +173,7 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("other_overcharged_d.action")
-    public String otherOvercharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam("sponsor") long sponsor) {
+    public String otherOvercharged_d(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid, @RequestParam("sponsor") long sponsor) {
         try {
             if (aid > 0) {
                 //输出基本信息
@@ -187,22 +188,22 @@ public class OverchargedController extends BaseController {
 
                     //获取该用户是否已经帮朋友砍过价
                     boolean isJoin = false;
-                    if(userModel.getId()!=sponsor) {
-                        isJoin = this.overchargedService.isJoinOvercharged(aid,userModel.getId(), sponsor);
+                    if (userModel.getId() != sponsor) {
+                        isJoin = this.overchargedService.isJoinOvercharged(aid, userModel.getId(), sponsor);
                     }
                     data.put("join", isJoin);
                     //获取当前价格
-                    double nowPrice=this.overchargedService.getOverchargedNowPrice(aid, sponsor);
+                    double nowPrice = this.overchargedService.getOverchargedNowPrice(aid, sponsor);
                     //当前砍掉价格
-                    double subtractPrice= this.overchargedService.getOverchargedSubtractPrice(aid,sponsor);
+                    double subtractPrice = this.overchargedService.getOverchargedSubtractPrice(aid, sponsor);
                     //获取砍价清单
                     List<OverchargedRecordModel> orms = this.overchargedService.getOverchargedRecords(aid);
-                    data.put("now_price",nowPrice);//当前价格
-                    data.put("difference_price",nowPrice-overchargedModel.getOver_amount());//还差多少
+                    data.put("now_price", nowPrice);//当前价格
+                    data.put("difference_price", nowPrice - overchargedModel.getOver_amount());//还差多少
                     if (orms != null) {
                         data.put("orms", orms);
-                        data.put("now_count",orms.size());
-                        data.put("subtract_price",subtractPrice);
+                        data.put("now_count", orms.size());
+                        data.put("subtract_price", subtractPrice);
                     }
                 }
             }
@@ -233,16 +234,16 @@ public class OverchargedController extends BaseController {
 
     @ResponseBody
     @RequestMapping("send_overcharged.action")
-    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid,@RequestParam(value="sponsor",required = false) Long sponsor) {
+    public String send_overcharged(Map<String, Object> data, HttpServletRequest request, @RequestParam("aid") long aid, @RequestParam(value = "sponsor", required = false) Long sponsor) {
         String res = "";
         if (aid > 0) {
             try {
                 UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
                 if (userModel != null) {
-                    if(sponsor==null){
-                        sponsor=userModel.getId();
+                    if (sponsor == null) {
+                        sponsor = userModel.getId();
                     }
-                    OverchargedRecordModel orm = this.overchargedService.overcharged(aid,sponsor,userModel);
+                    OverchargedRecordModel orm = this.overchargedService.overcharged(aid, sponsor, userModel);
                     res = JsonTools.jsonSer(orm);
                 }
             } catch (Exception e) {
@@ -270,8 +271,8 @@ public class OverchargedController extends BaseController {
         pageModel.setSize(size);
         UserModel userModel = getAppUserInfo();
         PageResult<OverchargedRecordViewModel> overchargedRecordPage = this.overchargedService.getOverchargedRecordPage(userModel.getId(), status, pageModel);
-        List<OverchargedRecordViewModel> list=overchargedRecordPage.getData();
-        if(list!=null&&list.size()>0)
+        List<OverchargedRecordViewModel> list = overchargedRecordPage.getData();
+        if (list != null && list.size() > 0)
             return JsonTools.jsonSer(list);
         else
             return "";
@@ -283,11 +284,11 @@ public class OverchargedController extends BaseController {
      * @return
      */
     @RequestMapping("share_overcharged.action")
-    public String share(@RequestParam("phone") String phone,Map<String,Object> data,HttpServletRequest request) {
-        String url="http://www.qubulikou.com/qblk/pt/share_overcharged.action";
-        String queryString=request.getQueryString();
-        if(!Strings.isNullOrEmpty(queryString)){
-            url=url+"?"+queryString;
+    public String share(@RequestParam("phone") String phone, Map<String, Object> data, HttpServletRequest request) {
+        String url = "http://www.qubulikou.com/qblk/pt/share_overcharged.action";
+        String queryString = request.getQueryString();
+        if (!Strings.isNullOrEmpty(queryString)) {
+            url = url + "?" + queryString;
         }
         data.putAll(TenWeChatGenerator.getWxConfig(url));
         return "share_overcharged";
@@ -295,19 +296,20 @@ public class OverchargedController extends BaseController {
 
     @ResponseBody
     @RequestMapping("query_overcharged.action")
-    public String queryOvercharged(Map<String, Object> data,@RequestParam("uid") long uid,@RequestParam("goodsid") long goodsid)
-    {
-        OverchargedModel overchargedModel=overchargedService.queryOverchargedByUidGoodsid(uid, goodsid);
-        if(overchargedModel!=null) {
-            data.put("code",200);
-            data.put("data",overchargedModel);
-            data.put("shopid",1);
-            return JsonTools.jsonSer(data);
+    public String queryOvercharged(Map<String, Object> data, @RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid) {
+        List<OverchargedModel> overchargedModel = null;
+        if (uid > 0 && !Strings.isNullOrEmpty(goodsid)) {
+            overchargedModel = overchargedService.queryOverchargedByUidGoodsid(uid, goodsid);
         }
-        else {
-            data.put("code",404);
-            data.put("data",overchargedModel);
-            data.put("shopid",1);
+        if (overchargedModel != null && overchargedModel.size() > 0) {
+            data.put("code", 200);
+            data.put("data", overchargedModel);
+            data.put("shopid", 1);
+            return JsonTools.jsonSer(data);
+        } else {
+            data.put("code", 404);
+            data.put("data", overchargedModel);
+            data.put("shopid", 1);
             return JsonTools.jsonSer(data);
         }
     }
