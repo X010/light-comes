@@ -60,7 +60,8 @@ public class SessionFilter implements javax.servlet.Filter {
         }
         //客户端登录验证url.contains("auction/query_auction.action")||url.contains("oc/query_overcharged.action")||
         else if (url.contains("qblk/to_login.action") || url.contains("qblk/login.action") ||url.contains("qblk/loginout_api.acton")||url.contains("qblk/login_api.action")||url.contains("coupon/use_coupon_api.action")
-                || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")) {
+                || url.contains(".css") || url.contains(".js") || url.contains(".png") || url.contains(".jpg")
+                || url.contains("auction/query_auction.action")||url.contains("oc/query_overcharged.action")) {
             chain.doFilter(request, response);
         } else if (url.contains("/auction/") || url.contains("/banquet/") || url.contains("/raffle/") || url.contains("/oc/") || url.contains("/my/") || url.contains("/pt/")) {
             if (session.getAttribute(LoginController.SESSION_KEY_APP_USERINFO) == null) {
