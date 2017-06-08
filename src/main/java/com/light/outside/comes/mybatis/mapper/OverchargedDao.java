@@ -116,4 +116,14 @@ public interface OverchargedDao {
             "and co.goodsid in (${goodsid}) ")
     public List<OverchargedModel> queryOverchargedModel(@Param("uid") long uid,@Param("goodsid") String goodsid);
 
+    /**
+     * 修改砍价为已购买状态
+     * @param uid
+     * @param goodsid
+     * @return
+     */
+    @Update("update comes_overcharged_record cor,comes_overcharged co set cor.status=9 where " +
+            " co.id=cor.aid and cor.status=3 and cor.sponsor=#{uid} and co.goodsid in (${goodsid}) ")
+    public int updateOverchargedStatus(@Param("uid") long uid,@Param("goodsid") String goodsid);
+
 }

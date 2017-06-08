@@ -313,4 +313,22 @@ public class OverchargedController extends BaseController {
             return JsonTools.jsonSer(data);
         }
     }
+
+    @ResponseBody
+    @RequestMapping("update_overcharged.action")
+    public String updateOvercharged(Map<String, Object> data, @RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid) {
+        int updateCount=0;
+        if(uid>0&&!Strings.isNullOrEmpty(goodsid)){
+            updateCount=this.overchargedService.updateOverchargedStatusByUidGoodsid(uid,goodsid);
+        }
+        if(updateCount>0){
+            data.put("code",200);
+            data.put("count",updateCount);
+            return JsonTools.jsonSer(data);
+        }else{
+            data.put("code", 404);
+            data.put("count", 0);
+            return JsonTools.jsonSer(data);
+        }
+    }
 }

@@ -360,4 +360,22 @@ public class AuctionController extends BaseController {
             return JsonTools.jsonSer(data);
         }
     }
+
+    @RequestMapping("update_auction.action")
+    @ResponseBody
+    public String update_auction(Map<String, Object> data,@RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid){
+        int updateCount=0;
+        if (uid > 0 && !Strings.isNullOrEmpty(goodsid)) {
+            updateCount = auctionService.udpateAuctionStatus(uid, goodsid);
+        }
+        if(updateCount>0){
+            data.put("code",200);
+            data.put("count",updateCount);
+            return JsonTools.jsonSer(data);
+        }else{
+            data.put("code", 404);
+            data.put("count", 0);
+            return JsonTools.jsonSer(data);
+        }
+    }
 }

@@ -285,4 +285,8 @@ public class AuctionService {
         return this.auctionDao.queryAuctionModel(uid,goodsid);
     }
 
+    public int udpateAuctionStatus(long uid,String goodsid){
+        return this.auctionDao.updateAuction(uid,goodsid);
+    }
+
 }

@@ -110,4 +110,7 @@ public interface AuctionDao {
 
     @Select("select id,amount,title,goodsid,good_photo,good_name,win_uid,win_price,start_time,end_time from comes_auction where win_uid=#{uid} and goodsid in (${goodsid})")
     public List<AuctionModel> queryAuctionModel(@Param("uid") long uid, @Param("goodsid") String goodsid);
+
+    @Update("update comes_auction set status=9 where win_uid=#{uid} and goodsid in (${goodsid}) ")
+    public int updateAuction(@Param("uid") long uid, @Param("goodsid") String goodsid);
 }

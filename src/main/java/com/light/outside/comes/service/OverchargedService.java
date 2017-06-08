@@ -421,4 +421,14 @@ public class OverchargedService {
         return this.overchargedDao.queryOverchargedModel(uid,goodsid);
     }
 
+    /**
+     * 修改砍价状态
+     * @param uid
+     * @param goodsid
+     * @return
+     */
+    public int updateOverchargedStatusByUidGoodsid(long uid,String goodsid){
+        return this.overchargedDao.updateOverchargedStatus(uid,goodsid);
+    }
+
 }
