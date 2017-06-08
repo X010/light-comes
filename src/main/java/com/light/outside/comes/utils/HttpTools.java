@@ -124,6 +124,9 @@ public class HttpTools {
                 body = EntityUtils.toString(entity);
                 if (!Strings.isNullOrEmpty(body)) {
                     return body;
+                } else {
+                    System.out.println("post response is null");
+                    retryTimes++;
                 }
             } catch (IOException ioe) {
                 retryTimes++;
