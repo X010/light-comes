@@ -58,8 +58,8 @@ public interface OverchargedDao {
      * @param aid
      * @return
      */
-    @Select("select * from comes_overcharged_record where aid=#{aid} and status=3 limit 1")
-    public OverchargedRecordModel getOVerchargedRecordsByAid(@Param("aid") long aid);
+    @Select("select * from comes_overcharged_record where aid=#{aid} and sponsor=#{sponsor} and status=3 limit 1")
+    public OverchargedRecordModel getOVerchargedRecordsByAid(@Param("aid") long aid,@Param("sponsor") long sponsor);
 
 
     @Select("select * from comes_overcharged_record where aid=#{aid} and phone=#{phone} limit 1")
@@ -111,7 +111,7 @@ public interface OverchargedDao {
 
     @Select("select co.id,co.amount,co.title,co.goodsid,co.good_photo,co.good_name,co.over_amount,co.start_time,co.end_time,co.remain_count from comes_overcharged co,comes_overcharged_record cor\n" +
             "where co.id=cor.aid " +
-            "and cor.status=5 " +
+            "and cor.status=3 " +
             "and cor.sponsor=#{uid} " +
             "and co.goodsid in (${goodsid}) ")
     public List<OverchargedModel> queryOverchargedModel(@Param("uid") long uid,@Param("goodsid") String goodsid);

@@ -261,10 +261,11 @@ public class OverchargedService {
     /**
      *已经拍下的用户
      * @param aid
+     * @param sponsor 发起人
      * @return
      */
-    public OverchargedRecordModel getOverchargedRecordsByAid(long aid){
-        return this.overchargedDao.getOVerchargedRecordsByAid(aid);
+    public OverchargedRecordModel getOverchargedRecordsByAid(long aid,long sponsor){
+        return this.overchargedDao.getOVerchargedRecordsByAid(aid,sponsor);
     }
     /**
      * 添加OverChage

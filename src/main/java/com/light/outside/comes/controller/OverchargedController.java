@@ -149,7 +149,7 @@ public class OverchargedController extends BaseController {
                     }
                     String link = "http://www.qubulikou.com/qblk/oc/overcharged_d.action?aid=" + overchargedModel.getId() + "&sponsor=" + userModel.getId();
                     data.put("link", link);
-                    OverchargedRecordModel orm = this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId());
+                    OverchargedRecordModel orm = this.overchargedService.getOverchargedRecordsByAid(overchargedModel.getId(),userModel.getId());
                     if (orm != null && orm.getSponsor() == userModel.getId() && diff_price <= 0) {
                         data.put("overcharged", true);
                     } else {
