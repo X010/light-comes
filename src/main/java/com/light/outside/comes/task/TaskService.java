@@ -79,7 +79,7 @@ public class TaskService {
     /**
      * 清空签到信息
      */
-    @Scheduled(cron = "0 15 1 ? * * ")
+    @Scheduled(cron = "0 15 0 ? * * ")
     public void clearEveryDayPastInfo() {
         this.pastService.clearEveryDayPastInfo();
     }

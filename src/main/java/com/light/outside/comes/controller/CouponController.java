@@ -9,6 +9,8 @@ import com.light.outside.comes.service.weixin.MD5;
 import com.light.outside.comes.utils.CONST;
 import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,22 +25,23 @@ import java.util.Map;
 @Controller
 @RequestMapping("coupon")
 public class CouponController extends BaseController {
+    private Logger LOG = LoggerFactory.getLogger(CouponController.class);
     @Autowired
     private CouponService couponService;
     @Autowired
     private RaffleService raffleService;
 
     @RequestMapping("qrcode_detail.action")
-    public String getQRCode(Map<String, Object> data, HttpServletRequest request){
-        long id=RequestTools.RequestLong(request, "id", 0);
+    public String getQRCode(Map<String, Object> data, HttpServletRequest request) {
+        long id = RequestTools.RequestLong(request, "id", 0);
         UserModel userModel = getAppUserInfo();
-        if(userModel!=null) {
+        if (userModel != null) {
             CouponRecordModel couponRecordModel = raffleService.getCouponRecordById(id);
             if (couponRecordModel != null) {
                 data.put("coupon", couponRecordModel);
             }
             return "scan";
-        }else{
+        } else {
             return "login";
         }
     }
@@ -58,58 +61,60 @@ public class CouponController extends BaseController {
 
     @RequestMapping("transferCoupon.action")
     @ResponseBody
-    public String transferCoupon(Map<String, Object> data, HttpServletRequest request){
+    public String transferCoupon(Map<String, Object> data, HttpServletRequest request) {
         UserModel userModel = getAppUserInfo();
-        long id=RequestTools.RequestLong(request, "id", 0);
-        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
-        int code=couponService.transferCoupon(couponRecordModel.getCardno(), userModel, id);
-        String msg="转让成功！";
-        if(code<0){
-            if(code==-2){
-                msg="兑换失败，无法查询到该优惠券!";
-            }else if(code==-1){
-                msg="兑换失败，该优惠券状态已过期或已使用!";
+        long id = RequestTools.RequestLong(request, "id", 0);
+        CouponRecordModel couponRecordModel = raffleService.getCouponRecordById(id);
+        int code = couponService.transferCoupon(couponRecordModel.getCardno(), userModel, id);
+        String msg = "转让成功！";
+        if (code < 0) {
+            if (code == -2) {
+                msg = "兑换失败，无法查询到该优惠券!";
+            } else if (code == -1) {
+                msg = "兑换失败，该优惠券状态已过期或已使用!";
             }
         }
-        data.put("code",code);
-        data.put("msg",msg);
+        data.put("code", code);
+        data.put("msg", msg);
         return JsonTools.jsonSer(data);
     }
 
     @RequestMapping("use_coupon_api.action")
     @ResponseBody
-    public String useCoupon(Map<String,Object> data,HttpServletRequest request){
-        long id=RequestTools.RequestLong(request, "id", 0);
-        String token=RequestTools.RequestString(request, "token", "");
-        String callback=RequestTools.RequestString(request,"callback","");
+    public String useCoupon(Map<String, Object> data, HttpServletRequest request) {
+        long id = RequestTools.RequestLong(request, "id", 0);
+        String token = RequestTools.RequestString(request, "token", "");
+        String callback = RequestTools.RequestString(request, "callback", "");
 //        String signStr=String.format("%d&%s",id,CONST.SIGNATURE_KEY);
 //        System.out.println(signStr);
 //        String checkToken = MD5.MD5Encode(signStr);
-        int code=-2;
-        String msg="转让成功！";
+        int code = -2;
+        String msg = "转让成功！";
 //        if(checkToken.equals(token)) {
-        CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
-        if(couponRecordModel!=null) {
+        CouponRecordModel couponRecordModel = raffleService.getCouponRecordById(id);
+        if (couponRecordModel != null) {
             code = couponService.changeCoupon(couponRecordModel.getCardno(), id);
+            System.out.println("used coupon " + id);
+            LOG.info("used coupon " + id);
+        } else {
+            System.out.println("coupon " + id + " is null");
+            LOG.info("coupon " + id + " is null");
         }
-
-        if(code<0){
-            if(code==-2){
-                msg="兑换失败，无法查询到该优惠券!";
-            }else if(code==-1){
-                msg="兑换失败，该优惠券状态已过期或已使用!";
+        if (code < 0) {
+            if (code == -2) {
+                msg = "兑换失败，无法查询到该优惠券!";
+            } else if (code == -1) {
+                msg = "兑换失败，该优惠券状态已过期或已使用!";
             }
         }
 //        }else{
 //            code=-3;
 //            msg="签名验证失败";
 //        }
-        data.put("code",code);
-        data.put("msg",msg);
-        return CallBackResultJsonP(JsonTools.jsonSer(data),callback);
+        data.put("code", code);
+        data.put("msg", msg);
+        return CallBackResultJsonP(JsonTools.jsonSer(data), callback);
     }
-
-
 
 
 }
