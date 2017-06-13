@@ -56,7 +56,7 @@
                 <p>优惠金额:${coupon.price}</p>
             </div>
         </div>
-        <input type="hidden" id="couponRecordId" value="${coupon.id}"/>
+        <input type="hidden" id="couponRecordId" value="${coupon.id?c}"/>
         <div class="exchange">
             <input id="transferBtn" value="确认兑换" type="button"/>
         </div>

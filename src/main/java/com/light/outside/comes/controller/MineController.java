@@ -115,7 +115,7 @@ public class MineController extends BaseController {
         CouponRecordModel couponRecordModel=raffleService.getCouponRecordById(id);
         if(couponRecordModel!=null) {
             data.put("coupon", couponRecordModel);
-            data.put("qrcode_url", CONST.SITE_URL + "coupon/qrcode_detail.action?id=" + couponRecordModel.getId());
+            data.put("qrcode_url", CONST.SITE_URL + "qblk/coupon/qrcode_detail.action?id=" + couponRecordModel.getId());
         }
         return "qrcode";
     }
