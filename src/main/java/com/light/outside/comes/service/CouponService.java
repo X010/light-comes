@@ -48,7 +48,9 @@ public class CouponService {
                 if (count > 0) {
                     status = 1;
                     //修改为已使用状态
-                    persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
+                    //persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
+                    //转让给其他用户
+                    persistentDao.editCouponRecordStatusByUser(couponRecordId,2,userModel.getId(),userModel.getPhone());
                 }
             } else {
                 status = -1;
