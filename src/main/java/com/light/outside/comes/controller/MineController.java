@@ -5,9 +5,7 @@ import com.light.outside.comes.model.*;
 import com.light.outside.comes.qbkl.model.UserModel;
 import com.light.outside.comes.service.*;
 import com.light.outside.comes.utils.CONST;
-import com.light.outside.comes.utils.JsonTools;
 import com.light.outside.comes.utils.RequestTools;
-import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by b3st9u on 16/10/30.
@@ -73,7 +70,10 @@ public class MineController extends BaseController {
      */
     @RequestMapping("mine_coupon.action")
     public String mine_coupon(Map<String, Object> data, HttpServletRequest request) {
-        int status = RequestTools.RequestInt(request, "status", 1);
+        int status = RequestTools.RequestInt(request, "status", 2);
+//        if(status==0){
+//            status=2;
+//        }
         UserModel userModel = getAppUserInfo();
         List<CouponRecordViewModel> couponRecordModels = raffleService.getRaffleCouponByUser(userModel.getId(), status);
         raffleService.transfCouponForView(couponRecordModels);
