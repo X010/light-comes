@@ -19,6 +19,8 @@ import java.util.List;
 public class CouponService {
     @Autowired
     private PersistentDao persistentDao;
+    @Autowired
+    private RaffleService raffleService;
 
     /**
      * 转让优惠券
@@ -28,10 +30,11 @@ public class CouponService {
      * @param couponRecordId
      * @return
      */
-    public int transferCoupon(String cardno, UserModel userModel, long couponRecordId) {
+    public int transferCoupon(long couponId, String cardno, UserModel userModel, long couponRecordId) {
         int status = 0;
+        CouponModel couponModel = persistentDao.getCouponById(couponId);
         CouponRecordModel couponRecordModel = persistentDao.getCouponRecordById(couponRecordId);
-        if (couponRecordModel != null) {
+        if (couponRecordModel != null && couponModel != null) {
             if (couponRecordModel.getStatus() == CONST.COUPON_STATUS_NOTUSED) {
                 CouponUsedRecord couponUsedRecord = new CouponUsedRecord();
                 couponUsedRecord.setCoupon_record_id(couponRecordModel.getId());
@@ -50,7 +53,8 @@ public class CouponService {
                     //修改为已使用状态
                     //persistentDao.editCouponRecordStatusByCardno(cardno, CONST.COUPON_STATUS_USED);
                     //转让给其他用户
-                    persistentDao.editCouponRecordStatusByUser(couponRecordId,2,userModel.getId(),userModel.getPhone());
+                    //persistentDao.editCouponRecordStatusByUser(couponRecordId, CONST.COUPON_STATUS_NOTUSED, userModel.getId(), userModel.getPhone());
+                    raffleService.sendCoupon(couponModel,couponRecordModel,userModel.getId(),userModel.getPhone());
                 }
             } else {
                 status = -1;
@@ -61,8 +65,8 @@ public class CouponService {
         return status;
     }
 
-    public int changeCoupon(String cardno,long couponRecordId){
-        int status=0;
+    public int changeCoupon(String cardno, long couponRecordId) {
+        int status = 0;
         CouponRecordModel couponRecordModel = persistentDao.getCouponRecordById(couponRecordId);
         if (couponRecordModel != null) {
             if (couponRecordModel.getStatus() == CONST.COUPON_STATUS_NOTUSED) {
@@ -169,19 +173,21 @@ public class CouponService {
 
     /**
      * 查询一个未绑定的优惠券
+     *
      * @param cid
      * @return
      */
-    public CouponRecordModel getCouponBlanceByCouponId(long cid){
-        return  this.persistentDao.getCouponRecorByCid(cid);
+    public CouponRecordModel getCouponBlanceByCouponId(long cid) {
+        return this.persistentDao.getCouponRecorByCid(cid);
     }
 
     /**
      * 获取优惠券信息
+     *
      * @param cid
      * @return
      */
-    public CouponModel getCouponByCouponId(long cid){
+    public CouponModel getCouponByCouponId(long cid) {
         return this.persistentDao.getCouponById(cid);
     }
 
@@ -189,11 +195,11 @@ public class CouponService {
     /**
      * 修改过期状态
      */
-    public void changeCouponRecordStatus(){
-        List<CouponModel> list=this.persistentDao.queryExpirationCoupon();
-        if(list!=null&&list.size()>0){
-            for(CouponModel couponModel:list) {
-                this.persistentDao.editCouponRecordStatus(couponModel.getId(),CONST.RAFFLE_STATUS_EXPIRATION);
+    public void changeCouponRecordStatus() {
+        List<CouponModel> list = this.persistentDao.queryExpirationCoupon();
+        if (list != null && list.size() > 0) {
+            for (CouponModel couponModel : list) {
+                this.persistentDao.editCouponRecordStatus(couponModel.getId(), CONST.RAFFLE_STATUS_EXPIRATION);
             }
         }
     }

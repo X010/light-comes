@@ -73,7 +73,7 @@ public class MineController extends BaseController {
      */
     @RequestMapping("mine_coupon.action")
     public String mine_coupon(Map<String, Object> data, HttpServletRequest request) {
-        int status = RequestTools.RequestInt(request, "status", 0);
+        int status = RequestTools.RequestInt(request, "status", 1);
         UserModel userModel = getAppUserInfo();
         List<CouponRecordViewModel> couponRecordModels = raffleService.getRaffleCouponByUser(userModel.getId(), status);
         raffleService.transfCouponForView(couponRecordModels);

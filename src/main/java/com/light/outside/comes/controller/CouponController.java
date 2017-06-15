@@ -65,7 +65,7 @@ public class CouponController extends BaseController {
         UserModel userModel = getAppUserInfo();
         long id = RequestTools.RequestLong(request, "id", 0);
         CouponRecordModel couponRecordModel = raffleService.getCouponRecordById(id);
-        int code = couponService.transferCoupon(couponRecordModel.getCardno(), userModel, id);
+        int code = couponService.transferCoupon(couponRecordModel.getCid(),couponRecordModel.getCardno(), userModel, id);
         String msg = "转让成功！";
         if (code < 0) {
             if (code == -2) {
