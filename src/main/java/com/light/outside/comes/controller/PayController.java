@@ -158,8 +158,8 @@ public class PayController extends BaseController {
         //String title = RequestTools.RequestString(request, "title", "曲不离口-拍卖保证金");
         String ip = getRemoteHost(request);
         //TODO
-        String payPrice = "0.01";
-        //String payPrice = RequestTools.RequestString(request, "price", "0");
+//        String payPrice = "0.01";
+        String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
         String code = RequestTools.RequestString(request, "code", "");
         //System.out.println("code:" + code + " ip:" + ip);
@@ -167,7 +167,7 @@ public class PayController extends BaseController {
         //查询拍卖详情
         AuctionModel auctionModel = auctionService.getAuctionById(aid);
         //TODO 测试完后放开
-        //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
+        if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
         JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
         String openid = jsonObject.getString("openid");
         String title = "曲不离口-保证金-" + auctionModel.getTitle();
@@ -201,7 +201,7 @@ public class PayController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //}
+        }
         return "H5Weixin";
     }
 
@@ -226,8 +226,8 @@ public class PayController extends BaseController {
         UserModel userModel = getAppUserInfo();
         String ip = getRemoteHost(request);
         //TODO
-        String payPrice = "0.01";
-        //String payPrice = RequestTools.RequestString(request, "price", "0");
+//        String payPrice = "0.01";
+        String payPrice = RequestTools.RequestString(request, "price", "0");
         String tradeNo = PubUtils.getUniqueSn() + "";
         String code = RequestTools.RequestString(request, "code", "");
         System.out.println("code:" + code + " ip:" + ip);
@@ -235,7 +235,7 @@ public class PayController extends BaseController {
         //查询约饭详情
         BanquetModel banquetModel = banquetService.getBanquetById(aid);
         //TODO 测试完后放开
-        //if (auctionModel.getDeposit() == Float.parseFloat(payPrice)) {
+        if (banquetModel.getAmount() == Float.parseFloat(payPrice)) {
         JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
         String openid = jsonObject.getString("openid");
         try {
@@ -270,7 +270,7 @@ public class PayController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //}
+        }
         return "H5Weixin";
     }
 
