@@ -42,13 +42,13 @@
                            {{d[i].limit}}
                        </span>
                    </div>
-                   <#if status==2>
-                   <div class="item-total" style="width: 25px; margin-right: 10px;">
-                       <a href="qrcode.action?id={{d[i].id}}">
-                           <img style="width: 100%;" src="${baseUrl}images/qrcode.png">
-                       </a>
-                   </div>
-                   </#if>
+                   <#--<#if status==2>-->
+                   <#--<div class="item-total" style="width: 25px; margin-right: 10px;">-->
+                       <#--<a href="qrcode.action?id={{d[i].id}}">-->
+                           <#--<img style="width: 100%;" src="${baseUrl}images/qrcode.png">-->
+                       <#--</a>-->
+                   <#--</div>-->
+                   <#--</#if>-->
                </div>
            </div>
        </div>
