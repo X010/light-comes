@@ -318,6 +318,7 @@ public class OverchargedController extends BaseController {
     @RequestMapping("update_overcharged.action")
     public String updateOvercharged(Map<String, Object> data, @RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid) {
         int updateCount=0;
+        System.out.println(" update_overcharged status uid:"+uid +" goodsid :"+goodsid);
         if(uid>0&&!Strings.isNullOrEmpty(goodsid)){
             updateCount=this.overchargedService.updateOverchargedStatusByUidGoodsid(uid,goodsid);
         }

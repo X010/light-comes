@@ -365,6 +365,7 @@ public class AuctionController extends BaseController {
     @ResponseBody
     public String update_auction(Map<String, Object> data,@RequestParam("uid") long uid, @RequestParam("goodsid") String goodsid){
         int updateCount=0;
+        System.out.println(" update_auction status uid:"+uid +" goodsid :"+goodsid);
         if (uid > 0 && !Strings.isNullOrEmpty(goodsid)) {
             updateCount = auctionService.udpateAuctionStatus(uid, goodsid);
         }
