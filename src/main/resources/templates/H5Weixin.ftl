@@ -25,7 +25,7 @@
                     window.location.href="${redirectUrl}";
                 },
                 cancel: function (res) {
-                    alert("取消失败");
+                    alert("取消支付");
                     window.location.href="${redirectUrl}";
                 },
                 fail: function (res) {
