@@ -111,9 +111,9 @@ public class SessionFilter implements javax.servlet.Filter {
         try {
             String servletPath = request.getServletPath().replace("//", "");
             String contextPath = request.getContextPath();
-            String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
+            //String forwardUrl = contextPath + baseUrl + "qblk/to_login.action";
             //System.out.println("forwardUrl:" + forwardUrl + "  servletPath:" + servletPath);
-//            String forwardUrl=TEST_LOGIN_URL;
+            String forwardUrl=TEST_LOGIN_URL;
             if (StringUtils.isNotBlank(servletPath)) {
                 String redirect = "";
                 if (StringUtils.isNotBlank(request.getQueryString())) {
