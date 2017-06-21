@@ -19,7 +19,8 @@ public class TokenThread implements Runnable{
 	public void run() {
 		while (true) {
 			try {
-				accessToken= TenWeChatGenerator.getAccessTokenModel();
+				//accessToken= TenWeChatGenerator.getAccessTokenModel();
+				accessToken=TenWeChatGenerator.getLocalAccessTokenModel();
 				if (null != accessToken) {
 					LOG.info("accesstoken:"+accessToken.getToken() +" date:"+ DateUtils.format(new Date(),DateUtils.datePatternAllHH));
 					// 休眠7000秒
