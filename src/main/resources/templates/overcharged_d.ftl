@@ -40,14 +40,19 @@
     </div>
     <div class="msg-time">
         <img src="${baseUrl}images/clock.png"/>
-    <#if seconds gt 0>
-        剩余时间<span id="day_show">0</span>天
-        <span id="hour_show">0</span>时
-        <span id="minute_show">0</span>分
-        <span id="second_show">0</span>秒
-    <#else>
-        该活动已结束!
-    </#if>
+        <#if start_seconds gt 0>
+            开始时间:<span id="start_day_show">0</span>天
+            <span id="start_hour_show">0</span>时
+            <span id="start_minute_show">0</span>分
+            <span id="start_second_show">0</span>秒
+        <#elseif seconds gt 0>
+                剩余时间:<span id="day_show">0</span>天
+                <span id="hour_show">0</span>时
+                <span id="minute_show">0</span>分
+                <span id="second_show">0</span>秒
+        <#else>
+                该活动已结束!
+        </#if>
     </div>
 </div>
 
@@ -111,7 +116,7 @@
 </div>-->
 
 <div class="footer">
-<#if oc.status==2>
+<#if oc.status==2&&start_seconds<=0>
     <#if join>
     <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
@@ -326,10 +331,38 @@
         }, 1000);
     }
 
+    function start_timer(intDiff) {
+        window.setInterval(function () {
+            var day = 0,
+                    hour = 0,
+                    minute = 0,
+                    second = 0;//时间默认值
+            if (intDiff > 0) {
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            $('#start_day_show').html(day);
+            $('#start_hour_show').html(hour);
+            $('#start_minute_show').html(minute);
+            $('#start_second_show').html(second);
+            intDiff--;
+        }, 1000);
+    }
+
     $(function () {
         var seconds =${seconds?c};
         //var intDiff = parseInt(${seconds});//倒计时总秒数量
         timer(seconds);
+    });
+
+    $(function () {
+        var seconds =${start_seconds?c};
+        //var intDiff = parseInt(${seconds});//倒计时总秒数量
+        start_timer(seconds);
     });
 
     /**

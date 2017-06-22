@@ -24,7 +24,8 @@ public class TokenThread implements Runnable{
 				if (null != accessToken) {
 					LOG.info("accesstoken:"+accessToken.getToken() +" date:"+ DateUtils.format(new Date(),DateUtils.datePatternAllHH));
 					// 休眠7000秒
-					Thread.sleep((accessToken.getExpiresIn() - 200) * 1000);
+					//Thread.sleep((accessToken.getExpiresIn() - 200) * 1000);
+					Thread.sleep(60 * 1000);
 				} else {
 					// 如果access_token为null，60秒后再获取
 					Thread.sleep(10 * 1000);

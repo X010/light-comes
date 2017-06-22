@@ -221,7 +221,7 @@ public class AuctionController extends BaseController {
         long aid = RequestTools.RequestLong(request, "aid", 0);
         int status = CONST.ORDER_PAY;
         //查询拍卖详情
-        AuctionModel auctionModel = auctionService.queryAuctionById(aid);
+            AuctionModel auctionModel = auctionService.queryAuctionById(aid);
         OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
         if (orderModel == null) {
             orderModel = new OrderModel();
@@ -262,6 +262,7 @@ public class AuctionController extends BaseController {
 
     @RequestMapping("auction_margin_pay.action")
     public String h5WeixinPay(Map<String, Object> data, HttpServletRequest request) {
+        boolean isPay = false;
         String url = "http://www.qubulikou.com/qblk/auction/auction_margin_pay.action";
         String queryString = request.getQueryString();
         if (!Strings.isNullOrEmpty(queryString)) {
@@ -289,6 +290,7 @@ public class AuctionController extends BaseController {
                 Map<String, Object> payMap = TenWeChatGenerator.genPayOrder(url, title, tradeNo, payPrice, openid, ip);
                 LOG.info("appId:" + payMap.get("appId"));
                 OrderModel orderModel = payService.getOrderByUidAndAid(userModel.getId(), aid, CONST.FOCUS_AUCTION);
+                int status = CONST.ORDER_PAY;
                 if (orderModel == null) {
                     LOG.info("order is null careate order ");
                     orderModel = new OrderModel();
@@ -303,7 +305,12 @@ public class AuctionController extends BaseController {
                     orderModel.setCreatetime(new Date());
                     orderModel.setOrderNo(OrderUtil.getOrderNo());
                     orderModel.setTradeno(tradeNo);
-                    payService.createOrder(orderModel);//创建订单
+                    long id=payService.createOrder(orderModel);//创建订单
+                    if (id > 0) {
+                        isPay = true;
+                    }
+                }else{
+                    payService.updateOrder(orderModel.getId(), status);
                 }
                 data.putAll(payMap);
                 data.put("redirectUrl", "http://www.qubulikou.com/qblk/auction/auction_d.action?aid=" + aid);

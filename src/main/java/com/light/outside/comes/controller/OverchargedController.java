@@ -120,6 +120,8 @@ public class OverchargedController extends BaseController {
                 if (overchargedModel != null) {
                     long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
                     overchargedModel.setTime_second((int) seconds);
+                    long startSeconds=DateUtils.endSeconds(overchargedModel.getStart_time());
+                    data.put("start_seconds",startSeconds);
                     data.put("seconds", seconds);
                     data.put("oc", overchargedModel);
                     data.put("sponsor", sponsor);
@@ -181,9 +183,10 @@ public class OverchargedController extends BaseController {
                 OverchargedModel overchargedModel = this.overchargedService.getOverchargedModel(aid);
                 if (overchargedModel != null) {
                     long seconds = DateUtils.endSeconds(overchargedModel.getEnd_time());
-
+                    long startSeconds=DateUtils.endSeconds(overchargedModel.getStart_time());
                     overchargedModel.setTime_second((int) seconds);
                     data.put("seconds", seconds);
+                    data.put("start_seconds", startSeconds);
                     data.put("oc", overchargedModel);
 
                     //获取该用户是否已经帮朋友砍过价

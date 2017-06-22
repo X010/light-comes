@@ -335,11 +335,11 @@ public interface PersistentDao {
      * @param orderno
      * @return
      */
-    @Select("select * from comes_order where orderno=#{orderno}")
+    @Select("select * from comes_order where orderno=#{orderno} order by id desc limit 1")
     public OrderModel getOrderByOrderNo(@Param("orderno") String orderno);
 
 
-    @Select("select * from comes_order where tradeno=#{tradeno}")
+    @Select("select * from comes_order where tradeno=#{tradeno} order by id desc limit 1")
     public OrderModel getOrderByTradeno(@Param("tradeno") String tradeno);
 
     @Select("select count(1) from comes_coupon_records where cid=#{cid} and phone  is not null")
