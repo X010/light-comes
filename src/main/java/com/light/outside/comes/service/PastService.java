@@ -258,7 +258,8 @@ public class PastService {
                 pastTotal.setCycle_times(pastTotal.getCycle_times() + 1);
                 pastTotal.setToday_other_times(pastTotal.getToday_other_times() + 1);
                 this.persistentDao.updatePastTotal(pastTotal);
-                if (cycle >= pastModel.getTotal_drunk()) {//本周期+本次大于总量表示已经喝完
+                PastTotal queryTotal = this.persistentDao.getPastTotalByPhone(phone);
+                if (queryTotal.getCycle_drunk() >= pastModel.getTotal_drunk()) {//本周期+本次大于总量表示已经喝完
                     long couponId = pastModel.getCoupon_id();
                     CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
