@@ -92,7 +92,6 @@
             <#else>
                 <div class="weui-progress__inner-bar js_progress" id="progress" style="width:0%"></div>
             </#if>
-
         </#if>
 
         </div>

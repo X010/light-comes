@@ -168,8 +168,9 @@ public class PastService {
             //判断今天次数是否达到
             int times = this.getTodayDrunkTimes(userModel.getPhone());
             if (times < pastModel.getPast_times()) {
+                String phone=userModel.getPhone();
                 //对PastTotal进行更新
-                PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(userModel.getPhone());
+                PastTotal pastTotal = this.persistentDao.getPastTotalByPhone(phone);
 
                 PastDetail pastDetail = new PastDetail();
                 pastDetail.setCreate_time(new Date());
@@ -201,6 +202,9 @@ public class PastService {
                         long couponId = pastModel.getCoupon_id();
                         CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                         CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
+                        //已经获取了优惠券，重新开始
+                        this.persistentDao.clearPastTotalForPhone(phone);
+                        this.persistentDao.clearCyclePastTotalForPhone(phone);
                         if (couponRecordModel != null&&couponModel!=null) {
                             raffleService.sendCoupon(couponModel,couponRecordModel, userModel.getId(), userModel.getPhone());//发放优惠券
                         }
@@ -263,6 +267,9 @@ public class PastService {
                     long couponId = pastModel.getCoupon_id();
                     CouponModel couponModel=couponService.getCouponByCouponId(couponId);
                     CouponRecordModel couponRecordModel=couponService.getCouponBlanceByCouponId(couponId);
+                    //已经获取了优惠券，重新开始
+                    this.persistentDao.clearPastTotalForPhone(phone);
+                    this.persistentDao.clearCyclePastTotalForPhone(phone);
                     if (couponRecordModel != null&&couponModel!=null) {
                         raffleService.sendCoupon(couponModel,couponRecordModel, mainUser.getId(), phone);//发放优惠券
                     }
@@ -316,7 +323,6 @@ public class PastService {
                 this.persistentDao.clearCyclePastTotal();
             }
         }
-
         //清空每在的数据情况
         this.persistentDao.clearPastTotal();
     }
