@@ -205,8 +205,8 @@ public class PastService {
                         if (couponRecordModel != null&&couponModel!=null) {
                             raffleService.sendCoupon(couponModel,couponRecordModel, userModel.getId(), userModel.getPhone());//发放优惠券
                             //已经获取了优惠券，重新开始
-                            this.persistentDao.clearPastTotalForPhone(phone);
-                            //this.persistentDao.clearCyclePastTotalForPhone(phone);
+//                            this.persistentDao.clearPastTotalForPhone(phone);
+                            this.persistentDao.clearCyclePastTotalForPhone(phone);
                         }
                     }
                 }
@@ -270,8 +270,8 @@ public class PastService {
                     if (couponRecordModel != null&&couponModel!=null) {
                         raffleService.sendCoupon(couponModel,couponRecordModel, mainUser.getId(), phone);//发放优惠券
                         //已经获取了优惠券，重新开始
-                        this.persistentDao.clearPastTotalForPhone(phone);
-                        //this.persistentDao.clearCyclePastTotalForPhone(phone);
+//                        this.persistentDao.clearPastTotalForPhone(phone);
+                        this.persistentDao.clearCyclePastTotalForPhone(phone);
                     }
                 }
             }
