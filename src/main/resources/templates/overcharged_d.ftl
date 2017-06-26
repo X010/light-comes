@@ -117,7 +117,7 @@
 </div>-->
 
 <div class="footer">
-<#if oc.status==2&&start_seconds<=0&&oc.remain_count>0>
+<#if oc.status==2 && start_seconds lte 0 && oc.remain_count gt 0>
     <#if join>
     <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
