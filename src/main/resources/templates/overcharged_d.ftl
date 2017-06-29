@@ -263,9 +263,11 @@
                                 },
                             ]
                         });
-                    }
-                    else if (data.status == 5) {
+                    } else if (data.status == 5) {
                         $.alert("恭喜您成功获取该商品去购物车进行支付!");
+                        window.location.reload();
+                    }else if(data.status==9){
+                        $.alert("您已砍过一刀，请勿重复提交!");
                         window.location.reload();
                     }
                 }
@@ -286,6 +288,7 @@
                     });
                     if (data.status == 1) {
                         $.alert("已减" + data.amount + "元,你已帮朋友砍了一刀，真给力!");
+                        window.location.reload();
                     } else if (data.status == 3) {
                         $.alert("好友已获取该商品，点击'我也要参与'");
                         window.location.reload();

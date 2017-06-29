@@ -171,7 +171,8 @@ public class OverchargedService {
         orm.setCreatetime(new Date());
         orm.setSponsor(sponsor);
         //OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByPhoneAndAid(aid,userModel.getPhone());//查询当前砍价用户
-        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, userModel.getId());
+//        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAid(aid, userModel.getId());
+        OverchargedRecordModel ownOrm = this.overchargedDao.getOverChargedRecordByUidAndAidAndSponsor(aid, userModel.getId(), sponsor);
         if (ownOrm == null) {
             OverchargedModel overchargedModel = this.getOverchargedModel(aid);//获取砍价活动
             if (overchargedModel != null) {
