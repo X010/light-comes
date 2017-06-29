@@ -40,18 +40,18 @@
     </div>
     <div class="msg-time">
         <img src="${baseUrl}images/clock.png"/>
-        <#if start_seconds gt 0>
+        <#if start_seconds gt 0 && oc.remain_count gt 0>
             开始时间:<span id="start_day_show">0</span>天
             <span id="start_hour_show">0</span>时
             <span id="start_minute_show">0</span>分
             <span id="start_second_show">0</span>秒
-        <#elseif seconds gt 0>
+        <#elseif seconds gt 0 && oc.remain_count gt 0>
                 剩余时间:<span id="day_show">0</span>天
                 <span id="hour_show">0</span>时
                 <span id="minute_show">0</span>分
                 <span id="second_show">0</span>秒
-        <#elseif oc.remain_count<=0>
-                已售完!
+        <#elseif oc.remain_count <= 0>
+                活动商品已售完!
         <#else>
                 该活动已结束!
         </#if>
@@ -117,7 +117,7 @@
 </div>-->
 
 <div class="footer">
-<#if oc.status==2 && start_seconds lte 0 && oc.remain_count gt 0>
+<#if oc.status==2 && start_seconds lte 0>
     <#if join>
     <#--<div id="deposit">您已砍过一刀</div>-->
         <#if sponsor==uid>
@@ -145,7 +145,7 @@
                 <div class="help">
                     <input type="button" value="购买" class="otherchess_all" style="background-color: #FFB046;" onclick="buy()"/>
                 </div>
-            <#else>
+            <#elseif oc.remain_count gt 0>
             <div class="help">
                 <input type="button" value="我要砍一刀" class="otherchess" style="background-color: #FFB046;"
                        onclick="send_overcharged(${oc.id?c});"/>
@@ -153,7 +153,7 @@
                        onclick="sharewx();"/>
             </div>
             </#if>
-        <#else>
+        <#elseif oc.remain_count gt 0>
             <div class="help">
                 <input type="button" value="帮TA砍一刀" class="otherchess" style="background-color: #FFB046;"
                        onclick="sendOcBySponsor(${oc.id?c},${sponsor?c})"/>
