@@ -71,6 +71,18 @@ public class BanquetRecordModel extends BaseModel {
      * 座位号
      */
     private int seat_num;
+    /**
+     * 商户订单号
+     */
+    private String tradeno;
+
+    public String getTradeno() {
+        return tradeno;
+    }
+
+    public void setTradeno(String tradeno) {
+        this.tradeno = tradeno;
+    }
 
     public int getTable_num() {
         return table_num;

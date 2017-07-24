@@ -37,7 +37,7 @@ public interface BanquetDao {
      * @param size
      * @return
      */
-    @Select("select * from comes_banquet_records where aid=#{aid}  limit #{start},#{size}")
+    @Select("select br.*,o.tradeno from comes_banquet_records br,comes_order o where o.orderno=br.orderNo and br.aid=#{aid}  limit #{start},#{size}")
     public List<BanquetRecordModel> getBanquetRecordPageByAid(@Param("aid") long aid, @Param("start") int start, @Param("size") int size);
 
 

@@ -22,6 +22,8 @@
                                 <th>手机号</th>
                                 <th>报名时间</th>
                                 <th>订单号</th>
+                                <th>商户订单号</th>
+                                <th>订单状态</th>
                                 <th>操作</th>
                             </tr>
                         <#if brs??>
@@ -32,6 +34,12 @@
                                         <td>${br.phone}</td>
                                         <td>${br.createtime?string("MM月dd日 HH:mm:ss")}</td>
                                         <td>${br.orderNo}</td>
+                                        <td>${br.tradeno}</td>
+                                        <#if br.status==2>
+                                            <td>已付款</td>
+                                            <#else>
+                                            <td>未付款</td>
+                                        </#if>
                                         <td>
                                             <a class="badge  bg-red" href="javascript:if(confirm('您是否确定针对该用户进行退款')){}">退款</a>
                                         </td>

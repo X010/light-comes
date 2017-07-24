@@ -237,18 +237,18 @@ public class BanquetService {
                 if (oid > 0) {
                     orderModel.setId(oid);
                 }
-                int outnumber = banquetModel.getOutnumber();//每桌人数
-                int enroll = banquetDao.enrollBanquetTotal(aid);//参与人数
-                int tableNum = enroll > outnumber ? enroll / outnumber : 1;
-                int seatNum = 1;
-                if (enroll % outnumber == 0) {
-                    tableNum += 1;
-                } else {
-                    seatNum += enroll % outnumber;
-                }
                 //写入记录
                 BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
                 if (banquetRecordModel == null) {
+                    int outnumber = banquetModel.getOutnumber();//每桌人数
+                    int enroll = banquetDao.enrollBanquetTotal(aid);//参与人数
+                    int tableNum = enroll > outnumber ? enroll / outnumber : 1;
+                    int seatNum = 1;
+                    if (enroll % outnumber == 0) {
+                        tableNum += 1;
+                    } else {
+                        seatNum += enroll % outnumber;
+                    }
                     banquetRecordModel = new BanquetRecordModel();
                     banquetRecordModel.setAid(aid);
                     banquetRecordModel.setTitle(banquetModel.getTitle());
@@ -265,17 +265,17 @@ public class BanquetService {
                 }
                 if (orderModel.getStatus() == CONST.ORDER_PAY) {
                     banquetRecordModel.setStatus(CONST.ORDER_PAY);
-                } else {
-                    banquetRecordModel.setStatus(CONST.ORDER_CREATE);
+                    if (banquetRecordModel.getId() > 0) {
+                        //更新
+                        this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+                    } else {
+                        //创建
+                        this.banquetDao.addBanquetRecordModel(banquetRecordModel);
+                    }
                 }
-
-                if (banquetRecordModel.getId() > 0) {
-                    //更新
-                    this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
-                } else {
-                    //创建
-                    this.banquetDao.addBanquetRecordModel(banquetRecordModel);
-                }
+//                else {
+//                    banquetRecordModel.setStatus(CONST.ORDER_CREATE);
+//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
