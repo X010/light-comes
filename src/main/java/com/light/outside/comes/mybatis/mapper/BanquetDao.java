@@ -29,6 +29,10 @@ public interface BanquetDao {
     public BanquetRecordModel getBanquetRecordByAidAndPhone(@Param("aid") long aid, @Param("phone") String phone);
 
 
+    @Select("select * from comes_banquet_records where id=#{id} ")
+    public BanquetRecordModel getBanquetRecordById(@Param("id") long id);
+
+
     /**
      * 查询约会记录
      *
@@ -59,7 +63,7 @@ public interface BanquetDao {
 
 
     @Update("update comes_banquet_records set status=#{status},orderNo=#{orderNo} where id=#{id}")
-    public void updateBanquetRecordModel(BanquetRecordModel banquetRecordModel);
+    public int updateBanquetRecordModel(BanquetRecordModel banquetRecordModel);
 
 
     @Insert("insert into comes_banquet_records(status,title,amount,phone,uid,aid,orderNo,createtime,table_num,seat_num)" +

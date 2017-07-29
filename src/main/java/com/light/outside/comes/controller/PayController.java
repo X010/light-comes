@@ -234,7 +234,6 @@ public class PayController extends BaseController {
         long aid = RequestTools.RequestLong(request, "aid", 0);
         //查询约饭详情
         BanquetModel banquetModel = banquetService.getBanquetById(aid);
-        //TODO 测试完后放开
         if (banquetModel.getAmount() == Float.parseFloat(payPrice)) {
         JSONObject jsonObject = TenWeChatGenerator.getOpenIdStepOne(code);
         String openid = jsonObject.getString("openid");

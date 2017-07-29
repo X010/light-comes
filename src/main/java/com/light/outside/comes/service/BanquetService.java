@@ -109,7 +109,7 @@ public class BanquetService {
             for (BanquetModel banquetModel : banquetModelList) {
                 int enroll_num = this.banquetDao.enrollBanquetTotal(banquetModel.getId());
                 banquetModel.setEnroll_num(enroll_num);
-                if (enroll_num > banquetModel.getOutnumber()) {
+                if (enroll_num >= banquetModel.getOutnumber()) {
                     banquetModel.setHold(1);
                 }
             }
@@ -205,6 +205,17 @@ public class BanquetService {
         }
     }
 
+    /**
+     * 退款
+     * @param recordId
+     * @return
+     */
+    public boolean banquetRefund(long recordId){
+        BanquetRecordModel banquetRecordModel=this.banquetDao.getBanquetRecordById(recordId);
+        banquetRecordModel.setStatus(CONST.ORDER_REFUND);
+       int count= this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+        return count>0;
+    }
 
     /**
      * 支付约饭
@@ -228,6 +239,9 @@ public class BanquetService {
                 orderModel.setPhone(userModel.getPhone());
                 orderModel.setUid(userModel.getId());
                 orderModel.setStatus(CONST.ORDER_CREATE);
+                if(!Strings.isNullOrEmpty(tradeNo)){
+                    orderModel.setStatus(CONST.ORDER_PAY);
+                }
                 orderModel.setPtype(CONST.PAY_WEIXIN);
                 orderModel.setOrderNo(OrderUtil.getOrderNo());
                 orderModel.setTradeno(tradeNo);

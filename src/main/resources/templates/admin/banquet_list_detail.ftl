@@ -37,11 +37,13 @@
                                         <td>${br.tradeno}</td>
                                         <#if br.status==2>
                                             <td>已付款</td>
+                                            <#elseif br.status==9>
+                                            <td>已退款</td>
                                             <#else>
                                             <td>未付款</td>
                                         </#if>
                                         <td>
-                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定针对该用户进行退款')){}">退款</a>
+                                            <a class="badge  bg-red" href="javascript:if(confirm('您是否确定针对该用户进行退款')){window.location.href='${baseUrl}admin/banquet_refund.action?id=#{br.id}&aid=#{br.aid}';}">退款</a>
                                         </td>
                                     </tr>
                                 </#list>

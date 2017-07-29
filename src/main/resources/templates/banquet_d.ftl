@@ -87,7 +87,7 @@
 
 </div>
 
-<#if banquet.status==2>
+<#if banquet.status==2 && seconds gt 0>
 <div style="height:30px;bottom:0;"></div>
 <div class="footer">
     <input type="hidden" id="isjoin" value="${isjoin?c}">

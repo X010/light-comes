@@ -572,6 +572,23 @@ public class MainFrameController {
     }
 
     /**
+     * 退款
+     * @param data
+     * @param request
+     * @param response
+     * @param pageModel
+     * @return
+     */
+    @RequestMapping("banquet_refund.action")
+    public String baquet_refund(Map<String, Object> data, HttpServletRequest request, HttpServletResponse response, PageModel pageModel){
+        String id = request.getParameter("id");
+        String aid=request.getParameter("aid");
+        boolean isSucces=this.banquetService.banquetRefund(Long.parseLong(id));
+        data.put("isSuccess",isSucces);
+        return "redirect:banquet_list_detail.action?id="+aid;
+    }
+
+    /**
      * 删除饭局
      *
      * @param id
