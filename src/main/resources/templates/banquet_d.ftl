@@ -91,11 +91,15 @@
 <div style="height:30px;bottom:0;"></div>
 <div class="footer">
     <input type="hidden" id="isjoin" value="${isjoin?c}">
+    <input type="hidden" id="start_seconds" value="${start_seconds?c}">
     <#if isjoin>
         <div id="deposit">您已预约该饭局</div>
     <#else>
-        <div id="deposit">我要约饭(<strong>${banquet.amount}</strong>元/人)
-        </div>
+        <#if start_seconds gt 0>
+            <div id="deposit">活动尚未开始</div>
+        <#else>
+        <div id="deposit">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+        </#if>>
     </#if>
 </div>
 </#if>
@@ -124,10 +128,14 @@
 
     var deposit = document.getElementById("deposit");
     var isjoin = document.getElementById("isjoin").value;
+    var ss=document.getElementById("start_seconds").value;
     deposit.onclick = function () {
         if (isjoin=='true') {
             $.alert("您已预约该饭局");
-        } else {
+        } else if(ss>0){
+            $.alert("活动尚未开始");
+        }
+        else{
             window.location.href = "wechart_redirect.action?amount=${banquet.amount!}&aid=${banquet.id!}&title=${banquet.title!}&price=${banquet.amount!}";
         }
     }

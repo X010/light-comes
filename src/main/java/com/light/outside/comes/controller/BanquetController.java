@@ -94,8 +94,10 @@ public class BanquetController extends BaseController {
             data.put("banquet", banquetModel);
             //秒数
             long seconds = DateUtils.endSeconds(banquetModel.getEnd_time());
+            long start_seconds = DateUtils.endSeconds(banquetModel.getStart_time());
             banquetModel.setTime_second((int) seconds);
             data.put("seconds", seconds);
+            data.put("start_seconds",start_seconds);
             //剩余坐席
             data.put("gapNum",banquetModel.getTotal_number()-banquetModel.getEnroll_num());
 

@@ -207,14 +207,15 @@ public class BanquetService {
 
     /**
      * 退款
+     *
      * @param recordId
      * @return
      */
-    public boolean banquetRefund(long recordId){
-        BanquetRecordModel banquetRecordModel=this.banquetDao.getBanquetRecordById(recordId);
+    public boolean banquetRefund(long recordId) {
+        BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordById(recordId);
         banquetRecordModel.setStatus(CONST.ORDER_REFUND);
-       int count= this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
-        return count>0;
+        int count = this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+        return count > 0;
     }
 
     /**
@@ -239,7 +240,7 @@ public class BanquetService {
                 orderModel.setPhone(userModel.getPhone());
                 orderModel.setUid(userModel.getId());
                 orderModel.setStatus(CONST.ORDER_CREATE);
-                if(!Strings.isNullOrEmpty(tradeNo)){
+                if (!Strings.isNullOrEmpty(orderModel.getTransactionId())) {
                     orderModel.setStatus(CONST.ORDER_PAY);
                 }
                 orderModel.setPtype(CONST.PAY_WEIXIN);
@@ -251,45 +252,6 @@ public class BanquetService {
                 if (oid > 0) {
                     orderModel.setId(oid);
                 }
-                //写入记录
-                BanquetRecordModel banquetRecordModel = this.banquetDao.getBanquetRecordByAidAndPhone(aid, userModel.getPhone());
-                if (banquetRecordModel == null) {
-                    int outnumber = banquetModel.getOutnumber();//每桌人数
-                    int enroll = banquetDao.enrollBanquetTotal(aid);//参与人数
-                    int tableNum = enroll > outnumber ? enroll / outnumber : 1;
-                    int seatNum = 1;
-                    if (enroll % outnumber == 0) {
-                        tableNum += 1;
-                    } else {
-                        seatNum += enroll % outnumber;
-                    }
-                    banquetRecordModel = new BanquetRecordModel();
-                    banquetRecordModel.setAid(aid);
-                    banquetRecordModel.setTitle(banquetModel.getTitle());
-                    banquetRecordModel.setUid(userModel.getId());
-                    banquetRecordModel.setPhone(userModel.getPhone());
-                    banquetRecordModel.setAmount(banquetModel.getAmount());
-                    banquetRecordModel.setOrderNo(orderModel.getOrderNo());
-                    banquetRecordModel.setCreatetime(new Date());
-                    banquetRecordModel.setTable_num(tableNum);//桌号
-                    banquetRecordModel.setSeat_num(seatNum);//座位号
-                } else {
-                    //更新当前记录的支付号
-                    banquetRecordModel.setOrderNo(orderModel.getOrderNo());
-                }
-                if (orderModel.getStatus() == CONST.ORDER_PAY) {
-                    banquetRecordModel.setStatus(CONST.ORDER_PAY);
-                    if (banquetRecordModel.getId() > 0) {
-                        //更新
-                        this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
-                    } else {
-                        //创建
-                        this.banquetDao.addBanquetRecordModel(banquetRecordModel);
-                    }
-                }
-//                else {
-//                    banquetRecordModel.setStatus(CONST.ORDER_CREATE);
-//                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -300,6 +262,7 @@ public class BanquetService {
 
     /**
      * 更新约饭记录状态
+     *
      * @param orderModel
      */
     public void upateBanquetRecordStatusByOrder(OrderModel orderModel) {
@@ -312,6 +275,38 @@ public class BanquetService {
                 banquetRecordModel.setStatus(CONST.ORDER_CREATE);
             }
             this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+        } else {
+            BanquetModel banquetModel = this.getBanquetById(orderModel.getAid());
+            int outnumber = banquetModel.getOutnumber();//每桌人数
+            int enroll = banquetDao.enrollBanquetTotal(orderModel.getAid());//参与人数
+            int tableNum = enroll > outnumber ? enroll / outnumber : 1;
+            int seatNum = 1;
+            if (enroll % outnumber == 0) {
+                tableNum += 1;
+            } else {
+                seatNum += enroll % outnumber;
+            }
+            banquetRecordModel = new BanquetRecordModel();
+            banquetRecordModel.setAid(orderModel.getAid());
+            banquetRecordModel.setTitle(banquetModel.getTitle());
+            banquetRecordModel.setUid(orderModel.getUid());
+            banquetRecordModel.setPhone(orderModel.getPhone());
+            banquetRecordModel.setAmount(banquetModel.getAmount());
+            banquetRecordModel.setOrderNo(orderModel.getOrderNo());
+            banquetRecordModel.setCreatetime(new Date());
+            banquetRecordModel.setTable_num(tableNum);//桌号
+            banquetRecordModel.setSeat_num(seatNum);//座位号
+            if(orderModel.getStatus()== CONST.ORDER_PAY) {
+                banquetRecordModel.setStatus(CONST.ORDER_PAY);
+                this.banquetDao.addBanquetRecordModel(banquetRecordModel);
+            }
+//            if (banquetRecordModel.getId() > 0) {
+//                //更新
+//                this.banquetDao.updateBanquetRecordModel(banquetRecordModel);
+//            } else {
+//                //创建
+//                this.banquetDao.addBanquetRecordModel(banquetRecordModel);
+//            }
         }
     }
 
