@@ -92,14 +92,17 @@
 <div class="footer">
     <input type="hidden" id="isjoin" value="${isjoin?c}">
     <input type="hidden" id="start_seconds" value="${start_seconds?c}">
+    <input type="hidden" id="gapNum" value="${gapNum?c}">
     <#if isjoin>
         <div id="deposit">您已预约该饭局</div>
     <#else>
         <#if start_seconds gt 0>
             <div id="deposit">活动尚未开始</div>
+        <#elseif gapNum lte 0>
+            <div id="deposit">该活动已满员</div>
         <#else>
-        <div id="deposit">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
-        </#if>>
+            <div id="deposit">我要约饭(<strong>${banquet.amount}</strong>元/人)</div>
+        </#if>
     </#if>
 </div>
 </#if>
@@ -128,14 +131,17 @@
 
     var deposit = document.getElementById("deposit");
     var isjoin = document.getElementById("isjoin").value;
-    var ss=document.getElementById("start_seconds").value;
+    var ss = document.getElementById("start_seconds").value;
+    var gapNum = document.getElementById("gapNum").value;
     deposit.onclick = function () {
-        if (isjoin=='true') {
+        if (isjoin == 'true') {
             $.alert("您已预约该饭局");
-        } else if(ss>0){
+        } else if (ss > 0) {
             $.alert("活动尚未开始");
+        }else if(gapNum<=0){
+            $.alert("活动已满员");
         }
-        else{
+        else {
             window.location.href = "wechart_redirect.action?amount=${banquet.amount!}&aid=${banquet.id!}&title=${banquet.title!}&price=${banquet.amount!}";
         }
     }

@@ -131,7 +131,6 @@ public class BanquetController extends BaseController {
             UserModel userModel = (UserModel) request.getSession().getAttribute(LoginController.SESSION_KEY_APP_USERINFO);
             if (userModel != null) {
                 long aid = Long.valueOf(request.getParameter("aid"));
-
                 OrderModel orderModel = this.banquetService.payBanquet(aid, userModel,"");
                 if (orderModel != null) {
                     res = JsonParser.simpleJson(orderModel);
